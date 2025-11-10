@@ -39,6 +39,27 @@ class OrganizationController extends Controller
 		$specialties = Doctor::query()
 			->select('taxonomy')->whereNotNull('taxonomy')->distinct()->orderBy('taxonomy')->pluck('taxonomy');
 
+			if ($request->wantsJson()) {
+				$html = view('organizations._list', [
+					'organizations' => $organizations,
+				])->render();
+				$citiesHtml = view('organizations._city_options', [
+					'cities' => $cities,
+					'filters' => [
+						'city' => $city,
+					] + $request->only(['q','state','specialty']),
+				])->render();
+				return response()->json([
+					'html' => $html,
+					'citiesHtml' => $citiesHtml,
+					'url' => url()->full(),
+					'pagination' => [
+						'current' => $organizations->currentPage(),
+						'last' => $organizations->lastPage(),
+					],
+				]);
+			}
+
 		return view('organizations.index', [
 			'organizations' => $organizations,
 			'filters' => [

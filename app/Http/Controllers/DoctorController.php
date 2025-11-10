@@ -38,6 +38,27 @@ class DoctorController extends Controller
 			->select('city')->whereNotNull('city')->distinct()->orderBy('city')->pluck('city');
 		$specialties = Specialty::query()->orderBy('description')->pluck('description');
 
+			if ($request->wantsJson()) {
+				$html = view('doctors._list', [
+					'doctors' => $doctors,
+				])->render();
+				$citiesHtml = view('doctors._city_options', [
+					'cities' => $cities,
+					'filters' => [
+						'city' => $city,
+					] + $request->only(['q','state','specialty','gender']),
+				])->render();
+				return response()->json([
+					'html' => $html,
+					'citiesHtml' => $citiesHtml,
+					'url' => url()->full(),
+					'pagination' => [
+						'current' => $doctors->currentPage(),
+						'last' => $doctors->lastPage(),
+					],
+				]);
+			}
+
 		return view('doctors.index', [
 			'doctors' => $doctors,
 			'filters' => [

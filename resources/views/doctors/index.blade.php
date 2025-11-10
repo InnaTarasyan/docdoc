@@ -13,7 +13,7 @@
 		<aside class="md:col-span-1">
 			<div class="bg-white rounded-xl border shadow-sm p-4">
 				<h2 class="font-medium text-gray-900 mb-3">Filters</h2>
-				<form method="GET" action="{{ route('doctors.index') }}" class="grid gap-3">
+				<form method="GET" action="{{ route('doctors.index') }}" class="grid gap-3 ajax-filter-form" data-ajax-list="true" data-results="#doctors-results" data-city-select="#doctor-city-select">
 					<input
 						type="text"
 						name="q"
@@ -36,11 +36,8 @@
 						@endforeach
 					</select>
 
-					<select name="city" class="w-full rounded-lg border-gray-300 focus:border-sky-600 focus:ring-sky-600">
-						<option value="">Any city</option>
-						@foreach($cities as $c)
-							<option value="{{ $c }}" @selected(($filters['city'] ?? '') === $c)>{{ $c }}</option>
-						@endforeach
+					<select name="city" id="doctor-city-select" class="w-full rounded-lg border-gray-300 focus:border-sky-600 focus:ring-sky-600">
+						@include('doctors._city_options', ['cities' => $cities, 'filters' => $filters])
 					</select>
 
 					<select name="specialty" class="w-full rounded-lg border-gray-300 focus:border-sky-600 focus:ring-sky-600">
@@ -58,33 +55,13 @@
 			</div>
 		</aside>
 
-		<section class="md:col-span-3">
+		<section class="md:col-span-3" id="doctors-results">
 			<div class="flex items-center justify-between mb-3">
 				<h1 class="text-xl font-semibold text-gray-900">Doctors</h1>
 				<span class="text-sm text-gray-600">Page {{ $doctors->currentPage() }} of {{ $doctors->lastPage() }}</span>
 			</div>
 
-			@if($doctors->count() === 0)
-				<div class="bg-white border rounded-xl p-6 text-center text-gray-600">No doctors found. Try adjusting filters.</div>
-			@else
-				<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-					@foreach($doctors as $doctor)
-						<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
-							<div class="font-medium text-gray-900">{{ $doctor->name }}</div>
-							<div class="text-sm text-gray-600">{{ $doctor->taxonomy ?: '—' }}</div>
-							<div class="text-sm text-gray-600">{{ $doctor->gender ? ($doctor->gender === 'M' ? 'Male' : 'Female') : '' }}</div>
-							<div class="text-sm text-gray-600">{{ $doctor->city }}, {{ $doctor->state }}</div>
-							@if($doctor->organization_name)
-								<div class="text-sm text-gray-700 mt-1">{{ $doctor->organization_name }}</div>
-							@endif
-						</a>
-					@endforeach
-				</div>
-
-				<div class="mt-6">
-					{{ $doctors->links() }}
-				</div>
-			@endif
+			@include('doctors._list', ['doctors' => $doctors])
 		</section>
 	</div>
 @endsection
