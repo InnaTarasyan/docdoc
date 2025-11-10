@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DoctorController extends Controller
 {
@@ -49,6 +50,72 @@ class DoctorController extends Controller
 			'states' => $states,
 			'cities' => $cities,
 			'specialties' => $specialties,
+		]);
+	}
+
+	public function search(Request $request)
+	{
+		$q = trim((string) $request->get('q', ''));
+
+		if ($q === '') {
+			return response()->json([
+				'results' => [],
+			]);
+		}
+
+		// Basic relevance ranking without external deps:
+		// - exact prefix match on name gets higher score
+		// - then taxonomy prefix
+		// - then contains matches across name/taxonomy/org/city/state
+		$query = Doctor::query()
+			->select([
+				'id',
+				'name',
+				'taxonomy',
+				'city',
+				'state',
+				'organization_name',
+				DB::raw("
+					CASE
+						WHEN name LIKE " . DB::getPdo()->quote($q . '%') . " THEN 100
+						WHEN taxonomy LIKE " . DB::getPdo()->quote($q . '%') . " THEN 90
+						WHEN name LIKE " . DB::getPdo()->quote('%' . $q . '%') . " THEN 75
+						WHEN taxonomy LIKE " . DB::getPdo()->quote('%' . $q . '%') . " THEN 60
+						WHEN organization_name LIKE " . DB::getPdo()->quote('%' . $q . '%') . " THEN 50
+						WHEN city LIKE " . DB::getPdo()->quote($q . '%') . " THEN 40
+						WHEN state LIKE " . DB::getPdo()->quote($q . '%') . " THEN 35
+						ELSE 0
+					END as relevance_score
+				"),
+			])
+			->where(function ($sub) use ($q) {
+				$sub->where('name', 'like', '%' . $q . '%')
+					->orWhere('taxonomy', 'like', '%' . $q . '%')
+					->orWhere('organization_name', 'like', '%' . $q . '%')
+					->orWhere('city', 'like', $q . '%')
+					->orWhere('state', 'like', $q . '%');
+			})
+			->orderByDesc('relevance_score')
+			->orderBy('name')
+			->limit(10)
+			->get();
+
+		$results = $query->map(function (Doctor $d) {
+			$subtitleParts = array_filter([
+				$d->taxonomy ?: null,
+				$d->organization_name ?: null,
+				trim(($d->city ?: '') . (isset($d->state) && $d->state !== '' ? ', ' . $d->state : '')) ?: null,
+			]);
+			return [
+				'id' => $d->id,
+				'text' => $d->name,
+				'sub' => implode(' • ', $subtitleParts),
+				'url' => route('doctors.show', $d),
+			];
+		});
+
+		return response()->json([
+			'results' => $results,
 		]);
 	}
 

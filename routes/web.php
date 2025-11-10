@@ -8,6 +8,9 @@ use App\Http\Controllers\SpecialtyController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Lightweight API for autocomplete
+Route::get('/api/search/doctors', [DoctorController::class, 'search'])->name('api.search.doctors');
+
 Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors.index');
 Route::get('/doctors/{doctor}', [DoctorController::class, 'show'])->name('doctors.show');
 

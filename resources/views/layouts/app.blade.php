@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>@yield('title', config('app.name', 'Doc Directory'))</title>
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
+		@livewireStyles
 	</head>
 	<body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
 		<header class="bg-white shadow">
@@ -27,7 +28,7 @@
 				<nav class="mb-6 text-sm text-gray-600">
 					@yield('breadcrumbs')
 				</nav>
-			@endhasSection
+			@endif
 			@yield('content')
 		</main>
 
@@ -36,6 +37,7 @@
 				<p>&copy; {{ date('Y') }} DocDoc Directory</p>
 			</div>
 		</footer>
+		@livewireScripts
 	</body>
 	</html>
 
