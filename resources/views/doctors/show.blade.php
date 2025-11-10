@@ -3,9 +3,9 @@
 @section('title', $doctor->name)
 
 @section('breadcrumbs')
-	<a href="{{ route('home') }}" class="hover:underline">Home</a>
+	<a href="{{ route('home') }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Home</a>
 	<span class="mx-1">/</span>
-	<a href="{{ route('doctors.index') }}" class="hover:underline">Doctors</a>
+	<a href="{{ route('doctors.index') }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Doctors</a>
 	<span class="mx-1">/</span>
 	<span>{{ $doctor->name }}</span>
 @endsection
@@ -54,7 +54,7 @@
 					<h2 class="text-lg font-medium text-gray-900 mb-3">Nearby or related doctors</h2>
 					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 						@foreach($related as $d)
-							<a href="{{ route('doctors.show', $d) }}" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+							<a href="{{ route('doctors.show', $d) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
 								<div class="font-medium text-gray-900">{{ $d->name }}</div>
 								<div class="text-sm text-gray-600">{{ $d->taxonomy ?: '—' }}</div>
 								<div class="text-sm text-gray-600">{{ $d->city }}, {{ $d->state }}</div>

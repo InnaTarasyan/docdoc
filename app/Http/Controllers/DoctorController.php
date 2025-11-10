@@ -63,6 +63,9 @@ class DoctorController extends Controller
 			]);
 		}
 
+		$prefix = $q . '%';
+		$contains = '%' . $q . '%';
+
 		// Basic relevance ranking without external deps:
 		// - exact prefix match on name gets higher score
 		// - then taxonomy prefix
@@ -75,19 +78,19 @@ class DoctorController extends Controller
 				'city',
 				'state',
 				'organization_name',
-				DB::raw("
-					CASE
-						WHEN name LIKE " . DB::getPdo()->quote($q . '%') . " THEN 100
-						WHEN taxonomy LIKE " . DB::getPdo()->quote($q . '%') . " THEN 90
-						WHEN name LIKE " . DB::getPdo()->quote('%' . $q . '%') . " THEN 75
-						WHEN taxonomy LIKE " . DB::getPdo()->quote('%' . $q . '%') . " THEN 60
-						WHEN organization_name LIKE " . DB::getPdo()->quote('%' . $q . '%') . " THEN 50
-						WHEN city LIKE " . DB::getPdo()->quote($q . '%') . " THEN 40
-						WHEN state LIKE " . DB::getPdo()->quote($q . '%') . " THEN 35
-						ELSE 0
-					END as relevance_score
-				"),
 			])
+			->selectRaw("
+				CASE
+					WHEN name LIKE ? THEN 100
+					WHEN taxonomy LIKE ? THEN 90
+					WHEN name LIKE ? THEN 75
+					WHEN taxonomy LIKE ? THEN 60
+					WHEN organization_name LIKE ? THEN 50
+					WHEN city LIKE ? THEN 40
+					WHEN state LIKE ? THEN 35
+					ELSE 0
+				END as relevance_score
+			", [$prefix, $prefix, $contains, $contains, $contains, $prefix, $prefix])
 			->where(function ($sub) use ($q) {
 				$sub->where('name', 'like', '%' . $q . '%')
 					->orWhere('taxonomy', 'like', '%' . $q . '%')

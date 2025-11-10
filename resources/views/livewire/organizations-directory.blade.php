@@ -1,5 +1,5 @@
 @section('breadcrumbs')
-	<a href="{{ route('home') }}" class="hover:underline">Home</a>
+	<a href="{{ route('home') }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Home</a>
 	<span class="mx-1">/</span>
 	<span>Organizations</span>
 @endsection
@@ -56,7 +56,7 @@
 		@else
 			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 				@foreach($organizations as $org)
-					<a href="{{ route('organizations.show', $org) }}" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+					<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
 						<div class="font-medium text-gray-900">{{ $org->name }}</div>
 						<div class="text-sm text-gray-600">{{ $org->city }}, {{ $org->state }}</div>
 						@if($org->phone)
