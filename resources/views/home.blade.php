@@ -29,7 +29,10 @@
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
 				@forelse($popularSpecialties as $spec)
 					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-sky-600 hover:shadow transition text-gray-800">
-						{{ $spec->description }}
+						<div class="flex items-center gap-2">
+							@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'mr-1'])
+							<span class="truncate">{{ $spec->description }}</span>
+						</div>
 					</a>
 				@empty
 					<p class="text-gray-600">No specialties yet.</p>

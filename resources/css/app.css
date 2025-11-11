@@ -127,6 +127,41 @@
 	.hero-subtitle {
 		@apply mt-2 text-gray-600 max-w-2xl;
 	}
+
+	/* Enhanced "card link" anchors used throughout directories without changing markup */
+	a.block.rounded-lg.bg-white.border.shadow-sm.px-4.py-3.transition.text-gray-800 {
+		position: relative;
+		background-image: radial-gradient(400px 160px at 10% -10%, rgba(14,165,233,0.06), transparent 60%);
+		border-color: rgb(229 231 235); /* gray-200 */
+		box-shadow: var(--shadow-soft);
+		transition-property: transform, box-shadow, border-color, background-color, color;
+		transition-duration: 200ms;
+		transition-timing-function: cubic-bezier(.2,.7,.3,1);
+		will-change: transform, box-shadow;
+	}
+	a.block.rounded-lg.bg-white.border.shadow-sm.px-4.py-3.transition.text-gray-800:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 20px -6px rgb(2 132 199 / 0.18), 0 3px 6px -3px rgb(0 0 0 / 0.15);
+	}
+	a.block.rounded-lg.bg-white.border.shadow-sm.px-4.py-3.transition.text-gray-800:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 3px rgb(186 230 253 / 0.9), 0 6px 18px -6px rgb(2 132 199 / 0.22);
+		border-color: rgb(56 189 248); /* sky-400 */
+	}
+	/* Subtle pressed effect */
+	a.block.rounded-lg.bg-white.border.shadow-sm.px-4.py-3.transition.text-gray-800:active {
+		transform: translateY(0);
+		box-shadow: 0 4px 12px -6px rgb(2 132 199 / 0.18), 0 2px 4px -2px rgb(0 0 0 / 0.12);
+	}
+	/* Respect reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		a.block.rounded-lg.bg-white.border.shadow-sm.px-4.py-3.transition.text-gray-800,
+		a.block.rounded-lg.bg-white.border.shadow-sm.px-4.py-3.transition.text-gray-800:hover,
+		a.block.rounded-lg.bg-white.border.shadow-sm.px-4.py-3.transition.text-gray-800:active {
+			transition: none;
+			transform: none;
+		}
+	}
 }
 
 @layer utilities {
