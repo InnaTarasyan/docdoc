@@ -4,16 +4,22 @@
 
 @section('content')
 	<div class="grid gap-8">
-		<section class="bg-white rounded-xl shadow-sm p-6 sm:p-8 border">
-			<h1 class="text-2xl font-semibold text-gray-900">Find the right doctor or clinic</h1>
-			<p class="mt-1 text-gray-600">Search by doctor name, specialty, or city.</p>
+		<section class="hero">
+			<h1 class="hero-title">Find the right doctor or clinic</h1>
+			<p class="hero-subtitle">Search by doctor name, specialty, or city. Quick filters, responsive design, and intuitive navigation.</p>
 
 			<form action="{{ route('doctors.index') }}" method="get" class="mt-6">
 				<div class="flex flex-col sm:flex-row gap-3">
-					<input type="text" name="q" value="{{ old('q', $query) }}" placeholder="e.g. cardiology, John Doe, Boston" class="w-full rounded-lg border-gray-300 focus:border-sky-600 focus:ring-sky-600" />
-					<button type="submit" class="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-sky-600 text-white hover:bg-sky-700 transition">
+					<input type="text" name="q" value="{{ old('q', $query) }}" placeholder="e.g. cardiology, John Doe, Boston" class="input" />
+					<button type="submit" class="btn-primary">
 						Search
 					</button>
+				</div>
+				<div class="mt-3 flex flex-wrap gap-2 text-sm">
+					<span class="badge-sky">Therapist</span>
+					<span class="badge-sky">Pediatrician</span>
+					<span class="badge-sky">Dentist</span>
+					<span class="badge-sky">Cardiologist</span>
 				</div>
 			</form>
 		</section>
@@ -40,12 +46,40 @@
 				<div class="grid sm:grid-cols-2 gap-4">
 					@forelse($featuredDoctors as $doctor)
 						<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
-							<div class="font-medium text-gray-900">{{ $doctor->name }}</div>
-							<div class="text-sm text-gray-600">{{ $doctor->taxonomy ?: '—' }}</div>
-							<div class="text-sm text-gray-600">{{ $doctor->city }}, {{ $doctor->state }}</div>
-							@if($doctor->organization_name)
-								<div class="text-sm text-gray-700 mt-1">{{ $doctor->organization_name }}</div>
-							@endif
+							<div class="flex items-start gap-4">
+								@php
+									$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
+									$idx = $seed % 80;
+									$gender = $doctor->gender ?? '';
+									$isFemale = $gender === 'F';
+									if ($gender !== 'F' && $gender !== 'M') {
+										$first = trim(explode(' ', (string) $doctor->name)[0] ?? '');
+										$lower = function_exists('mb_strtolower') ? mb_strtolower($first, 'UTF-8') : strtolower($first);
+										$femaleNames = [
+											'anna','maria','elena','olga','victoria','sofia','sofiya','anastasia','natalia','tatiana','irina','daria','polina',
+											'yulia','julia','lyudmila','svetlana','valentina','veronika','alisa','alina','oksana','ekaterina','katerina','mariya'
+										];
+										$isFemale = in_array($lower, $femaleNames, true);
+										if (!$isFemale) {
+											$isFemale = (bool) preg_match('/(a|ia|ya|na|ra|la|ta|sa|ina|eva|ova|iya|aya)$/u', $lower);
+										}
+										if (!$isFemale && !in_array($lower, $femaleNames, true)) {
+											$isFemale = ($idx % 2) === 1;
+										}
+									}
+									$folder = $isFemale ? 'women' : 'men';
+									$avatarUrl = "https://randomuser.me/api/portraits/{$folder}/{$idx}.jpg";
+								@endphp
+								<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="w-14 h-14 rounded-full ring-1 ring-gray-200 object-cover bg-white shrink-0" loading="lazy" />
+								<div class="min-w-0">
+									<div class="font-medium text-gray-900 truncate">{{ $doctor->name }}</div>
+									<div class="text-sm text-gray-600 truncate">{{ $doctor->taxonomy ?: '—' }}</div>
+									<div class="text-sm text-gray-600">{{ $doctor->city }}, {{ $doctor->state }}</div>
+									@if($doctor->organization_name)
+										<div class="text-sm text-gray-700 mt-1 truncate">{{ $doctor->organization_name }}</div>
+									@endif
+								</div>
+							</div>
 						</a>
 					@empty
 						<p class="text-gray-600">No doctors available.</p>
@@ -60,11 +94,20 @@
 				<div class="grid sm:grid-cols-2 gap-4">
 					@forelse($featuredOrganizations as $org)
 						<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
-							<div class="font-medium text-gray-900">{{ $org->name }}</div>
-							<div class="text-sm text-gray-600">{{ $org->city }}, {{ $org->state }}</div>
-							@if($org->phone)
-								<div class="text-sm text-gray-700 mt-1">{{ $org->phone }}</div>
-							@endif
+							<div class="flex items-start gap-4">
+								@php
+									$seed = abs(crc32(($org->name ?? '') . '|' . (string) $org->id));
+									$imgUrl = "https://loremflickr.com/256/256/hospital?lock={$seed}";
+								@endphp
+								<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="w-16 h-16 rounded-lg ring-1 ring-gray-200 object-cover bg-white shrink-0" loading="lazy" width="64" height="64" />
+								<div class="min-w-0">
+									<div class="font-medium text-gray-900 truncate">{{ $org->name }}</div>
+									<div class="text-sm text-gray-600">{{ $org->city }}, {{ $org->state }}</div>
+									@if($org->phone)
+										<div class="text-sm text-gray-700 mt-1 truncate">{{ $org->phone }}</div>
+									@endif
+								</div>
+							</div>
 						</a>
 					@empty
 						<p class="text-gray-600">No organizations available.</p>
