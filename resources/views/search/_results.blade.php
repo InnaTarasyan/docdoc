@@ -3,12 +3,14 @@
 @endphp
 
 @if(!$hasAny)
-	<div class="bg-white border rounded-xl p-6 text-center text-gray-600">
-		@if(($q ?? '') !== '')
-			No results for “{{ $q }}”. Try another term.
-		@else
-			Start typing to search doctors, organizations, or specialties.
-		@endif
+	<div class="bg-white border rounded-xl p-6 text-center text-gray-600 empty-state-wrapper">
+		<div class="empty-state-content">
+			@if(($q ?? '') !== '')
+				No results for "{{ $q }}". Try another term.
+			@else
+				Start typing to search doctors, organizations, or specialties.
+			@endif
+		</div>
 	</div>
 @else
 	<div class="grid md:grid-cols-2 gap-6">
