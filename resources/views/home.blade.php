@@ -8,20 +8,35 @@
 			<h1 class="hero-title">Find the right doctor or clinic</h1>
 			<p class="hero-subtitle">Search by doctor name, specialty, or city. Quick filters, responsive design, and intuitive navigation.</p>
 
-			<form action="{{ route('doctors.index') }}" method="get" class="mt-6">
+			<form action="{{ route('doctors.index') }}" method="get" class="mt-6 ajax-filter-form" data-ajax-list="true" data-results="#home-doctors-results">
 				<div class="flex flex-col sm:flex-row gap-3">
-					<input type="text" name="q" value="{{ old('q', $query) }}" placeholder="e.g. cardiology, John Doe, Boston" class="input" />
-					<button type="submit" class="btn-primary">
+					<div class="relative flex-1">
+						<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+								<path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 3.473 9.8l3.613 3.614a.75.75 0 1 0 1.06-1.06l-3.614-3.614A5.5 5.5 0 0 0 9 3.5ZM5 9a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clip-rule="evenodd" />
+							</svg>
+						</span>
+						<input
+							type="text"
+							name="q"
+							value="{{ old('q', $query) }}"
+							placeholder="Search doctors, specialties, or cities"
+							class="input pl-10 h-12 sm:h-12"
+							autocomplete="off"
+						/>
+					</div>
+					<button type="submit" class="btn-primary h-12 sm:h-12 px-6">
 						Search
 					</button>
 				</div>
 				<div class="mt-3 flex flex-wrap gap-2 text-sm">
-					<span class="badge-sky">Therapist</span>
-					<span class="badge-sky">Pediatrician</span>
-					<span class="badge-sky">Dentist</span>
-					<span class="badge-sky">Cardiologist</span>
+					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Therapist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Therapist</button>
+					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Pediatrician'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Pediatrician</button>
+					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Dentist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Dentist</button>
+					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Cardiologist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Cardiologist</button>
 				</div>
 			</form>
+			<section id="home-doctors-results" class="mt-6 md:mt-8"></section>
 		</section>
 
 		<section>
