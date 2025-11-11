@@ -24,10 +24,17 @@
 							class="input pl-10 h-12 sm:h-12"
 							autocomplete="off"
 						/>
+						<button
+							type="button"
+							class="clear-input absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+							aria-label="Clear"
+							onclick="const i=this.closest('div').querySelector('input[name=q]'); i.value=''; i.focus(); i.dispatchEvent(new Event('input',{bubbles:true}));"
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+								<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414Z" clip-rule="evenodd" />
+							</svg>
+						</button>
 					</div>
-					<button type="submit" class="btn-primary h-12 sm:h-12 px-6">
-						Search
-					</button>
 				</div>
 				<div class="mt-3 flex flex-wrap gap-2 text-sm">
 					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Therapist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Therapist</button>

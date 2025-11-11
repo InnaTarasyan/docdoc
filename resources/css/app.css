@@ -67,6 +67,136 @@
 	.input, .select, .textarea {
 		@apply w-full rounded-lg border-gray-300 focus:border-sky-600 focus:ring-sky-600;
 	}
+	/* Search form polish */
+	.ajax-filter-form {
+		@apply relative;
+		max-width: 48rem; /* ~768px */
+	}
+	/* Fancy search shell look */
+	.ajax-filter-form .relative.flex-1 {
+		position: relative;
+		border-radius: 1rem;
+		background:
+			radial-gradient(120% 120% at 0% 0%, rgba(14,165,233,0.08), transparent 40%) no-repeat,
+			radial-gradient(120% 120% at 100% 0%, rgba(56,189,248,0.06), transparent 42%) no-repeat,
+			linear-gradient(180deg, rgba(255,255,255,0.9), rgba(248,250,252,0.85));
+		padding: 0;
+		box-shadow:
+			0 1px 2px 0 rgb(0 0 0 / 0.04),
+			0 2px 10px -6px rgb(2 132 199 / 0.15),
+			inset 0 1px 0 rgba(255,255,255,0.9);
+	}
+	.ajax-filter-form .relative.flex-1::after {
+		content: '';
+		position: absolute;
+		inset: -1px;
+		border-radius: 1rem;
+		background: linear-gradient(120deg, rgba(14,165,233,.35), rgba(56,189,248,.25), rgba(14,165,233,.35));
+		filter: blur(10px);
+		opacity: .35;
+		pointer-events: none;
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		.ajax-filter-form .relative.flex-1::after {
+			animation: shimmer 4s ease-in-out infinite;
+		}
+		@keyframes shimmer {
+			0%, 100% { opacity: .30; }
+			50% { opacity: .45; }
+		}
+	}
+	.ajax-filter-form .input {
+		@apply bg-white border-gray-200 shadow-sm;
+		box-shadow: var(--shadow-soft);
+		transition: box-shadow .2s ease, transform .12s ease, border-color .2s ease, background-color .2s ease;
+		border-radius: 1rem;
+		padding-right: 2.5rem; /* room for clear icon */
+		background-image:
+			linear-gradient(#ffffff,#ffffff), /* padding-box */
+			linear-gradient(120deg, rgba(14,165,233,.5), rgba(56,189,248,.35), rgba(14,165,233,.5)); /* border-box */
+		background-origin: padding-box, border-box;
+		background-clip: padding-box, border-box;
+		border: 1.5px solid transparent;
+	}
+	.ajax-filter-form .input:hover {
+		box-shadow: 0 10px 22px -12px rgb(2 132 199 / 0.25), 0 2px 8px -6px rgb(0 0 0 / 0.15);
+		border-color: rgb(203 213 225); /* gray-300 */
+	}
+	.ajax-filter-form .input:focus {
+		box-shadow: 0 0 0 6px rgb(186 230 253 / .8), 0 10px 26px -10px rgb(2 132 199 / .28);
+		border-color: rgb(56 189 248); /* sky-400 */
+	}
+	.ajax-filter-form .input::placeholder {
+		color: rgb(100 116 139); /* slate-500 */
+		opacity: .9;
+	}
+	/* Search icon tint */
+	.ajax-filter-form .relative > .absolute svg {
+		filter: drop-shadow(0 1px 1px rgba(2,132,199,.15));
+	}
+	/* Clear control */
+	.ajax-filter-form .clear-input {
+		border-radius: 0.75rem;
+		transition: color .15s ease, transform .1s ease, background-color .15s ease, box-shadow .2s ease;
+	}
+	.ajax-filter-form .clear-input:hover {
+		background-color: rgba(241,245,249,.8); /* slate-100 */
+		box-shadow: 0 2px 8px -4px rgba(0,0,0,.15);
+	}
+	.ajax-filter-form .clear-input:active {
+		transform: scale(.98);
+	}
+	.ajax-filter-form .clear-input:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 3px rgba(186,230,253,.95);
+	}
+	/* Submit button enhancements */
+	.ajax-filter-form .btn-primary {
+		@apply h-12 sm:h-12 px-6;
+		box-shadow: 0 6px 14px -6px rgba(2,132,199,.45), 0 2px 6px -4px rgba(0,0,0,.15);
+		transition: transform .12s ease, box-shadow .2s ease, background-color .2s ease;
+	}
+	.ajax-filter-form .btn-primary:hover {
+		box-shadow: 0 10px 22px -8px rgba(2,132,199,.55), 0 4px 10px -6px rgba(0,0,0,.18);
+		transform: translateY(-1px);
+	}
+	.ajax-filter-form .btn-primary:active {
+		transform: translateY(0);
+	}
+	.ajax-filter-form .btn-primary:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 4px rgba(186,230,253,.9), 0 8px 20px -8px rgba(2,132,199,.55);
+	}
+	/* Quick filter chips */
+	.ajax-filter-form .badge-sky {
+		@apply cursor-pointer select-none;
+		background-image: linear-gradient(180deg, rgba(255,255,255,.9), rgba(248,250,252,.9));
+		box-shadow: 0 1px 2px rgba(0,0,0,.06);
+		transition: transform .12s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+	}
+	.ajax-filter-form .badge-sky:hover {
+		@apply bg-sky-100 text-sky-800;
+		box-shadow: 0 4px 10px -6px rgba(2,132,199,.35);
+		transform: translateY(-1px);
+	}
+	.ajax-filter-form .badge-sky:active {
+		transform: translateY(0);
+		box-shadow: 0 2px 6px -4px rgba(2,132,199,.25);
+	}
+	.ajax-filter-form .badge-sky:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 3px rgba(186,230,253,.95);
+	}
+	/* Compact heights on very small screens; comfortable on larger */
+	@media (max-width: 360px) {
+		.ajax-filter-form .input { @apply h-11; }
+		.ajax-filter-form .btn-primary { @apply h-11 px-4; }
+	}
+	/* Align button nicely when input grows */
+	@media (min-width: 640px) {
+		.ajax-filter-form .flex { align-items: stretch; }
+		.ajax-filter-form .btn-primary { @apply rounded-lg; }
+	}
 
 	/* Buttons */
 	.btn {
