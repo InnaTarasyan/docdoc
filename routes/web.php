@@ -5,11 +5,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SpecialtyController;
+use App\Http\Controllers\SearchController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Lightweight API for autocomplete
 Route::get('/api/search/doctors', [DoctorController::class, 'search'])->name('api.search.doctors');
+
+// Unified search
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 
 Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors.index');
 Route::get('/doctors/{doctor}', [DoctorController::class, 'show'])->name('doctors.show');
