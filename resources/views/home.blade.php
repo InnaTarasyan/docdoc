@@ -4,11 +4,11 @@
 
 @section('content')
 	<div class="grid gap-8">
-		<section class="hero">
+		<section class="hero bg-subtle text-center">
 			<h1 class="hero-title">Find the right doctor or clinic</h1>
 			<p class="hero-subtitle">Search by doctor name, specialty, or city. Quick filters, responsive design, and intuitive navigation.</p>
 
-			<form action="{{ route('search.index') }}" method="get" class="mt-6 ajax-filter-form" data-ajax-list="true" data-results="#home-doctors-results">
+			<form action="{{ route('search.index') }}" method="get" class="mt-6 ajax-filter-form mx-auto" data-ajax-list="true" data-results="#home-doctors-results">
 				<div class="flex flex-col sm:flex-row gap-3">
 					<div class="relative flex-1">
 						<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
