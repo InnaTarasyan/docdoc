@@ -9,17 +9,17 @@
 @theme {
 	--font-sans: 'Roboto', 'Open Sans', 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-	/* Brand palette - medical greens (inspired by vsevrachizdes.ru) */
-	--color-brand-50: 240 253 244;   /* softer green-50 */
-	--color-brand-100: 220 252 231;  /* green-100 */
-	--color-brand-200: 187 247 208;  /* green-200 */
-	--color-brand-300: 134 239 172;  /* green-300 */
-	--color-brand-400: 74 222 128;   /* green-400 */
-	--color-brand-500: 34 197 94;    /* green-500 - main brand color */
-	--color-brand-600: 22 163 74;    /* green-600 */
-	--color-brand-700: 21 128 61;    /* green-700 */
-	--color-brand-800: 22 101 52;    /* green-800 */
-	--color-brand-900: 20 83 45;     /* green-900 */
+	/* Brand palette - darker medical greens (inspired by vsevrachizdes.ru) */
+	--color-brand-50: 220 252 231;   /* green-100 */
+	--color-brand-100: 187 247 208;  /* green-200 */
+	--color-brand-200: 134 239 172;  /* green-300 */
+	--color-brand-300: 74 222 128;   /* green-400 */
+	--color-brand-400: 34 197 94;    /* green-500 */
+	--color-brand-500: 22 163 74;    /* green-600 - main brand color */
+	--color-brand-600: 21 128 61;    /* green-700 - darker */
+	--color-brand-700: 20 83 45;     /* green-800 - much darker */
+	--color-brand-800: 15 63 34;     /* green-900 - darkest */
+	--color-brand-900: 10 40 22;     /* custom very dark green */
 	--radius-lg: 0.75rem;
 	--shadow-soft: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 1px 3px 0 rgb(0 0 0 / 0.06);
 }
@@ -313,40 +313,95 @@
 	/* Hero */
 	.hero {
 		@apply relative overflow-hidden rounded-2xl p-6 sm:p-10;
-		background: radial-gradient(1000px 400px at 0% -10%, rgba(34,197,94,0.12), transparent 50%),
-			radial-gradient(800px 300px at 120% 0%, rgba(22,163,74,0.10), transparent 55%),
+		background: radial-gradient(1000px 400px at 0% -10%, rgba(21,128,61,0.12), transparent 50%),
+			radial-gradient(800px 300px at 120% 0%, rgba(20,83,45,0.10), transparent 55%),
 			linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
 		position: relative;
+		min-height: 300px;
 	}
-	.hero::before {
-		content: '';
+	.hero-decorations {
 		position: absolute;
-		top: 0;
-		right: 0;
-		width: 200px;
-		height: 200px;
-		background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 20 L60 30 L70 20 L75 25 L65 35 L75 45 L70 50 L60 40 L50 50 L45 45 L55 35 L45 25 Z' fill='%2322c55e' opacity='0.05'/%3E%3C/svg%3E");
-		background-repeat: no-repeat;
-		background-position: top right;
+		inset: 0;
 		pointer-events: none;
+		overflow: hidden;
 	}
-	.hero::after {
-		content: '';
+	.hero-icon {
 		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 150px;
-		height: 150px;
-		background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='35' fill='none' stroke='%2322c55e' stroke-width='2' opacity='0.06'/%3E%3Ccircle cx='40' cy='40' r='25' fill='none' stroke='%2322c55e' stroke-width='1.5' opacity='0.04'/%3E%3Cpath d='M40 10 L42 30 L40 50 L38 30 Z' fill='%2322c55e' opacity='0.05'/%3E%3C/svg%3E");
-		background-repeat: no-repeat;
-		background-position: bottom left;
-		pointer-events: none;
+		width: 60px;
+		height: 60px;
+		opacity: 0.08;
+		color: rgb(var(--color-brand-600));
+		animation: float 6s ease-in-out infinite;
+	}
+	.hero-icon-1 {
+		top: 10%;
+		left: 5%;
+		animation-delay: 0s;
+	}
+	.hero-icon-2 {
+		top: 20%;
+		right: 10%;
+		width: 50px;
+		height: 50px;
+		animation-delay: 1s;
+	}
+	.hero-icon-3 {
+		bottom: 15%;
+		right: 5%;
+		width: 45px;
+		height: 45px;
+		animation-delay: 2s;
+	}
+	.hero-icon-4 {
+		bottom: 25%;
+		left: 8%;
+		width: 55px;
+		height: 55px;
+		animation-delay: 1.5s;
+	}
+	.hero-icon-5 {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 40px;
+		height: 40px;
+		opacity: 0.05;
+		animation-delay: 0.5s;
+	}
+	@keyframes float {
+		0%, 100% { transform: translateY(0px) rotate(0deg); }
+		50% { transform: translateY(-20px) rotate(5deg); }
+	}
+	@media (max-width: 640px) {
+		.hero-icon {
+			width: 40px;
+			height: 40px;
+			opacity: 0.06;
+		}
+		.hero-icon-1 { top: 5%; left: 3%; }
+		.hero-icon-2 { top: 15%; right: 5%; width: 35px; height: 35px; }
+		.hero-icon-3 { bottom: 10%; right: 3%; width: 30px; height: 30px; }
+		.hero-icon-4 { bottom: 20%; left: 5%; width: 35px; height: 35px; }
+		.hero-icon-5 { display: none; }
 	}
 	.hero-title {
 		@apply text-2xl sm:text-4xl font-semibold tracking-tight text-gray-900;
+		flex-wrap: wrap;
 	}
 	.hero-subtitle {
 		@apply mt-2 text-gray-600 max-w-2xl;
+		position: relative;
+		z-index: 10;
+	}
+	@media (max-width: 640px) {
+		.hero-title {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+		.hero-title svg {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
 	}
 
 	/* Enhanced "card link" anchors used throughout directories without changing markup */
@@ -381,6 +436,114 @@
 		a.block.rounded-lg.bg-white.border.shadow-sm.px-4.py-3.transition.text-gray-800:active {
 			transition: none;
 			transform: none;
+		}
+	}
+
+	/* Enhanced image hover effects */
+	.doctor-avatar,
+	.organization-image {
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		cursor: pointer;
+	}
+	.doctor-card:hover .doctor-avatar,
+	.organization-card:hover .organization-image {
+		transform: scale(1.15) translateY(-2px);
+		box-shadow: 0 8px 20px rgba(21, 128, 61, 0.25), 0 4px 8px rgba(21, 128, 61, 0.15);
+		z-index: 10;
+	}
+	.doctor-card:hover .doctor-avatar {
+		ring-width: 3px;
+		ring-color: rgb(var(--color-brand-400));
+	}
+	.organization-card:hover .organization-image {
+		ring-width: 3px;
+		ring-color: rgb(var(--color-brand-400));
+	}
+
+	/* Specialty card enhancements */
+	.specialty-card {
+		position: relative;
+		overflow: hidden;
+	}
+	.specialty-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 25px rgba(21, 128, 61, 0.15), 0 4px 10px rgba(21, 128, 61, 0.1);
+	}
+	.specialty-icon-wrapper {
+		transition: transform 0.3s ease;
+	}
+
+	/* Mobile responsive improvements */
+	@media (max-width: 640px) {
+		.doctor-card,
+		.organization-card {
+			padding: 0.875rem;
+		}
+		.doctor-avatar {
+			width: 3.5rem;
+			height: 3.5rem;
+		}
+		.organization-image {
+			width: 3.5rem;
+			height: 3.5rem;
+		}
+		.doctor-card:hover .doctor-avatar,
+		.organization-card:hover .organization-image {
+			transform: scale(1.1) translateY(-1px);
+		}
+		.specialty-card {
+			padding: 0.75rem;
+			font-size: 0.875rem;
+		}
+		.specialty-icon-wrapper {
+			flex-shrink: 0;
+		}
+		.doctor-icon-wrapper {
+			padding: 0.25rem;
+		}
+		.doctor-icon-wrapper svg,
+		.doctor-icon-wrapper span {
+			width: 0.75rem;
+			height: 0.75rem;
+		}
+		.container-tight {
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+		.hero {
+			padding: 1.5rem;
+			min-height: 250px;
+		}
+		.hero-title {
+			font-size: 1.5rem;
+			line-height: 1.3;
+		}
+		.hero-subtitle {
+			font-size: 0.875rem;
+			margin-top: 0.75rem;
+		}
+		.ajax-filter-form {
+			margin-top: 1rem;
+		}
+		.ajax-filter-form .input {
+			height: 2.75rem;
+			font-size: 0.875rem;
+		}
+		.ajax-filter-form .btn-primary {
+			height: 2.75rem;
+			font-size: 0.875rem;
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+		.grid {
+			gap: 0.75rem;
+		}
+		section {
+			margin-bottom: 1.5rem;
+		}
+		h2 {
+			font-size: 1rem;
+			margin-bottom: 0.75rem;
 		}
 	}
 
@@ -827,8 +990,8 @@
 @layer utilities {
 	/* Subtle gradient background utility for hero/sections */
 	.bg-subtle {
-		background-image: radial-gradient(1200px 600px at 10% -10%, rgba(34,197,94,0.06), transparent 60%),
-			radial-gradient(800px 400px at 110% 10%, rgba(22,163,74,0.05), transparent 50%);
+		background-image: radial-gradient(1200px 600px at 10% -10%, rgba(21,128,61,0.06), transparent 60%),
+			radial-gradient(800px 400px at 110% 10%, rgba(20,83,45,0.05), transparent 50%);
 	}
 }
 

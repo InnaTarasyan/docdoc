@@ -4,9 +4,34 @@
 
 @section('content')
 	<div class="grid gap-8">
-		<section class="hero bg-subtle text-center">
-			<h1 class="hero-title">Find the care that fits you</h1>
-			<p class="hero-subtitle">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
+		<section class="hero bg-subtle text-center relative">
+			<div class="hero-decorations">
+				<svg class="hero-icon hero-icon-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
+				</svg>
+				<svg class="hero-icon hero-icon-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<path d="M6 3v5a4 4 0 1 0 8 0V3m-8 0H4m10 0h2M6 8a6 6 0 1 0 12 0m0 0v6a3 3 0 1 1-3 3" stroke-linecap="round"/>
+				</svg>
+				<svg class="hero-icon hero-icon-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke-linecap="round"/>
+				</svg>
+				<svg class="hero-icon hero-icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/>
+				</svg>
+				<svg class="hero-icon hero-icon-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<path d="M12 5a4 4 0 1 1 0 8c-2 0-5-4-5-4s3-4 5-4Zm0 0c1.5 0 5 8 5 8l-3 6-2-4-2 4-3-6s3.5-8 5-8Z" stroke-linejoin="round"/>
+				</svg>
+			</div>
+			<h1 class="hero-title relative z-10 flex items-center justify-center gap-3">
+				<svg class="w-8 h-8 sm:w-10 sm:h-10 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
+				</svg>
+				<span>Find the care that fits you</span>
+				<svg class="w-8 h-8 sm:w-10 sm:h-10 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke-linecap="round"/>
+				</svg>
+			</h1>
+			<p class="hero-subtitle text-center mx-auto max-w-2xl">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
 
 			<form action="{{ route('search.index') }}" method="get" class="mt-6 ajax-filter-form mx-auto" data-ajax-list="true" data-results="#home-doctors-results">
 				<div class="flex flex-col sm:flex-row gap-3">
@@ -57,11 +82,15 @@
 			<h2 class="text-lg font-medium text-gray-900 mb-3">Popular specialties</h2>
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
 				@forelse($popularSpecialties as $spec)
-					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800">
-						<div class="flex items-center gap-2">
-							@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'mr-1'])
-							<span class="truncate">{{ $spec->description }}</span>
+					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="specialty-card block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800 group relative overflow-hidden">
+						<div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+						<div class="flex items-center gap-2 relative z-10">
+							<div class="specialty-icon-wrapper group-hover:scale-110 transition-transform">
+								@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'mr-1'])
+							</div>
+							<span class="truncate font-medium group-hover:text-brand-700 transition-colors">{{ $spec->description }}</span>
 						</div>
+						<div class="absolute top-0 right-0 w-16 h-16 bg-brand-100 rounded-full -mr-8 -mt-8 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
 					</a>
 				@empty
 					<p class="text-gray-600">No specialties yet.</p>
@@ -77,8 +106,9 @@
 				</div>
 				<div class="grid sm:grid-cols-2 gap-4">
 					@forelse($featuredDoctors as $doctor)
-						<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
-							<div class="flex items-start gap-4">
+						<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="doctor-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
+							<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+							<div class="flex items-start gap-4 relative z-10">
 								@php
 									$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
 									$idx = $seed % 80;
@@ -101,12 +131,23 @@
 									}
 									$folder = $isFemale ? 'women' : 'men';
 									$avatarUrl = "https://randomuser.me/api/portraits/{$folder}/{$idx}.jpg";
+									$taxonomy = $doctor->taxonomy ?? '';
 								@endphp
-								<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="w-14 h-14 rounded-full ring-1 ring-gray-200 object-cover bg-white shrink-0" loading="lazy" />
-								<div class="min-w-0">
-									<div class="font-medium text-gray-900 truncate">{{ $doctor->name }}</div>
-									<div class="text-sm text-gray-600 truncate">{{ $doctor->taxonomy ?: '—' }}</div>
-									<div class="text-sm text-gray-600">{{ $doctor->city }}, {{ $doctor->state }}</div>
+								<div class="relative shrink-0">
+									<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="doctor-avatar w-14 h-14 rounded-full ring-2 ring-gray-200 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" />
+									<div class="doctor-icon-wrapper absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+										@include('components.specialty-icon', ['name' => $taxonomy, 'class' => 'w-4 h-4'])
+									</div>
+								</div>
+								<div class="min-w-0 flex-1">
+									<div class="font-medium text-gray-900 truncate group-hover:text-brand-700 transition-colors flex items-center gap-2">
+										<span>{{ $doctor->name }}</span>
+										<svg class="w-4 h-4 text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
+										</svg>
+									</div>
+									<div class="text-sm text-gray-600 truncate mt-0.5">{{ $doctor->taxonomy ?: '—' }}</div>
+									<div class="text-sm text-gray-600 mt-1">{{ $doctor->city }}, {{ $doctor->state }}</div>
 									@if($doctor->organization_name)
 										<div class="text-sm text-gray-700 mt-1 truncate">{{ $doctor->organization_name }}</div>
 									@endif
@@ -125,18 +166,47 @@
 				</div>
 				<div class="grid sm:grid-cols-2 gap-4">
 					@forelse($featuredOrganizations as $org)
-						<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
-							<div class="flex items-start gap-4">
+						<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
+							<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+							<div class="flex items-start gap-4 relative z-10">
 								@php
 									$seed = abs(crc32(($org->name ?? '') . '|' . (string) $org->id));
-									$imgUrl = "https://loremflickr.com/256/256/hospital?lock={$seed}";
+									$hospitalImages = [
+										'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=256&h=256&fit=crop',
+										'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=256&h=256&fit=crop',
+										'https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=256&h=256&fit=crop',
+										'https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=256&h=256&fit=crop',
+										'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=256&h=256&fit=crop',
+										'https://images.unsplash.com/photo-1497366216548-37526070297c?w=256&h=256&fit=crop',
+										'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=256&h=256&fit=crop',
+										'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=256&h=256&fit=crop'
+									];
+									$imgUrl = $hospitalImages[$seed % count($hospitalImages)];
 								@endphp
-								<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="w-16 h-16 rounded-lg ring-1 ring-gray-200 object-cover bg-white shrink-0" loading="lazy" width="64" height="64" />
-								<div class="min-w-0">
-									<div class="font-medium text-gray-900 truncate">{{ $org->name }}</div>
-									<div class="text-sm text-gray-600">{{ $org->city }}, {{ $org->state }}</div>
+								<div class="relative shrink-0">
+									<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="organization-image w-16 h-16 rounded-lg ring-2 ring-gray-200 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" width="64" height="64" />
+									<div class="absolute -bottom-1 -right-1 bg-brand-600 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+										<svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+											<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M17 21v-8H7v8M7 3v5h8" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</div>
+								</div>
+								<div class="min-w-0 flex-1">
+									<div class="font-medium text-gray-900 truncate group-hover:text-brand-700 transition-colors flex items-center gap-2">
+										<span>{{ $org->name }}</span>
+										<svg class="w-4 h-4 text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
+										</svg>
+									</div>
+									<div class="text-sm text-gray-600 mt-0.5">{{ $org->city }}, {{ $org->state }}</div>
 									@if($org->phone)
-										<div class="text-sm text-gray-700 mt-1 truncate">{{ $org->phone }}</div>
+										<div class="text-sm text-gray-700 mt-1 truncate flex items-center gap-1">
+											<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											{{ $org->phone }}
+										</div>
 									@endif
 								</div>
 							</div>

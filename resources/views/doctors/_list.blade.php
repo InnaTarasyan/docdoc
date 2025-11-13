@@ -4,8 +4,9 @@
 @else
 	<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 		@foreach($doctors as $doctor)
-			<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
-				<div class="flex items-start gap-4">
+			<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="doctor-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
+				<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+				<div class="flex items-start gap-4 relative z-10">
 					@php
 						$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
 						$idx = $seed % 80;
@@ -20,21 +21,30 @@
 							];
 							$isFemale = in_array($lower, $femaleNames, true);
 							if (!$isFemale) {
-								// Heuristic by common feminine endings
 								$isFemale = (bool) preg_match('/(a|ia|ya|na|ra|la|ta|sa|ina|eva|ova|iya|aya)$/u', $lower);
 							}
-							// Fallback parity if still undetermined
 							if (!$isFemale && !in_array($lower, $femaleNames, true)) {
 								$isFemale = ($idx % 2) === 1;
 							}
 						}
 						$folder = $isFemale ? 'women' : 'men';
 						$avatarUrl = "https://randomuser.me/api/portraits/{$folder}/{$idx}.jpg";
+						$taxonomy = $doctor->taxonomy ?? '';
 					@endphp
-					<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="w-14 h-14 rounded-full ring-1 ring-gray-200 object-cover bg-white shrink-0" loading="lazy" />
-					<div class="min-w-0">
-						<div class="font-medium text-gray-900 truncate">{{ $doctor->name }}</div>
-						<div class="text-sm text-gray-600 truncate">{{ $doctor->taxonomy ?: '—' }}</div>
+					<div class="relative shrink-0">
+						<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="doctor-avatar w-14 h-14 rounded-full ring-2 ring-gray-200 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" />
+						<div class="doctor-icon-wrapper absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+							@include('components.specialty-icon', ['name' => $taxonomy, 'class' => 'w-4 h-4'])
+						</div>
+					</div>
+					<div class="min-w-0 flex-1">
+						<div class="font-medium text-gray-900 truncate group-hover:text-brand-700 transition-colors flex items-center gap-2">
+							<span>{{ $doctor->name }}</span>
+							<svg class="w-4 h-4 text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
+							</svg>
+						</div>
+						<div class="text-sm text-gray-600 truncate mt-0.5">{{ $doctor->taxonomy ?: '—' }}</div>
 						<div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-600">
 							@if($doctor->gender)
 								<span>{{ $doctor->gender === 'M' ? 'Male' : 'Female' }}</span>
