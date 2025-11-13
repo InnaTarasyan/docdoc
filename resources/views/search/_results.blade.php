@@ -3,7 +3,7 @@
 @endphp
 
 @if(!$hasAny)
-	<div class="bg-white border rounded-xl p-6 text-center text-gray-600 empty-state-wrapper">
+	<div class="bg-white border rounded-xl p-6 text-center text-gray-600 empty-state-wrapper{{ ($q ?? '') === '' ? ' empty-compact' : '' }}">
 		<div class="empty-state-content">
 			@if(($q ?? '') !== '')
 				No results for "{{ $q }}". Try another term.

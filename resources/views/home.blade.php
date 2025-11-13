@@ -5,8 +5,8 @@
 @section('content')
 	<div class="grid gap-8">
 		<section class="hero bg-subtle text-center">
-			<h1 class="hero-title">Find the right doctor or clinic</h1>
-			<p class="hero-subtitle">Search by doctor name, specialty, or city. Quick filters, responsive design, and intuitive navigation.</p>
+			<h1 class="hero-title">Find the care that fits you</h1>
+			<p class="hero-subtitle">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
 
 			<form action="{{ route('search.index') }}" method="get" class="mt-6 ajax-filter-form mx-auto" data-ajax-list="true" data-results="#home-doctors-results">
 				<div class="flex flex-col sm:flex-row gap-3">
