@@ -15,7 +15,7 @@
 	@else
 		<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
 			@foreach($specialties as $spec)
-				<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-sky-600 hover:shadow transition text-gray-800">
+				<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800">
 					<div class="flex items-center gap-2">
 						@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'mr-1'])
 						<div class="min-w-0">

@@ -32,7 +32,7 @@
 					<h2 class="text-lg font-medium text-gray-900 mb-3">Doctors at this organization</h2>
 					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 						@foreach($linkedDoctors as $doctor)
-							<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+							<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
 								<div class="font-medium text-gray-900">{{ $doctor->name }}</div>
 								<div class="text-sm text-gray-600">{{ $doctor->taxonomy ?: '—' }}</div>
 								<div class="text-sm text-gray-600">{{ $doctor->city }}, {{ $doctor->state }}</div>

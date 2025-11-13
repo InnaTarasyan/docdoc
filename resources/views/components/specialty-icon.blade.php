@@ -47,8 +47,8 @@
 	}
 	$size = 'w-4 h-4';
 	$stroke = 'stroke-current';
-	$color = 'text-sky-600';
-	$wrapper = trim(($class ?? '') . ' inline-flex items-center justify-center rounded-md ring-1 ring-inset ring-sky-200 bg-sky-50 ' . $color . ' ' . $size);
+	$color = 'text-brand-600';
+	$wrapper = trim(($class ?? '') . ' inline-flex items-center justify-center rounded-md ring-1 ring-inset ring-brand-200 bg-brand-50 ' . $color . ' ' . $size);
 @endphp
 <span class="{{ $wrapper }}" aria-hidden="true">
 	@switch($icon)

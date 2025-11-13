@@ -20,13 +20,13 @@
 					<div class="section-header">
 						<div class="flex items-center justify-between">
 							<h2 class="font-medium text-gray-900">Doctors</h2>
-							<a href="{{ route('doctors.index', ['q' => $q]) }}" target="_blank" rel="noopener noreferrer" class="text-sm text-sky-700 hover:underline">View all</a>
+							<a href="{{ route('doctors.index', ['q' => $q]) }}" target="_blank" rel="noopener noreferrer" class="text-sm text-brand-700 hover:underline">View all</a>
 						</div>
 					</div>
 					<div class="section-body">
 						<div class="grid sm:grid-cols-2 gap-4">
 							@foreach($doctors as $doctor)
-								<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+								<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
 									<div class="flex items-start gap-4">
 										@php
 											$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
@@ -71,13 +71,13 @@
 					<div class="section-header">
 						<div class="flex items-center justify-between">
 							<h2 class="font-medium text-gray-900">Organizations</h2>
-							<a href="{{ route('organizations.index', ['q' => $q]) }}" target="_blank" rel="noopener noreferrer" class="text-sm text-sky-700 hover:underline">View all</a>
+							<a href="{{ route('organizations.index', ['q' => $q]) }}" target="_blank" rel="noopener noreferrer" class="text-sm text-brand-700 hover:underline">View all</a>
 						</div>
 					</div>
 					<div class="section-body">
 						<div class="grid sm:grid-cols-2 gap-4">
 							@foreach($organizations as $org)
-								<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+								<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
 									<div class="flex items-start gap-4">
 										@php
 											$seed = abs(crc32(($org->name ?? '') . '|' . (string) $org->id));
@@ -104,13 +104,13 @@
 					<div class="section-header">
 						<div class="flex items-center justify-between">
 							<h2 class="font-medium text-gray-900">Specialties</h2>
-							<a href="{{ route('specialties.index') }}" target="_blank" rel="noopener noreferrer" class="text-sm text-sky-700 hover:underline">Browse all</a>
+							<a href="{{ route('specialties.index') }}" target="_blank" rel="noopener noreferrer" class="text-sm text-brand-700 hover:underline">Browse all</a>
 						</div>
 					</div>
 					<div class="section-body">
 						<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
 							@foreach($specialties as $spec)
-								<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-sky-600 hover:shadow transition text-gray-800">
+								<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800">
 									<div class="flex items-center gap-2">
 										@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'mr-1'])
 										<div class="min-w-0">

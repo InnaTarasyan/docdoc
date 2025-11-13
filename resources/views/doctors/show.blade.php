@@ -24,7 +24,7 @@
 							<span class="inline-flex items-center px-2 py-1 rounded bg-gray-100 text-gray-700">Gender: {{ $doctor->gender === 'M' ? 'Male' : 'Female' }}</span>
 						@endif
 						@if($doctor->taxonomy)
-							<span class="inline-flex items-center px-2 py-1 rounded bg-sky-100 text-sky-800">{{ $doctor->taxonomy }}</span>
+							<span class="inline-flex items-center px-2 py-1 rounded bg-brand-100 text-brand-800">{{ $doctor->taxonomy }}</span>
 						@endif
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 					<h2 class="text-lg font-medium text-gray-900 mb-3">Nearby or related doctors</h2>
 					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 						@foreach($related as $d)
-							<a href="{{ route('doctors.show', $d) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+							<a href="{{ route('doctors.show', $d) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
 								<div class="font-medium text-gray-900">{{ $d->name }}</div>
 								<div class="text-sm text-gray-600">{{ $d->taxonomy ?: '—' }}</div>
 								<div class="text-sm text-gray-600">{{ $d->city }}, {{ $d->state }}</div>

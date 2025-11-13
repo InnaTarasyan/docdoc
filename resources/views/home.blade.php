@@ -57,7 +57,7 @@
 			<h2 class="text-lg font-medium text-gray-900 mb-3">Popular specialties</h2>
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
 				@forelse($popularSpecialties as $spec)
-					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-sky-600 hover:shadow transition text-gray-800">
+					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800">
 						<div class="flex items-center gap-2">
 							@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'mr-1'])
 							<span class="truncate">{{ $spec->description }}</span>
@@ -73,11 +73,11 @@
 			<div>
 				<div class="flex items-center justify-between mb-3">
 					<h2 class="text-lg font-medium text-gray-900">Featured doctors</h2>
-					<a href="{{ route('doctors.index') }}" target="_blank" rel="noopener noreferrer" class="text-sky-700 hover:underline text-sm">Browse all</a>
+					<a href="{{ route('doctors.index') }}" target="_blank" rel="noopener noreferrer" class="text-brand-700 hover:underline text-sm">Browse all</a>
 				</div>
 				<div class="grid sm:grid-cols-2 gap-4">
 					@forelse($featuredDoctors as $doctor)
-						<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+						<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
 							<div class="flex items-start gap-4">
 								@php
 									$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
@@ -121,11 +121,11 @@
 			<div>
 				<div class="flex items-center justify-between mb-3">
 					<h2 class="text-lg font-medium text-gray-900">Featured organizations</h2>
-					<a href="{{ route('organizations.index') }}" target="_blank" rel="noopener noreferrer" class="text-sky-700 hover:underline text-sm">Browse all</a>
+					<a href="{{ route('organizations.index') }}" target="_blank" rel="noopener noreferrer" class="text-brand-700 hover:underline text-sm">Browse all</a>
 				</div>
 				<div class="grid sm:grid-cols-2 gap-4">
 					@forelse($featuredOrganizations as $org)
-						<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+						<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
 							<div class="flex items-start gap-4">
 								@php
 									$seed = abs(crc32(($org->name ?? '') . '|' . (string) $org->id));

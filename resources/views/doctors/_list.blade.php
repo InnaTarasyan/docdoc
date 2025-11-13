@@ -4,7 +4,7 @@
 @else
 	<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 		@foreach($doctors as $doctor)
-			<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-sky-600 hover:shadow transition">
+			<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition">
 				<div class="flex items-start gap-4">
 					@php
 						$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
