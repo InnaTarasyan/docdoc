@@ -78,9 +78,9 @@
 
 				<!-- Legal Links -->
 				<div class="footer-section footer-links">
-					<a href="#" class="footer-link">Privacy Policy</a>
+					<a href="{{ route('legal.privacy') }}" class="footer-link">Privacy Policy</a>
 					<span class="footer-link-separator">|</span>
-					<a href="#" class="footer-link">Terms of Use</a>
+					<a href="{{ route('legal.terms') }}" class="footer-link">Terms of Use</a>
 				</div>
 
 				<!-- Security Status -->

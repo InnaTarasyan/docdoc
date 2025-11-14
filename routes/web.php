@@ -6,6 +6,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\LegalController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -22,3 +23,7 @@ Route::get('/organizations', [OrganizationController::class, 'index'])->name('or
 Route::get('/organizations/{organization}', [OrganizationController::class, 'show'])->name('organizations.show');
 
 Route::get('/specialties', [SpecialtyController::class, 'index'])->name('specialties.index');
+
+// Legal pages
+Route::get('/privacy-policy', [LegalController::class, 'privacy'])->name('legal.privacy');
+Route::get('/terms-of-use', [LegalController::class, 'terms'])->name('legal.terms');
