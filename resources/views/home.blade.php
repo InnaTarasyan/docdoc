@@ -217,6 +217,313 @@
 				</div>
 			</div>
 		</section>
+
+		<!-- User Reviews/Testimonials Section -->
+		<section class="bg-white rounded-2xl border shadow-sm p-6 sm:p-8 md:p-10">
+			<div class="text-center mb-8">
+				<h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3">What Our Patients Say</h2>
+				<p class="text-gray-600 max-w-2xl mx-auto">Real experiences from patients who found their perfect healthcare provider through our platform.</p>
+			</div>
+			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+					<div class="flex items-center gap-1 mb-4">
+						@for($i = 0; $i < 5; $i++)
+							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+							</svg>
+						@endfor
+					</div>
+					<p class="text-gray-700 mb-4 leading-relaxed">"Found an excellent cardiologist in my area. The search was easy and the doctor was professional and caring. Highly recommend!"</p>
+					<div class="flex items-center gap-3">
+						<div class="w-10 h-10 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 font-semibold">SM</div>
+						<div>
+							<div class="font-medium text-gray-900">Sarah Mitchell</div>
+							<div class="text-sm text-gray-500">Patient</div>
+						</div>
+					</div>
+				</div>
+				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+					<div class="flex items-center gap-1 mb-4">
+						@for($i = 0; $i < 5; $i++)
+							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+							</svg>
+						@endfor
+					</div>
+					<p class="text-gray-700 mb-4 leading-relaxed">"The platform made it simple to compare different clinics and read about their services. Found exactly what I needed for my family."</p>
+					<div class="flex items-center gap-3">
+						<div class="w-10 h-10 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 font-semibold">JD</div>
+						<div>
+							<div class="font-medium text-gray-900">James Davis</div>
+							<div class="text-sm text-gray-500">Patient</div>
+						</div>
+					</div>
+				</div>
+				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+					<div class="flex items-center gap-1 mb-4">
+						@for($i = 0; $i < 5; $i++)
+							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+							</svg>
+						@endfor
+					</div>
+					<p class="text-gray-700 mb-4 leading-relaxed">"Great experience! I was able to find a pediatrician for my daughter quickly. The information provided was comprehensive and helpful."</p>
+					<div class="flex items-center gap-3">
+						<div class="w-10 h-10 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 font-semibold">EW</div>
+						<div>
+							<div class="font-medium text-gray-900">Emily Wilson</div>
+							<div class="text-sm text-gray-500">Patient</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Health Articles/Tips Section -->
+		<section>
+			<div class="flex items-center justify-between mb-6">
+				<div>
+					<h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">Health Tips & Articles</h2>
+					<p class="text-gray-600">Stay informed with expert health advice and wellness tips</p>
+				</div>
+			</div>
+			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				<a href="#" class="article-card group block rounded-xl bg-white border shadow-sm overflow-hidden hover:border-brand-600 hover:shadow-md transition-all duration-300">
+					<div class="relative h-48 bg-gradient-to-br from-brand-100 to-brand-200 overflow-hidden">
+						<svg class="w-24 h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-brand-400 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+						</svg>
+						<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-brand-700">Wellness</div>
+					</div>
+					<div class="p-6">
+						<h3 class="font-semibold text-gray-900 mb-2 group-hover:text-brand-700 transition-colors">Preventive Care: Your First Line of Defense</h3>
+						<p class="text-sm text-gray-600 mb-4 line-clamp-2">Learn how regular check-ups and preventive measures can help maintain your health and catch issues early.</p>
+						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium">
+							<span>Read more</span>
+							<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+							</svg>
+						</div>
+					</div>
+				</a>
+				<a href="#" class="article-card group block rounded-xl bg-white border shadow-sm overflow-hidden hover:border-brand-600 hover:shadow-md transition-all duration-300">
+					<div class="relative h-48 bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden">
+						<svg class="w-24 h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-blue-400 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+						</svg>
+						<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-blue-700">Education</div>
+					</div>
+					<div class="p-6">
+						<h3 class="font-semibold text-gray-900 mb-2 group-hover:text-brand-700 transition-colors">Understanding Your Health Insurance</h3>
+						<p class="text-sm text-gray-600 mb-4 line-clamp-2">A comprehensive guide to navigating health insurance coverage and making the most of your benefits.</p>
+						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium">
+							<span>Read more</span>
+							<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+							</svg>
+						</div>
+					</div>
+				</a>
+				<a href="#" class="article-card group block rounded-xl bg-white border shadow-sm overflow-hidden hover:border-brand-600 hover:shadow-md transition-all duration-300">
+					<div class="relative h-48 bg-gradient-to-br from-purple-100 to-purple-200 overflow-hidden">
+						<svg class="w-24 h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-purple-400 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+						</svg>
+						<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-purple-700">Lifestyle</div>
+					</div>
+					<div class="p-6">
+						<h3 class="font-semibold text-gray-900 mb-2 group-hover:text-brand-700 transition-colors">Mental Health Matters</h3>
+						<p class="text-sm text-gray-600 mb-4 line-clamp-2">Discover strategies for maintaining good mental health and when to seek professional help.</p>
+						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium">
+							<span>Read more</span>
+							<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+							</svg>
+						</div>
+					</div>
+				</a>
+			</div>
+		</section>
+
+		<!-- Special Offers/Promotions Section -->
+		<section class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-2xl p-8 sm:p-10 md:p-12 text-white relative overflow-hidden">
+			<div class="absolute inset-0 opacity-10">
+				<svg class="absolute top-0 right-0 w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
+					<path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+				</svg>
+				<svg class="absolute bottom-0 left-0 w-48 h-48" fill="currentColor" viewBox="0 0 24 24">
+					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+				</svg>
+			</div>
+			<div class="relative z-10 max-w-4xl mx-auto text-center">
+				<h2 class="text-3xl sm:text-4xl font-bold mb-4">Special Health Checkup Offer</h2>
+				<p class="text-lg sm:text-xl text-brand-100 mb-6 max-w-2xl mx-auto">Get 20% off on comprehensive health checkups at participating clinics. Limited time offer!</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+					<a href="{{ route('organizations.index') }}" class="bg-white text-brand-700 px-8 py-3 rounded-lg font-semibold hover:bg-brand-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+						Find Participating Clinics
+					</a>
+					<a href="#" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+						Learn More
+					</a>
+				</div>
+				<div class="mt-8 flex flex-wrap justify-center gap-6 text-sm">
+					<div class="flex items-center gap-2">
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+						</svg>
+						<span>Valid until end of month</span>
+					</div>
+					<div class="flex items-center gap-2">
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+						</svg>
+						<span>No hidden fees</span>
+					</div>
+					<div class="flex items-center gap-2">
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+						</svg>
+						<span>Easy booking</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Mobile App Promotion Section -->
+		<section class="bg-white rounded-2xl border shadow-sm p-8 sm:p-10 md:p-12">
+			<div class="grid md:grid-cols-2 gap-8 items-center">
+				<div>
+					<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Take Your Health Care On The Go</h2>
+					<p class="text-lg text-gray-600 mb-6">Download our mobile app for instant access to doctors, clinics, and health resources. Book appointments, read reviews, and manage your health all in one place.</p>
+					<div class="flex flex-col sm:flex-row gap-4 mb-6">
+						<a href="#" class="inline-flex items-center justify-center gap-3 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl">
+							<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+							</svg>
+							<div class="text-left">
+								<div class="text-xs opacity-90">Download on the</div>
+								<div class="text-lg font-semibold">App Store</div>
+							</div>
+						</a>
+						<a href="#" class="inline-flex items-center justify-center gap-3 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl">
+							<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+							</svg>
+							<div class="text-left">
+								<div class="text-xs opacity-90">Get it on</div>
+								<div class="text-lg font-semibold">Google Play</div>
+							</div>
+						</a>
+					</div>
+					<div class="flex flex-wrap gap-4 text-sm text-gray-600">
+						<div class="flex items-center gap-2">
+							<svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+							</svg>
+							<span>Easy booking</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+							</svg>
+							<span>Health records</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+							</svg>
+							<span>Reminders</span>
+						</div>
+					</div>
+				</div>
+				<div class="relative">
+					<div class="relative bg-gradient-to-br from-brand-100 to-brand-200 rounded-2xl p-8 shadow-2xl">
+						<div class="bg-white rounded-xl shadow-lg p-6 mb-4">
+							<div class="flex items-center gap-3 mb-4">
+								<div class="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center">
+									<svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16M4 12h16"/>
+									</svg>
+								</div>
+								<div>
+									<div class="font-semibold text-gray-900">Dr. Sarah Johnson</div>
+									<div class="text-sm text-gray-600">Cardiologist</div>
+								</div>
+							</div>
+							<div class="flex items-center gap-2 mb-3">
+								@for($i = 0; $i < 5; $i++)
+									<svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+									</svg>
+								@endfor
+							</div>
+							<button class="w-full bg-brand-600 text-white py-2 rounded-lg font-medium hover:bg-brand-700 transition-colors">Book Appointment</button>
+						</div>
+						<div class="text-center text-sm text-gray-600">📱 Mobile App Preview</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Partnerships Section -->
+		<section>
+			<div class="text-center mb-8">
+				<h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3">Trusted Partners</h2>
+				<p class="text-gray-600 max-w-2xl mx-auto">We collaborate with leading healthcare providers, insurance companies, and medical institutions to bring you the best care.</p>
+			</div>
+			<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+				<div class="partner-card group flex items-center justify-center p-6 bg-white border rounded-xl hover:border-brand-600 hover:shadow-md transition-all duration-300">
+					<div class="text-center">
+						<div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-brand-100 to-brand-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+							</svg>
+						</div>
+						<div class="text-sm font-medium text-gray-700">Health Insurance</div>
+					</div>
+				</div>
+				<div class="partner-card group flex items-center justify-center p-6 bg-white border rounded-xl hover:border-brand-600 hover:shadow-md transition-all duration-300">
+					<div class="text-center">
+						<div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+							</svg>
+						</div>
+						<div class="text-sm font-medium text-gray-700">Medical Centers</div>
+					</div>
+				</div>
+				<div class="partner-card group flex items-center justify-center p-6 bg-white border rounded-xl hover:border-brand-600 hover:shadow-md transition-all duration-300">
+					<div class="text-center">
+						<div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+							</svg>
+						</div>
+						<div class="text-sm font-medium text-gray-700">Pharmacy Networks</div>
+					</div>
+				</div>
+				<div class="partner-card group flex items-center justify-center p-6 bg-white border rounded-xl hover:border-brand-600 hover:shadow-md transition-all duration-300">
+					<div class="text-center">
+						<div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+							</svg>
+						</div>
+						<div class="text-sm font-medium text-gray-700">Research Labs</div>
+					</div>
+				</div>
+				<div class="partner-card group flex items-center justify-center p-6 bg-white border rounded-xl hover:border-brand-600 hover:shadow-md transition-all duration-300">
+					<div class="text-center">
+						<div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+							</svg>
+						</div>
+						<div class="text-sm font-medium text-gray-700">Healthcare Groups</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
 @endsection
 
