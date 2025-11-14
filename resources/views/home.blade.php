@@ -179,7 +179,7 @@
 										'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=256&h=256&fit=crop',
 										'https://images.unsplash.com/photo-1497366216548-37526070297c?w=256&h=256&fit=crop',
 										'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=256&h=256&fit=crop',
-										'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=256&h=256&fit=crop'
+										'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=256&h=256&fit=crop'
 									];
 									$imgUrl = $hospitalImages[$seed % count($hospitalImages)];
 								@endphp
