@@ -77,10 +77,12 @@
 				</div>
 
 				<!-- Legal Links -->
-				<div class="footer-section footer-links">
-					<a href="{{ route('legal.privacy') }}" class="footer-link">Privacy Policy</a>
-					<span class="footer-link-separator">|</span>
-					<a href="{{ route('legal.terms') }}" class="footer-link">Terms of Use</a>
+				<div class="footer-section footer-links-wrapper">
+					<div class="footer-links">
+						<a href="{{ route('legal.privacy') }}" class="footer-link">Privacy Policy</a>
+						<span class="footer-link-separator">|</span>
+						<a href="{{ route('legal.terms') }}" class="footer-link">Terms of Use</a>
+					</div>
 				</div>
 
 				<!-- Security Status -->
