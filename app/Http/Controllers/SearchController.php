@@ -74,9 +74,22 @@ class SearchController extends Controller
 				'specialties' => $specialties,
 			])->render();
 
+			// If search query is empty, redirect to home page
+			if ($q === '') {
+				$url = route('home');
+			} else {
+				// Build URL with 'q' parameter
+				$url = url()->current();
+				$queryParams = $request->except('q');
+				$queryParams['q'] = $q;
+				if (!empty($queryParams)) {
+					$url .= '?' . http_build_query($queryParams);
+				}
+			}
+
 			return response()->json([
 				'html' => $html,
-				'url' => url()->full(),
+				'url' => $url,
 			]);
 		}
 
