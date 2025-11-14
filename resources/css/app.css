@@ -342,6 +342,12 @@
 			0 2px 8px -2px rgba(15,81,50,0.12),
 			inset 0 1px 0 rgba(255,255,255,0.95);
 	}
+	.hero.bg-gradient-to-br {
+		background: linear-gradient(135deg, rgb(5, 78, 25) 0%, rgb(4, 60, 19) 100%);
+		box-shadow: 
+			0 4px 20px -4px rgba(0,0,0,0.3),
+			0 2px 8px -2px rgba(0,0,0,0.2);
+	}
 	.hero-decorations {
 		position: absolute;
 		inset: 0;
@@ -355,6 +361,10 @@
 		opacity: 0.08;
 		color: rgb(var(--color-brand-600));
 		animation: float 6s ease-in-out infinite;
+	}
+	.hero.bg-gradient-to-br .hero-icon {
+		color: rgba(255, 255, 255, 0.1);
+		opacity: 0.1;
 	}
 	.hero-icon-1 {
 		top: 10%;
@@ -419,6 +429,14 @@
 		position: relative;
 		z-index: 10;
 	}
+	.hero.bg-gradient-to-br .hero-title,
+	.hero-title.text-white {
+		background: none;
+		-webkit-background-clip: unset;
+		-webkit-text-fill-color: unset;
+		background-clip: unset;
+		color: white;
+	}
 	.hero-title svg {
 		filter: drop-shadow(0 2px 4px rgba(15,81,50,0.2));
 		transition: transform 0.3s ease, filter 0.3s ease;
@@ -427,6 +445,14 @@
 		transform: scale(1.1) rotate(5deg);
 		filter: drop-shadow(0 4px 8px rgba(15,81,50,0.3));
 	}
+	.hero.bg-gradient-to-br .hero-title svg,
+	.hero-title.text-white svg {
+		filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+	}
+	.hero.bg-gradient-to-br .hero-title:hover svg,
+	.hero-title.text-white:hover svg {
+		filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+	}
 	.hero-subtitle {
 		@apply mt-4 text-base sm:text-lg text-gray-700 max-w-2xl;
 		position: relative;
@@ -434,6 +460,10 @@
 		line-height: 1.7;
 		font-weight: 400;
 		letter-spacing: -0.01em;
+	}
+	.hero.bg-gradient-to-br .hero-subtitle,
+	.hero-subtitle.text-white {
+		color: white;
 	}
 	@media (max-width: 640px) {
 		.hero-title {
