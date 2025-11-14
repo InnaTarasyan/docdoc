@@ -6,7 +6,7 @@
 		<title>@yield('title', config('app.name', 'Doc Directory'))</title>
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
 	</head>
-	<body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
+	<body class="min-h-screen bg-gray-50 text-gray-900 antialiased flex flex-col">
 		<header class="app-header">
 			<div class="container-tight" x-data="{ open: false }">
 				<div class="flex items-center justify-between h-16">
@@ -47,7 +47,7 @@
 			</div>
 		</header>
 
-		<main class="container-tight py-8">
+		<main class="container-tight py-8 flex-grow">
 			@hasSection('breadcrumbs')
 				<nav class="mb-6 text-sm text-gray-600">
 					@yield('breadcrumbs')
@@ -56,11 +56,51 @@
 			@yield('content')
 		</main>
 
-		<footer class="app-footer">
-			<div class="container-tight py-6">
-				<p>&copy; {{ date('Y') }} DocDoc Directory</p>
+	<footer class="app-footer">
+		<div class="container-tight py-8 sm:py-10">
+			<div class="footer-content">
+				<!-- Copyright and Developer Info -->
+				<div class="footer-section">
+					<p class="footer-copyright">
+						&copy; {{ date('Y') }} Inna Tarasyan. All rights reserved.
+					</p>
+					<p class="footer-developer">
+						Website developed and maintained by <strong>Inna Tarasyan</strong>, Web Developer.
+					</p>
+				</div>
+
+				<!-- Contact Request -->
+				<div class="footer-section">
+					<p class="footer-contact">
+						🤝 We kindly ask that you do not use or share information from this site without first reaching out to the author. If you have questions or would like to use any content, please contact <strong>Inna Tarasyan</strong>—I'm always happy to connect!
+					</p>
+				</div>
+
+				<!-- Legal Links -->
+				<div class="footer-section footer-links">
+					<a href="#" class="footer-link">Privacy Policy</a>
+					<span class="footer-link-separator">|</span>
+					<a href="#" class="footer-link">Terms of Use</a>
+				</div>
+
+				<!-- Security Status -->
+				<div class="footer-section footer-security">
+					<div class="security-badge">
+						<span class="security-icon">✅</span>
+						<span>Site status: No unsafe content detected by Google Safe Browsing.</span>
+					</div>
+					<div class="security-badge">
+						<span class="security-icon">🔒</span>
+						<span>Our SSL security has been rated A by Qualys SSL Labs.</span>
+					</div>
+					<div class="security-badge">
+						<span class="security-icon">✅</span>
+						<span>Checked by Google Safe Browsing</span>
+					</div>
+				</div>
 			</div>
-		</footer>
+		</div>
+	</footer>
 	</body>
 	</html>
 
