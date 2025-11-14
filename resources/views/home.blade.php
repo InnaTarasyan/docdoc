@@ -224,8 +224,8 @@
 				<h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3">What Our Patients Say</h2>
 				<p class="text-gray-600 max-w-2xl mx-auto">Real experiences from patients who found their perfect healthcare provider through our platform.</p>
 			</div>
-			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300">
 					<div class="flex items-center gap-1 mb-4">
 						@for($i = 0; $i < 5; $i++)
 							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -242,7 +242,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300">
 					<div class="flex items-center gap-1 mb-4">
 						@for($i = 0; $i < 5; $i++)
 							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -259,7 +259,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-6 shadow-sm hover:shadow-md transition-all duration-300">
+				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300">
 					<div class="flex items-center gap-1 mb-4">
 						@for($i = 0; $i < 5; $i++)
 							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -281,24 +281,24 @@
 
 		<!-- Health Articles/Tips Section -->
 		<section>
-			<div class="flex items-center justify-between mb-6">
+			<div class="flex items-center justify-between mb-6 sm:mb-8">
 				<div>
 					<h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">Health Tips & Articles</h2>
-					<p class="text-gray-600">Stay informed with expert health advice and wellness tips</p>
+					<p class="text-gray-600 text-sm sm:text-base">Stay informed with expert health advice and wellness tips</p>
 				</div>
 			</div>
-			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-				<a href="#" class="article-card group block rounded-xl bg-white border shadow-sm overflow-hidden hover:border-brand-600 hover:shadow-md transition-all duration-300">
-					<div class="relative h-48 bg-gradient-to-br from-brand-100 to-brand-200 overflow-hidden">
-						<svg class="w-24 h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-brand-400 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+				<a href="#" class="article-card group block rounded-xl bg-white border border-gray-200 shadow-sm overflow-hidden hover:border-brand-500 hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+					<div class="relative h-40 sm:h-48 bg-gradient-to-br from-brand-100 to-brand-200 overflow-hidden">
+						<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-brand-400 opacity-30 group-hover:opacity-40 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
 						</svg>
-						<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-brand-700">Wellness</div>
+						<div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-semibold text-brand-700 shadow-sm">Wellness</div>
 					</div>
-					<div class="p-6">
-						<h3 class="font-semibold text-gray-900 mb-2 group-hover:text-brand-700 transition-colors">Preventive Care: Your First Line of Defense</h3>
-						<p class="text-sm text-gray-600 mb-4 line-clamp-2">Learn how regular check-ups and preventive measures can help maintain your health and catch issues early.</p>
-						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium">
+					<div class="p-5 sm:p-6">
+						<h3 class="font-semibold text-base sm:text-lg text-gray-900 mb-2.5 group-hover:text-brand-700 transition-colors leading-tight">Preventive Care: Your First Line of Defense</h3>
+						<p class="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">Learn how regular check-ups and preventive measures can help maintain your health and catch issues early.</p>
+						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium group-hover:text-brand-800 transition-colors">
 							<span>Read more</span>
 							<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -306,17 +306,17 @@
 						</div>
 					</div>
 				</a>
-				<a href="#" class="article-card group block rounded-xl bg-white border shadow-sm overflow-hidden hover:border-brand-600 hover:shadow-md transition-all duration-300">
-					<div class="relative h-48 bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden">
-						<svg class="w-24 h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-blue-400 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<a href="#" class="article-card group block rounded-xl bg-white border border-gray-200 shadow-sm overflow-hidden hover:border-brand-500 hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+					<div class="relative h-40 sm:h-48 bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden">
+						<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-blue-400 opacity-30 group-hover:opacity-40 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
 						</svg>
-						<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-blue-700">Education</div>
+						<div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-semibold text-blue-700 shadow-sm">Education</div>
 					</div>
-					<div class="p-6">
-						<h3 class="font-semibold text-gray-900 mb-2 group-hover:text-brand-700 transition-colors">Understanding Your Health Insurance</h3>
-						<p class="text-sm text-gray-600 mb-4 line-clamp-2">A comprehensive guide to navigating health insurance coverage and making the most of your benefits.</p>
-						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium">
+					<div class="p-5 sm:p-6">
+						<h3 class="font-semibold text-base sm:text-lg text-gray-900 mb-2.5 group-hover:text-brand-700 transition-colors leading-tight">Understanding Your Health Insurance</h3>
+						<p class="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">A comprehensive guide to navigating health insurance coverage and making the most of your benefits.</p>
+						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium group-hover:text-brand-800 transition-colors">
 							<span>Read more</span>
 							<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -324,17 +324,17 @@
 						</div>
 					</div>
 				</a>
-				<a href="#" class="article-card group block rounded-xl bg-white border shadow-sm overflow-hidden hover:border-brand-600 hover:shadow-md transition-all duration-300">
-					<div class="relative h-48 bg-gradient-to-br from-purple-100 to-purple-200 overflow-hidden">
-						<svg class="w-24 h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-purple-400 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<a href="#" class="article-card group block rounded-xl bg-white border border-gray-200 shadow-sm overflow-hidden hover:border-brand-500 hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+					<div class="relative h-40 sm:h-48 bg-gradient-to-br from-purple-100 to-purple-200 overflow-hidden">
+						<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-purple-400 opacity-30 group-hover:opacity-40 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
 						</svg>
-						<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-purple-700">Lifestyle</div>
+						<div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-semibold text-purple-700 shadow-sm">Lifestyle</div>
 					</div>
-					<div class="p-6">
-						<h3 class="font-semibold text-gray-900 mb-2 group-hover:text-brand-700 transition-colors">Mental Health Matters</h3>
-						<p class="text-sm text-gray-600 mb-4 line-clamp-2">Discover strategies for maintaining good mental health and when to seek professional help.</p>
-						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium">
+					<div class="p-5 sm:p-6">
+						<h3 class="font-semibold text-base sm:text-lg text-gray-900 mb-2.5 group-hover:text-brand-700 transition-colors leading-tight">Mental Health Matters</h3>
+						<p class="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">Discover strategies for maintaining good mental health and when to seek professional help.</p>
+						<div class="flex items-center gap-2 text-sm text-brand-700 font-medium group-hover:text-brand-800 transition-colors">
 							<span>Read more</span>
 							<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
