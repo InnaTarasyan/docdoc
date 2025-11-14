@@ -346,18 +346,18 @@
 		</section>
 
 		<!-- Special Offers/Promotions Section -->
-		<section class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-2xl p-8 sm:p-10 md:p-12 text-white relative overflow-hidden">
+		<section class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-2xl p-8 sm:p-10 md:p-12 relative overflow-hidden" style="background: linear-gradient(135deg, rgb(5, 78, 25) 0%, rgb(4, 60, 19) 100%);">
 			<div class="absolute inset-0 opacity-10">
-				<svg class="absolute top-0 right-0 w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
+				<svg class="absolute top-0 right-0 w-64 h-64 text-white" fill="currentColor" viewBox="0 0 24 24">
 					<path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 				</svg>
-				<svg class="absolute bottom-0 left-0 w-48 h-48" fill="currentColor" viewBox="0 0 24 24">
+				<svg class="absolute bottom-0 left-0 w-48 h-48 text-white" fill="currentColor" viewBox="0 0 24 24">
 					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 				</svg>
 			</div>
 			<div class="relative z-10 max-w-4xl mx-auto text-center">
-				<h2 class="text-3xl sm:text-4xl font-bold mb-4">Special Health Checkup Offer</h2>
-				<p class="text-lg sm:text-xl text-brand-100 mb-6 max-w-2xl mx-auto">Get 20% off on comprehensive health checkups at participating clinics. Limited time offer!</p>
+				<h2 class="text-3xl sm:text-4xl font-bold mb-4 text-white">Special Health Checkup Offer</h2>
+				<p class="text-lg sm:text-xl mb-6 max-w-2xl mx-auto text-white opacity-95">Get 20% off on comprehensive health checkups at participating clinics. Limited time offer!</p>
 				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
 					<a href="{{ route('organizations.index') }}" class="bg-white text-brand-700 px-8 py-3 rounded-lg font-semibold hover:bg-brand-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
 						Find Participating Clinics
@@ -366,24 +366,24 @@
 						Learn More
 					</a>
 				</div>
-				<div class="mt-8 flex flex-wrap justify-center gap-6 text-sm">
+				<div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-white">
 					<div class="flex items-center gap-2">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
 						</svg>
-						<span>Valid until end of month</span>
+						<span class="text-white">Valid until end of month</span>
 					</div>
 					<div class="flex items-center gap-2">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
 						</svg>
-						<span>No hidden fees</span>
+						<span class="text-white">No hidden fees</span>
 					</div>
 					<div class="flex items-center gap-2">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
 						</svg>
-						<span>Easy booking</span>
+						<span class="text-white">Easy booking</span>
 					</div>
 				</div>
 			</div>
