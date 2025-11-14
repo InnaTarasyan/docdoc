@@ -399,8 +399,8 @@
 		</section>
 
 		<!-- Mobile App Promotion Section -->
-		<section class="bg-white rounded-2xl border shadow-sm p-8 sm:p-10 md:p-12">
-			<div class="grid md:grid-cols-2 gap-8 items-center">
+		<section class="bg-white rounded-xl sm:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 mx-auto max-w-7xl">
+			<div class="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
 				<div>
 					<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Take Your Health Care On The Go</h2>
 					<p class="text-lg text-gray-600 mb-6">Download our mobile app for instant access to doctors, clinics, and health resources. Book appointments, read reviews, and manage your health all in one place.</p>
