@@ -40,8 +40,8 @@
 				<form action="{{ route('search.index') }}" method="get" class="mt-4 sm:mt-5 md:mt-6 ajax-filter-form mx-auto w-full" data-ajax-list="true" data-results="#home-doctors-results">
 					<div class="flex flex-col sm:flex-row gap-3 sm:gap-3">
 						<div class="relative flex-1 w-full">
-							<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 sm:pl-4 text-gray-400">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 sm:h-6 sm:w-6">
+							<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 sm:pl-4 md:pl-4 text-gray-400 z-10">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 sm:h-5 sm:w-5 md:h-6 md:w-6">
 									<path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 3.473 9.8l3.613 3.614a.75.75 0 1 0 1.06-1.06l-3.614-3.614A5.5 5.5 0 0 0 9 3.5ZM5 9a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clip-rule="evenodd" />
 								</svg>
 							</span>
@@ -50,16 +50,17 @@
 								name="q"
 								value="{{ old('q', $query) }}"
 								placeholder="Search doctors, specialties, or cities"
-								class="input pl-12 sm:pl-12 md:pl-10 h-14 sm:h-14 md:h-12 text-base sm:text-base md:text-sm w-full"
+								class="input pl-11 sm:pl-12 md:pl-10 h-14 sm:h-14 md:h-12 text-base sm:text-base md:text-sm w-full touch-manipulation"
 								autocomplete="off"
+								inputmode="search"
 							/>
 							<button
 								type="button"
-								class="clear-input absolute inset-y-0 right-0 flex items-center justify-center pr-4 sm:pr-4 text-gray-400 hover:text-gray-600 touch-manipulation w-12 h-14 sm:w-12 sm:h-14 md:w-10 md:h-12"
+								class="clear-input absolute inset-y-0 right-0 flex items-center justify-center pr-3 sm:pr-4 md:pr-4 text-gray-400 hover:text-gray-600 active:text-gray-700 touch-manipulation w-12 h-14 sm:w-12 sm:h-14 md:w-10 md:h-12"
 								aria-label="Clear"
 								onclick="const i=this.closest('div').querySelector('input[name=q]'); i.value=''; i.focus(); i.dispatchEvent(new Event('input',{bubbles:true}));"
 							>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 sm:h-5 sm:w-5">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 sm:h-5 sm:w-5 md:h-5 md:w-5">
 									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414Z" clip-rule="evenodd" />
 								</svg>
 							</button>
