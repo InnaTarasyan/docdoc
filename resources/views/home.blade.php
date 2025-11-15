@@ -4,7 +4,10 @@
 
 @section('content')
 	<div class="grid gap-8">
-	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative mx-auto w-full max-w-7xl">
+	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative mx-auto w-full max-w-7xl rounded-2xl overflow-hidden">
+		<!-- Dark overlay for better text contrast -->
+		<div class="hero-overlay absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-0"></div>
+		
 		<div class="hero-decorations">
 			<svg class="hero-icon hero-icon-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 				<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
@@ -22,17 +25,17 @@
 				<path d="M12 5a4 4 0 1 1 0 8c-2 0-5-4-5-4s3-4 5-4Zm0 0c1.5 0 5 8 5 8l-3 6-2-4-2 4-3-6s3.5-8 5-8Z" stroke-linejoin="round"/>
 			</svg>
 		</div>
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<h1 class="hero-title text-white relative z-10 flex items-center justify-center gap-3">
-				<svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
+			<h1 class="hero-title text-white relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+				<svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 					<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
 				</svg>
-				<span>Find the care that fits you</span>
-				<svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<span class="drop-shadow-lg">Find the care that fits you</span>
+				<svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke-linecap="round"/>
 				</svg>
 			</h1>
-			<p class="hero-subtitle text-white text-center mx-auto max-w-2xl opacity-95">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
+			<p class="hero-subtitle text-white text-center mx-auto max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed drop-shadow-md mb-6 sm:mb-8">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
 
 				<form action="{{ route('search.index') }}" method="get" class="mt-6 ajax-filter-form mx-auto" data-ajax-list="true" data-results="#home-doctors-results">
 					<div class="flex flex-col sm:flex-row gap-3">
