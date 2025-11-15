@@ -15,3 +15,4 @@ class LegalController extends Controller
 	}
 }
 
+
