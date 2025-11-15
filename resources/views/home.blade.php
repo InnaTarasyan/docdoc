@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="grid gap-8">
-	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative" style="background-image: linear-gradient(135deg, rgba(5, 78, 25, 0.75) 0%, rgba(4, 60, 19, 0.75) 100%), url('{{ asset('img/hero-bg.webp') }}'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
+	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative">
 		<div class="hero-decorations">
 			<svg class="hero-icon hero-icon-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 				<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
@@ -22,60 +22,62 @@
 				<path d="M12 5a4 4 0 1 1 0 8c-2 0-5-4-5-4s3-4 5-4Zm0 0c1.5 0 5 8 5 8l-3 6-2-4-2 4-3-6s3.5-8 5-8Z" stroke-linejoin="round"/>
 			</svg>
 		</div>
-		<h1 class="hero-title text-white relative z-10 flex items-center justify-center gap-3">
-			<svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-				<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
-			</svg>
-			<span>Find the care that fits you</span>
-			<svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-				<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke-linecap="round"/>
-			</svg>
-		</h1>
-		<p class="hero-subtitle text-white text-center mx-auto max-w-2xl opacity-95">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<h1 class="hero-title text-white relative z-10 flex items-center justify-center gap-3">
+				<svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
+				</svg>
+				<span>Find the care that fits you</span>
+				<svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke-linecap="round"/>
+				</svg>
+			</h1>
+			<p class="hero-subtitle text-white text-center mx-auto max-w-2xl opacity-95">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
 
-			<form action="{{ route('search.index') }}" method="get" class="mt-6 ajax-filter-form mx-auto" data-ajax-list="true" data-results="#home-doctors-results">
-				<div class="flex flex-col sm:flex-row gap-3">
-					<div class="relative flex-1">
-						<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-								<path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 3.473 9.8l3.613 3.614a.75.75 0 1 0 1.06-1.06l-3.614-3.614A5.5 5.5 0 0 0 9 3.5ZM5 9a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clip-rule="evenodd" />
-							</svg>
-						</span>
-						<input
-							type="text"
-							name="q"
-							value="{{ old('q', $query) }}"
-							placeholder="Search doctors, specialties, or cities"
-							class="input pl-10 h-12 sm:h-12"
-							autocomplete="off"
-						/>
-						<button
-							type="button"
-							class="clear-input absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
-							aria-label="Clear"
-							onclick="const i=this.closest('div').querySelector('input[name=q]'); i.value=''; i.focus(); i.dispatchEvent(new Event('input',{bubbles:true}));"
-						>
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-								<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414Z" clip-rule="evenodd" />
-							</svg>
-						</button>
+				<form action="{{ route('search.index') }}" method="get" class="mt-6 ajax-filter-form mx-auto" data-ajax-list="true" data-results="#home-doctors-results">
+					<div class="flex flex-col sm:flex-row gap-3">
+						<div class="relative flex-1">
+							<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+									<path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 3.473 9.8l3.613 3.614a.75.75 0 1 0 1.06-1.06l-3.614-3.614A5.5 5.5 0 0 0 9 3.5ZM5 9a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clip-rule="evenodd" />
+								</svg>
+							</span>
+							<input
+								type="text"
+								name="q"
+								value="{{ old('q', $query) }}"
+								placeholder="Search doctors, specialties, or cities"
+								class="input pl-10 h-12 sm:h-12"
+								autocomplete="off"
+							/>
+							<button
+								type="button"
+								class="clear-input absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+								aria-label="Clear"
+								onclick="const i=this.closest('div').querySelector('input[name=q]'); i.value=''; i.focus(); i.dispatchEvent(new Event('input',{bubbles:true}));"
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414Z" clip-rule="evenodd" />
+								</svg>
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="mt-3 flex flex-wrap gap-2 text-sm">
-					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Therapist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Therapist</button>
-					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Pediatrician'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Pediatrician</button>
-					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Dentist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Dentist</button>
-					<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Cardiologist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Cardiologist</button>
-				</div>
-			</form>
-			<section id="home-doctors-results" class="mt-6 md:mt-8">
-				@include('search._results', [
-					'q' => $query ?? '',
-					'doctors' => collect(),
-					'organizations' => collect(),
-					'specialties' => collect(),
-				])
-			</section>
+					<div class="mt-3 flex flex-wrap gap-2 text-sm">
+						<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Therapist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Therapist</button>
+						<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Pediatrician'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Pediatrician</button>
+						<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Dentist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Dentist</button>
+						<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Cardiologist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Cardiologist</button>
+					</div>
+				</form>
+				<section id="home-doctors-results" class="mt-6 md:mt-8">
+					@include('search._results', [
+						'q' => $query ?? '',
+						'doctors' => collect(),
+						'organizations' => collect(),
+						'specialties' => collect(),
+					])
+				</section>
+		</div>
 		</section>
 
 		<section>

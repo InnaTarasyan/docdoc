@@ -691,21 +691,51 @@
 		.hero.bg-gradient-to-br {
 			margin-bottom: 2rem;
 			padding: 60px 0;
+			width: 100vw;
+			margin-left: calc(50% - 50vw);
+			margin-right: calc(50% - 50vw);
+		}
+		.hero.bg-gradient-to-br::before {
+			filter: blur(6px);
 		}
 	}
 	.hero.bg-gradient-to-br {
+		position: relative;
+		width: 100vw;
+		max-width: 100%;
+		margin-left: calc(50% - 50vw);
+		margin-right: calc(50% - 50vw);
 		background-image: 
-			linear-gradient(135deg, rgba(5, 78, 25, 0.75) 0%, rgba(4, 60, 19, 0.75) 100%),
-			url('/img/hero-bg.webp');
+			linear-gradient(135deg, rgba(5, 78, 25, 0.75) 0%, rgba(4, 60, 19, 0.75) 100%);
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: cover;
-		background-attachment: scroll;
 		box-shadow: 
 			0 4px 20px -4px rgba(0,0,0,0.3),
 			0 2px 8px -2px rgba(0,0,0,0.2);
 		margin-bottom: 100px;
 		padding: 100px 0;
+		overflow: hidden;
+	}
+	.hero.bg-gradient-to-br::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		background-image: url('/img/hero-bg.webp');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		filter: blur(8px);
+		transform: scale(1.1);
+		z-index: 0;
+	}
+	.hero.bg-gradient-to-br > * {
+		position: relative;
+		z-index: 1;
 	}
 	.hero-decorations {
 		position: absolute;
