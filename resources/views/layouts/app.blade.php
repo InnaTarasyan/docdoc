@@ -4,7 +4,59 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>@yield('title', config('app.name', 'Doc Directory'))</title>
+		<!-- jQuery (required for Select2) -->
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<!-- Select2 CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+		<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
+		<!-- Select2 JS -->
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+		<style>
+			/* Custom Select2 styling to match the design */
+			.select2-container--bootstrap-5 .select2-selection {
+				min-height: 3.5rem;
+				border: 1px solid #d1d5db;
+				border-radius: 0.5rem;
+				padding: 0.5rem;
+			}
+			.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+				line-height: 2.5rem;
+				padding-left: 0.75rem;
+			}
+			.select2-container--bootstrap-5 .select2-selection--single .select2-selection__arrow {
+				height: 2.5rem;
+				right: 0.75rem;
+			}
+			.select2-container--bootstrap-5 .select2-dropdown {
+				border: 1px solid #d1d5db;
+				border-radius: 0.5rem;
+			}
+			.select2-result-item-title {
+				font-weight: 500;
+				color: #111827;
+			}
+			.select2-result-item-subtitle {
+				margin-top: 0.25rem;
+			}
+			.select2-results__option--highlighted .select2-result-item-title {
+				color: white;
+			}
+			.select2-results__option--highlighted .select2-result-item-subtitle {
+				color: rgba(255, 255, 255, 0.8);
+			}
+			@media (min-width: 640px) {
+				.select2-container--bootstrap-5 .select2-selection {
+					min-height: 3rem;
+				}
+				.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+					line-height: 2rem;
+				}
+				.select2-container--bootstrap-5 .select2-selection--single .select2-selection__arrow {
+					height: 2rem;
+				}
+			}
+		</style>
 	</head>
 	<body class="min-h-screen bg-gray-50 text-gray-900 antialiased flex flex-col">
 		<header class="app-header">

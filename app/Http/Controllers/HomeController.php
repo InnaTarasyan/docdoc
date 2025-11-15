@@ -11,16 +11,9 @@ class HomeController extends Controller
 {
 	public function index(Request $request)
 	{
-		$query = (string) $request->get('q', '');
+		$query = trim((string) $request->get('q', ''));
 
 		$featuredDoctors = Doctor::query()
-			->when($query !== '', function ($q) use ($query) {
-				$q->where(function ($sub) use ($query) {
-					$sub->where('name', 'like', '%' . $query . '%')
-						->orWhere('taxonomy', 'like', '%' . $query . '%')
-						->orWhere('city', 'like', '%' . $query . '%');
-				});
-			})
 			->orderBy('id', 'desc')
 			->limit(8)
 			->get();

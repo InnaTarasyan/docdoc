@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="grid gap-6 sm:gap-8">
-	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative mx-auto w-full max-w-7xl rounded-xl sm:rounded-2xl overflow-hidden">
+	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative w-full rounded-xl sm:rounded-2xl overflow-hidden">
 		<!-- Dark overlay for better text contrast -->
 		<div class="hero-overlay absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-0"></div>
 		
@@ -25,7 +25,7 @@
 				<path d="M12 5a4 4 0 1 1 0 8c-2 0-5-4-5-4s3-4 5-4Zm0 0c1.5 0 5 8 5 8l-3 6-2-4-2 4-3-6s3.5-8 5-8Z" stroke-linejoin="round"/>
 			</svg>
 		</div>
-		<div class="max-w-7xl mx-auto px-4 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10 md:py-14 lg:py-20">
+		<div class="max-w-7xl mx-auto px-4 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-7 md:py-8 lg:py-10">
 			<h1 class="hero-title text-white relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-5 md:mb-6">
 				<svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 					<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
@@ -37,50 +37,73 @@
 			</h1>
 			<p class="hero-subtitle text-white text-center mx-auto max-w-2xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed drop-shadow-md mb-6 sm:mb-6 md:mb-8 px-2">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
 
-				<form action="{{ route('search.index') }}" method="get" class="mt-4 sm:mt-5 md:mt-6 ajax-filter-form mx-auto w-full" data-ajax-list="true" data-results="#home-doctors-results">
+				<form action="{{ route('search.index') }}" method="get" class="mt-4 sm:mt-5 md:mt-6 mx-auto w-full" id="home-search-form">
 					<div class="flex flex-col sm:flex-row gap-3 sm:gap-3">
 						<div class="relative flex-1 w-full">
-							<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 sm:pl-4 md:pl-4 text-gray-400 z-10">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 sm:h-5 sm:w-5 md:h-6 md:w-6">
-									<path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 3.473 9.8l3.613 3.614a.75.75 0 1 0 1.06-1.06l-3.614-3.614A5.5 5.5 0 0 0 9 3.5ZM5 9a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clip-rule="evenodd" />
-								</svg>
-							</span>
-							<input
-								type="text"
+							<select
 								name="q"
-								value="{{ old('q', $query) }}"
-								placeholder="Search doctors, specialties, or cities"
-								class="input pl-11 sm:pl-12 md:pl-10 h-14 sm:h-14 md:h-12 text-base sm:text-base md:text-sm w-full touch-manipulation"
-								autocomplete="off"
-								inputmode="search"
-							/>
-							<button
-								type="button"
-								class="clear-input absolute inset-y-0 right-0 flex items-center justify-center pr-3 sm:pr-4 md:pr-4 text-gray-400 hover:text-gray-600 active:text-gray-700 touch-manipulation w-12 h-14 sm:w-12 sm:h-14 md:w-10 md:h-12"
-								aria-label="Clear"
-								onclick="const i=this.closest('div').querySelector('input[name=q]'); i.value=''; i.focus(); i.dispatchEvent(new Event('input',{bubbles:true}));"
+								id="home-search-select"
+								class="w-full"
+								style="width: 100%;"
+								data-placeholder="Search doctors, specialties, or cities"
 							>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 sm:h-5 sm:w-5 md:h-5 md:w-5">
-									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414Z" clip-rule="evenodd" />
-								</svg>
-							</button>
+								@if($query)
+									<option value="{{ $query }}" selected>{{ $query }}</option>
+								@endif
+							</select>
 						</div>
+						<button
+							type="submit"
+							class="btn-primary h-14 sm:h-14 md:h-12 px-6 sm:px-8 text-base sm:text-base md:text-sm touch-manipulation whitespace-nowrap"
+						>
+							<span class="hidden sm:inline">Search</span>
+							<span class="sm:hidden">🔍</span>
+						</button>
 					</div>
 					<div class="mt-4 sm:mt-3 md:mt-3 flex flex-wrap gap-2.5 sm:gap-2.5">
-						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="this.closest('form').q.value='Therapist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Therapist</button>
-						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="this.closest('form').q.value='Pediatrician'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Pediatrician</button>
-						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="this.closest('form').q.value='Dentist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Dentist</button>
-						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="this.closest('form').q.value='Cardiologist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Cardiologist</button>
+						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="setSearchAndSubmit('Therapist')">Therapist</button>
+						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="setSearchAndSubmit('Pediatrician')">Pediatrician</button>
+						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="setSearchAndSubmit('Dentist')">Dentist</button>
+						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="setSearchAndSubmit('Cardiologist')">Cardiologist</button>
 					</div>
 				</form>
-				<section id="home-doctors-results" class="mt-6 sm:mt-6 md:mt-8">
-					@include('search._results', [
-						'q' => $query ?? '',
-						'doctors' => collect(),
-						'organizations' => collect(),
-						'specialties' => collect(),
-					])
-				</section>
+				@if($query)
+					<section id="home-doctors-results" class="mt-6 sm:mt-6 md:mt-8">
+						@php
+							$doctors = \App\Models\Doctor::query()
+								->select(['id','name','taxonomy','city','state','organization_name','gender'])
+								->where(function ($sub) use ($query) {
+									$sub->where('name', 'like', '%' . $query . '%')
+										->orWhere('taxonomy', 'like', '%' . $query . '%')
+										->orWhere('organization_name', 'like', '%' . $query . '%')
+										->orWhere('city', 'like', $query . '%')
+										->orWhere('state', 'like', $query . '%');
+								})
+								->limit(9)
+								->get();
+							$organizations = \App\Models\Organization::query()
+								->select(['id','name','city','state','phone'])
+								->where(function ($sub) use ($query) {
+									$sub->where('name', 'like', '%' . $query . '%')
+										->orWhere('city', 'like', $query . '%')
+										->orWhere('state', 'like', $query . '%');
+								})
+								->limit(9)
+								->get();
+							$specialties = \App\Models\Specialty::query()
+								->select(['id','code','description'])
+								->where('description', 'like', '%' . $query . '%')
+								->limit(12)
+								->get();
+						@endphp
+						@include('search._results', [
+							'q' => $query,
+							'doctors' => $doctors,
+							'organizations' => $organizations,
+							'specialties' => $specialties,
+						])
+					</section>
+				@endif
 		</div>
 		</section>
 

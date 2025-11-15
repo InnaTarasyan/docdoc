@@ -12,6 +12,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Lightweight API for autocomplete
 Route::get('/api/search/doctors', [DoctorController::class, 'search'])->name('api.search.doctors');
+Route::get('/api/search/autocomplete', [SearchController::class, 'autocomplete'])->name('api.search.autocomplete');
 
 // Unified search
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
