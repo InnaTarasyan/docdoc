@@ -688,12 +688,24 @@
 		.hero {
 			margin-bottom: 1.5rem;
 		}
+		.hero.bg-gradient-to-br {
+			margin-bottom: 2rem;
+			padding: 60px 0;
+		}
 	}
 	.hero.bg-gradient-to-br {
-		background: linear-gradient(135deg, rgb(5, 78, 25) 0%, rgb(4, 60, 19) 100%);
+		background-image: 
+			linear-gradient(135deg, rgba(5, 78, 25, 0.75) 0%, rgba(4, 60, 19, 0.75) 100%),
+			url('/img/hero-bg.webp');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-attachment: scroll;
 		box-shadow: 
 			0 4px 20px -4px rgba(0,0,0,0.3),
 			0 2px 8px -2px rgba(0,0,0,0.2);
+		margin-bottom: 100px;
+		padding: 100px 0;
 	}
 	.hero-decorations {
 		position: absolute;

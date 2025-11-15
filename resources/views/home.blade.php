@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="grid gap-8">
-	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative" style="background: linear-gradient(135deg, rgb(5, 78, 25) 0%, rgb(4, 60, 19) 100%);">
+	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative" style="background-image: linear-gradient(135deg, rgba(5, 78, 25, 0.75) 0%, rgba(4, 60, 19, 0.75) 100%), url('{{ asset('img/hero-bg.webp') }}'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
 		<div class="hero-decorations">
 			<svg class="hero-icon hero-icon-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 				<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
