@@ -49,9 +49,9 @@
 			</div>
 		</header>
 
-		<main class="container-tight py-8 flex-grow">
+		<main class="container-tight py-4 sm:py-6 md:py-8 flex-grow">
 			@hasSection('breadcrumbs')
-				<nav class="mb-6 text-sm text-gray-600">
+				<nav class="mb-4 sm:mb-6 text-sm text-gray-600">
 					@yield('breadcrumbs')
 				</nav>
 			@endif

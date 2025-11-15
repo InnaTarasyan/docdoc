@@ -3,8 +3,8 @@
 @section('title', 'Find Doctors & Clinics')
 
 @section('content')
-	<div class="grid gap-8">
-	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative mx-auto w-full max-w-7xl rounded-2xl overflow-hidden">
+	<div class="grid gap-6 sm:gap-8">
+	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative mx-auto w-full max-w-7xl rounded-xl sm:rounded-2xl overflow-hidden">
 		<!-- Dark overlay for better text contrast -->
 		<div class="hero-overlay absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-0"></div>
 		
@@ -25,22 +25,22 @@
 				<path d="M12 5a4 4 0 1 1 0 8c-2 0-5-4-5-4s3-4 5-4Zm0 0c1.5 0 5 8 5 8l-3 6-2-4-2 4-3-6s3.5-8 5-8Z" stroke-linejoin="round"/>
 			</svg>
 		</div>
-		<div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-10 md:py-14 lg:py-20">
-			<h1 class="hero-title text-white relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-5 md:mb-6">
-				<svg class="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+		<div class="max-w-7xl mx-auto px-4 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10 md:py-14 lg:py-20">
+			<h1 class="hero-title text-white relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-5 md:mb-6">
+				<svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 					<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
 				</svg>
-				<span class="drop-shadow-lg text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Find the care that fits you</span>
-				<svg class="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+				<span class="drop-shadow-lg text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight">Find the care that fits you</span>
+				<svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke-linecap="round"/>
 				</svg>
 			</h1>
-			<p class="hero-subtitle text-white text-center mx-auto max-w-2xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed drop-shadow-md mb-5 sm:mb-6 md:mb-8 px-2">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
+			<p class="hero-subtitle text-white text-center mx-auto max-w-2xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed drop-shadow-md mb-6 sm:mb-6 md:mb-8 px-2">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
 
-				<form action="{{ route('search.index') }}" method="get" class="mt-4 sm:mt-5 md:mt-6 ajax-filter-form mx-auto" data-ajax-list="true" data-results="#home-doctors-results">
-					<div class="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
-						<div class="relative flex-1">
-							<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 sm:pl-4 text-gray-400">
+				<form action="{{ route('search.index') }}" method="get" class="mt-4 sm:mt-5 md:mt-6 ajax-filter-form mx-auto w-full" data-ajax-list="true" data-results="#home-doctors-results">
+					<div class="flex flex-col sm:flex-row gap-3 sm:gap-3">
+						<div class="relative flex-1 w-full">
+							<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 sm:pl-4 text-gray-400">
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 sm:h-6 sm:w-6">
 									<path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 3.473 9.8l3.613 3.614a.75.75 0 1 0 1.06-1.06l-3.614-3.614A5.5 5.5 0 0 0 9 3.5ZM5 9a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clip-rule="evenodd" />
 								</svg>
@@ -50,12 +50,12 @@
 								name="q"
 								value="{{ old('q', $query) }}"
 								placeholder="Search doctors, specialties, or cities"
-								class="input pl-11 sm:pl-12 md:pl-10 h-14 sm:h-14 md:h-12 text-base sm:text-base md:text-sm"
+								class="input pl-12 sm:pl-12 md:pl-10 h-14 sm:h-14 md:h-12 text-base sm:text-base md:text-sm w-full"
 								autocomplete="off"
 							/>
 							<button
 								type="button"
-								class="clear-input absolute inset-y-0 right-0 flex items-center pr-3 sm:pr-4 text-gray-400 hover:text-gray-600 touch-manipulation"
+								class="clear-input absolute inset-y-0 right-0 flex items-center justify-center pr-4 sm:pr-4 text-gray-400 hover:text-gray-600 touch-manipulation w-12 h-14 sm:w-12 sm:h-14 md:w-10 md:h-12"
 								aria-label="Clear"
 								onclick="const i=this.closest('div').querySelector('input[name=q]'); i.value=''; i.focus(); i.dispatchEvent(new Event('input',{bubbles:true}));"
 							>
@@ -65,14 +65,14 @@
 							</button>
 						</div>
 					</div>
-					<div class="mt-3 sm:mt-3 md:mt-3 flex flex-wrap gap-2 sm:gap-2.5 text-sm sm:text-sm">
-						<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Therapist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Therapist</button>
-						<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Pediatrician'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Pediatrician</button>
-						<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Dentist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Dentist</button>
-						<button type="button" class="badge-sky" onclick="this.closest('form').q.value='Cardiologist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Cardiologist</button>
+					<div class="mt-4 sm:mt-3 md:mt-3 flex flex-wrap gap-2.5 sm:gap-2.5">
+						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="this.closest('form').q.value='Therapist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Therapist</button>
+						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="this.closest('form').q.value='Pediatrician'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Pediatrician</button>
+						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="this.closest('form').q.value='Dentist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Dentist</button>
+						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="this.closest('form').q.value='Cardiologist'; this.closest('form').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}))">Cardiologist</button>
 					</div>
 				</form>
-				<section id="home-doctors-results" class="mt-6 md:mt-8">
+				<section id="home-doctors-results" class="mt-6 sm:mt-6 md:mt-8">
 					@include('search._results', [
 						'q' => $query ?? '',
 						'doctors' => collect(),
@@ -83,9 +83,9 @@
 		</div>
 		</section>
 
-		<section>
-			<h2 class="text-lg font-medium text-gray-900 mb-3">Popular specialties</h2>
-			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+		<section class="mt-6 sm:mt-8">
+			<h2 class="text-lg sm:text-xl font-medium text-gray-900 mb-4 sm:mb-3">Popular specialties</h2>
+			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-3">
 				@forelse($popularSpecialties as $spec)
 					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="specialty-card block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800 group relative overflow-hidden">
 						<div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -103,13 +103,13 @@
 			</div>
 		</section>
 
-		<section class="grid md:grid-cols-2 gap-8">
+		<section class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8">
 			<div>
-				<div class="flex items-center justify-between mb-3">
-					<h2 class="text-lg font-medium text-gray-900">Featured doctors</h2>
-					<a href="{{ route('doctors.index') }}" target="_blank" rel="noopener noreferrer" class="text-brand-700 hover:underline text-sm">Browse all</a>
+				<div class="flex items-center justify-between mb-4 sm:mb-3">
+					<h2 class="text-lg sm:text-xl font-medium text-gray-900">Featured doctors</h2>
+					<a href="{{ route('doctors.index') }}" target="_blank" rel="noopener noreferrer" class="text-brand-700 hover:underline text-sm sm:text-sm min-h-[44px] flex items-center touch-manipulation">Browse all</a>
 				</div>
-				<div class="grid sm:grid-cols-2 gap-4">
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4">
 					@forelse($featuredDoctors as $doctor)
 						<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="doctor-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
 							<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -164,12 +164,12 @@
 					@endforelse
 				</div>
 			</div>
-			<div>
-				<div class="flex items-center justify-between mb-3">
-					<h2 class="text-lg font-medium text-gray-900">Featured organizations</h2>
-					<a href="{{ route('organizations.index') }}" target="_blank" rel="noopener noreferrer" class="text-brand-700 hover:underline text-sm">Browse all</a>
+			<div class="mt-6 md:mt-0">
+				<div class="flex items-center justify-between mb-4 sm:mb-3">
+					<h2 class="text-lg sm:text-xl font-medium text-gray-900">Featured organizations</h2>
+					<a href="{{ route('organizations.index') }}" target="_blank" rel="noopener noreferrer" class="text-brand-700 hover:underline text-sm sm:text-sm min-h-[44px] flex items-center touch-manipulation">Browse all</a>
 				</div>
-				<div class="grid sm:grid-cols-2 gap-4">
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4">
 					@forelse($featuredOrganizations as $org)
 						<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
 							<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -224,10 +224,10 @@
 		</section>
 
 		<!-- User Reviews/Testimonials Section -->
-		<section class="bg-white rounded-2xl border shadow-sm p-6 sm:p-8 md:p-10">
-			<div class="text-center mb-8">
-				<h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3">What Our Patients Say</h2>
-				<p class="text-gray-600 max-w-2xl mx-auto">Real experiences from patients who found their perfect healthcare provider through our platform.</p>
+		<section class="bg-white rounded-xl sm:rounded-2xl border shadow-sm p-5 sm:p-8 md:p-10 mt-6 sm:mt-8">
+			<div class="text-center mb-6 sm:mb-8">
+				<h2 class="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-3 sm:mb-3">What Our Patients Say</h2>
+				<p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-2">Real experiences from patients who found their perfect healthcare provider through our platform.</p>
 			</div>
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300">
@@ -285,13 +285,13 @@
 		</section>
 
 		<!-- Health Articles/Tips Section -->
-		<section class="mb-8 sm:mb-12">
-			<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-6 sm:mb-8 gap-3">
+		<section class="mb-6 sm:mb-12 mt-6 sm:mt-8">
+			<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-6 sm:mb-8 gap-4 sm:gap-3">
 				<div class="flex-1">
-					<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">Health Tips & Articles</h2>
+					<h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">Health Tips & Articles</h2>
 					<p class="text-gray-600 text-sm sm:text-base max-w-2xl">Stay informed with expert health advice and wellness tips from medical professionals</p>
 				</div>
-				<a href="#" class="text-brand-700 hover:text-brand-800 font-medium text-sm sm:text-base flex items-center gap-1.5 sm:self-end transition-colors">
+				<a href="#" class="text-brand-700 hover:text-brand-800 font-medium text-sm sm:text-base flex items-center gap-1.5 sm:self-end transition-colors min-h-[44px] touch-manipulation">
 					<span>View all articles</span>
 					<svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -360,7 +360,7 @@
 		</section>
 
 		<!-- Special Offers/Promotions Section -->
-		<section class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-2xl p-8 sm:p-10 md:p-12 relative overflow-hidden" style="background: linear-gradient(135deg, rgb(5, 78, 25) 0%, rgb(4, 60, 19) 100%);">
+		<section class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-xl sm:rounded-2xl p-6 sm:p-10 md:p-12 relative overflow-hidden mt-6 sm:mt-8" style="background: linear-gradient(135deg, rgb(5, 78, 25) 0%, rgb(4, 60, 19) 100%);">
 			<div class="absolute inset-0 opacity-10">
 				<svg class="absolute top-0 right-0 w-64 h-64 text-white" fill="currentColor" viewBox="0 0 24 24">
 					<path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -370,17 +370,17 @@
 				</svg>
 			</div>
 			<div class="relative z-10 max-w-4xl mx-auto text-center">
-				<h2 class="text-3xl sm:text-4xl font-bold mb-4 text-white">Special Health Checkup Offer</h2>
-				<p class="text-lg sm:text-xl mb-6 max-w-2xl mx-auto text-white opacity-95">Get 20% off on comprehensive health checkups at participating clinics. Limited time offer!</p>
-				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-					<a href="{{ route('organizations.index') }}" class="bg-white text-brand-700 px-8 py-3 rounded-lg font-semibold hover:bg-brand-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+				<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-4 text-white px-2">Special Health Checkup Offer</h2>
+				<p class="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto text-white opacity-95 px-2">Get 20% off on comprehensive health checkups at participating clinics. Limited time offer!</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-2">
+					<a href="{{ route('organizations.index') }}" class="bg-white text-brand-700 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-brand-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 w-full sm:w-auto min-h-[44px] flex items-center justify-center touch-manipulation">
 						Find Participating Clinics
 					</a>
-					<a href="#" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+					<a href="#" class="border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors w-full sm:w-auto min-h-[44px] flex items-center justify-center touch-manipulation">
 						Learn More
 					</a>
 				</div>
-				<div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-white">
+				<div class="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-white px-2">
 					<div class="flex items-center gap-2">
 						<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -404,13 +404,13 @@
 		</section>
 
 		<!-- Mobile App Promotion Section -->
-		<section class="bg-white rounded-xl sm:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 mx-auto max-w-7xl">
+		<section class="bg-white rounded-xl sm:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-5 sm:p-6 md:p-8 lg:p-10 xl:p-12 mx-auto max-w-7xl mt-6 sm:mt-8">
 			<div class="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
 				<div>
-					<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Take Your Health Care On The Go</h2>
-					<p class="text-lg text-gray-600 mb-6">Download our mobile app for instant access to doctors, clinics, and health resources. Book appointments, read reviews, and manage your health all in one place.</p>
+					<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">Take Your Health Care On The Go</h2>
+					<p class="text-base sm:text-lg text-gray-600 mb-6">Download our mobile app for instant access to doctors, clinics, and health resources. Book appointments, read reviews, and manage your health all in one place.</p>
 					<div class="flex flex-col sm:flex-row gap-4 mb-6">
-						<a href="#" class="inline-flex items-center justify-center gap-3 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl">
+						<a href="#" class="inline-flex items-center justify-center gap-3 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl min-h-[44px] touch-manipulation w-full sm:w-auto">
 							<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
 								<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
 							</svg>
@@ -419,7 +419,7 @@
 								<div class="text-lg font-semibold">App Store</div>
 							</div>
 						</a>
-						<a href="#" class="inline-flex items-center justify-center gap-3 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl">
+						<a href="#" class="inline-flex items-center justify-center gap-3 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl min-h-[44px] touch-manipulation w-full sm:w-auto">
 							<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
 								<path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
 							</svg>
@@ -480,12 +480,12 @@
 		</section>
 
 		<!-- Partnerships Section -->
-		<section class="bg-gradient-to-br from-gray-50 via-white to-brand-50/30 rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8 md:p-10 lg:p-12">
-			<div class="text-center mb-8 sm:mb-10 md:mb-12">
-				<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 tracking-tight">Trusted Partners</h2>
-				<p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">We collaborate with leading healthcare providers, insurance companies, and medical institutions to bring you the best care.</p>
+		<section class="bg-gradient-to-br from-gray-50 via-white to-brand-50/30 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-8 md:p-10 lg:p-12 mt-6 sm:mt-8">
+			<div class="text-center mb-6 sm:mb-8 md:mb-12">
+				<h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 tracking-tight px-2">Trusted Partners</h2>
+				<p class="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-2">We collaborate with leading healthcare providers, insurance companies, and medical institutions to bring you the best care.</p>
 			</div>
-			<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5 md:gap-6">
+			<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
 				<div class="partner-card group relative flex flex-col items-center justify-center p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 rounded-2xl hover:border-brand-500 hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
 					<div class="absolute inset-0 bg-gradient-to-br from-brand-50/0 to-brand-100/0 group-hover:from-brand-50 group-hover:to-brand-100/50 transition-all duration-300 rounded-2xl"></div>
 					<div class="relative z-10 text-center w-full">
