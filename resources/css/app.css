@@ -691,9 +691,6 @@
 		.hero.bg-gradient-to-br {
 			margin-bottom: 2rem;
 			padding: 60px 0;
-			width: 100vw;
-			margin-left: calc(50% - 50vw);
-			margin-right: calc(50% - 50vw);
 		}
 		.hero.bg-gradient-to-br::before {
 			filter: blur(6px);
@@ -701,10 +698,6 @@
 	}
 	.hero.bg-gradient-to-br {
 		position: relative;
-		width: 100vw;
-		max-width: 100%;
-		margin-left: calc(50% - 50vw);
-		margin-right: calc(50% - 50vw);
 		background-image: 
 			linear-gradient(135deg, rgba(5, 78, 25, 0.75) 0%, rgba(4, 60, 19, 0.75) 100%);
 		background-position: center center;

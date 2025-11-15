@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="grid gap-8">
-	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative">
+	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative mx-auto w-full max-w-7xl">
 		<div class="hero-decorations">
 			<svg class="hero-icon hero-icon-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 				<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
