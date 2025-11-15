@@ -13,6 +13,11 @@ class LegalController extends Controller
 	{
 		return view('legal.terms');
 	}
+
+	public function about()
+	{
+		return view('about');
+	}
 }
 
 

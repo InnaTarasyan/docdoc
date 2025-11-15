@@ -27,3 +27,6 @@ Route::get('/specialties', [SpecialtyController::class, 'index'])->name('special
 // Legal pages
 Route::get('/privacy-policy', [LegalController::class, 'privacy'])->name('legal.privacy');
 Route::get('/terms-of-use', [LegalController::class, 'terms'])->name('legal.terms');
+
+// About page
+Route::get('/about', [LegalController::class, 'about'])->name('about');

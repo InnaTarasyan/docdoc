@@ -1,59 +1,60 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🌐 Inna Tarasyan
+## Web Developer & Crypto Enthusiast
+### 🇦🇲 Based in Armenia
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Hello! I'm a passionate web developer with a strong interest in blockchain and crypto technologies. I focus on building tools that make crypto trading more accessible and data-driven. With experience in creating real-time, user-friendly web applications, I aim to empower traders through better insights and seamless interfaces.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🏥 Project Overview: NPI Registry Data Importer (Laravel)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This Laravel-based project is designed to fetch comprehensive healthcare provider data from the official NPI Registry API and store it in a structured and scalable way. The primary goal is to collect and organize information about doctors, healthcare organizations, and their specialties, making it easy to search, analyze, and use in medical directories or booking platforms.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🔍 Key Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Dynamic Data Retrieval
+Fetches paginated data from the NPI Registry API using valid, customizable filters like location (state) and taxonomy (specialty) to avoid API errors.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Data Categorization
+Organizes imported records into dedicated tables for:
 
-## Laravel Sponsors
+- **Doctors**
+- **Organizations**
+- **Specialties**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Console Commands
+Includes CLI tools to automate data import and refresh routines, ensuring updated information without duplicated entries.
 
-### Premium Partners
+### Caching Support (optional)
+Built-in caching layer helps reduce API calls and speeds up data retrieval for repeated queries.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Error Handling & Validation
+Ensures smooth data import through API response validation and structured logging.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🛠 Tech Stack
 
-## Code of Conduct
+- Laravel 10+
+- MySQL / PostgreSQL
+- Artisan Commands
+- JSON REST API Integration
+- Optional Cache (Redis / File)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 👤 Ownership
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+"Coin Trading Project" and this NPI data importer are solely built and maintained by me, **Inna Tarasyan** — an independent web developer from Armenia. No company or external organization is involved. I take full responsibility for the project's development, updates, and content.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📩 Get in Touch
+
+Got ideas, questions, or want to collaborate?
+
+Feel free to reach out — I'd love to connect!
+
+📧 Email: [innatarasyancryptotrading@gmail.com](mailto:innatarasyancryptotrading@gmail.com)
