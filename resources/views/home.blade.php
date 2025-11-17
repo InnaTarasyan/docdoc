@@ -4,7 +4,15 @@
 
 @section('content')
 	<div class="grid gap-6 sm:gap-8">
-	<section class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative w-full rounded-xl sm:rounded-2xl overflow-hidden">
+	<section
+		class="hero bg-gradient-to-br from-brand-600 to-brand-700 text-center relative w-full rounded-xl sm:rounded-2xl overflow-hidden"
+		style="background-image:
+			linear-gradient(135deg, rgba(5, 78, 25, 0.88), rgba(4, 60, 19, 0.9)),
+			url('{{ asset('img/hero-bg.webp') }}');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;"
+	>
 		<!-- Dark overlay for better text contrast -->
 		<div class="hero-overlay absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-0"></div>
 		
