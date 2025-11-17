@@ -20,13 +20,13 @@
 					<div class="section-header">
 						<div class="flex items-center justify-between">
 							<h2 class="font-medium text-gray-900">Doctors</h2>
-							<a href="{{ route('doctors.index', ['q' => $q]) }}" target="_blank" rel="noopener noreferrer" class="text-sm text-brand-700 hover:underline">View all</a>
+							<a href="{{ route('doctors.index', ['q' => $q]) }}" class="text-sm text-brand-700 hover:underline">View all</a>
 						</div>
 					</div>
 					<div class="section-body">
 						<div class="grid sm:grid-cols-2 gap-4">
 							@foreach($doctors as $doctor)
-								<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="doctor-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
+								<a href="{{ route('doctors.show', $doctor) }}" class="doctor-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
 									<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 									<div class="flex items-start gap-4 relative z-10">
 										@php
@@ -83,13 +83,13 @@
 					<div class="section-header">
 						<div class="flex items-center justify-between">
 							<h2 class="font-medium text-gray-900">Organizations</h2>
-							<a href="{{ route('organizations.index', ['q' => $q]) }}" target="_blank" rel="noopener noreferrer" class="text-sm text-brand-700 hover:underline">View all</a>
+							<a href="{{ route('organizations.index', ['q' => $q]) }}" class="text-sm text-brand-700 hover:underline">View all</a>
 						</div>
 					</div>
 					<div class="section-body">
 						<div class="grid sm:grid-cols-2 gap-4">
 							@foreach($organizations as $org)
-								<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
+								<a href="{{ route('organizations.show', $org) }}" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
 									<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 									<div class="flex items-start gap-4 relative z-10">
 										@php
@@ -145,13 +145,13 @@
 					<div class="section-header">
 						<div class="flex items-center justify-between">
 							<h2 class="font-medium text-gray-900">Specialties</h2>
-							<a href="{{ route('specialties.index') }}" target="_blank" rel="noopener noreferrer" class="text-sm text-brand-700 hover:underline">Browse all</a>
+							<a href="{{ route('specialties.index') }}" class="text-sm text-brand-700 hover:underline">Browse all</a>
 						</div>
 					</div>
 					<div class="section-body">
 						<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
 							@foreach($specialties as $spec)
-								<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="specialty-card block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800 group relative overflow-hidden">
+								<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800 group relative overflow-hidden">
 									<div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 									<div class="flex items-center gap-2 relative z-10">
 										<div class="specialty-icon-wrapper group-hover:scale-110 transition-transform shrink-0">

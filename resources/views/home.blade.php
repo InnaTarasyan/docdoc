@@ -111,7 +111,7 @@
 			<h2 class="text-lg sm:text-xl font-medium text-gray-900 mb-4 sm:mb-3">Popular specialties</h2>
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-3">
 				@forelse($popularSpecialties as $spec)
-					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" target="_blank" rel="noopener noreferrer" class="specialty-card block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800 group relative overflow-hidden">
+					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800 group relative overflow-hidden">
 						<div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 						<div class="flex items-center gap-2 relative z-10">
 							<div class="specialty-icon-wrapper group-hover:scale-110 transition-transform">
@@ -131,11 +131,11 @@
 			<div>
 				<div class="flex items-center justify-between mb-4 sm:mb-3">
 					<h2 class="text-lg sm:text-xl font-medium text-gray-900">Featured doctors</h2>
-					<a href="{{ route('doctors.index') }}" target="_blank" rel="noopener noreferrer" class="text-brand-700 hover:underline text-sm sm:text-sm min-h-[44px] flex items-center touch-manipulation">Browse all</a>
+					<a href="{{ route('doctors.index') }}" class="text-brand-700 hover:underline text-sm sm:text-sm min-h-[44px] flex items-center touch-manipulation">Browse all</a>
 				</div>
 				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4">
 					@forelse($featuredDoctors as $doctor)
-						<a href="{{ route('doctors.show', $doctor) }}" target="_blank" rel="noopener noreferrer" class="doctor-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
+						<a href="{{ route('doctors.show', $doctor) }}" class="doctor-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
 							<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 							<div class="flex items-start gap-4 relative z-10">
 								@php
@@ -191,11 +191,11 @@
 			<div class="mt-6 md:mt-0">
 				<div class="flex items-center justify-between mb-4 sm:mb-3">
 					<h2 class="text-lg sm:text-xl font-medium text-gray-900">Featured organizations</h2>
-					<a href="{{ route('organizations.index') }}" target="_blank" rel="noopener noreferrer" class="text-brand-700 hover:underline text-sm sm:text-sm min-h-[44px] flex items-center touch-manipulation">Browse all</a>
+					<a href="{{ route('organizations.index') }}" class="text-brand-700 hover:underline text-sm sm:text-sm min-h-[44px] flex items-center touch-manipulation">Browse all</a>
 				</div>
 				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4">
 					@forelse($featuredOrganizations as $org)
-						<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
+						<a href="{{ route('organizations.show', $org) }}" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
 							<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 							<div class="flex items-start gap-4 relative z-10">
 								@php

@@ -4,7 +4,7 @@
 @else
 	<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 		@foreach($organizations as $org)
-			<a href="{{ route('organizations.show', $org) }}" target="_blank" rel="noopener noreferrer" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
+			<a href="{{ route('organizations.show', $org) }}" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
 				<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 				<div class="flex items-start gap-4 relative z-10">
 					@php

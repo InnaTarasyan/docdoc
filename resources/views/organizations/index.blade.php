@@ -3,7 +3,7 @@
 @section('title', 'Organizations')
 
 @section('breadcrumbs')
-	<a href="{{ route('home') }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Home</a>
+	<a href="{{ route('home') }}" class="hover:underline">Home</a>
 	<span class="mx-1">/</span>
 	<span>Organizations</span>
 @endsection
@@ -40,7 +40,7 @@
 
 					<div class="flex items-center gap-2">
 						<button type="submit" class="btn-primary">Apply</button>
-						<a href="{{ route('organizations.index') }}" target="_blank" rel="noopener noreferrer" class="btn-outline">Reset</a>
+						<a href="{{ route('organizations.index') }}" class="btn-outline">Reset</a>
 					</div>
 				</form>
 				</div>

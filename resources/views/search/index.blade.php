@@ -3,7 +3,7 @@
 @section('title', 'Search')
 
 @section('breadcrumbs')
-	<a href="{{ route('home') }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Home</a>
+	<a href="{{ route('home') }}" class="hover:underline">Home</a>
 	<span class="mx-1">/</span>
 	<span>Search</span>
 @endsection
