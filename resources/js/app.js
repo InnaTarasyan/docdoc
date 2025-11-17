@@ -109,8 +109,17 @@ function initHomeSearchSelect2() {
 	const select = document.getElementById('home-search-select');
 	if (!select || typeof $ === 'undefined') return;
 
+	const prefersDesktop = window.matchMedia('(min-width: 640px)').matches;
+
 	const $select = $(select);
-	
+
+	if (!prefersDesktop) {
+		if ($select.data('select2')) {
+			$select.select2('destroy');
+		}
+		return;
+	}
+
 	// Destroy existing Select2 instance if any
 	if ($select.data('select2')) {
 		$select.select2('destroy');
@@ -269,8 +278,145 @@ window.setSearchAndSubmit = function(value) {
 	}
 };
 
+function initMobileSearchPopup() {
+	const popup = document.getElementById('mobile-search-popup');
+	const trigger = document.getElementById('mobile-search-trigger');
+	const input = document.getElementById('mobile-search-input');
+
+	if (!popup || !trigger) {
+		return;
+	}
+
+	const closeButtons = popup.querySelectorAll('[data-mobile-search-close]');
+	const clearButton = popup.querySelector('[data-mobile-search-clear]');
+	const items = Array.from(popup.querySelectorAll('[data-mobile-search-item]'));
+	const list = popup.querySelector('[data-mobile-search-list]');
+	const emptyState = popup.querySelector('[data-mobile-search-empty]');
+	const chips = popup.querySelectorAll('[data-mobile-search-chip]');
+
+	const toggleBodyScroll = (lock) => {
+		if (lock) {
+			document.body.classList.add('mobile-popup-open');
+		} else {
+			document.body.classList.remove('mobile-popup-open');
+		}
+	};
+
+	const openPopup = () => {
+		popup.classList.add('open');
+		popup.setAttribute('aria-hidden', 'false');
+		toggleBodyScroll(true);
+		setTimeout(() => {
+			if (input) {
+				input.focus();
+				input.select();
+			}
+		}, 150);
+	};
+
+	const closePopup = () => {
+		popup.classList.remove('open');
+		popup.setAttribute('aria-hidden', 'true');
+		toggleBodyScroll(false);
+	};
+
+	const filterList = (term) => {
+		if (!list || !items.length) return;
+		const needle = term.trim().toLowerCase();
+		let visibleCount = 0;
+
+		items.forEach((item) => {
+			const haystack = (item.getAttribute('data-value') || '').toLowerCase();
+			const matches = !needle || haystack.includes(needle);
+			item.style.display = matches ? 'flex' : 'none';
+			if (matches) {
+				visibleCount += 1;
+			}
+		});
+
+		if (emptyState) {
+			if (visibleCount === 0) {
+				emptyState.classList.add('is-visible');
+			} else {
+				emptyState.classList.remove('is-visible');
+			}
+		}
+	};
+
+	trigger.addEventListener('click', openPopup);
+	closeButtons.forEach((btn) => btn.addEventListener('click', closePopup));
+
+	popup.addEventListener('click', (event) => {
+		if (event.target === popup) {
+			closePopup();
+		}
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape' && popup.classList.contains('open')) {
+			closePopup();
+		}
+	});
+
+	if (input) {
+		input.addEventListener('input', (e) => {
+			filterList(e.target.value);
+		});
+
+		input.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter') {
+				const value = input.value.trim();
+				if (value) {
+					e.preventDefault();
+					window.setSearchAndSubmit(value);
+					closePopup();
+				}
+			}
+		});
+	}
+
+	if (clearButton) {
+		clearButton.addEventListener('click', () => {
+			if (!input) return;
+			input.value = '';
+			filterList('');
+			input.focus();
+		});
+	}
+
+	items.forEach((item) => {
+		item.addEventListener('click', () => {
+			const value = item.getAttribute('data-value');
+			if (value) {
+				window.setSearchAndSubmit(value);
+				closePopup();
+			}
+		});
+	});
+
+	chips.forEach((chip) => {
+		chip.addEventListener('click', () => {
+			const value = chip.getAttribute('data-mobile-search-chip');
+			if (value) {
+				window.setSearchAndSubmit(value);
+				closePopup();
+			}
+		});
+	});
+
+	const form = document.getElementById('home-search-form');
+	if (form) {
+		form.addEventListener('submit', closePopup);
+	}
+
+	filterList('');
+	closePopup();
+}
+
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function() {
+	initMobileSearchPopup();
+
 	// Wait for jQuery and Select2 to be available
 	function tryInit() {
 		if (typeof $ !== 'undefined' && typeof $.fn.select2 !== 'undefined') {
@@ -280,4 +426,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 	tryInit();
+
+	const mq = window.matchMedia('(min-width: 640px)');
+	const handleMqChange = () => {
+		if (typeof $ !== 'undefined' && typeof $.fn.select2 !== 'undefined') {
+			initHomeSearchSelect2();
+		}
+	};
+
+	if (typeof mq.addEventListener === 'function') {
+		mq.addEventListener('change', handleMqChange);
+	} else if (typeof mq.addListener === 'function') {
+		mq.addListener(handleMqChange);
+	}
 });

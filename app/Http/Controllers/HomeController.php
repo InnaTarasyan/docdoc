@@ -32,6 +32,12 @@ class HomeController extends Controller
 			->limit(12)
 			->get();
 
+		$mobileSpecialties = Specialty::query()
+			->select(['id', 'description'])
+			->orderBy('description')
+			->limit(150)
+			->get();
+
 		return view('home', [
 			'query' => $query,
 			'doctorsCount' => $doctorsCount,
@@ -40,6 +46,7 @@ class HomeController extends Controller
 			'featuredDoctors' => $featuredDoctors,
 			'featuredOrganizations' => $featuredOrganizations,
 			'popularSpecialties' => $popularSpecialties,
+			'mobileSpecialties' => $mobileSpecialties,
 		]);
 	}
 }

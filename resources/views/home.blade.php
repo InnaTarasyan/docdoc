@@ -45,7 +45,22 @@
 			</h1>
 			<p class="hero-subtitle text-white text-center mx-auto max-w-2xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed drop-shadow-md mb-6 sm:mb-6 md:mb-8 px-2">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
 
-				<form action="{{ route('search.index') }}" method="get" class="mt-4 sm:mt-5 md:mt-6 mx-auto w-full" id="home-search-form">
+				<div class="sm:hidden flex flex-col gap-3 mt-4" id="mobile-search-trigger-wrapper">
+					<button
+						type="button"
+						id="mobile-search-trigger"
+						class="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-white/95 text-brand-800 font-semibold text-base px-5 py-4 shadow-lg shadow-black/10 border border-white/20 touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+					>
+						<svg class="w-5 h-5 text-brand-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="11" cy="11" r="7"></circle>
+							<path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+						</svg>
+						<span>Search doctors & clinics</span>
+					</button>
+					<p class="text-sm text-white/80">Tap to pick a specialty, doctor, or city from the full-screen list.</p>
+				</div>
+
+				<form action="{{ route('search.index') }}" method="get" class="mt-4 sm:mt-5 md:mt-6 mx-auto w-full hidden sm:block" id="home-search-form">
 					<div class="flex flex-col sm:flex-row gap-3 sm:gap-3">
 						<div class="relative flex-1 w-full">
 							<select
@@ -75,6 +90,73 @@
 						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="setSearchAndSubmit('Cardiologist')">Cardiologist</button>
 					</div>
 				</form>
+
+				@php
+					$mobileSpecialtiesList = isset($mobileSpecialties) ? $mobileSpecialties : collect();
+				@endphp
+
+				<div
+					id="mobile-search-popup"
+					class="popup mpopup mpopup_fullscreen mpopup-speciality"
+					aria-hidden="true"
+					role="dialog"
+					aria-modal="true"
+				>
+					<div class="popup__wrap mpopup__wrap">
+						<button type="button" class="popup__close mpopup__close" data-mobile-search-close aria-label="Close search popup"></button>
+						<div class="popup__title mpopup__title">Find a specialty</div>
+						<div class="popup__scroller mpopup__scroller">
+							<div class="popup__content mpopup__content bottom-open">
+								<div class="field field-text">
+									<div class="field-text__wrap">
+										<input
+											type="text"
+											id="mobile-search-input"
+											placeholder="Search doctors, clinics, or specialties"
+											class="field-text__input"
+											autocomplete="off"
+										>
+										<button type="button" class="field-text__wrap_clear" data-mobile-search-clear aria-label="Clear search">
+											<svg class="field-text__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M6 6l12 12M6 18L18 6" stroke-linecap="round"></path>
+											</svg>
+										</button>
+										<div class="field-text__wrap_search">
+											<svg class="field-text__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<circle cx="11" cy="11" r="7"></circle>
+												<path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+											</svg>
+										</div>
+									</div>
+								</div>
+
+								<div class="mpopup__chips" id="mobile-search-quick-filters">
+									<button type="button" class="mpopup-chip" data-mobile-search-chip="Therapist">Therapist</button>
+									<button type="button" class="mpopup-chip" data-mobile-search-chip="Pediatrician">Pediatrician</button>
+									<button type="button" class="mpopup-chip" data-mobile-search-chip="Dentist">Dentist</button>
+									<button type="button" class="mpopup-chip" data-mobile-search-chip="Cardiologist">Cardiologist</button>
+								</div>
+
+								<div class="mpopup__list" data-mobile-search-list>
+									@foreach($mobileSpecialtiesList as $spec)
+										<div class="item" data-mobile-search-item data-value="{{ $spec->description }}">
+											<div class="item__value">{{ $spec->description }}</div>
+											<div class="item__chevron">
+												<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+													<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+												</svg>
+											</div>
+										</div>
+									@endforeach
+								</div>
+
+								<div class="mpopup__empty" data-mobile-search-empty>
+									No specialties match that search. Try another term.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="mt-5 sm:mt-6 md:mt-7 hero-stats">
 					<div class="hero-stats-shell bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 px-4 py-4 sm:px-6 sm:py-4 md:px-8 md:py-5 inline-flex w-full max-w-3xl mx-auto">
 						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 w-full text-left sm:text-center">
