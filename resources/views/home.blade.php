@@ -75,10 +75,10 @@
 						<button type="button" class="badge-sky min-h-[44px] px-4 py-2.5 text-sm sm:text-sm touch-manipulation" onclick="setSearchAndSubmit('Cardiologist')">Cardiologist</button>
 					</div>
 				</form>
-				<div class="mt-5 sm:mt-6 md:mt-7">
-					<div class="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 px-4 py-4 sm:px-6 sm:py-4 md:px-8 md:py-5 inline-flex w-full max-w-3xl mx-auto">
+				<div class="mt-5 sm:mt-6 md:mt-7 hero-stats">
+					<div class="hero-stats-shell bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 px-4 py-4 sm:px-6 sm:py-4 md:px-8 md:py-5 inline-flex w-full max-w-3xl mx-auto">
 						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 w-full text-left sm:text-center">
-							<div class="flex items-center sm:block gap-3">
+							<div class="hero-stat-item flex items-center sm:block gap-3">
 								<div class="flex-shrink-0 inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-500/20 text-white border border-white/40">
 									<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M12 4v16M4 12h16" stroke-linecap="round" stroke-linejoin="round"/>
@@ -93,7 +93,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="flex items-center sm:block gap-3">
+							<div class="hero-stat-item flex items-center sm:block gap-3">
 								<div class="flex-shrink-0 inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-500/20 text-white border border-white/40">
 									<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/>
@@ -109,7 +109,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="flex items-center sm:block gap-3">
+							<div class="hero-stat-item flex items-center sm:block gap-3">
 								<div class="flex-shrink-0 inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-500/20 text-white border border-white/40">
 									<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M4 11V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v4" stroke-linecap="round" stroke-linejoin="round"/>

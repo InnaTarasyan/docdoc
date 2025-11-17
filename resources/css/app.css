@@ -917,6 +917,44 @@
 			margin-bottom: 1rem !important;
 			padding: 0 0.5rem;
 		}
+		.hero-stats {
+			margin-top: 1.25rem !important;
+		}
+		.hero-stats-shell {
+			padding: 0.75rem 0.85rem 0.9rem !important;
+			border-radius: 1rem !important;
+			border-width: 1px;
+		}
+		.hero-stats-shell .grid {
+			row-gap: 0.75rem;
+		}
+		.hero-stat-item {
+			align-items: flex-start;
+		}
+		.hero-stat-item + .hero-stat-item {
+			border-top: 1px solid rgba(255, 255, 255, 0.12);
+			padding-top: 0.65rem;
+			margin-top: 0.4rem;
+		}
+		.hero-stat-item .text-lg,
+		.hero-stat-item .sm\:text-xl,
+		.hero-stat-item .md\:text-2xl {
+			font-size: 1.1rem !important;
+			line-height: 1.3 !important;
+		}
+		.hero-stat-item .text-xs,
+		.hero-stat-item .sm\:text-sm {
+			font-size: 0.8rem !important;
+			line-height: 1.4 !important;
+		}
+		.hero-stat-item svg {
+			width: 1.1rem !important;
+			height: 1.1rem !important;
+		}
+		.hero-stats-shell .flex-shrink-0 {
+			width: 2.4rem !important;
+			height: 2.4rem !important;
+		}
 	}
 
 	/* Enhanced "card link" anchors used throughout directories without changing markup */
