@@ -13,6 +13,10 @@ class HomeController extends Controller
 	{
 		$query = trim((string) $request->get('q', ''));
 
+		$doctorsCount = Doctor::query()->count();
+		$organizationsCount = Organization::query()->count();
+		$specialtiesCount = Specialty::query()->count();
+
 		$featuredDoctors = Doctor::query()
 			->orderBy('id', 'desc')
 			->limit(8)
@@ -30,6 +34,9 @@ class HomeController extends Controller
 
 		return view('home', [
 			'query' => $query,
+			'doctorsCount' => $doctorsCount,
+			'organizationsCount' => $organizationsCount,
+			'specialtiesCount' => $specialtiesCount,
 			'featuredDoctors' => $featuredDoctors,
 			'featuredOrganizations' => $featuredOrganizations,
 			'popularSpecialties' => $popularSpecialties,
