@@ -293,6 +293,12 @@ function initMobileSearchPopup() {
 	const list = popup.querySelector('[data-mobile-search-list]');
 	const emptyState = popup.querySelector('[data-mobile-search-empty]');
 	const chips = popup.querySelectorAll('[data-mobile-search-chip]');
+	const resultsContainer = popup.querySelector('[data-mobile-search-results]');
+	const resultsList = popup.querySelector('[data-mobile-search-results-list]');
+	const resultsEmpty = popup.querySelector('[data-mobile-search-results-empty]');
+	const resultsStatus = popup.querySelector('[data-mobile-search-results-status]');
+	const defaultResultsEmptyText = resultsEmpty ? resultsEmpty.textContent.trim() : '';
+	let suggestionsAbortController = null;
 
 	const toggleBodyScroll = (lock) => {
 		if (lock) {
@@ -343,6 +349,147 @@ function initMobileSearchPopup() {
 		}
 	};
 
+	const showResultsContainer = (show) => {
+		if (!resultsContainer) return;
+		if (show) {
+			resultsContainer.hidden = false;
+			resultsContainer.classList.add('is-visible');
+		} else {
+			resultsContainer.hidden = true;
+			resultsContainer.classList.remove('is-visible');
+		}
+	};
+
+	const setResultsStatus = (text) => {
+		if (resultsStatus) {
+			resultsStatus.textContent = text;
+		}
+	};
+
+	const setResultsEmpty = (visible, text) => {
+		if (!resultsEmpty) return;
+		resultsEmpty.textContent = text || defaultResultsEmptyText;
+		if (visible) {
+			resultsEmpty.classList.add('is-visible');
+		} else {
+			resultsEmpty.classList.remove('is-visible');
+		}
+	};
+
+	const resetResults = () => {
+		if (suggestionsAbortController) {
+			suggestionsAbortController.abort();
+			suggestionsAbortController = null;
+		}
+		if (resultsList) {
+			resultsList.innerHTML = '';
+		}
+		setResultsEmpty(true, defaultResultsEmptyText || 'Start typing to search.');
+		setResultsStatus('Start typing…');
+		showResultsContainer(false);
+	};
+
+	const handleResultAction = (item) => {
+		if (!item) return;
+		if (item.url) {
+			window.location.href = item.url;
+		} else if (item.text) {
+			window.setSearchAndSubmit(item.text);
+		}
+		closePopup();
+	};
+
+	const renderResults = (results = []) => {
+		if (!resultsContainer || !resultsList) return;
+		resultsList.innerHTML = '';
+		if (!results.length) {
+			setResultsEmpty(true, 'No matches yet. Try another term.');
+			return;
+		}
+
+		const fragment = document.createDocumentFragment();
+		results.forEach((result) => {
+			const button = document.createElement('button');
+			button.type = 'button';
+			button.className = 'mpopup-result-item';
+
+			const info = document.createElement('div');
+			info.className = 'mpopup-result-item__info';
+
+			const title = document.createElement('div');
+			title.className = 'mpopup-result-item__title';
+			title.textContent = result.text;
+
+			info.appendChild(title);
+
+			if (result.subtitle) {
+				const subtitle = document.createElement('div');
+				subtitle.className = 'mpopup-result-item__subtitle';
+				subtitle.textContent = result.subtitle;
+				info.appendChild(subtitle);
+			}
+
+			const chip = document.createElement('div');
+			chip.className = 'mpopup-result-item__chip';
+			chip.textContent = result.type || 'match';
+
+			button.appendChild(info);
+			button.appendChild(chip);
+
+			button.addEventListener('click', () => handleResultAction(result));
+			fragment.appendChild(button);
+		});
+
+		resultsList.appendChild(fragment);
+		setResultsEmpty(false);
+	};
+
+	const fetchSuggestions = debounce(async (term) => {
+		if (!resultsContainer) {
+			return;
+		}
+		if (suggestionsAbortController) {
+			suggestionsAbortController.abort();
+		}
+		suggestionsAbortController = new AbortController();
+		setResultsStatus('Searching…');
+		setResultsEmpty(false);
+
+		try {
+			const response = await fetch(`/api/search/autocomplete?q=${encodeURIComponent(term)}`, {
+				signal: suggestionsAbortController.signal,
+				headers: {
+					'Accept': 'application/json',
+				},
+			});
+			if (!response.ok) {
+				throw new Error('Failed to load suggestions');
+			}
+			const data = await response.json();
+			renderResults(Array.isArray(data.results) ? data.results : []);
+			setResultsStatus('Suggestions ready');
+		} catch (err) {
+			if (err.name === 'AbortError') {
+				return;
+			}
+			setResultsStatus('Offline? Try again');
+			setResultsEmpty(true, 'Unable to load suggestions right now.');
+		}
+	}, 350);
+
+	const handleDynamicSuggestions = (term) => {
+		const value = term.trim();
+		if (!resultsContainer) return;
+		if (value.length < 2) {
+			resetResults();
+			return;
+		}
+		showResultsContainer(true);
+		setResultsStatus('Searching…');
+		setResultsEmpty(false);
+		fetchSuggestions(value);
+	};
+
 	trigger.addEventListener('click', openPopup);
 	closeButtons.forEach((btn) => btn.addEventListener('click', closePopup));
 
@@ -360,7 +507,9 @@ function initMobileSearchPopup() {
 
 	if (input) {
 		input.addEventListener('input', (e) => {
-			filterList(e.target.value);
+			const value = e.target.value;
+			filterList(value);
+			handleDynamicSuggestions(value);
 		});
 
 		input.addEventListener('keydown', (e) => {
@@ -380,6 +529,7 @@ function initMobileSearchPopup() {
 			if (!input) return;
 			input.value = '';
 			filterList('');
+			resetResults();
 			input.focus();
 		});
 	}
@@ -410,6 +560,7 @@ function initMobileSearchPopup() {
 	}
 
 	filterList('');
+	resetResults();
 	closePopup();
 }
 

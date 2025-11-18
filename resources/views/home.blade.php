@@ -137,6 +137,20 @@
 									<button type="button" class="mpopup-chip" data-mobile-search-chip="Cardiologist">Cardiologist</button>
 								</div>
 
+								<div class="mpopup__results" data-mobile-search-results hidden>
+									<div class="mpopup__results-head">
+										<div>
+											<div class="mpopup__results-title">Doctors & clinics</div>
+											<div class="mpopup__results-hint">Live suggestions from our directory</div>
+										</div>
+										<div class="mpopup__results-status" data-mobile-search-results-status>Start typing…</div>
+									</div>
+									<div class="mpopup__results-list" data-mobile-search-results-list></div>
+									<div class="mpopup__results-empty" data-mobile-search-results-empty>
+										Start typing at least 2 letters to find specialists or organizations.
+									</div>
+								</div>
+
 								<div class="mpopup__list" data-mobile-search-list>
 									@foreach($mobileSpecialtiesList as $spec)
 										<div class="item" data-mobile-search-item data-value="{{ $spec->description }}">
