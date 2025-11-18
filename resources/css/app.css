@@ -767,8 +767,25 @@
 .hero--desktop-photo.hero.bg-gradient-to-br::before {
 	display: block;
 	background-size: cover;
-	filter: blur(18px) saturate(1.1);
-	opacity: 0.85;
+	filter: blur(8px) saturate(1.05);
+	opacity: 0.9;
+}
+.hero--desktop-photo .hero-title span,
+.hero--desktop-photo .hero-title svg {
+	text-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+.hero--desktop-photo .hero-subtitle {
+	color: rgba(255, 255, 255, 0.96);
+	text-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+	background: rgba(4, 47, 31, 0.35);
+	backdrop-filter: blur(6px);
+	border-radius: 1rem;
+	padding: 0.85rem 1.25rem;
+}
+.hero--desktop-photo .hero-stats-shell {
+	background-color: rgba(6, 78, 59, 0.35);
+	backdrop-filter: blur(10px);
+	border-color: rgba(255, 255, 255, 0.25);
 }
 @media (max-width: 639px) {
 	.hero--desktop-photo.hero.bg-gradient-to-br {
