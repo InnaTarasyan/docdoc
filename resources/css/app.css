@@ -753,6 +753,53 @@
 		position: relative;
 		z-index: 2;
 	}
+.hero__inner {
+	backdrop-filter: none;
+	background: transparent;
+	border-radius: inherit;
+	transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.hero--desktop-photo.hero.bg-gradient-to-br {
+	background-image:
+		linear-gradient(135deg, rgba(4, 47, 31, 0.95) 0%, rgba(6, 95, 70, 0.82) 60%, rgba(6, 95, 70, 0.68) 100%);
+}
+.hero--desktop-photo.hero.bg-gradient-to-br::before {
+	display: block;
+	background-size: cover;
+	filter: blur(16px);
+	opacity: 0.9;
+}
+@media (max-width: 639px) {
+	.hero--desktop-photo.hero.bg-gradient-to-br {
+		background-image:
+			radial-gradient(1200px 500px at -5% -15%, rgba(15,81,50,0.4), transparent 55%),
+			radial-gradient(900px 400px at 105% 5%, rgba(20,69,47,0.35), transparent 60%),
+			radial-gradient(600px 300px at 50% 50%, rgba(15,81,50,0.25), transparent 70%),
+			linear-gradient(135deg, #064e3b 0%, #047857 40%, #065f46 100%) !important;
+		background-size: cover;
+		background-position: center;
+	}
+	.hero--desktop-photo.hero.bg-gradient-to-br::before {
+		display: none;
+	}
+	.hero__inner {
+		background: rgba(15, 23, 42, 0.55);
+		border-radius: 1.25rem;
+		padding: 1.5rem 1.25rem;
+		backdrop-filter: blur(10px);
+		box-shadow: 0 20px 45px -30px rgba(0, 0, 0, 0.9);
+	}
+	.hero__inner .hero-title span,
+	.hero__inner .hero-title svg,
+	.hero__inner .hero-subtitle,
+	.hero__inner .hero-stat-item .text-lg,
+	.hero__inner .hero-stat-item .text-xs {
+		text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+	}
+	.hero__inner .hero-subtitle {
+		color: rgba(255, 255, 255, 0.92);
+	}
+}
 	.hero-decorations {
 		position: absolute;
 		inset: 0;
