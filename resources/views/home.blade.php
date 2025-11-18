@@ -275,10 +275,10 @@
 		</div>
 		</section>
 
-		<section class="mt-6 sm:mt-8 relative sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-white/10 sm:bg-gradient-to-br sm:from-emerald-950 sm:via-emerald-900 sm:to-emerald-950 sm:p-8 sm:shadow-[0_25px_60px_rgba(6,95,70,0.35)]">
-			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/15 bg-white/5 backdrop-blur-2xl"></div>
-			<div class="hidden sm:block absolute -top-16 -right-10 w-64 h-64 bg-emerald-400/25 blur-[140px] rounded-full pointer-events-none"></div>
-			<div class="hidden sm:block absolute bottom-0 left-10 w-72 h-72 bg-emerald-500/25 blur-[160px] rounded-full pointer-events-none"></div>
+		<section class="mt-6 sm:mt-8 relative sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-white/10 sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:p-8 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)]">
+			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/15 bg-white/10 backdrop-blur-2xl"></div>
+			<div class="hidden sm:block absolute -top-16 -right-10 w-64 h-64 bg-emerald-300/35 blur-[140px] rounded-full pointer-events-none"></div>
+			<div class="hidden sm:block absolute bottom-0 left-10 w-72 h-72 bg-emerald-400/30 blur-[160px] rounded-full pointer-events-none"></div>
 
 			<div class="relative z-10">
 				<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4 sm:mb-6">
@@ -287,17 +287,17 @@
 						<h2 class="text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white">Popular specialties</h2>
 						<p class="text-sm sm:text-base text-gray-600 sm:text-emerald-50/80 mt-1 max-w-2xl">Tap a specialty to jump straight into doctors that match. The cards resize smoothly from narrow phones through large desktops.</p>
 					</div>
-					<a href="{{ route('doctors.index') }}" class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800 sm:text-white sm:hover:text-emerald-100 sm:bg-white/10 sm:border sm:border-white/20 sm:px-5 sm:py-2.5 sm:rounded-full sm:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 transition">
+					<a href="{{ route('doctors.index') }}" class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800 sm:text-white sm:hover:text-emerald-50 sm:bg-white/10 sm:border sm:border-white/20 sm:px-5 sm:py-2.5 sm:rounded-full sm:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 transition">
 						View all doctors
 						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</a>
 				</div>
-				<div class="relative rounded-2xl sm:rounded-[36px] border border-gray-200/80 sm:border-white/20 bg-gradient-to-br from-white via-white to-brand-50/40 sm:bg-white/5 p-4 sm:p-8 shadow-sm sm:shadow-2xl sm:overflow-hidden">
-					<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 bg-emerald-400/5 backdrop-blur-xl"></div>
-					<div class="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-emerald-500/30 via-emerald-400/10 to-transparent pointer-events-none rounded-l-[36px] opacity-60 hidden sm:block z-0"></div>
-					<div class="absolute inset-y-4 right-6 w-32 bg-emerald-400/30 blur-3xl rounded-full opacity-70 pointer-events-none hidden sm:block z-0"></div>
+				<div class="relative rounded-2xl sm:rounded-[36px] border border-gray-200/80 sm:border-white/15 bg-gradient-to-br from-white via-white to-brand-50/40 sm:bg-white/10 p-4 sm:p-8 shadow-sm sm:shadow-2xl sm:overflow-hidden">
+					<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 bg-emerald-300/10 backdrop-blur-xl"></div>
+					<div class="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-emerald-400/35 via-emerald-300/10 to-transparent pointer-events-none rounded-l-[36px] opacity-70 hidden sm:block z-0"></div>
+					<div class="absolute inset-y-4 right-6 w-32 bg-emerald-300/35 blur-3xl rounded-full opacity-80 pointer-events-none hidden sm:block z-0"></div>
 					<div class="relative z-10 -mx-2 sm:mx-0 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0">
 						<div class="grid min-w-[520px] grid-cols-1 gap-3 max-[639px]:min-w-full sm:min-w-0 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:gap-4">
 				@forelse($popularSpecialties as $spec)
