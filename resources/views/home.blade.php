@@ -293,7 +293,7 @@
 				<div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-brand-100/60 to-transparent pointer-events-none rounded-l-2xl hidden sm:block"></div>
 				<div class="absolute inset-y-4 right-6 w-32 bg-brand-100/30 blur-3xl rounded-full opacity-70 pointer-events-none"></div>
 				<div class="-mx-2 sm:mx-0 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0">
-					<div class="grid min-w-[520px] grid-cols-2 gap-3 sm:min-w-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:gap-4 [@media(min-width:360px)]:grid-cols-2 [@media(min-width:460px)]:grid-cols-3">
+					<div class="grid min-w-[520px] grid-cols-1 gap-3 max-[639px]:min-w-full sm:min-w-0 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:gap-4">
 				@forelse($popularSpecialties as $spec)
 						<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
 							<div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-transparent to-brand-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
