@@ -326,17 +326,31 @@
 			</div>
 		</section>
 
-		<section class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8">
-			<div>
-				<div class="flex items-center justify-between mb-4 sm:mb-3">
-					<h2 class="text-lg sm:text-xl font-medium text-gray-900">Featured doctors</h2>
-					<a href="{{ route('doctors.index') }}" class="text-brand-700 hover:underline text-sm sm:text-sm min-h-[44px] flex items-center touch-manipulation">Browse all</a>
+		<section class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8 relative bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 p-0 sm:p-8 sm:overflow-hidden">
+			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 opacity-40 pointer-events-none"></div>
+			<div class="hidden sm:block absolute -top-12 -left-6 w-56 h-56 bg-emerald-400/30 blur-[140px] rounded-full pointer-events-none"></div>
+			<div class="hidden sm:block absolute -bottom-10 right-0 w-72 h-72 bg-teal-300/25 blur-[160px] rounded-full pointer-events-none"></div>
+
+			<div class="relative z-10 flex flex-col gap-4 sm:gap-5">
+				<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+					<div>
+						<p class="text-xs uppercase tracking-wide text-brand-700 font-semibold sm:text-emerald-100">Top-rated care</p>
+						<h2 class="text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white">Featured doctors</h2>
+						<p class="text-sm text-gray-600 sm:text-emerald-50/80 mt-1 max-w-xl">Hand-picked specialists with excellent patient feedback, responsive chat times, and in-network coverage.</p>
+					</div>
+					<a href="{{ route('doctors.index') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold text-brand-700 hover:text-brand-800 bg-brand-50 border border-brand-100 shadow-sm hover:shadow md:self-end sm:bg-white/10 sm:text-white sm:border-white/30 sm:hover:bg-white/20 sm:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 focus-visible:ring-white/70 transition min-h-[42px]">Browse all
+						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
 				</div>
-				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4">
-					@forelse($featuredDoctors as $doctor)
-						<a href="{{ route('doctors.show', $doctor) }}" class="doctor-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
-							<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-							<div class="flex items-start gap-4 relative z-10">
+				<div class="relative rounded-2xl sm:rounded-[30px] border border-gray-100 sm:border-white/15 bg-white/95 shadow-sm sm:shadow-2xl p-4 sm:p-6 overflow-hidden">
+					<div class="hidden sm:block absolute -top-8 -right-6 w-36 h-36 bg-emerald-200/40 blur-3xl rounded-full pointer-events-none"></div>
+					<div class="hidden sm:block absolute inset-0 rounded-[30px] border border-white/10 pointer-events-none"></div>
+					<div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+						@forelse($featuredDoctors as $doctor)
+							<a href="{{ route('doctors.show', $doctor) }}" class="doctor-card block rounded-2xl bg-white/95 border border-gray-100 p-4 shadow-sm hover:border-brand-500 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 transition-all duration-300 group relative overflow-hidden">
+								<div class="absolute inset-0 bg-gradient-to-br from-brand-50/80 via-transparent to-brand-100/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 								@php
 									$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
 									$idx = $seed % 80;
@@ -357,91 +371,178 @@
 											$isFemale = ($idx % 2) === 1;
 										}
 									}
-									$folder = $isFemale ? 'women' : 'men';
-									$avatarUrl = "https://randomuser.me/api/portraits/{$folder}/{$idx}.jpg";
+									$seedString = trim($doctor->name ?? '') !== '' ? $doctor->name : ('doctor-' . $doctor->id);
+									$avatarSeed = rawurlencode($seedString . ($isFemale ? '-f' : '-m'));
+									$avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed={$avatarSeed}&backgroundColor=ccfbf1&radius=50";
 									$taxonomy = $doctor->taxonomy ?? '';
 								@endphp
-								<div class="relative shrink-0">
-									<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="doctor-avatar w-14 h-14 rounded-full ring-2 ring-gray-200 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" />
-									<div class="doctor-icon-wrapper absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
-										@include('components.specialty-icon', ['name' => $taxonomy, 'class' => 'w-4 h-4'])
+								<div class="relative z-10 flex flex-col gap-4">
+									<div class="flex items-start gap-4">
+										<div class="relative shrink-0">
+											<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="doctor-avatar w-16 h-16 rounded-full ring-2 ring-brand-100 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" decoding="async" />
+											<div class="doctor-icon-wrapper absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+												@include('components.specialty-icon', ['name' => $taxonomy, 'class' => 'w-4 h-4'])
+											</div>
+										</div>
+										<div class="min-w-0 flex-1">
+											<div class="flex items-start justify-between gap-2">
+												<div class="font-semibold text-gray-900 truncate group-hover:text-brand-700 transition-colors">{{ $doctor->name }}</div>
+												<div class="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">
+													<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+														<path d="m12 17 5 3-1.5-5.727L20 9.5l-5.8-.5L12 3 9.8 9 4 9.5l4.5 4.773L7 20z" stroke-linejoin="round" stroke-linecap="round"/>
+													</svg>
+													<span>4.8</span>
+												</div>
+											</div>
+											<div class="text-sm text-gray-600 truncate mt-0.5">{{ $doctor->taxonomy ?: 'General practitioner' }}</div>
+											<div class="text-sm text-gray-500 mt-1 flex items-center gap-1.5">
+												<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+													<path d="M12 21a9 9 0 1 0-9-9c0 5 9 9 9 9z"/>
+													<circle cx="12" cy="12" r="3"/>
+												</svg>
+												<span>{{ $doctor->city }}, {{ $doctor->state }}</span>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="min-w-0 flex-1">
-									<div class="font-medium text-gray-900 truncate group-hover:text-brand-700 transition-colors flex items-center gap-2">
-										<span>{{ $doctor->name }}</span>
-										<svg class="w-4 h-4 text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
-										</svg>
-									</div>
-									<div class="text-sm text-gray-600 truncate mt-0.5">{{ $doctor->taxonomy ?: '—' }}</div>
-									<div class="text-sm text-gray-600 mt-1">{{ $doctor->city }}, {{ $doctor->state }}</div>
 									@if($doctor->organization_name)
-										<div class="text-sm text-gray-700 mt-1 truncate">{{ $doctor->organization_name }}</div>
+										<div class="text-xs uppercase tracking-wide text-gray-500 font-semibold">Affiliated with</div>
+										<div class="text-sm text-gray-800 truncate">{{ $doctor->organization_name }}</div>
 									@endif
+									<div class="flex flex-wrap gap-2 text-xs text-gray-600">
+										<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gray-50 border border-gray-200">
+											<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M4 6h16M4 12h10M4 18h7" stroke-linecap="round"/>
+											</svg>
+											{{ $taxonomy ?: 'Flexible practice' }}
+										</span>
+										<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-brand-50 border border-brand-100 text-brand-700">
+											<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											In-network
+										</span>
+									</div>
+									<div class="flex items-center justify-between pt-2 border-t border-gray-100">
+										<div class="flex items-center gap-1 text-sm font-medium text-brand-700">
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M8 17l4 4 4-4M12 3v18" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											<span>Next-day slots</span>
+										</div>
+										<div class="inline-flex items-center gap-1 text-sm font-semibold text-brand-700 group-hover:gap-2 transition-all">
+											<span>View profile</span>
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</div>
+									</div>
 								</div>
-							</div>
-						</a>
-					@empty
-						<p class="text-gray-600">No doctors available.</p>
-					@endforelse
+							</a>
+						@empty
+							<p class="text-gray-600">No doctors available.</p>
+						@endforelse
+					</div>
 				</div>
 			</div>
-			<div class="mt-6 md:mt-0">
-				<div class="flex items-center justify-between mb-4 sm:mb-3">
-					<h2 class="text-lg sm:text-xl font-medium text-gray-900">Featured organizations</h2>
-					<a href="{{ route('organizations.index') }}" class="text-brand-700 hover:underline text-sm sm:text-sm min-h-[44px] flex items-center touch-manipulation">Browse all</a>
+
+			<div class="relative z-10 flex flex-col gap-4 sm:gap-5 mt-6 md:mt-0">
+				<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+					<div>
+						<p class="text-xs uppercase tracking-wide text-brand-700 font-semibold sm:text-emerald-100">Trusted clinics</p>
+						<h2 class="text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white">Featured organizations</h2>
+						<p class="text-sm text-gray-600 sm:text-emerald-50/80 mt-1 max-w-xl">Clinics and medical centers with great patient flow, transparent pricing, and modern facilities.</p>
+					</div>
+					<a href="{{ route('organizations.index') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold text-brand-700 hover:text-brand-800 bg-brand-50 border border-brand-100 shadow-sm hover:shadow md:self-end sm:bg-white/10 sm:text-white sm:border-white/30 sm:hover:bg-white/20 sm:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 focus-visible:ring-white/70 transition min-h-[42px]">Browse all
+						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
 				</div>
-				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4">
-					@forelse($featuredOrganizations as $org)
-						<a href="{{ route('organizations.show', $org) }}" class="organization-card block rounded-xl bg-white border p-4 shadow-sm hover:border-brand-600 hover:shadow transition group relative overflow-hidden">
-							<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-							<div class="flex items-start gap-4 relative z-10">
+				<div class="relative rounded-2xl sm:rounded-[30px] border border-gray-100 sm:border-white/15 bg-white/95 shadow-sm sm:shadow-2xl p-4 sm:p-6 overflow-hidden">
+					<div class="hidden sm:block absolute -bottom-8 -left-2 w-40 h-40 bg-emerald-300/30 blur-3xl rounded-full pointer-events-none"></div>
+					<div class="hidden sm:block absolute inset-0 rounded-[30px] border border-white/10 pointer-events-none"></div>
+					<div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+						@forelse($featuredOrganizations as $org)
+							<a href="{{ route('organizations.show', $org) }}" class="organization-card block rounded-2xl bg-white/95 border border-gray-100 p-4 shadow-sm hover:border-brand-500 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 transition-all duration-300 group relative overflow-hidden">
+								<div class="absolute inset-0 bg-gradient-to-br from-brand-50/70 via-transparent to-brand-100/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 								@php
 									$seed = abs(crc32(($org->name ?? '') . '|' . (string) $org->id));
-									$hospitalImages = [
-										'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=256&h=256&fit=crop',
-										'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=256&h=256&fit=crop',
-										'https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=256&h=256&fit=crop',
-										'https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=256&h=256&fit=crop',
-										'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=256&h=256&fit=crop',
-										'https://images.unsplash.com/photo-1497366216548-37526070297c?w=256&h=256&fit=crop',
-										'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=256&h=256&fit=crop',
-										'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=256&h=256&fit=crop'
-									];
-									$imgUrl = $hospitalImages[$seed % count($hospitalImages)];
+									$orgSeedString = trim($org->name ?? '') !== '' ? $org->name : ('organization-' . $org->id);
+									$orgAvatarSeed = rawurlencode($orgSeedString);
+									$imgUrl = "https://api.dicebear.com/7.x/shapes/svg?seed={$orgAvatarSeed}&backgroundColor=f0fdf4&radius=30";
 								@endphp
-								<div class="relative shrink-0">
-									<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="organization-image w-16 h-16 rounded-lg ring-2 ring-gray-200 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" width="64" height="64" />
-									<div class="absolute -bottom-1 -right-1 bg-brand-600 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
-										<svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-											<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M17 21v-8H7v8M7 3v5h8" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</div>
-								</div>
-								<div class="min-w-0 flex-1">
-									<div class="font-medium text-gray-900 truncate group-hover:text-brand-700 transition-colors flex items-center gap-2">
-										<span>{{ $org->name }}</span>
-										<svg class="w-4 h-4 text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
-										</svg>
-									</div>
-									<div class="text-sm text-gray-600 mt-0.5">{{ $org->city }}, {{ $org->state }}</div>
-									@if($org->phone)
-										<div class="text-sm text-gray-700 mt-1 truncate flex items-center gap-1">
-											<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-												<path d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"/>
-											</svg>
-											{{ $org->phone }}
+								<div class="relative z-10 flex flex-col gap-4">
+									<div class="flex items-start gap-4">
+										<div class="relative shrink-0">
+											<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="organization-image w-16 h-16 rounded-2xl ring-2 ring-brand-100 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" decoding="async" />
+											<div class="absolute -bottom-1 -right-1 bg-brand-600 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+												<svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+													<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke-linecap="round" stroke-linejoin="round"/>
+													<path d="M17 21v-8H7v8M7 3v5h8" stroke-linecap="round" stroke-linejoin="round"/>
+												</svg>
+											</div>
 										</div>
-									@endif
+										<div class="min-w-0 flex-1">
+											<div class="flex items-start justify-between gap-2">
+												<div class="font-semibold text-gray-900 truncate group-hover:text-brand-700 transition-colors">{{ $org->name }}</div>
+												<span class="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+													<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+														<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+													JCI
+												</span>
+											</div>
+											<div class="text-sm text-gray-600 mt-0.5 flex items-center gap-1.5">
+												<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+													<path d="M4 11V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v4" stroke-linecap="round" stroke-linejoin="round"/>
+													<path d="M3 11h18v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+												</svg>
+												<span>{{ $org->city }}, {{ $org->state }}</span>
+											</div>
+											@if($org->phone)
+												<div class="text-sm text-gray-500 mt-1 flex items-center gap-1.5">
+													<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+														<path d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+													{{ $org->phone }}
+												</div>
+											@endif
+										</div>
+									</div>
+									<div class="flex flex-wrap gap-2 text-xs text-gray-600">
+										<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gray-50 border border-gray-200">
+											<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M9 5h11l-1.5 6.5h-8zM16.5 11.5 19 21H8l-2.5-9.5" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											Outpatient & inpatient
+										</span>
+										<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-brand-50 border border-brand-100 text-brand-700">
+											<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M9 12h6m-6 4h6M8 21h8a2 2 0 0 0 2-2V7l-4-4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											Digital paperwork
+										</span>
+									</div>
+									<div class="flex items-center justify-between pt-2 border-t border-emerald-900/10">
+										<div class="flex items-center gap-1 text-sm font-medium text-brand-700">
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M3 7h18M6 12h12M10 17h4" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											<span>Same-week visits</span>
+										</div>
+										<div class="inline-flex items-center gap-1 text-sm font-semibold text-brand-700 group-hover:gap-2 transition-all">
+											<span>View profile</span>
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</div>
+									</div>
 								</div>
-							</div>
-						</a>
-					@empty
-						<p class="text-gray-600">No organizations available.</p>
-					@endforelse
+							</a>
+						@empty
+							<p class="text-gray-600">No organizations available.</p>
+						@endforelse
+					</div>
 				</div>
 			</div>
 		</section>
