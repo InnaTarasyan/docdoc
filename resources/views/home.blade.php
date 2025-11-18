@@ -276,22 +276,47 @@
 		</section>
 
 		<section class="mt-6 sm:mt-8">
-			<h2 class="text-lg sm:text-xl font-medium text-gray-900 mb-4 sm:mb-3">Popular specialties</h2>
-			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-3">
+			<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4 sm:mb-5">
+				<div>
+					<p class="text-sm uppercase tracking-wide text-brand-700 font-semibold">Browse faster</p>
+					<h2 class="text-xl sm:text-2xl font-semibold text-gray-900">Popular specialties</h2>
+					<p class="text-sm sm:text-base text-gray-600 mt-1 max-w-2xl">Tap a specialty to jump straight into doctors that match. The cards resize smoothly from narrow phones through large desktops.</p>
+				</div>
+				<a href="{{ route('doctors.index') }}" class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/60 rounded-full px-4 py-2 transition">
+					View all doctors
+					<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</a>
+			</div>
+			<div class="relative rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white via-white to-brand-50/40 p-4 sm:p-6 shadow-sm">
+				<div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-brand-100/60 to-transparent pointer-events-none rounded-l-2xl hidden sm:block"></div>
+				<div class="absolute inset-y-4 right-6 w-32 bg-brand-100/30 blur-3xl rounded-full opacity-70 pointer-events-none"></div>
+				<div class="-mx-2 sm:mx-0 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0">
+					<div class="grid min-w-[520px] grid-cols-2 gap-3 sm:min-w-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:gap-4 [@media(min-width:360px)]:grid-cols-2 [@media(min-width:460px)]:grid-cols-3">
 				@forelse($popularSpecialties as $spec)
-					<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-lg bg-white border shadow-sm px-4 py-3 hover:border-brand-600 hover:shadow transition text-gray-800 group relative overflow-hidden">
-						<div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-						<div class="flex items-center gap-2 relative z-10">
-							<div class="specialty-icon-wrapper group-hover:scale-110 transition-transform">
-								@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'mr-1'])
+						<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
+							<div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-transparent to-brand-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+							<div class="flex items-center gap-3 relative z-10">
+								<div class="specialty-icon-wrapper inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-brand-50 text-brand-700 ring-1 ring-brand-100 group-hover:scale-110 transition-all duration-300">
+									@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'w-5 h-5'])
+								</div>
+								<div class="min-w-0">
+									<span class="truncate font-medium group-hover:text-brand-800 transition-colors">{{ $spec->description }}</span>
+									<span class="mt-0.5 block text-xs uppercase tracking-wide text-gray-500">Tap to explore</span>
+								</div>
 							</div>
-							<span class="truncate font-medium group-hover:text-brand-700 transition-colors">{{ $spec->description }}</span>
-						</div>
-						<div class="absolute top-0 right-0 w-16 h-16 bg-brand-100 rounded-full -mr-8 -mt-8 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-					</a>
+							<div class="absolute top-2 right-2 text-brand-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+								<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</div>
+						</a>
 				@empty
-					<p class="text-gray-600">No specialties yet.</p>
+						<p class="text-gray-600">No specialties yet.</p>
 				@endforelse
+					</div>
+				</div>
 			</div>
 		</section>
 
