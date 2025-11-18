@@ -5,15 +5,23 @@
 @section('content')
 	<div class="grid gap-6 sm:gap-8">
 	<section
-		class="hero hero--desktop-photo bg-gradient-to-br from-brand-600 to-brand-700 text-center relative w-full rounded-xl sm:rounded-2xl overflow-hidden"
+		class="hero hero--desktop-photo bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-950 text-center relative w-full rounded-xl sm:rounded-2xl overflow-hidden"
 		style="
-			background-image: url('{{ asset('img/hero-bg.webp') }}');
+			background-image:
+				linear-gradient(125deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.65)),
+				url('{{ asset('img/hero-bg.webp') }}');
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;"
 	>
 		<!-- Dark overlay for better text contrast -->
-		<div class="hero-overlay absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-0"></div>
+		<div class="hero-overlay absolute inset-0 bg-gradient-to-br from-emerald-900/70 via-emerald-900/40 to-emerald-950/70 mix-blend-multiply z-0"></div>
+		<div class="absolute inset-0 hidden sm:block pointer-events-none">
+			<div class="absolute w-64 h-64 bg-emerald-400/35 blur-3xl rounded-full" style="top: -120px; left: -60px;"></div>
+			<div class="absolute w-72 h-72 bg-teal-300/30 blur-3xl rounded-full" style="bottom: -180px; right: -40px;"></div>
+			<div class="absolute w-48 h-48 bg-emerald-500/25 blur-3xl rounded-full" style="top: 30%; left: 10%;"></div>
+			<div class="absolute inset-0" style="background: radial-gradient(circle at top, rgba(16,185,129,0.12), transparent 55%);"></div>
+		</div>
 		
 		<div class="hero-decorations">
 			<svg class="hero-icon hero-icon-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -32,7 +40,9 @@
 				<path d="M12 5a4 4 0 1 1 0 8c-2 0-5-4-5-4s3-4 5-4Zm0 0c1.5 0 5 8 5 8l-3 6-2-4-2 4-3-6s3.5-8 5-8Z" stroke-linejoin="round"/>
 			</svg>
 		</div>
-		<div>
+		<div class="relative z-10 px-4 py-8 sm:px-10 sm:py-12">
+			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl" style="box-shadow: 0 25px 60px rgba(6, 95, 70, 0.35);"></div>
+			<div class="relative">
 			<h1 class="hero-title text-white relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-5 md:mb-6">
 				<svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 					<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
@@ -261,6 +271,7 @@
 						])
 					</section>
 				@endif
+			</div>
 		</div>
 		</section>
 
