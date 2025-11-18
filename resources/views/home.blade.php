@@ -32,7 +32,7 @@
 				<path d="M12 5a4 4 0 1 1 0 8c-2 0-5-4-5-4s3-4 5-4Zm0 0c1.5 0 5 8 5 8l-3 6-2-4-2 4-3-6s3.5-8 5-8Z" stroke-linejoin="round"/>
 			</svg>
 		</div>
-		<div class="max-w-7xl mx-auto px-4 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-7 md:py-8 lg:py-10 hero__inner">
+		<div>
 			<h1 class="hero-title text-white relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-5 md:mb-6">
 				<svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 					<path d="M12 4v16M4 12h16" stroke-linecap="round"/>

@@ -754,10 +754,11 @@
 		z-index: 2;
 	}
 .hero__inner {
-	backdrop-filter: none;
-	background: transparent;
+	backdrop-filter: blur(6px);
+	background: rgba(3, 18, 12, 0.55);
 	border-radius: inherit;
 	transition: background 0.3s ease, box-shadow 0.3s ease;
+	box-shadow: 0 25px 60px -35px rgba(0, 0, 0, 0.9);
 }
 .hero--desktop-photo.hero.bg-gradient-to-br {
 	background-image:
@@ -766,8 +767,8 @@
 .hero--desktop-photo.hero.bg-gradient-to-br::before {
 	display: block;
 	background-size: cover;
-	filter: blur(16px);
-	opacity: 0.9;
+	filter: blur(18px) saturate(1.1);
+	opacity: 0.85;
 }
 @media (max-width: 639px) {
 	.hero--desktop-photo.hero.bg-gradient-to-br {
