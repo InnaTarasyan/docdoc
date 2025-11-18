@@ -371,9 +371,36 @@
 											$isFemale = ($idx % 2) === 1;
 										}
 									}
-									$seedString = trim($doctor->name ?? '') !== '' ? $doctor->name : ('doctor-' . $doctor->id);
-									$avatarSeed = rawurlencode($seedString . ($isFemale ? '-f' : '-m'));
-									$avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed={$avatarSeed}&backgroundColor=ccfbf1&radius=50";
+									$doctorPhotosFemale = [
+										'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1544725121-3f38e597de16?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=256&q=80'
+									];
+									$doctorPhotosMale = [
+										'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1544723795-432537f5a9c9?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1542744173-05336fcc7ad4?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1511367466-5b97d7470b74?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=256&q=80',
+										'https://images.unsplash.com/photo-1522556189639-83c5ba1e9b0b?auto=format&fit=crop&w=256&q=80'
+									];
+									$photoPool = $isFemale ? $doctorPhotosFemale : $doctorPhotosMale;
+									$avatarUrl = $photoPool[$idx % count($photoPool)];
 									$taxonomy = $doctor->taxonomy ?? '';
 								@endphp
 								<div class="relative z-10 flex flex-col gap-4">
