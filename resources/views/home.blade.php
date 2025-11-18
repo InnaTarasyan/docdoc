@@ -278,21 +278,22 @@
 		<section class="mt-6 sm:mt-8">
 			<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4 sm:mb-5">
 				<div>
-					<p class="text-sm uppercase tracking-wide text-brand-700 font-semibold">Browse faster</p>
-					<h2 class="text-xl sm:text-2xl font-semibold text-gray-900">Popular specialties</h2>
-					<p class="text-sm sm:text-base text-gray-600 mt-1 max-w-2xl">Tap a specialty to jump straight into doctors that match. The cards resize smoothly from narrow phones through large desktops.</p>
+					<p class="text-sm uppercase tracking-wide text-brand-700 font-semibold sm:text-emerald-200">Browse faster</p>
+					<h2 class="text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white">Popular specialties</h2>
+					<p class="text-sm sm:text-base text-gray-600 sm:text-emerald-50/80 mt-1 max-w-2xl">Tap a specialty to jump straight into doctors that match. The cards resize smoothly from narrow phones through large desktops.</p>
 				</div>
-				<a href="{{ route('doctors.index') }}" class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/60 rounded-full px-4 py-2 transition">
+				<a href="{{ route('doctors.index') }}" class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800 sm:text-white sm:hover:text-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/60 rounded-full px-4 py-2 transition">
 					View all doctors
 					<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</a>
 			</div>
-			<div class="relative rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white via-white to-brand-50/40 p-4 sm:p-6 shadow-sm">
-				<div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-brand-100/60 to-transparent pointer-events-none rounded-l-2xl hidden sm:block"></div>
-				<div class="absolute inset-y-4 right-6 w-32 bg-brand-100/30 blur-3xl rounded-full opacity-70 pointer-events-none"></div>
-				<div class="-mx-2 sm:mx-0 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0">
+			<div class="relative rounded-2xl sm:rounded-[36px] border border-gray-200/80 sm:border-white/20 bg-gradient-to-br from-white via-white to-brand-50/40 sm:bg-transparent p-4 sm:p-8 shadow-sm sm:shadow-2xl sm:overflow-hidden">
+				<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl" style="box-shadow: 0 25px 60px rgba(6, 95, 70, 0.35);"></div>
+				<div class="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-emerald-500/30 via-emerald-400/10 to-transparent pointer-events-none rounded-l-[36px] opacity-60 hidden sm:block z-0"></div>
+				<div class="absolute inset-y-4 right-6 w-32 bg-emerald-400/30 blur-3xl rounded-full opacity-70 pointer-events-none hidden sm:block z-0"></div>
+				<div class="relative z-10 -mx-2 sm:mx-0 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0">
 					<div class="grid min-w-[520px] grid-cols-1 gap-3 max-[639px]:min-w-full sm:min-w-0 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:gap-4">
 				@forelse($popularSpecialties as $spec)
 						<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
