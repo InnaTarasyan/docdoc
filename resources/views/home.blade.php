@@ -741,77 +741,134 @@
 		</section>
 
 		<!-- Health Articles/Tips Section -->
-		<section class="mb-6 sm:mb-12 mt-6 sm:mt-8">
-			<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-6 sm:mb-8 gap-4 sm:gap-3">
-				<div class="flex-1">
-					<h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">Health Tips & Articles</h2>
-					<p class="text-gray-600 text-sm sm:text-base max-w-2xl">Stay informed with expert health advice and wellness tips from medical professionals</p>
+		<section class="relative mt-8 sm:mt-12">
+			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
+				<div class="absolute inset-0 pointer-events-none">
+					<div class="absolute -top-24 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+					<div class="absolute -bottom-28 -left-16 w-72 h-72 bg-emerald-600/30 rounded-full blur-3xl"></div>
+					<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]"></div>
 				</div>
-				<a href="#" class="text-brand-700 hover:text-brand-800 font-medium text-sm sm:text-base flex items-center gap-1.5 sm:self-end transition-colors min-h-[44px] touch-manipulation">
-					<span>View all articles</span>
-					<svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-					</svg>
-				</a>
-			</div>
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 xl:gap-8">
-				<a href="#" class="article-card group block rounded-2xl bg-white border border-gray-200 shadow-sm overflow-hidden hover:border-brand-400 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98]">
-					<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-brand-100 via-brand-50 to-brand-200 overflow-hidden">
-						<div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-						<svg class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-brand-400 opacity-25 group-hover:opacity-35 group-hover:scale-110 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-						</svg>
-						<div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-brand-700 shadow-md group-hover:shadow-lg transition-shadow">Wellness</div>
-					</div>
-					<div class="p-5 sm:p-6 lg:p-7">
-						<h3 class="font-bold text-lg sm:text-xl text-gray-900 mb-3 group-hover:text-brand-700 transition-colors leading-snug line-clamp-2">Preventive Care: Your First Line of Defense</h3>
-						<p class="text-sm sm:text-base text-gray-600 mb-5 sm:mb-6 line-clamp-2 leading-relaxed">Learn how regular check-ups and preventive measures can help maintain your health and catch issues early.</p>
-						<div class="flex items-center gap-2 text-sm sm:text-base text-brand-700 font-semibold group-hover:text-brand-800 group-hover:gap-3 transition-all">
-							<span>Read more</span>
-							<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-							</svg>
+
+				<div class="relative z-10 px-4 sm:px-6 lg:px-12 py-8 sm:py-10">
+					<div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+						<div class="flex-1 space-y-4 text-white">
+							<p class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-50/90 backdrop-blur">
+								<span class="inline-block h-2 w-2 rounded-full bg-emerald-300 animate-pulse"></span>
+								Health insights
+							</p>
+							<div class="space-y-3">
+								<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-white">Health Tips & Articles</h2>
+								<p class="text-sm sm:text-base md:text-lg text-emerald-100 max-w-2xl">Stay informed with expert health advice, proactive care playbooks, and wellness perspectives from medical professionals.</p>
+							</div>
+						</div>
+						<div class="w-full lg:max-w-sm flex flex-col gap-4 text-emerald-100">
+							<div class="flex flex-wrap items-center gap-4 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 backdrop-blur">
+								<div class="flex -space-x-3">
+									<span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/90 text-emerald-900 font-semibold text-sm">MD</span>
+									<span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-emerald-50/80 text-emerald-900 font-semibold text-sm">RN</span>
+									<span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-cyan-50/80 text-emerald-900 font-semibold text-sm">PT</span>
+								</div>
+								<div class="flex-1 min-w-[160px]">
+									<p class="text-xs uppercase tracking-wide text-emerald-200">Editorial board</p>
+									<p class="text-sm font-semibold text-white">Updated every Monday</p>
+								</div>
+							</div>
+							<a href="#" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-white/90 px-5 py-3 text-base font-semibold text-emerald-900 shadow-lg shadow-emerald-900/30 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900">
+								<span>View all articles</span>
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
 						</div>
 					</div>
-				</a>
-				<a href="#" class="article-card group block rounded-2xl bg-white border border-gray-200 shadow-sm overflow-hidden hover:border-brand-400 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98]">
-					<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200 overflow-hidden">
-						<div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-						<svg class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-blue-400 opacity-25 group-hover:opacity-35 group-hover:scale-110 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-						</svg>
-						<div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-blue-700 shadow-md group-hover:shadow-lg transition-shadow">Education</div>
+
+					<div class="mt-8 grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6 xl:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-emerald-100 via-white to-emerald-200">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-emerald-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+								</svg>
+								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-700 shadow">Wellness</div>
+							</div>
+							<div class="flex flex-1 flex-col p-5 sm:p-6">
+								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-800 transition-colors">Preventive Care: Your First Line of Defense</h3>
+								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">Learn how regular check-ups and preventive measures can help maintain your health and catch issues early.</p>
+								<div class="mt-auto space-y-4">
+									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
+										<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700 font-semibold">AR</span>
+										<div>
+											<p class="font-medium text-gray-900">Dr. Avery Ross</p>
+											<p>4 min read</p>
+										</div>
+									</div>
+									<div class="flex items-center gap-2 font-semibold text-emerald-700 group-hover:text-emerald-800">
+										<span>Read more</span>
+										<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</a>
+						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-blue-100 via-white to-blue-200">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+								</svg>
+								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-700 shadow">Education</div>
+							</div>
+							<div class="flex flex-1 flex-col p-5 sm:p-6">
+								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-800 transition-colors">Understanding Your Health Insurance</h3>
+								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">A comprehensive guide to navigating health insurance coverage and making the most of your benefits.</p>
+								<div class="mt-auto space-y-4">
+									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
+										<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-700 font-semibold">LB</span>
+										<div>
+											<p class="font-medium text-gray-900">Lauren Brooks, RN</p>
+											<p>6 min read</p>
+										</div>
+									</div>
+									<div class="flex items-center gap-2 font-semibold text-emerald-700 group-hover:text-emerald-800">
+										<span>Read more</span>
+										<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</a>
+						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-purple-100 via-white to-purple-200">
+								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-purple-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+								</svg>
+								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700 shadow">Lifestyle</div>
+							</div>
+							<div class="flex flex-1 flex-col p-5 sm:p-6">
+								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-800 transition-colors">Mental Health Matters</h3>
+								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">Discover strategies for maintaining good mental health and when to seek professional help.</p>
+								<div class="mt-auto space-y-4">
+									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
+										<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-purple-50 text-purple-700 font-semibold">SK</span>
+										<div>
+											<p class="font-medium text-gray-900">Dr. Sophia Khan</p>
+											<p>5 min read</p>
+										</div>
+									</div>
+									<div class="flex items-center gap-2 font-semibold text-emerald-700 group-hover:text-emerald-800">
+										<span>Read more</span>
+										<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</a>
 					</div>
-					<div class="p-5 sm:p-6 lg:p-7">
-						<h3 class="font-bold text-lg sm:text-xl text-gray-900 mb-3 group-hover:text-brand-700 transition-colors leading-snug line-clamp-2">Understanding Your Health Insurance</h3>
-						<p class="text-sm sm:text-base text-gray-600 mb-5 sm:mb-6 line-clamp-2 leading-relaxed">A comprehensive guide to navigating health insurance coverage and making the most of your benefits.</p>
-						<div class="flex items-center gap-2 text-sm sm:text-base text-brand-700 font-semibold group-hover:text-brand-800 group-hover:gap-3 transition-all">
-							<span>Read more</span>
-							<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-							</svg>
-						</div>
-					</div>
-				</a>
-				<a href="#" class="article-card group block rounded-2xl bg-white border border-gray-200 shadow-sm overflow-hidden hover:border-brand-400 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98]">
-					<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-purple-100 via-purple-50 to-purple-200 overflow-hidden">
-						<div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-						<svg class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-purple-400 opacity-25 group-hover:opacity-35 group-hover:scale-110 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-						</svg>
-						<div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-purple-700 shadow-md group-hover:shadow-lg transition-shadow">Lifestyle</div>
-					</div>
-					<div class="p-5 sm:p-6 lg:p-7">
-						<h3 class="font-bold text-lg sm:text-xl text-gray-900 mb-3 group-hover:text-brand-700 transition-colors leading-snug line-clamp-2">Mental Health Matters</h3>
-						<p class="text-sm sm:text-base text-gray-600 mb-5 sm:mb-6 line-clamp-2 leading-relaxed">Discover strategies for maintaining good mental health and when to seek professional help.</p>
-						<div class="flex items-center gap-2 text-sm sm:text-base text-brand-700 font-semibold group-hover:text-brand-800 group-hover:gap-3 transition-all">
-							<span>Read more</span>
-							<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-							</svg>
-						</div>
-					</div>
-				</a>
+				</div>
 			</div>
 		</section>
 
