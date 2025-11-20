@@ -593,26 +593,28 @@
 
 		<!-- User Reviews/Testimonials Section -->
 		<section class="relative mt-8 sm:mt-12">
-			<div class="relative mx-auto max-w-7xl rounded-3xl border border-brand-100/70 bg-gradient-to-br from-white via-brand-50/50 to-brand-100/40 shadow-[0_20px_80px_-50px_rgba(16,86,82,1)] overflow-hidden">
-				<div class="absolute inset-y-0 right-0 w-1/3 pointer-events-none bg-[radial-gradient(circle_at_top,_rgba(16,86,82,0.12),_transparent_55%)]"></div>
-				<div class="relative px-5 sm:px-8 md:px-12 py-10 sm:py-12 bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 sm:overflow-hidden">
-					<div class="grid gap-10 lg:gap-14 lg:grid-cols-[1.05fr,0.95fr] items-start">
-						<div class="space-y-7 text-white">
+			<div class="relative mx-auto max-w-7xl bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 p-6 sm:p-8 md:p-10 overflow-hidden">
+				<div class="absolute inset-0 pointer-events-none">
+					<div class="absolute -right-24 -top-24 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+					<div class="absolute -left-16 bottom-0 w-60 h-60 bg-emerald-600/25 rounded-full blur-3xl"></div>
+				</div>
+				<div class="relative grid gap-8 lg:gap-12 lg:grid-cols-[1.05fr,0.95fr] items-start">
+					<div class="space-y-7 text-white">
 							<div class="space-y-3">
 								<p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-900 bg-emerald-50/90 rounded-full px-4 py-1 border border-emerald-100 shadow-sm">Testimonials</p>
 								<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-emerald-50 leading-tight">What Our Patients Say</h2>
 								<p class="text-base md:text-lg text-emerald-100 leading-relaxed">Real healthcare journeys from people who discovered trusted doctors and clinics with DocDoc.</p>
 							</div>
 							<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
-								<div class="rounded-2xl border border-emerald-700/40 bg-emerald-800/40 p-4 shadow-sm">
+								<div class="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-900/10">
 									<div class="text-3xl font-semibold text-white">4.9/5</div>
 									<p class="text-emerald-100 mt-1 text-sm">Average satisfaction</p>
 								</div>
-								<div class="rounded-2xl border border-emerald-700/40 bg-emerald-800/40 p-4 shadow-sm">
+								<div class="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-900/10">
 									<div class="text-3xl font-semibold text-white">2K+</div>
 									<p class="text-emerald-100 mt-1 text-sm">Verified stories</p>
 								</div>
-								<div class="rounded-2xl border border-emerald-700/40 bg-emerald-800/40 p-4 shadow-sm col-span-2 sm:col-span-1">
+								<div class="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-900/10 col-span-2 sm:col-span-1">
 									<div class="text-3xl font-semibold text-white">50+</div>
 									<p class="text-emerald-100 mt-1 text-sm">Specialties covered</p>
 								</div>
@@ -626,7 +628,7 @@
 								</button>
 								<div class="text-sm text-emerald-100 leading-relaxed">Your experience helps other patients feel confident about their care.</div>
 							</div>
-							<div class="flex flex-wrap items-center gap-4 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 shadow-sm backdrop-blur">
+							<div class="flex flex-wrap items-center gap-4 rounded-2xl border border-white/25 bg-white/10 px-4 py-3 shadow-lg backdrop-blur-md">
 								<div class="flex -space-x-3">
 									<div class="w-10 h-10 rounded-full bg-white/80 text-emerald-900 font-semibold flex items-center justify-center border-2 border-emerald-900/20">SM</div>
 									<div class="w-10 h-10 rounded-full bg-white/60 text-emerald-900 font-semibold flex items-center justify-center border-2 border-emerald-900/20">JD</div>
