@@ -592,60 +592,150 @@
 		</section>
 
 		<!-- User Reviews/Testimonials Section -->
-		<section class="bg-white rounded-xl sm:rounded-2xl border shadow-sm p-5 sm:p-8 md:p-10 mt-6 sm:mt-8">
-			<div class="text-center mb-6 sm:mb-8">
-				<h2 class="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-3 sm:mb-3">What Our Patients Say</h2>
-				<p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-2">Real experiences from patients who found their perfect healthcare provider through our platform.</p>
-			</div>
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300">
-					<div class="flex items-center gap-1 mb-4">
-						@for($i = 0; $i < 5; $i++)
-							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-							</svg>
-						@endfor
-					</div>
-					<p class="text-gray-700 mb-4 leading-relaxed">"Found an excellent cardiologist in my area. The search was easy and the doctor was professional and caring. Highly recommend!"</p>
-					<div class="flex items-center gap-3">
-						<div class="w-10 h-10 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 font-semibold">SM</div>
-						<div>
-							<div class="font-medium text-gray-900">Sarah Mitchell</div>
-							<div class="text-sm text-gray-500">Patient</div>
+		<section class="relative mt-6 sm:mt-8">
+			<div class="relative bg-gradient-to-br from-white via-brand-50/40 to-brand-100/40 border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl sm:rounded-3xl mx-auto max-w-7xl overflow-hidden">
+				<div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-200/40 rounded-full blur-3xl"></div>
+				<div class="absolute -left-12 bottom-0 w-52 h-52 bg-brand-100/30 rounded-full blur-2xl"></div>
+				<div class="relative px-5 sm:px-8 md:px-12 py-8 sm:py-10 md:py-12">
+					<div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+						<div class="lg:w-2/5 space-y-6">
+							<div>
+								<p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-700 bg-white/80 border border-brand-100 rounded-full px-3 py-1 shadow-sm mb-3">Testimonials</p>
+								<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-3">What Our Patients Say</h2>
+								<p class="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">Healthcare journeys shared by people who discovered trusted doctors and clinics with DocDoc. Tap a card to read more.</p>
+							</div>
+							<div class="grid grid-cols-2 gap-4 text-sm sm:text-base">
+								<div class="p-4 rounded-2xl bg-white/90 border border-brand-100 shadow-sm">
+									<div class="text-3xl font-bold text-gray-900">4.9/5</div>
+									<p class="text-gray-600 text-sm">Average satisfaction score</p>
+								</div>
+								<div class="p-4 rounded-2xl bg-white/90 border border-brand-100 shadow-sm">
+									<div class="text-3xl font-bold text-gray-900">2K+</div>
+									<p class="text-gray-600 text-sm">Verified patient stories</p>
+								</div>
+							</div>
+							<div class="flex flex-col sm:flex-row gap-3">
+								<button class="inline-flex items-center justify-center gap-2 bg-brand-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-brand-700 transition-colors shadow-lg hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 min-h-[44px] touch-manipulation">
+									<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="M12 5v14m-7-7h14" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+									Share your story
+								</button>
+								<div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/80 border border-brand-100 shadow-sm">
+									<div class="flex -space-x-3">
+										<div class="w-9 h-9 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center border border-white">SM</div>
+										<div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 font-semibold flex items-center justify-center border border-white">JD</div>
+										<div class="w-9 h-9 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center border border-white">EW</div>
+									</div>
+									<div>
+										<p class="text-xs uppercase text-gray-500 tracking-wide">Trusted by</p>
+										<p class="text-sm font-semibold text-gray-900">Patients nationwide</p>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300">
-					<div class="flex items-center gap-1 mb-4">
-						@for($i = 0; $i < 5; $i++)
-							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-							</svg>
-						@endfor
-					</div>
-					<p class="text-gray-700 mb-4 leading-relaxed">"The platform made it simple to compare different clinics and read about their services. Found exactly what I needed for my family."</p>
-					<div class="flex items-center gap-3">
-						<div class="w-10 h-10 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 font-semibold">JD</div>
-						<div>
-							<div class="font-medium text-gray-900">James Davis</div>
-							<div class="text-sm text-gray-500">Patient</div>
-						</div>
-					</div>
-				</div>
-				<div class="testimonial-card bg-gradient-to-br from-brand-50 to-white rounded-xl border border-brand-100 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300">
-					<div class="flex items-center gap-1 mb-4">
-						@for($i = 0; $i < 5; $i++)
-							<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-							</svg>
-						@endfor
-					</div>
-					<p class="text-gray-700 mb-4 leading-relaxed">"Great experience! I was able to find a pediatrician for my daughter quickly. The information provided was comprehensive and helpful."</p>
-					<div class="flex items-center gap-3">
-						<div class="w-10 h-10 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 font-semibold">EW</div>
-						<div>
-							<div class="font-medium text-gray-900">Emily Wilson</div>
-							<div class="text-sm text-gray-500">Patient</div>
+						<div class="lg:flex-1 w-full">
+							<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" role="list" aria-label="Patient testimonials">
+								<article id="testimonial-sarah" class="testimonial-card group relative bg-white/95 backdrop-blur-sm rounded-2xl border border-brand-100/80 p-5 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 h-full" role="listitem">
+									<div class="flex items-center justify-between gap-3 mb-4">
+										<div class="flex items-center gap-1">
+											@for($i = 0; $i < 5; $i++)
+												<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+												</svg>
+											@endfor
+										</div>
+										<span class="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">
+											<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											Verified patient
+										</span>
+									</div>
+									<p class="text-gray-700 mb-4 leading-relaxed">"Found an excellent cardiologist in my area. The search was easy and the doctor was professional and caring. Highly recommend!"</p>
+									<div class="flex items-center justify-between gap-3">
+										<div class="flex items-center gap-3">
+											<div class="w-12 h-12 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 font-semibold">SM</div>
+											<div>
+												<div class="font-semibold text-gray-900">Sarah Mitchell</div>
+												<div class="text-xs text-gray-500">Cardiology visit · Austin, TX</div>
+											</div>
+										</div>
+										<a href="#testimonial-sarah" class="text-sm font-semibold text-brand-700 inline-flex items-center gap-1 hover:gap-1.5 transition-all">
+											Read story
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</a>
+									</div>
+								</article>
+								<article id="testimonial-james" class="testimonial-card group relative bg-white/95 backdrop-blur-sm rounded-2xl border border-brand-100/80 p-5 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 h-full" role="listitem">
+									<div class="flex items-center justify-between gap-3 mb-4">
+										<div class="flex items-center gap-1">
+											@for($i = 0; $i < 5; $i++)
+												<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+												</svg>
+											@endfor
+										</div>
+										<span class="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full">
+											Family care
+										</span>
+									</div>
+									<p class="text-gray-700 mb-4 leading-relaxed">"The platform made it simple to compare different clinics and read about their services. Found exactly what I needed for my family."</p>
+									<div class="flex items-center justify-between gap-3">
+										<div class="flex items-center gap-3">
+											<div class="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center text-brand-700 font-semibold">JD</div>
+											<div>
+												<div class="font-semibold text-gray-900">James Davis</div>
+												<div class="text-xs text-gray-500">Primary care · Seattle, WA</div>
+											</div>
+										</div>
+										<a href="#testimonial-james" class="text-sm font-semibold text-brand-700 inline-flex items-center gap-1 hover:gap-1.5 transition-all">
+											Read story
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</a>
+									</div>
+								</article>
+								<article id="testimonial-emily" class="testimonial-card group relative bg-white/95 backdrop-blur-sm rounded-2xl border border-brand-100/80 p-5 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 h-full" role="listitem">
+									<div class="flex items-center justify-between gap-3 mb-4">
+										<div class="flex items-center gap-1">
+											@for($i = 0; $i < 5; $i++)
+												<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+												</svg>
+											@endfor
+										</div>
+										<span class="inline-flex items-center gap-1 text-xs font-semibold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-full">
+											Pediatrics
+										</span>
+									</div>
+									<p class="text-gray-700 mb-4 leading-relaxed">"Great experience! I was able to find a pediatrician for my daughter quickly. The information provided was comprehensive and helpful."</p>
+									<div class="flex items-center justify-between gap-3">
+										<div class="flex items-center gap-3">
+											<div class="w-12 h-12 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 font-semibold">EW</div>
+											<div>
+												<div class="font-semibold text-gray-900">Emily Wilson</div>
+												<div class="text-xs text-gray-500">Pediatric visit · Denver, CO</div>
+											</div>
+										</div>
+										<a href="#testimonial-emily" class="text-sm font-semibold text-brand-700 inline-flex items-center gap-1 hover:gap-1.5 transition-all">
+											Read story
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</a>
+									</div>
+								</article>
+							</div>
+							<p class="flex items-center gap-2 mt-6 text-sm text-gray-600">
+								<svg class="w-4 h-4 text-brand-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="m5 13 4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								Tap a card to read the full patient experience
+							</p>
 						</div>
 					</div>
 				</div>
