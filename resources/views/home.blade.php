@@ -298,17 +298,17 @@
 					<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 bg-emerald-300/10 backdrop-blur-xl"></div>
 					<div class="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-emerald-400/35 via-emerald-300/10 to-transparent pointer-events-none rounded-l-[36px] opacity-70 hidden sm:block z-0"></div>
 					<div class="absolute inset-y-4 right-6 w-32 bg-emerald-300/35 blur-3xl rounded-full opacity-80 pointer-events-none hidden sm:block z-0"></div>
-					<div class="relative z-10 -mx-2 sm:mx-0 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0">
-						<div class="grid min-w-[520px] grid-cols-1 gap-3 max-[639px]:min-w-full sm:min-w-0 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:gap-4">
+					<div class="relative z-10 -mx-2 sm:mx-0 overflow-hidden sm:overflow-visible pb-2 sm:pb-0">
+						<div class="grid w-full grid-cols-1 gap-3 sm:min-w-0 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:gap-4">
 				@forelse($popularSpecialties as $spec)
 						<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
 							<div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-transparent to-brand-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 							<div class="flex items-center gap-3 relative z-10">
-								<div class="specialty-icon-wrapper inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-brand-50 text-brand-700 ring-1 ring-brand-100 group-hover:scale-110 transition-all duration-300">
+								<div class="specialty-icon-wrapper flex-shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-brand-50 text-brand-700 ring-1 ring-brand-100 group-hover:scale-110 transition-all duration-300">
 									@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'w-5 h-5'])
 								</div>
-								<div class="min-w-0">
-									<span class="truncate font-medium group-hover:text-brand-800 transition-colors">{{ $spec->description }}</span>
+								<div class="min-w-0 flex-1">
+									<span class="block font-medium group-hover:text-brand-800 transition-colors break-words sm:truncate">{{ $spec->description }}</span>
 									<span class="mt-0.5 block text-xs uppercase tracking-wide text-gray-500">Tap to explore</span>
 								</div>
 							</div>
