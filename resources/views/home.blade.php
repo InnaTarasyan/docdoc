@@ -595,51 +595,51 @@
 		<section class="relative mt-8 sm:mt-12">
 			<div class="relative mx-auto max-w-7xl rounded-3xl border border-brand-100/70 bg-gradient-to-br from-white via-brand-50/50 to-brand-100/40 shadow-[0_20px_80px_-50px_rgba(16,86,82,1)] overflow-hidden">
 				<div class="absolute inset-y-0 right-0 w-1/3 pointer-events-none bg-[radial-gradient(circle_at_top,_rgba(16,86,82,0.12),_transparent_55%)]"></div>
-				<div class="relative px-5 sm:px-8 md:px-12 py-10 sm:py-12">
+				<div class="relative px-5 sm:px-8 md:px-12 py-10 sm:py-12 bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 sm:overflow-hidden">
 					<div class="grid gap-10 lg:gap-14 lg:grid-cols-[1.05fr,0.95fr] items-start">
-						<div class="space-y-7">
+						<div class="space-y-7 text-white">
 							<div class="space-y-3">
-								<p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-700/90 bg-white rounded-full px-4 py-1 border border-brand-100 shadow-sm">Testimonials</p>
-								<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">What Our Patients Say</h2>
-								<p class="text-base md:text-lg text-gray-600 leading-relaxed">Real healthcare journeys from people who discovered trusted doctors and clinics with DocDoc.</p>
+								<p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-900 bg-emerald-50/90 rounded-full px-4 py-1 border border-emerald-100 shadow-sm">Testimonials</p>
+								<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-emerald-50 leading-tight">What Our Patients Say</h2>
+								<p class="text-base md:text-lg text-emerald-100 leading-relaxed">Real healthcare journeys from people who discovered trusted doctors and clinics with DocDoc.</p>
 							</div>
 							<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
-								<div class="rounded-2xl border border-white/60 bg-white/90 p-4 shadow-sm">
-									<div class="text-3xl font-semibold text-gray-900">4.9/5</div>
-									<p class="text-gray-500 mt-1 text-sm">Average satisfaction</p>
+								<div class="rounded-2xl border border-emerald-700/40 bg-emerald-800/40 p-4 shadow-sm">
+									<div class="text-3xl font-semibold text-white">4.9/5</div>
+									<p class="text-emerald-100 mt-1 text-sm">Average satisfaction</p>
 								</div>
-								<div class="rounded-2xl border border-white/60 bg-white/90 p-4 shadow-sm">
-									<div class="text-3xl font-semibold text-gray-900">2K+</div>
-									<p class="text-gray-500 mt-1 text-sm">Verified stories</p>
+								<div class="rounded-2xl border border-emerald-700/40 bg-emerald-800/40 p-4 shadow-sm">
+									<div class="text-3xl font-semibold text-white">2K+</div>
+									<p class="text-emerald-100 mt-1 text-sm">Verified stories</p>
 								</div>
-								<div class="rounded-2xl border border-white/60 bg-white/90 p-4 shadow-sm col-span-2 sm:col-span-1">
-									<div class="text-3xl font-semibold text-gray-900">50+</div>
-									<p class="text-gray-500 mt-1 text-sm">Specialties covered</p>
+								<div class="rounded-2xl border border-emerald-700/40 bg-emerald-800/40 p-4 shadow-sm col-span-2 sm:col-span-1">
+									<div class="text-3xl font-semibold text-white">50+</div>
+									<p class="text-emerald-100 mt-1 text-sm">Specialties covered</p>
 								</div>
 							</div>
 							<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-								<button class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gray-900 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-gray-900/20 ring-offset-2 transition hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 min-h-[48px]">
+								<button class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/90 px-6 py-3.5 text-base font-semibold text-emerald-900 shadow-lg shadow-emerald-900/20 ring-offset-2 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 min-h-[48px]">
 									<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M12 5v14m-7-7h14" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 									Share your story
 								</button>
-								<div class="text-sm text-gray-600 leading-relaxed">Your experience helps other patients feel confident about their care.</div>
+								<div class="text-sm text-emerald-100 leading-relaxed">Your experience helps other patients feel confident about their care.</div>
 							</div>
-							<div class="flex flex-wrap items-center gap-4 rounded-2xl border border-white/80 bg-white/80 px-4 py-3 shadow-sm">
+							<div class="flex flex-wrap items-center gap-4 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 shadow-sm backdrop-blur">
 								<div class="flex -space-x-3">
-									<div class="w-10 h-10 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center border-2 border-white">SM</div>
-									<div class="w-10 h-10 rounded-full bg-brand-100 text-brand-700 font-semibold flex items-center justify-center border-2 border-white">JD</div>
-									<div class="w-10 h-10 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center border-2 border-white">EW</div>
+									<div class="w-10 h-10 rounded-full bg-white/80 text-emerald-900 font-semibold flex items-center justify-center border-2 border-emerald-900/20">SM</div>
+									<div class="w-10 h-10 rounded-full bg-white/60 text-emerald-900 font-semibold flex items-center justify-center border-2 border-emerald-900/20">JD</div>
+									<div class="w-10 h-10 rounded-full bg-white/80 text-emerald-900 font-semibold flex items-center justify-center border-2 border-emerald-900/20">EW</div>
 								</div>
 								<div>
-									<p class="text-xs uppercase tracking-wide text-gray-500">Trusted by patients nationwide</p>
-									<p class="text-sm font-semibold text-gray-900">Tap a card to read more</p>
+									<p class="text-xs uppercase tracking-wide text-emerald-200">Trusted by patients nationwide</p>
+									<p class="text-sm font-semibold text-white">Tap a card to read more</p>
 								</div>
 							</div>
 						</div>
 						<div class="space-y-4" role="list" aria-label="Patient testimonials">
-							<article id="testimonial-sarah" class="h-full rounded-3xl border border-brand-100/80 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+							<article id="testimonial-sarah" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
 								<div class="flex items-center gap-3">
 									<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">SM</div>
 									<div>
@@ -672,7 +672,7 @@
 									</a>
 								</div>
 							</article>
-							<article id="testimonial-james" class="h-full rounded-3xl border border-brand-100/80 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+							<article id="testimonial-james" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
 								<div class="flex items-center gap-3">
 									<div class="w-12 h-12 rounded-full bg-brand-100 text-brand-700 font-semibold flex items-center justify-center">JD</div>
 									<div>
@@ -702,7 +702,7 @@
 									</a>
 								</div>
 							</article>
-							<article id="testimonial-emily" class="h-full rounded-3xl border border-brand-100/80 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+							<article id="testimonial-emily" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
 								<div class="flex items-center gap-3">
 									<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">EW</div>
 									<div>
