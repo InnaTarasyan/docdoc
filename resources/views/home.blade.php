@@ -472,20 +472,53 @@
 				<div class="relative rounded-2xl sm:rounded-[30px] border border-gray-100 sm:border-white/15 bg-white/95 shadow-sm sm:shadow-2xl p-4 sm:p-6 overflow-hidden">
 					<div class="hidden sm:block absolute -bottom-8 -left-2 w-40 h-40 bg-emerald-300/30 blur-3xl rounded-full pointer-events-none"></div>
 					<div class="hidden sm:block absolute inset-0 rounded-[30px] border border-white/10 pointer-events-none"></div>
+					@php
+						$featuredHospitalImages = [
+							'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1497366216548-37526070297c?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1450272713119-b1d86efc16c4?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1504814532849-cff240bbc503?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1505577058444-a3dab90d4253?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1526403220535-28e4e8508710?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1460672985063-6764ac8b9c74?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1464817739973-0128fe77aaa1?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?w=256&h=256&fit=crop',
+							'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=256&h=256&fit=crop',
+						];
+						$featuredHospitalImageUsage = [];
+						$featuredHospitalImageCount = count($featuredHospitalImages);
+					@endphp
 					<div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
 						@forelse($featuredOrganizations as $org)
 							<a href="{{ route('organizations.show', $org) }}" class="organization-card block rounded-2xl bg-white/95 border border-gray-100 p-4 shadow-sm hover:border-brand-500 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 transition-all duration-300 group relative overflow-hidden">
 								<div class="absolute inset-0 bg-gradient-to-br from-brand-50/70 via-transparent to-brand-100/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 								@php
 									$seed = abs(crc32(($org->name ?? '') . '|' . (string) $org->id));
-									$orgSeedString = trim($org->name ?? '') !== '' ? $org->name : ('organization-' . $org->id);
-									$orgAvatarSeed = rawurlencode($orgSeedString);
-									$imgUrl = "https://api.dicebear.com/7.x/shapes/svg?seed={$orgAvatarSeed}&backgroundColor=f0fdf4&radius=30";
+									$imgIndex = $featuredHospitalImageCount > 0 ? ($seed % $featuredHospitalImageCount) : 0;
+									while (
+										$featuredHospitalImageCount > 0 &&
+										in_array($imgIndex, $featuredHospitalImageUsage, true) &&
+										count($featuredHospitalImageUsage) < $featuredHospitalImageCount
+									) {
+										$imgIndex = ($imgIndex + 1) % $featuredHospitalImageCount;
+									}
+									$featuredHospitalImageUsage[] = $imgIndex;
+									$imgUrl = $featuredHospitalImages[$imgIndex] ?? $featuredHospitalImages[0];
 								@endphp
 								<div class="relative z-10 flex flex-col gap-4">
 									<div class="flex items-start gap-4">
 										<div class="relative shrink-0">
-											<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="organization-image w-16 h-16 rounded-2xl ring-2 ring-brand-100 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" decoding="async" />
+											<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="organization-image w-16 h-16 rounded-2xl ring-2 ring-brand-100 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" decoding="async" width="64" height="64" />
 											<div class="absolute -bottom-1 -right-1 bg-brand-600 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
 												<svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 													<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke-linecap="round" stroke-linejoin="round"/>
