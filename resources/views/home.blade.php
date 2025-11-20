@@ -593,50 +593,50 @@
 
 		<!-- User Reviews/Testimonials Section -->
 		<section class="relative mt-8 sm:mt-12">
-			<div class="relative mx-auto max-w-7xl bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 p-6 sm:p-8 md:p-10 overflow-hidden">
+			<div class="relative mx-auto max-w-7xl bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(6,95,70,0.28)] rounded-[28px] sm:rounded-[36px] border border-white/10 p-6 sm:p-8 md:p-10 overflow-hidden">
 				<div class="absolute inset-0 pointer-events-none">
 					<div class="absolute -right-24 -top-24 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
 					<div class="absolute -left-16 bottom-0 w-60 h-60 bg-emerald-600/25 rounded-full blur-3xl"></div>
 				</div>
 				<div class="relative grid gap-8 lg:gap-12 lg:grid-cols-[1.05fr,0.95fr] items-start">
-					<div class="space-y-7 text-gray-900 sm:text-white">
+					<div class="space-y-7 text-white">
 							<div class="space-y-3">
 							<p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-900 bg-emerald-50/90 rounded-full px-4 py-1 border border-emerald-100 shadow-sm">Testimonials</p>
-							<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 sm:text-emerald-50 leading-tight">What Our Patients Say</h2>
-							<p class="text-base md:text-lg text-gray-600 sm:text-emerald-100 leading-relaxed">Real healthcare journeys from people who discovered trusted doctors and clinics with DocDoc.</p>
+							<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-emerald-50 leading-tight">What Our Patients Say</h2>
+							<p class="text-base md:text-lg text-emerald-100 leading-relaxed">Real healthcare journeys from people who discovered trusted doctors and clinics with DocDoc.</p>
 							</div>
 							<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
-							<div class="rounded-2xl border border-brand-100 bg-white p-4 shadow-sm sm:border-white/25 sm:bg-white/10 sm:backdrop-blur-sm sm:shadow-lg sm:shadow-emerald-900/10">
-								<div class="text-3xl font-semibold text-gray-900 sm:text-white">4.9/5</div>
-								<p class="text-brand-700 sm:text-emerald-100 mt-1 text-sm">Average satisfaction</p>
+							<div class="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-900/10">
+								<div class="text-3xl font-semibold text-white">4.9/5</div>
+								<p class="text-emerald-100 mt-1 text-sm">Average satisfaction</p>
 								</div>
-							<div class="rounded-2xl border border-brand-100 bg-white p-4 shadow-sm sm:border-white/25 sm:bg-white/10 sm:backdrop-blur-sm sm:shadow-lg sm:shadow-emerald-900/10">
-								<div class="text-3xl font-semibold text-gray-900 sm:text-white">2K+</div>
-								<p class="text-brand-700 sm:text-emerald-100 mt-1 text-sm">Verified stories</p>
+							<div class="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-900/10">
+								<div class="text-3xl font-semibold text-white">2K+</div>
+								<p class="text-emerald-100 mt-1 text-sm">Verified stories</p>
 								</div>
-							<div class="rounded-2xl border border-brand-100 bg-white p-4 shadow-sm col-span-2 sm:col-span-1 sm:border-white/25 sm:bg-white/10 sm:backdrop-blur-sm sm:shadow-lg sm:shadow-emerald-900/10">
-								<div class="text-3xl font-semibold text-gray-900 sm:text-white">50+</div>
-								<p class="text-brand-700 sm:text-emerald-100 mt-1 text-sm">Specialties covered</p>
+							<div class="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-900/10 col-span-2 sm:col-span-1">
+								<div class="text-3xl font-semibold text-white">50+</div>
+								<p class="text-emerald-100 mt-1 text-sm">Specialties covered</p>
 								</div>
 							</div>
 							<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-							<button class="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-600 text-white px-6 py-3.5 text-base font-semibold shadow-lg shadow-brand-600/20 ring-offset-2 transition hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 min-h-[48px] sm:bg-white/90 sm:text-emerald-900 sm:hover:bg-white sm:focus-visible:ring-white/80">
+							<button class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/90 px-6 py-3.5 text-base font-semibold text-emerald-900 shadow-lg shadow-emerald-900/20 ring-offset-2 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 min-h-[48px]">
 									<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M12 5v14m-7-7h14" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 									Share your story
 								</button>
-							<div class="text-sm text-gray-600 sm:text-emerald-100 leading-relaxed">Your experience helps other patients feel confident about their care.</div>
+							<div class="text-sm text-emerald-100 leading-relaxed">Your experience helps other patients feel confident about their care.</div>
 							</div>
-						<div class="flex flex-wrap items-center gap-4 rounded-2xl border border-brand-100 bg-white px-4 py-3 shadow-sm text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white sm:shadow-lg sm:backdrop-blur-md">
+						<div class="flex flex-wrap items-center gap-4 rounded-2xl border border-white/25 bg-white/10 px-4 py-3 shadow-lg backdrop-blur-md">
 								<div class="flex -space-x-3">
-								<div class="w-10 h-10 rounded-full bg-brand-200 text-brand-900 font-semibold flex items-center justify-center border-2 border-white">SM</div>
-								<div class="w-10 h-10 rounded-full bg-brand-100 text-brand-900 font-semibold flex items-center justify-center border-2 border-white">JD</div>
-								<div class="w-10 h-10 rounded-full bg-brand-200 text-brand-900 font-semibold flex items-center justify-center border-2 border-white">EW</div>
+								<div class="w-10 h-10 rounded-full bg-white/80 text-emerald-900 font-semibold flex items-center justify-center border-2 border-emerald-900/20">SM</div>
+								<div class="w-10 h-10 rounded-full bg-white/60 text-emerald-900 font-semibold flex items-center justify-center border-2 border-emerald-900/20">JD</div>
+								<div class="w-10 h-10 rounded-full bg-white/80 text-emerald-900 font-semibold flex items-center justify-center border-2 border-emerald-900/20">EW</div>
 								</div>
 								<div>
-								<p class="text-xs uppercase tracking-wide text-brand-600 sm:text-emerald-200">Trusted by patients nationwide</p>
-								<p class="text-sm font-semibold text-gray-900 sm:text-white">Tap a card to read more</p>
+								<p class="text-xs uppercase tracking-wide text-emerald-200">Trusted by patients nationwide</p>
+								<p class="text-sm font-semibold text-white">Tap a card to read more</p>
 								</div>
 							</div>
 						</div>
