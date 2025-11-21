@@ -31,28 +31,28 @@
 							name="q"
 							value="{{ old('q', $filters['q'] ?? '') }}"
 							placeholder="Search doctors (name, specialty, org)"
-							class="w-full rounded-lg border border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600"
+							class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 placeholder:text-gray-500 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition"
 							autocomplete="off"
 						/>
 
-						<select name="gender" class="w-full rounded-lg border border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600">
+						<select name="gender" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
 							<option value="">Any gender</option>
 							<option value="M" @selected(($filters['gender'] ?? '') === 'M')>Male</option>
 							<option value="F" @selected(($filters['gender'] ?? '') === 'F')>Female</option>
 						</select>
 
-						<select name="state" class="w-full rounded-lg border border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600">
+						<select name="state" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
 							<option value="">Any state</option>
 							@foreach($states as $s)
 								<option value="{{ $s }}" @selected(($filters['state'] ?? '') === $s)>{{ $s }}</option>
 							@endforeach
 						</select>
 
-						<select name="city" id="doctor-city-select" class="w-full rounded-lg border border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600">
+						<select name="city" id="doctor-city-select" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
 							@include('doctors._city_options', ['cities' => $cities, 'filters' => $filters])
 						</select>
 
-						<select name="specialty" class="w-full rounded-lg border border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600">
+						<select name="specialty" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
 							<option value="">Any specialty</option>
 							@foreach($specialties as $sp)
 								<option value="{{ $sp }}" @selected(($filters['specialty'] ?? '') === $sp)>{{ $sp }}</option>
@@ -60,7 +60,7 @@
 						</select>
 
 						<div class="flex flex-col sm:flex-row sm:items-center gap-3">
-							<button type="submit" class="inline-flex items-center justify-center px-4 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/60 transition">Apply filters</button>
+							<button type="submit" class="inline-flex items-center justify-center px-5 py-3 rounded-full text-sm font-semibold text-brand-900 bg-white shadow-lg shadow-brand-900/10 border border-white/70 hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white/80 transition">Apply filters</button>
 							<a href="{{ route('doctors.index') }}" class="sm:hidden inline-flex items-center justify-center px-4 py-2.5 rounded-full border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition">Reset</a>
 						</div>
 					</form>

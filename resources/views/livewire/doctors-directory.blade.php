@@ -25,7 +25,7 @@
 							type="text"
 							wire:model.live.debounce.300ms="query"
 							placeholder="Search doctors (name, specialty, org)"
-							class="w-full rounded-lg border-gray-300 focus:border-brand-600 focus:ring-brand-600"
+							class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 placeholder:text-gray-500 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition"
 							autocomplete="off"
 							x-data
 							x-ref="doctorSearch"
@@ -72,34 +72,34 @@
 						</div>
 					</div>
 
-				<select wire:model.live="gender" class="w-full rounded-lg border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600">
+					<select wire:model.live="gender" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
 					<option value="">Any gender</option>
 					<option value="M">Male</option>
 					<option value="F">Female</option>
 				</select>
 
-				<select wire:model.live="state" class="w-full rounded-lg border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600">
+					<select wire:model.live="state" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
 					<option value="">Any state</option>
 					@foreach($states as $s)
 						<option value="{{ $s }}">{{ $s }}</option>
 					@endforeach
 				</select>
 
-				<select wire:model.live="city" class="w-full rounded-lg border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600">
+					<select wire:model.live="city" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
 					<option value="">Any city</option>
 					@foreach($cities as $c)
 						<option value="{{ $c }}">{{ $c }}</option>
 					@endforeach
 				</select>
 
-				<select wire:model.live="specialty" class="w-full rounded-lg border-gray-200/70 bg-white/90 text-gray-800 focus:border-brand-600 focus:ring-brand-600">
+					<select wire:model.live="specialty" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
 					<option value="">Any specialty</option>
 					@foreach($specialties as $sp)
 						<option value="{{ $sp }}">{{ $sp }}</option>
 					@endforeach
 				</select>
 
-					<button type="button" wire:click="$set('query','');$set('gender','');$set('state','');$set('city','');$set('specialty','')" class="sm:hidden inline-flex items-center justify-center px-4 py-2.5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition">Reset</button>
+					<button type="button" wire:click="$set('query','');$set('gender','');$set('state','');$set('city','');$set('specialty','')" class="sm:hidden inline-flex items-center justify-center px-4 py-2.5 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 transition">Reset</button>
 				</div>
 			</div>
 		</div>
