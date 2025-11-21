@@ -1066,71 +1066,57 @@
 			</div>
 		</section>
 		<!-- Partnerships Section -->
-		<section class="bg-gradient-to-br from-gray-50 via-white to-brand-50/30 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-8 md:p-10 lg:p-12 mt-6 sm:mt-8">
-			<div class="text-center mb-6 sm:mb-8 md:mb-12">
-				<h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 tracking-tight px-2">Trusted Partners</h2>
-				<p class="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-2">We collaborate with leading healthcare providers, insurance companies, and medical institutions to bring you the best care.</p>
-			</div>
-			<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-				<div class="partner-card group relative flex flex-col items-center justify-center p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 rounded-2xl hover:border-brand-500 hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
-					<div class="absolute inset-0 bg-gradient-to-br from-brand-50/0 to-brand-100/0 group-hover:from-brand-50 group-hover:to-brand-100/50 transition-all duration-300 rounded-2xl"></div>
-					<div class="relative z-10 text-center w-full">
-						<div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 sm:mb-5 bg-gradient-to-br from-brand-100 via-brand-50 to-brand-200 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md group-hover:shadow-lg">
-							<svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-brand-600 group-hover:text-brand-700 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-							</svg>
-						</div>
-						<div class="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-brand-700 transition-colors">Health Insurance</div>
-					</div>
-					<div class="absolute top-2 right-2 w-2 h-2 bg-brand-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+		<section class="relative mt-8 sm:mt-12">
+			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
+				<div class="absolute inset-0 pointer-events-none">
+					<div class="absolute -top-20 -right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+					<div class="absolute -bottom-24 -left-16 w-72 h-72 bg-emerald-600/30 rounded-full blur-3xl"></div>
+					<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]"></div>
 				</div>
-				<div class="partner-card group relative flex flex-col items-center justify-center p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 rounded-2xl hover:border-blue-500 hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
-					<div class="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-blue-100/0 group-hover:from-blue-50 group-hover:to-blue-100/50 transition-all duration-300 rounded-2xl"></div>
-					<div class="relative z-10 text-center w-full">
-						<div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 sm:mb-5 bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md group-hover:shadow-lg">
-							<svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-600 group-hover:text-blue-700 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-							</svg>
+				<div class="relative z-10 px-4 sm:px-6 lg:px-12 py-8 sm:py-10 lg:py-12 text-white">
+					<div class="text-center mb-8 sm:mb-10 lg:mb-12 space-y-4">
+						<p class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-50/90 backdrop-blur">Trusted partners</p>
+						<div class="space-y-3">
+							<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Healthcare collaborations that power DocDoc</h2>
+							<p class="text-sm sm:text-base md:text-lg text-emerald-100 max-w-3xl mx-auto">We work with top-tier networks to deliver better coverage, clinical expertise, and faster patient outcomes across every specialty.</p>
 						</div>
-						<div class="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-blue-700 transition-colors">Medical Centers</div>
 					</div>
-					<div class="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-				</div>
-				<div class="partner-card group relative flex flex-col items-center justify-center p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 rounded-2xl hover:border-purple-500 hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
-					<div class="absolute inset-0 bg-gradient-to-br from-purple-50/0 to-purple-100/0 group-hover:from-purple-50 group-hover:to-purple-100/50 transition-all duration-300 rounded-2xl"></div>
-					<div class="relative z-10 text-center w-full">
-						<div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 sm:mb-5 bg-gradient-to-br from-purple-100 via-purple-50 to-purple-200 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md group-hover:shadow-lg">
-							<svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-purple-600 group-hover:text-purple-700 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-							</svg>
-						</div>
-						<div class="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-purple-700 transition-colors">Pharmacy Networks</div>
+					<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+						@php
+							$partners = [
+								['label' => 'Health Insurance', 'color' => 'emerald', 'icon' => 'file-text'],
+								['label' => 'Medical Centers', 'color' => 'cyan', 'icon' => 'office'],
+								['label' => 'Pharmacy Networks', 'color' => 'purple', 'icon' => 'capsule'],
+								['label' => 'Research Labs', 'color' => 'green', 'icon' => 'labs'],
+								['label' => 'Healthcare Groups', 'color' => 'amber', 'icon' => 'people'],
+							];
+
+							$iconPaths = [
+								'file-text' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+								'office' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+								'capsule' => 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
+								'labs' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+								'people' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+							];
+						@endphp
+						@foreach($partners as $partner)
+							<div class="partner-card group relative flex flex-col items-center justify-center rounded-2xl border border-white/15 bg-white/5 p-5 sm:p-6 backdrop-blur hover:bg-white/10 transition-all duration-300 cursor-pointer text-center">
+								<div class="absolute inset-px rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+								<div class="relative z-10 flex flex-col items-center gap-4">
+									<div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center rounded-2xl bg-white/90 text-emerald-900 shadow-lg shadow-emerald-950/20 group-hover:-translate-y-1 transition-transform">
+										<svg class="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+											<path stroke-linecap="round" stroke-linejoin="round" d="{{ $iconPaths[$partner['icon']] }}"/>
+										</svg>
+									</div>
+									<div class="space-y-2">
+										<p class="text-sm sm:text-base font-semibold">{{ $partner['label'] }}</p>
+										<p class="text-xs text-emerald-100">Verified network</p>
+									</div>
+								</div>
+								<div class="absolute top-3 right-3 w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
+							</div>
+						@endforeach
 					</div>
-					<div class="absolute top-2 right-2 w-2 h-2 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-				</div>
-				<div class="partner-card group relative flex flex-col items-center justify-center p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 rounded-2xl hover:border-green-500 hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
-					<div class="absolute inset-0 bg-gradient-to-br from-green-50/0 to-green-100/0 group-hover:from-green-50 group-hover:to-green-100/50 transition-all duration-300 rounded-2xl"></div>
-					<div class="relative z-10 text-center w-full">
-						<div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 sm:mb-5 bg-gradient-to-br from-green-100 via-green-50 to-green-200 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md group-hover:shadow-lg">
-							<svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-green-600 group-hover:text-green-700 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-							</svg>
-						</div>
-						<div class="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-green-700 transition-colors">Research Labs</div>
-					</div>
-					<div class="absolute top-2 right-2 w-2 h-2 bg-green-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-				</div>
-				<div class="partner-card group relative flex flex-col items-center justify-center p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 rounded-2xl hover:border-orange-500 hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
-					<div class="absolute inset-0 bg-gradient-to-br from-orange-50/0 to-orange-100/0 group-hover:from-orange-50 group-hover:to-orange-100/50 transition-all duration-300 rounded-2xl"></div>
-					<div class="relative z-10 text-center w-full">
-						<div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 sm:mb-5 bg-gradient-to-br from-orange-100 via-orange-50 to-orange-200 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md group-hover:shadow-lg">
-							<svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-orange-600 group-hover:text-orange-700 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-							</svg>
-						</div>
-						<div class="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-orange-700 transition-colors">Healthcare Groups</div>
-					</div>
-					<div class="absolute top-2 right-2 w-2 h-2 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 				</div>
 			</div>
 		</section>
