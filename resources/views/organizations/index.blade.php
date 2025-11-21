@@ -10,13 +10,49 @@
 
 @section('content')
 	<div class="grid gap-6 lg:grid-cols-[minmax(0,320px)_1fr] items-start">
-		<aside class="lg:col-span-1">
-			<div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 p-5 sm:p-6 text-white shadow-[0_25px_60px_rgba(6,95,70,0.28)] lg:sticky lg:top-28">
+		<aside class="lg:col-span-1 w-full">
+			<div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 p-4 sm:p-6 text-white shadow-[0_25px_60px_rgba(6,95,70,0.28)] max-w-2xl w-full mx-auto lg:max-w-none lg:sticky lg:top-28">
 				<div class="absolute inset-0 rounded-[32px] border border-white/10 pointer-events-none"></div>
 				<div class="absolute -top-16 -right-10 w-48 h-48 bg-emerald-300/40 blur-[120px] rounded-full pointer-events-none"></div>
 				<div class="absolute -bottom-20 left-6 w-60 h-60 bg-teal-300/30 blur-[160px] rounded-full pointer-events-none"></div>
 
 				<div class="relative z-10 space-y-5">
+					<div class="sm:hidden space-y-3 rounded-[28px] bg-white/10 p-4 border border-white/25 backdrop-blur-xl text-emerald-50">
+						<div class="flex items-center justify-between gap-3">
+							<div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em]">
+								<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M4 6h16M4 12h10M4 18h6" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								<span>Filters</span>
+							</div>
+							<a href="#organizations-results" class="text-[11px] font-semibold tracking-wide uppercase inline-flex items-center gap-1 text-white/75 hover:text-white">
+								Skip to results
+								<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</a>
+						</div>
+						<p class="text-sm text-emerald-50/85">All controls stay thumb-friendly and float above the content for quick tweaks.</p>
+						<div class="grid grid-cols-2 gap-2 text-[11px] font-medium uppercase tracking-wide">
+							<div class="rounded-2xl border border-white/30 bg-white/15 px-3 py-2">
+								<p class="text-white/70">Name</p>
+								<p class="text-white font-semibold">Type & go</p>
+							</div>
+							<div class="rounded-2xl border border-white/30 bg-white/15 px-3 py-2">
+								<p class="text-white/70">Region</p>
+								<p class="text-white font-semibold">State + City</p>
+							</div>
+							<div class="rounded-2xl border border-white/30 bg-white/15 px-3 py-2">
+								<p class="text-white/70">Specialty</p>
+								<p class="text-white font-semibold">Focus area</p>
+							</div>
+							<div class="rounded-2xl border border-white/30 bg-white/15 px-3 py-2">
+								<p class="text-white/70">Status</p>
+								<p class="text-white font-semibold">Live update</p>
+							</div>
+						</div>
+					</div>
+
 					<div class="space-y-2">
 						<p class="text-xs uppercase tracking-[0.2em] text-emerald-200/80 font-semibold">Find care faster</p>
 						<h2 class="text-2xl font-semibold leading-tight">Smart filters</h2>
