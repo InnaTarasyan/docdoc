@@ -873,44 +873,66 @@
 		</section>
 
 		<!-- Special Offers/Promotions Section -->
-		<section class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-xl sm:rounded-2xl p-6 sm:p-10 md:p-12 relative overflow-hidden mt-6 sm:mt-8" style="background: linear-gradient(135deg, rgb(5, 78, 25) 0%, rgb(4, 60, 19) 100%);">
-			<div class="absolute inset-0 opacity-10">
-				<svg class="absolute top-0 right-0 w-64 h-64 text-white" fill="currentColor" viewBox="0 0 24 24">
-					<path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-				</svg>
-				<svg class="absolute bottom-0 left-0 w-48 h-48 text-white" fill="currentColor" viewBox="0 0 24 24">
-					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-				</svg>
-			</div>
-			<div class="relative z-10 max-w-4xl mx-auto text-center">
-				<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-4 text-white px-2">Special Health Checkup Offer</h2>
-				<p class="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto text-white opacity-95 px-2">Get 20% off on comprehensive health checkups at participating clinics. Limited time offer!</p>
-				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-2">
-					<a href="{{ route('organizations.index') }}" class="bg-white text-brand-700 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-brand-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 w-full sm:w-auto min-h-[44px] flex items-center justify-center touch-manipulation">
-						Find Participating Clinics
-					</a>
-					<a href="#" class="border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors w-full sm:w-auto min-h-[44px] flex items-center justify-center touch-manipulation">
-						Learn More
-					</a>
+		<section class="relative mt-8 sm:mt-12">
+			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
+				<div class="absolute inset-0 pointer-events-none">
+					<div class="absolute -top-24 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+					<div class="absolute -bottom-28 -left-16 w-72 h-72 bg-emerald-600/30 rounded-full blur-3xl"></div>
+					<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]"></div>
 				</div>
-				<div class="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-white px-2">
-					<div class="flex items-center gap-2">
-						<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-						</svg>
-						<span class="text-white">Valid until end of month</span>
+				<div class="relative z-10 px-4 sm:px-6 lg:px-12 py-8 sm:py-10 lg:py-12">
+					<div class="mx-auto max-w-3xl text-center text-white space-y-4">
+						<p class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-50/90 backdrop-blur">
+							<span class="inline-block h-2 w-2 rounded-full bg-emerald-300 animate-pulse"></span>
+							Special offer
+						</p>
+						<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Special Health Checkup Offer</h2>
+						<p class="text-sm sm:text-base md:text-lg text-emerald-50/90">
+							Get 20% off on comprehensive health checkups at participating clinics. Limited time offer!
+						</p>
 					</div>
-					<div class="flex items-center gap-2">
-						<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-						</svg>
-						<span class="text-white">No hidden fees</span>
+					<div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+						<a href="{{ route('organizations.index') }}" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-white/95 px-6 sm:px-8 py-3 text-base font-semibold text-emerald-900 shadow-lg shadow-emerald-900/30 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900 touch-manipulation">
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+							</svg>
+							<span>Find Participating Clinics</span>
+						</a>
+						<a href="#" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border border-white/60 bg-white/5 px-6 sm:px-8 py-3 text-base font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900 touch-manipulation">
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+							</svg>
+							<span>Learn More</span>
+						</a>
 					</div>
-					<div class="flex items-center gap-2">
-						<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-						</svg>
-						<span class="text-white">Easy booking</span>
+					<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
+						<div class="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm sm:text-base backdrop-blur">
+							<svg class="w-6 h-6 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+							</svg>
+							<div class="text-left">
+								<p class="font-semibold">Valid until month end</p>
+								<p class="text-emerald-100/80 text-xs sm:text-sm">Schedule anytime this month</p>
+							</div>
+						</div>
+						<div class="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm sm:text-base backdrop-blur">
+							<svg class="w-6 h-6 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+							</svg>
+							<div class="text-left">
+								<p class="font-semibold">Transparent pricing</p>
+								<p class="text-emerald-100/80 text-xs sm:text-sm">No hidden fees or extras</p>
+							</div>
+						</div>
+						<div class="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm sm:text-base backdrop-blur">
+							<svg class="w-6 h-6 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+							</svg>
+							<div class="text-left">
+								<p class="font-semibold">Easy booking</p>
+								<p class="text-emerald-100/80 text-xs sm:text-sm">Reserve online in minutes</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
