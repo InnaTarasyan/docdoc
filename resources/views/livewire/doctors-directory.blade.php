@@ -19,17 +19,26 @@
 					</div>
 					<button type="button" wire:click="$set('query','');$set('gender','');$set('state','');$set('city','');$set('specialty','')" class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-semibold text-brand-900 border border-white/50 bg-white/70 hover:bg-white transition">Reset</button>
 				</div>
-				<div class="grid gap-3">
-					<div class="relative">
-						<input
-							type="text"
-							wire:model.live.debounce.300ms="query"
-							placeholder="Search doctors (name, specialty, org)"
-							class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 placeholder:text-gray-500 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition"
-							autocomplete="off"
-							x-data
-							x-ref="doctorSearch"
-							x-on:input.debounce.250ms="
+				<div class="grid gap-4">
+					<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">
+						<span class="flex items-center gap-2 text-gray-700">
+							<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="m21 21-4.35-4.35" stroke-linecap="round" stroke-linejoin="round"/>
+								<circle cx="11" cy="11" r="7"/>
+							</svg>
+							Search doctors
+							<span class="text-xs font-normal text-gray-500">(name, specialty, org)</span>
+						</span>
+						<div class="relative">
+							<input
+								type="text"
+								wire:model.live.debounce.300ms="query"
+								placeholder="E.g. Cardiology, Anna Lee, Austin"
+								class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 placeholder:text-gray-500 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition"
+								autocomplete="off"
+								x-data
+								x-ref="doctorSearch"
+								x-on:input.debounce.250ms="
 								const term = $el.value.trim();
 								if (!term) { document.getElementById('doctor-suggest').classList.add('hidden'); return; }
 								fetch('{{ route('api.search.doctors') }}?q=' + encodeURIComponent(term), { headers: { 'Accept': 'application/json' }})
@@ -63,41 +72,90 @@
 									document.getElementById('doctor-suggest').classList.remove('hidden');
 								}
 							"
-							x-on:blur="
+								x-on:blur="
 								setTimeout(() => document.getElementById('doctor-suggest').classList.add('hidden'), 150);
 							"
-						/>
-						<div id="doctor-suggest" class="hidden absolute z-20 mt-1 w-full bg-white border rounded-lg shadow-lg overflow-hidden">
-							<div data-list></div>
+							/>
+							<div id="doctor-suggest" class="hidden absolute z-20 mt-1 w-full bg-white border rounded-lg shadow-lg overflow-hidden">
+								<div data-list></div>
+							</div>
 						</div>
+					</label>
+
+					<div class="grid sm:grid-cols-2 gap-3">
+						<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">
+							<span class="flex items-center gap-2">
+								<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M12 4v16m8-8H4" stroke-linecap="round"/>
+								</svg>
+								Gender
+							</span>
+							<select wire:model.live="gender" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
+								<option value="">Any gender</option>
+								<option value="M">Male</option>
+								<option value="F">Female</option>
+							</select>
+						</label>
+
+						<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">
+							<span class="flex items-center gap-2">
+								<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M3 3h18v13H3z"/><path d="M8 21h8" stroke-linecap="round"/>
+								</svg>
+								State
+							</span>
+							<select wire:model.live="state" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
+								<option value="">Any state</option>
+								@foreach($states as $s)
+									<option value="{{ $s }}">{{ $s }}</option>
+								@endforeach
+							</select>
+						</label>
 					</div>
 
-					<select wire:model.live="gender" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
-					<option value="">Any gender</option>
-					<option value="M">Male</option>
-					<option value="F">Female</option>
-				</select>
+					<div class="grid sm:grid-cols-2 gap-3">
+						<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">
+							<span class="flex items-center gap-2">
+								<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
+								</svg>
+								City
+							</span>
+							<select wire:model.live="city" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
+								<option value="">Any city</option>
+								@foreach($cities as $c)
+									<option value="{{ $c }}">{{ $c }}</option>
+								@endforeach
+							</select>
+						</label>
 
-					<select wire:model.live="state" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
-					<option value="">Any state</option>
-					@foreach($states as $s)
-						<option value="{{ $s }}">{{ $s }}</option>
-					@endforeach
-				</select>
+						<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">
+							<span class="flex items-center gap-2">
+								<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M7 20v-8m10 8V4" stroke-linecap="round"/>
+									<path d="M3 20h18" stroke-linecap="round"/>
+								</svg>
+								Specialty
+							</span>
+							<select wire:model.live="specialty" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
+								<option value="">Any specialty</option>
+								@foreach($specialties as $sp)
+									<option value="{{ $sp }}">{{ $sp }}</option>
+								@endforeach
+							</select>
+						</label>
+					</div>
 
-					<select wire:model.live="city" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
-					<option value="">Any city</option>
-					@foreach($cities as $c)
-						<option value="{{ $c }}">{{ $c }}</option>
-					@endforeach
-				</select>
-
-					<select wire:model.live="specialty" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
-					<option value="">Any specialty</option>
-					@foreach($specialties as $sp)
-						<option value="{{ $sp }}">{{ $sp }}</option>
-					@endforeach
-				</select>
+					<div class="flex flex-wrap gap-2">
+						@foreach(['Cardiology','Dermatology','Pediatrics','Telehealth'] as $chip)
+							<button type="button" wire:click="$set('specialty', '{{ $chip }}')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold text-brand-700 bg-brand-50 border border-brand-100 hover:bg-brand-100 transition">
+								{{ $chip }}
+								<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</button>
+						@endforeach
+					</div>
 
 					<button type="button" wire:click="$set('query','');$set('gender','');$set('state','');$set('city','');$set('specialty','')" class="sm:hidden inline-flex items-center justify-center px-4 py-2.5 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 transition">Reset</button>
 				</div>
