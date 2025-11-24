@@ -16,48 +16,48 @@
 			<div class="hidden sm:block absolute bottom-0 left-6 h-64 w-64 rounded-full bg-emerald-500/20 blur-[200px]"></div>
 
 			<div class="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center">
-				<div class="flex-1 space-y-4">
-					<p class="text-xs font-semibold uppercase tracking-[0.25em] text-brand-700 sm:text-emerald-100/80">Independent builder</p>
+				<div class="flex-1 space-y-5 text-center sm:text-left">
+					<p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-700 sm:text-emerald-100/80">Independent builder</p>
 					<h1 class="text-3xl font-semibold leading-tight text-gray-900 sm:text-white">Hi, I'm Inna Tarasyan</h1>
-					<p class="text-sm text-gray-600 sm:text-emerald-50/90">
+					<p class="text-base text-gray-600 sm:text-emerald-50/90">
 						I build healthcare data tools that feel modern, credible, and fast. The DocDoc directory imports official NPI Registry data,
 						organizes it with Laravel, and exposes mobile-friendly ways to explore doctors, organizations, and specialties.
 					</p>
-					<div class="grid gap-4 sm:grid-cols-3">
-						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-left text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
+					<div class="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:grid-cols-3">
+						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
 							<p class="text-[11px] uppercase tracking-[0.3em] text-gray-600 sm:text-white/70">Base</p>
 							<p class="text-lg font-semibold">🇦🇲 Armenia</p>
 						</div>
-						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-left text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
+						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
 							<p class="text-[11px] uppercase tracking-[0.3em] text-gray-600 sm:text-white/70">Stack</p>
 							<p class="text-lg font-semibold">Laravel + Livewire</p>
 						</div>
-						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-left text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
+						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
 							<p class="text-[11px] uppercase tracking-[0.3em] text-gray-600 sm:text-white/70">Focus</p>
 							<p class="text-lg font-semibold">Real data UX</p>
 						</div>
 					</div>
 				</div>
 
-				<div class="mx-auto w-full max-w-xs">
+				<div class="mx-auto w-full max-w-xs sm:max-w-sm">
 					<div class="relative overflow-hidden rounded-[32px] border border-white/40 bg-gradient-to-br from-emerald-600/40 to-emerald-800/70 p-3 shadow-[0_20px_40px_rgba(6,95,70,0.35)]">
 						<div class="absolute inset-0 rounded-[32px] border border-white/40"></div>
 						<div class="relative rounded-[28px] bg-white/95 p-3">
-							<img src="{{ asset('img/inna.jpg') }}" alt="Inna Tarasyan" class="h-64 w-full rounded-[24px] object-cover">
+							<img src="{{ asset('img/inna.jpg') }}" alt="Inna Tarasyan" class="h-64 w-full rounded-[24px] object-cover sm:h-72">
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<section class="rounded-3xl border border-gray-200/70 bg-white p-6 shadow-sm sm:rounded-[32px] sm:p-8 sm:shadow-[0_25px_50px_rgba(15,118,110,0.12)]">
-			<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-				<div>
-					<p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-700">About the project</p>
-					<h2 class="text-2xl font-semibold text-gray-900">NPI Registry importer + directory</h2>
+		<section class="rounded-3xl border border-gray-200/70 bg-white p-5 shadow-sm sm:rounded-[32px] sm:p-8 sm:shadow-[0_25px_50px_rgba(15,118,110,0.12)]">
+			<div class="flex flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+				<div class="space-y-2">
+					<p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-700">About the project</p>
+					<h2 class="text-2xl font-semibold text-gray-900 leading-snug">NPI Registry importer + directory</h2>
 					<p class="text-sm text-gray-600">A Laravel 10 application that routinely pulls NPPES data, normalizes it, and surfaces it through Livewire-powered experiences.</p>
 				</div>
-				<div class="inline-flex items-center gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700">
+				<div class="inline-flex items-center justify-center gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700">
 					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
@@ -85,11 +85,11 @@
 		</section>
 
 		<section class="grid gap-6 lg:grid-cols-2">
-			<div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-emerald-950 via-emerald-900 to-brand-700 p-6 text-white shadow-[0_20px_50px_rgba(6,95,70,0.25)] sm:p-8">
+			<div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-emerald-950 via-emerald-900 to-brand-700 p-5 text-white shadow-[0_20px_50px_rgba(6,95,70,0.25)] sm:p-8">
 				<div class="absolute inset-0 rounded-[32px] border border-white/15 opacity-70 pointer-events-none"></div>
 				<div class="relative z-10 space-y-4">
-					<p class="text-xs uppercase tracking-[0.3em] text-white/80">Key capabilities</p>
-					<h2 class="text-2xl font-semibold leading-tight text-white">What the platform does</h2>
+					<p class="text-xs uppercase tracking-[0.3em] text-white/80 text-center sm:text-left">Key capabilities</p>
+					<h2 class="text-2xl font-semibold leading-tight text-white text-center sm:text-left">What the platform does</h2>
 					<ul class="space-y-4 text-sm text-white/90">
 						<li class="flex items-start gap-3">
 							<span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-sm font-semibold text-emerald-900">1</span>
