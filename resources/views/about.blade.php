@@ -2,524 +2,158 @@
 
 @section('title', 'About')
 
+@section('breadcrumbs')
+	<a href="{{ route('home') }}" class="hover:underline">Home</a>
+	<span class="mx-1">/</span>
+	<span>About</span>
+@endsection
+
 @section('content')
-<div class="about-container">
-	<div class="about-wrapper">
-		<!-- Hero Section with Photo -->
-		<div class="about-hero">
-			<div class="about-hero-content">
-				<div class="about-photo-wrapper">
-					<div class="about-photo-container">
-						<img src="{{ asset('img/inna.jpg') }}" alt="Inna Tarasyan" class="about-photo">
-						<div class="about-photo-overlay"></div>
+	<div class="space-y-6 sm:space-y-10">
+		<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white px-4 py-6 shadow-sm sm:rounded-[36px] sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:px-8 sm:py-10 sm:text-white sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)]">
+			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/15 opacity-80 pointer-events-none"></div>
+			<div class="hidden sm:block absolute -top-10 -right-8 h-48 w-48 rounded-full bg-emerald-300/35 blur-[140px]"></div>
+			<div class="hidden sm:block absolute bottom-0 left-6 h-64 w-64 rounded-full bg-emerald-500/20 blur-[200px]"></div>
+
+			<div class="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center">
+				<div class="flex-1 space-y-4">
+					<p class="text-xs font-semibold uppercase tracking-[0.25em] text-brand-700 sm:text-emerald-100/80">Independent builder</p>
+					<h1 class="text-3xl font-semibold leading-tight text-gray-900 sm:text-white">Hi, I'm Inna Tarasyan</h1>
+					<p class="text-sm text-gray-600 sm:text-emerald-50/90">
+						I build healthcare data tools that feel modern, credible, and fast. The DocDoc directory imports official NPI Registry data,
+						organizes it with Laravel, and exposes mobile-friendly ways to explore doctors, organizations, and specialties.
+					</p>
+					<div class="grid gap-4 sm:grid-cols-3">
+						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-left text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
+							<p class="text-[11px] uppercase tracking-[0.3em] text-gray-600 sm:text-white/70">Base</p>
+							<p class="text-lg font-semibold">🇦🇲 Armenia</p>
+						</div>
+						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-left text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
+							<p class="text-[11px] uppercase tracking-[0.3em] text-gray-600 sm:text-white/70">Stack</p>
+							<p class="text-lg font-semibold">Laravel + Livewire</p>
+						</div>
+						<div class="rounded-2xl border border-gray-100/70 bg-brand-50/70 px-4 py-3 text-left text-gray-900 sm:border-white/25 sm:bg-white/10 sm:text-white">
+							<p class="text-[11px] uppercase tracking-[0.3em] text-gray-600 sm:text-white/70">Focus</p>
+							<p class="text-lg font-semibold">Real data UX</p>
+						</div>
 					</div>
 				</div>
-				<div class="about-hero-text">
-					<h1 class="about-title">🌐 Inna Tarasyan</h1>
-					<p class="about-subtitle">Web Developer & Crypto Enthusiast</p>
-					<p class="about-location">🇦🇲 Based in Armenia</p>
+
+				<div class="mx-auto w-full max-w-xs">
+					<div class="relative overflow-hidden rounded-[32px] border border-white/40 bg-gradient-to-br from-emerald-600/40 to-emerald-800/70 p-3 shadow-[0_20px_40px_rgba(6,95,70,0.35)]">
+						<div class="absolute inset-0 rounded-[32px] border border-white/40"></div>
+						<div class="relative rounded-[28px] bg-white/95 p-3">
+							<img src="{{ asset('img/inna.jpg') }}" alt="Inna Tarasyan" class="h-64 w-full rounded-[24px] object-cover">
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 
-		<!-- Main Content -->
-		<div class="about-content">
-			<!-- Introduction Section -->
-			<section class="about-section">
-				<div class="about-section-header">
-					<div class="about-section-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke-linecap="round" stroke-linejoin="round"/>
-							<circle cx="12" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-					<h2 class="about-section-title">Hello!</h2>
+		<section class="rounded-3xl border border-gray-200/70 bg-white p-6 shadow-sm sm:rounded-[32px] sm:p-8 sm:shadow-[0_25px_50px_rgba(15,118,110,0.12)]">
+			<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<div>
+					<p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-700">About the project</p>
+					<h2 class="text-2xl font-semibold text-gray-900">NPI Registry importer + directory</h2>
+					<p class="text-sm text-gray-600">A Laravel 10 application that routinely pulls NPPES data, normalizes it, and surfaces it through Livewire-powered experiences.</p>
 				</div>
-				<div class="about-section-body">
-					<p class="about-text">
-						I'm a passionate web developer with a strong interest in blockchain and crypto technologies. I focus on building tools that make crypto trading more accessible and data-driven. With experience in creating real-time, user-friendly web applications, I aim to empower traders through better insights and seamless interfaces.
-					</p>
+				<div class="inline-flex items-center gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700">
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					Live & maintained
 				</div>
-			</section>
+			</div>
 
-			<!-- Project Overview Section -->
-			<section class="about-section">
-				<div class="about-section-header">
-					<div class="about-section-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M12 2L2 7l10 5 10-5-10-5z" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-					<h2 class="about-section-title">🏥 Project Overview: NPI Registry Data Importer (Laravel)</h2>
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				<div class="rounded-2xl border border-gray-100 bg-gradient-to-br from-brand-50 via-white to-white px-5 py-6 shadow-sm">
+					<p class="text-xs uppercase tracking-[0.3em] text-gray-500">Pipelines</p>
+					<h3 class="mt-1 text-lg font-semibold text-gray-900">Reliable imports</h3>
+					<p class="text-sm text-gray-600">Artisan commands fetch NPI data with per-state + specialty filters and store it without duplicates.</p>
 				</div>
-				<div class="about-section-body">
-					<p class="about-text">
-						This Laravel-based project is designed to fetch comprehensive healthcare provider data from the official NPI Registry API and store it in a structured and scalable way. The primary goal is to collect and organize information about doctors, healthcare organizations, and their specialties, making it easy to search, analyze, and use in medical directories or booking platforms.
-					</p>
+				<div class="rounded-2xl border border-gray-100 bg-gradient-to-br from-brand-50 via-white to-white px-5 py-6 shadow-sm">
+					<p class="text-xs uppercase tracking-[0.3em] text-gray-500">Directory</p>
+					<h3 class="mt-1 text-lg font-semibold text-gray-900">Mobile-first UI</h3>
+					<p class="text-sm text-gray-600">Doctors, organizations, and specialties share the same emerald gradients, rounded shells, and accessible filters.</p>
 				</div>
-			</section>
+				<div class="rounded-2xl border border-gray-100 bg-gradient-to-br from-brand-50 via-white to-white px-5 py-6 shadow-sm">
+					<p class="text-xs uppercase tracking-[0.3em] text-gray-500">Trust</p>
+					<h3 class="mt-1 text-lg font-semibold text-gray-900">Ownership & logging</h3>
+					<p class="text-sm text-gray-600">All code, content, and updates are handled personally; logs document each import run for traceability.</p>
+				</div>
+			</div>
+		</section>
 
-			<!-- Key Features Section -->
-			<section class="about-section">
-				<div class="about-section-header">
-					<div class="about-section-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M12 21c0-1-1-3-3-3s-3 2-3 3 1 3 3 3 3-2 3-3" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M12 3c0 1-1 3-3 3S6 4 6 3s1-3 3-3 3 2 3 3" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-					<h2 class="about-section-title">🔍 Key Features</h2>
-				</div>
-				<div class="about-section-body">
-					<div class="about-feature-item">
-						<h3 class="about-feature-title">Dynamic Data Retrieval</h3>
-						<p class="about-text">
-							Fetches paginated data from the NPI Registry API using valid, customizable filters like location (state) and taxonomy (specialty) to avoid API errors.
-						</p>
-					</div>
-					<div class="about-feature-item">
-						<h3 class="about-feature-title">Data Categorization</h3>
-						<p class="about-text">
-							Organizes imported records into dedicated tables for:
-						</p>
-						<ul class="about-list">
-							<li class="about-list-item">
-								<span class="about-list-bullet"></span>
-								<span><strong>Doctors</strong></span>
-							</li>
-							<li class="about-list-item">
-								<span class="about-list-bullet"></span>
-								<span><strong>Organizations</strong></span>
-							</li>
-							<li class="about-list-item">
-								<span class="about-list-bullet"></span>
-								<span><strong>Specialties</strong></span>
-							</li>
-						</ul>
-					</div>
-					<div class="about-feature-item">
-						<h3 class="about-feature-title">Console Commands</h3>
-						<p class="about-text">
-							Includes CLI tools to automate data import and refresh routines, ensuring updated information without duplicated entries.
-						</p>
-					</div>
-					<div class="about-feature-item">
-						<h3 class="about-feature-title">Caching Support (optional)</h3>
-						<p class="about-text">
-							Built-in caching layer helps reduce API calls and speeds up data retrieval for repeated queries.
-						</p>
-					</div>
-					<div class="about-feature-item">
-						<h3 class="about-feature-title">Error Handling & Validation</h3>
-						<p class="about-text">
-							Ensures smooth data import through API response validation and structured logging.
-						</p>
-					</div>
-				</div>
-			</section>
-
-			<!-- Tech Stack Section -->
-			<section class="about-section">
-				<div class="about-section-header">
-					<div class="about-section-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M12 2L2 7l10 5 10-5-10-5z" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-					<h2 class="about-section-title">🛠 Tech Stack</h2>
-				</div>
-				<div class="about-section-body">
-					<ul class="about-list">
-						<li class="about-list-item">
-							<span class="about-list-bullet"></span>
-							<span>Laravel 10+</span>
+		<section class="grid gap-6 lg:grid-cols-2">
+			<div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-emerald-950 via-emerald-900 to-brand-700 p-6 text-white shadow-[0_20px_50px_rgba(6,95,70,0.25)] sm:p-8">
+				<div class="absolute inset-0 rounded-[32px] border border-white/15 opacity-70 pointer-events-none"></div>
+				<div class="relative z-10 space-y-4">
+					<p class="text-xs uppercase tracking-[0.3em] text-white/80">Key capabilities</p>
+					<h2 class="text-2xl font-semibold leading-tight text-white">What the platform does</h2>
+					<ul class="space-y-4 text-sm text-white/90">
+						<li class="flex items-start gap-3">
+							<span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-sm font-semibold text-emerald-900">1</span>
+							<div class="space-y-1">
+								<p class="text-base font-semibold text-white">API ingestion & validation</p>
+								<p class="text-white/85">Handles pagination, taxonomy filters, and guards against invalid requests before persisting.</p>
+							</div>
 						</li>
-						<li class="about-list-item">
-							<span class="about-list-bullet"></span>
-							<span>MySQL / PostgreSQL</span>
+						<li class="flex items-start gap-3">
+							<span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-sm font-semibold text-emerald-900">2</span>
+							<div class="space-y-1">
+								<p class="text-base font-semibold text-white">Organized data model</p>
+								<p class="text-white/85">Doctors, organizations, specialties, and addresses live in purpose-built tables with searchable columns.</p>
+							</div>
 						</li>
-						<li class="about-list-item">
-							<span class="about-list-bullet"></span>
-							<span>Artisan Commands</span>
-						</li>
-						<li class="about-list-item">
-							<span class="about-list-bullet"></span>
-							<span>JSON REST API Integration</span>
-						</li>
-						<li class="about-list-item">
-							<span class="about-list-bullet"></span>
-							<span>Optional Cache (Redis / File)</span>
+						<li class="flex items-start gap-3">
+							<span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-sm font-semibold text-emerald-900">3</span>
+							<div class="space-y-1">
+								<p class="text-base font-semibold text-white">Live filtering UI</p>
+								<p class="text-white/85">AJAX/Livewire blends allow instant filtering while preserving accessibility and responsive layouts.</p>
+							</div>
 						</li>
 					</ul>
 				</div>
-			</section>
+			</div>
 
-			<!-- Ownership Section -->
-			<section class="about-section">
-				<div class="about-section-header">
-					<div class="about-section-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/>
+			<div class="rounded-[32px] border border-gray-200/70 bg-white p-6 shadow-sm sm:p-8">
+				<p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-700">Contact & ownership</p>
+				<h2 class="text-2xl font-semibold text-gray-900">Built and run by one person</h2>
+				<p class="text-sm text-gray-600">
+					DocDoc is a solo project. No outside company runs the data or interfaces—every component from design to infrastructure is authored and maintained by me.
+				</p>
+				<div class="mt-4 space-y-3">
+					<div class="flex items-start gap-3 rounded-2xl border border-gray-100 bg-brand-50/50 px-4 py-3">
+						<svg class="h-5 w-5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M5 7h14M5 12h14m-7 5h7" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
+						<div>
+							<p class="text-sm font-semibold text-gray-900">Transparency first</p>
+							<p class="text-sm text-gray-600">Data sourcing, logs, and deployment steps are documented for clarity.</p>
+						</div>
 					</div>
-					<h2 class="about-section-title">👤 Ownership</h2>
-				</div>
-				<div class="about-section-body">
-					<p class="about-text">
-						"Coin Trading Project" and this NPI data importer are solely built and maintained by me, <strong>Inna Tarasyan</strong> — an independent web developer from Armenia. No company or external organization is involved. I take full responsibility for the project's development, updates, and content.
-					</p>
-				</div>
-			</section>
-
-			<!-- Contact Section -->
-			<section class="about-section">
-				<div class="about-section-header">
-					<div class="about-section-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"/>
+					<div class="flex items-start gap-3 rounded-2xl border border-gray-100 bg-brand-50/50 px-4 py-3">
+						<svg class="h-5 w-5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/>
+							<path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07 6.07-1.41-1.41M6.34 6.34 4.93 4.93m12.73 0-1.41 1.41M6.34 17.66l-1.41 1.41" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
-					</div>
-					<h2 class="about-section-title">📩 Get in Touch</h2>
-				</div>
-				<div class="about-section-body">
-					<p class="about-text">
-						Got ideas, questions, or want to collaborate?
-					</p>
-					<p class="about-text">
-						Feel free to reach out — I'd love to connect!
-					</p>
-					<div class="about-contact-info">
-						<p class="about-text">
-							📧 Email: <a href="mailto:innatarasyancryptotrading@gmail.com" class="about-link">innatarasyancryptotrading@gmail.com</a>
-						</p>
+						<div>
+							<p class="text-sm font-semibold text-gray-900">Secure by design</p>
+							<p class="text-sm text-gray-600">HTTPS-only hosting, SSL A rating, and Google Safe Browsing checks.</p>
+						</div>
 					</div>
 				</div>
-			</section>
-		</div>
+				<div class="mt-6 rounded-2xl border border-brand-100 bg-brand-50/70 px-4 py-4">
+					<p class="text-sm font-semibold text-gray-900">Say hello</p>
+					<p class="text-sm text-gray-600">collaboration, questions, or audits welcome.</p>
+					<a href="mailto:innatarasyancryptotrading@gmail.com" class="mt-2 inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition hover:bg-brand-700">
+						Email innatarasyancryptotrading@gmail.com
+						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</section>
 	</div>
-</div>
-
-<style>
-.about-container {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 2rem 1rem;
-}
-
-.about-wrapper {
-	background: white;
-	border-radius: 1rem;
-	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-	overflow: hidden;
-}
-
-/* Hero Section */
-.about-hero {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	padding: 3rem 2rem;
-	position: relative;
-	overflow: hidden;
-}
-
-.about-hero::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.1"><circle cx="30" cy="30" r="2"/></g></svg>');
-	opacity: 0.3;
-}
-
-.about-hero-content {
-	position: relative;
-	z-index: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 2rem;
-}
-
-.about-photo-wrapper {
-	position: relative;
-}
-
-.about-photo-container {
-	position: relative;
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-	overflow: hidden;
-	border: 5px solid rgba(255, 255, 255, 0.3);
-	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.about-photo-container:hover {
-	transform: scale(1.05);
-	box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-}
-
-.about-photo {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
-}
-
-.about-photo-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-	pointer-events: none;
-}
-
-.about-hero-text {
-	text-align: center;
-	color: white;
-}
-
-.about-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-bottom: 0.5rem;
-	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.about-subtitle {
-	font-size: 1.25rem;
-	opacity: 0.95;
-	font-weight: 500;
-	margin-bottom: 0.25rem;
-}
-
-.about-location {
-	font-size: 1.125rem;
-	opacity: 0.9;
-	font-weight: 400;
-}
-
-/* Content Sections */
-.about-content {
-	padding: 3rem 2rem;
-}
-
-.about-section {
-	margin-bottom: 3rem;
-}
-
-.about-section:last-child {
-	margin-bottom: 0;
-}
-
-.about-section-header {
-	display: flex;
-	align-items: center;
-	gap: 1rem;
-	margin-bottom: 1.5rem;
-	padding-bottom: 1rem;
-	border-bottom: 2px solid #e5e7eb;
-}
-
-.about-section-icon {
-	width: 2.5rem;
-	height: 2.5rem;
-	color: #667eea;
-	flex-shrink: 0;
-}
-
-.about-section-icon svg {
-	width: 100%;
-	height: 100%;
-}
-
-.about-section-title {
-	font-size: 1.75rem;
-	font-weight: 700;
-	color: #1f2937;
-	margin: 0;
-}
-
-.about-feature-item {
-	margin-bottom: 2rem;
-}
-
-.about-feature-item:last-child {
-	margin-bottom: 0;
-}
-
-.about-feature-title {
-	font-size: 1.25rem;
-	font-weight: 600;
-	color: #374151;
-	margin-bottom: 0.75rem;
-}
-
-.about-section-body {
-	color: #4b5563;
-	line-height: 1.75;
-}
-
-.about-text {
-	margin-bottom: 1.25rem;
-	font-size: 1rem;
-}
-
-.about-text:last-child {
-	margin-bottom: 0;
-}
-
-.about-list {
-	list-style: none;
-	padding: 0;
-	margin: 1.5rem 0;
-}
-
-.about-list-item {
-	display: flex;
-	align-items: flex-start;
-	gap: 0.75rem;
-	margin-bottom: 0.75rem;
-	padding-left: 0;
-}
-
-.about-list-item:last-child {
-	margin-bottom: 0;
-}
-
-.about-list-bullet {
-	width: 0.5rem;
-	height: 0.5rem;
-	border-radius: 50%;
-	background: #667eea;
-	flex-shrink: 0;
-	margin-top: 0.5rem;
-}
-
-.about-link {
-	color: #667eea;
-	text-decoration: none;
-	font-weight: 500;
-	transition: color 0.2s ease, text-decoration 0.2s ease;
-	border-bottom: 1px solid transparent;
-}
-
-.about-link:hover {
-	color: #764ba2;
-	border-bottom-color: #764ba2;
-}
-
-.about-contact-info {
-	background: #f9fafb;
-	padding: 1.5rem;
-	border-radius: 0.5rem;
-	margin-top: 1rem;
-	border-left: 4px solid #667eea;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-	.about-container {
-		padding: 1rem 0.5rem;
-	}
-
-	.about-hero {
-		padding: 2rem 1.5rem;
-	}
-
-	.about-photo-container {
-		width: 150px;
-		height: 150px;
-		border-width: 4px;
-	}
-
-	.about-title {
-		font-size: 2rem;
-	}
-
-	.about-subtitle {
-		font-size: 1.125rem;
-	}
-
-	.about-location {
-		font-size: 1rem;
-	}
-
-	.about-content {
-		padding: 2rem 1.5rem;
-	}
-
-	.about-section {
-		margin-bottom: 2.5rem;
-	}
-
-	.about-section-header {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 0.75rem;
-	}
-
-	.about-section-icon {
-		width: 2rem;
-		height: 2rem;
-	}
-
-	.about-section-title {
-		font-size: 1.5rem;
-	}
-
-	.about-text {
-		font-size: 0.9375rem;
-	}
-
-	.about-feature-title {
-		font-size: 1.125rem;
-	}
-}
-
-@media (min-width: 769px) {
-	.about-hero-content {
-		flex-direction: row;
-		justify-content: center;
-		text-align: left;
-	}
-
-	.about-hero-text {
-		text-align: left;
-		flex: 1;
-	}
-
-	.about-photo-wrapper {
-		margin-right: 2rem;
-	}
-}
-
-@media (min-width: 1024px) {
-	.about-container {
-		padding: 3rem 2rem;
-	}
-
-	.about-hero {
-		padding: 4rem 3rem;
-	}
-
-	.about-content {
-		padding: 4rem 3rem;
-	}
-
-	.about-photo-container {
-		width: 250px;
-		height: 250px;
-	}
-}
-</style>
 @endsection
