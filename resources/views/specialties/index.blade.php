@@ -21,7 +21,7 @@
 			<div class="hidden sm:block absolute bottom-[-40px] left-6 w-72 h-72 bg-emerald-400/30 blur-[160px] rounded-full pointer-events-none"></div>
 
 			<div class="relative z-10 px-4 py-6 sm:p-0">
-				<p class="text-sm uppercase tracking-[0.25em] font-semibold text-emerald-100/80 mb-3">Browse specialties</p>
+				<p class="text-sm uppercase tracking-[0.25em] font-semibold text-brand-700 sm:text-emerald-100/80 mb-3">Browse specialties</p>
 				<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 					<div class="space-y-3 max-w-2xl">
 						<h1 class="text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight text-gray-900 sm:text-white">Find the specialty that matches your needs</h1>
@@ -91,39 +91,42 @@
 					<div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-4">
 						@foreach($specialties as $spec)
 							<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}"
-							   class="group relative block overflow-hidden rounded-[26px] border border-gray-100 bg-gradient-to-br from-white via-brand-50/30 to-white px-4 py-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 sm:px-5 sm:py-6">
-								<div class="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(circle at top right, rgba(16,185,129,0.25), transparent 55%);"></div>
-								<div class="relative z-10 flex items-start gap-4">
-									<div class="relative inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-brand-100 text-brand-700 ring-1 ring-brand-100 transition-transform duration-300 group-hover:scale-110">
-										<span class="absolute -top-1 -right-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-white text-[10px] font-semibold text-brand-600 shadow">#{{ $loop->iteration }}</span>
-										@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'w-5 h-5'])
-									</div>
-									<div class="min-w-0 flex-1 space-y-1">
-										<div class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600">Specialty</div>
-										<div class="font-semibold text-gray-900 leading-snug line-clamp-2 group-hover:text-brand-800">
-											{{ $spec->description }}
+							   class="group relative block overflow-hidden rounded-[26px] border border-gray-100 bg-white px-4 py-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 sm:px-5 sm:py-6">
+								<div class="absolute inset-0 bg-gradient-to-br from-brand-50/70 via-white to-brand-100/30 opacity-70 group-hover:opacity-90 transition-opacity"></div>
+								<div class="relative z-10 flex flex-col gap-4">
+									<div class="flex items-start gap-4">
+										<div class="relative inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-brand-100 text-brand-700 ring-1 ring-brand-100 transition-transform duration-300 group-hover:scale-110">
+											<span class="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-[11px] font-semibold text-brand-700 shadow">#{{ $loop->iteration }}</span>
+											@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'w-5 h-5'])
+										</div>
+										<div class="min-w-0 flex-1">
+											<p class="text-[11px] uppercase tracking-[0.28em] text-gray-500">Specialty</p>
+											<p class="mt-1 text-base font-semibold leading-snug text-gray-900 sm:text-lg">
+												{{ $spec->description }}
+											</p>
+											<p class="mt-1 text-sm text-gray-600">Tap to see doctors focused on this field.</p>
 										</div>
 									</div>
-								</div>
-								<div class="relative z-10 mt-4 flex flex-wrap items-center gap-2 text-xs font-medium text-gray-600">
-									<span class="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[11px] uppercase tracking-wide">
-										Code {{ strtoupper((string) $spec->code) }}
-									</span>
-									<span class="inline-flex items-center gap-1 rounded-full border border-brand-100 bg-brand-50 px-2.5 py-1 text-brand-700">
-										<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-										Trusted field
-									</span>
-								</div>
-								<div class="relative z-10 mt-4 flex items-center justify-between text-sm font-semibold text-brand-700">
-									<div class="inline-flex items-center gap-1">
-										<span>View doctors</span>
-										<svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
+									<div class="flex flex-wrap items-center gap-2 text-xs font-medium text-gray-600">
+										<span class="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white/80 px-3 py-1 uppercase tracking-wide text-[11px]">
+											Code {{ strtoupper((string) $spec->code) }}
+										</span>
+										<span class="inline-flex items-center gap-1 rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-brand-700">
+											<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											Trusted choice
+										</span>
 									</div>
-									<span class="text-xs uppercase tracking-wide text-gray-400">Tap ready</span>
+									<div class="flex items-center justify-between text-sm font-semibold text-brand-700">
+										<span class="inline-flex items-center gap-1">
+											View doctors
+											<svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</span>
+										<span class="text-xs uppercase tracking-wide text-gray-400">Mobile friendly</span>
+									</div>
 								</div>
 							</a>
 						@endforeach
