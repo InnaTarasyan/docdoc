@@ -74,7 +74,7 @@
 						<a href="{{ route('specialties.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Specialties</a>
 						<a href="{{ route('about') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">About</a>
 					</nav>
-					<button @click="open = !open" class="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors" aria-label="Toggle menu" aria-expanded="false" :aria-expanded="open">
+					<button @click="open = !open" class="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false" :aria-expanded="open">
 						<svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
 						</svg>

@@ -1155,6 +1155,38 @@
 			padding-left: 3rem !important;
 			padding-right: 3.5rem !important;
 		}
+		.ajax-filter-form label {
+			width: 100%;
+			min-width: 0;
+		}
+		.ajax-filter-form select {
+			width: 100%;
+			max-width: 100%;
+			min-width: 0;
+			height: 3.25rem;
+			font-size: 1rem;
+			border-radius: 1rem;
+			padding-left: 1rem;
+			padding-right: 2.75rem;
+			border-width: 1.5px;
+			border-color: rgba(15, 81, 50, 0.25);
+			background-color: rgba(255, 255, 255, 0.95);
+			box-shadow:
+				0 2px 6px rgba(15, 81, 50, 0.08),
+				inset 0 1px 0 rgba(255, 255, 255, 0.9);
+			touch-action: manipulation;
+		}
+		.ajax-filter-form select:focus {
+			border-color: rgba(15, 81, 50, 0.5);
+			box-shadow:
+				0 0 0 3px rgba(15, 81, 50, 0.12),
+				0 4px 12px rgba(15, 81, 50, 0.15),
+				inset 0 1px 0 rgba(255, 255, 255, 1);
+		}
+		.ajax-filter-form select option {
+			font-size: 0.95rem;
+			line-height: 1.4;
+		}
 		.ajax-filter-form .btn-primary {
 			height: 3.5rem;
 			font-size: 1rem;
@@ -1163,6 +1195,26 @@
 		}
 		.grid {
 			gap: 0.75rem;
+		}
+		.filter-field {
+			width: 100%;
+			box-sizing: border-box;
+		}
+		.filter-field .relative {
+			min-width: 0;
+		}
+		.filter-field .relative > span {
+			left: 0.25rem;
+			width: 2.75rem;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.filter-field .relative input,
+		.filter-field .relative select {
+			padding-left: 2.9rem;
+			min-width: 0;
+			font-size: 1rem;
 		}
 		section {
 			margin-bottom: 1.5rem;
@@ -2586,6 +2638,32 @@ body.mobile-popup-open {
 
 		section {
 			margin-bottom: 1.25rem !important;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.about-mobile-card-shell {
+			width: 100%;
+			max-width: 100%;
+			padding: 1.25rem;
+			border-radius: 1.5rem;
+			box-sizing: border-box;
+			overflow: hidden;
+		}
+		.about-mobile-feature-stack {
+			width: 100%;
+			max-width: 100%;
+		}
+		.mobile-menu-toggle {
+			background-color: rgba(255, 255, 255, 0.95);
+			border-color: rgba(15, 23, 42, 0.08);
+			box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.4);
+			color: rgb(var(--color-brand-700));
+			backdrop-filter: blur(6px);
+			-webkit-backdrop-filter: blur(6px);
+		}
+		.mobile-menu-toggle svg {
+			stroke-width: 2.4;
 		}
 	}
 

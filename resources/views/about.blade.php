@@ -85,9 +85,9 @@
 		</section>
 
 		<section class="grid gap-6 lg:grid-cols-2">
-			<div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-emerald-950 via-emerald-900 to-brand-700 p-5 text-white shadow-[0_20px_50px_rgba(6,95,70,0.25)] sm:p-8">
+			<div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-emerald-950 via-emerald-900 to-brand-700 p-5 text-white shadow-[0_20px_50px_rgba(6,95,70,0.25)] sm:p-8 about-mobile-card-shell">
 				<div class="absolute inset-0 rounded-[32px] border border-white/15 opacity-70 pointer-events-none"></div>
-				<div class="relative z-10 space-y-4">
+				<div class="relative z-10 space-y-4 about-mobile-feature-stack">
 					<p class="text-xs uppercase tracking-[0.3em] text-white/80 text-center sm:text-left">Key capabilities</p>
 					<h2 class="text-2xl font-semibold leading-tight text-white text-center sm:text-left">What the platform does</h2>
 					<ul class="space-y-4 text-sm text-white/90">
@@ -116,7 +116,7 @@
 				</div>
 			</div>
 
-			<div class="rounded-[32px] border border-gray-200/70 bg-white p-6 shadow-sm sm:p-8">
+			<div class="rounded-[32px] border border-gray-200/70 bg-white p-6 shadow-sm sm:p-8 about-mobile-card-shell">
 				<p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-700">Contact & ownership</p>
 				<h2 class="text-2xl font-semibold text-gray-900">Built and run by one person</h2>
 				<p class="text-sm text-gray-600">
