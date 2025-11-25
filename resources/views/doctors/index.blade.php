@@ -25,7 +25,7 @@
 					<a href="{{ route('doctors.index') }}" class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-semibold text-brand-900 border border-white/60 bg-white/80 hover:bg-white transition">Reset</a>
 				</div>
 
-					<form method="GET" action="{{ route('doctors.index') }}" class="grid gap-4 ajax-filter-form" data-ajax-list="true" data-results="#doctors-results" data-city-select="#doctor-city-select">
+					<form method="GET" action="{{ route('doctors.index') }}" class="grid gap-4 ajax-filter-form mobile-filter-form" data-ajax-list="true" data-results="#doctors-results" data-city-select="#doctor-city-select">
 						<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">
 							<span class="flex items-center gap-2 text-gray-700">
 								<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -40,7 +40,7 @@
 								name="q"
 								value="{{ old('q', $filters['q'] ?? '') }}"
 								placeholder="E.g. Cardiology, Anna Lee, Austin"
-								class="w-full rounded-2xl border border-white/40 bg-white/95 text-gray-900 placeholder:text-gray-500 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition"
+								class="w-full rounded-2xl border border-white/40 bg-white/95 text-gray-900 placeholder:text-gray-500 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition mobile-input"
 								autocomplete="off"
 							/>
 						</label>
@@ -53,7 +53,7 @@
 									</svg>
 									Gender
 								</span>
-								<select name="gender" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
+								<select name="gender" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition mobile-select">
 									<option value="">Any gender</option>
 									<option value="M" @selected(($filters['gender'] ?? '') === 'M')>Male</option>
 									<option value="F" @selected(($filters['gender'] ?? '') === 'F')>Female</option>
@@ -68,7 +68,7 @@
 									</svg>
 									State
 								</span>
-								<select name="state" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
+								<select name="state" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition mobile-select">
 									<option value="">Any state</option>
 									@foreach($states as $s)
 										<option value="{{ $s }}" @selected(($filters['state'] ?? '') === $s)>{{ $s }}</option>
@@ -85,7 +85,7 @@
 									</svg>
 									City
 								</span>
-								<select name="city" id="doctor-city-select" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
+								<select name="city" id="doctor-city-select" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition mobile-select">
 									@include('doctors._city_options', ['cities' => $cities, 'filters' => $filters])
 								</select>
 							</label>
@@ -98,7 +98,7 @@
 									</svg>
 									Specialty
 								</span>
-								<select name="specialty" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition">
+								<select name="specialty" class="w-full rounded-2xl border border-white/40 bg-white/90 text-gray-900 shadow-sm px-4 py-3 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:ring-offset-white/70 transition mobile-select">
 									<option value="">Any specialty</option>
 									@foreach($specialties as $sp)
 										<option value="{{ $sp }}" @selected(($filters['specialty'] ?? '') === $sp)>{{ $sp }}</option>

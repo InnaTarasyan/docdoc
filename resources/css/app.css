@@ -1216,6 +1216,51 @@
 			min-width: 0;
 			font-size: 1rem;
 		}
+		.mobile-filter-form {
+			width: 100%;
+		}
+		.mobile-filter-form label,
+		.mobile-filter-form .filter-field {
+			width: 100%;
+			min-width: 0;
+		}
+		.mobile-input,
+		.mobile-select {
+			width: 100%;
+			max-width: min(100%, calc(100vw - 2.5rem));
+			min-width: 0;
+			box-sizing: border-box;
+			font-size: 1rem;
+			border-radius: 1rem;
+			-webkit-appearance: none;
+			appearance: none;
+			touch-action: manipulation;
+		}
+		.mobile-select {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2306591F' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+			background-repeat: no-repeat;
+			background-position: right 1rem center;
+			background-size: 0.85rem;
+			padding-right: 2.75rem !important;
+		}
+		.mobile-select:focus,
+		.mobile-input:focus {
+			box-shadow:
+				0 0 0 3px rgba(6, 89, 31, 0.12),
+				0 6px 16px rgba(6, 89, 31, 0.08),
+				inset 0 1px 0 rgba(255, 255, 255, 0.9);
+		}
+		.mobile-icon-field .mobile-field-icon {
+			left: 0.5rem !important;
+			width: 2.5rem;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.mobile-icon-field .mobile-input,
+		.mobile-icon-field .mobile-select {
+			padding-left: 3.2rem !important;
+		}
 		section {
 			margin-bottom: 1.5rem;
 		}
@@ -2656,14 +2701,20 @@ body.mobile-popup-open {
 		}
 		.mobile-menu-toggle {
 			background-color: rgba(255, 255, 255, 0.95);
-			border-color: rgba(15, 23, 42, 0.08);
-			box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.4);
-			color: rgb(var(--color-brand-700));
+			border-color: rgba(15, 23, 42, 0.18);
+			box-shadow: 0 14px 30px -16px rgba(15, 23, 42, 0.55);
+			color: #0f172a;
 			backdrop-filter: blur(6px);
 			-webkit-backdrop-filter: blur(6px);
 		}
+		.mobile-menu-toggle:focus-visible {
+			outline: 2px solid rgba(6, 89, 31, 0.35);
+			outline-offset: 2px;
+		}
 		.mobile-menu-toggle svg {
-			stroke-width: 2.4;
+			stroke-width: 2.6;
+			stroke: currentColor;
+			filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.25));
 		}
 	}
 

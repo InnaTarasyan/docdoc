@@ -59,28 +59,28 @@
 						<p class="text-sm text-emerald-50/80">Narrow results by location, specialty, or name. Changes apply instantly on larger screens while staying thumb-friendly on phones.</p>
 					</div>
 
-					<form method="GET" action="{{ route('organizations.index') }}" class="grid gap-4 ajax-filter-form" data-ajax-list="true" data-results="#organizations-results" data-city-select="#org-city-select">
+					<form method="GET" action="{{ route('organizations.index') }}" class="grid gap-4 ajax-filter-form mobile-filter-form" data-ajax-list="true" data-results="#organizations-results" data-city-select="#org-city-select">
 						<label class="filter-field block rounded-2xl bg-white/95 text-gray-900 px-4 py-3 shadow-xl shadow-emerald-900/10 ring-1 ring-white/70 focus-within:ring-brand-400/80 transition">
 							<span class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Organization name</span>
-							<div class="relative mt-2">
-								<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500">
+							<div class="relative mt-2 mobile-icon-field">
+								<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500 mobile-field-icon">
 									<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M21 21l-4.35-4.35m-2.65 0A6 6 0 1 1 9 3a6 6 0 0 1 5 9.65Z" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</span>
-								<input type="text" name="q" value="{{ old('q', $filters['q'] ?? '') }}" placeholder="e.g. City Hospital" class="input bg-transparent border-white/40 focus:border-brand-500 focus:ring-2 focus:ring-brand-400/60 pl-10" />
+								<input type="text" name="q" value="{{ old('q', $filters['q'] ?? '') }}" placeholder="e.g. City Hospital" class="input bg-transparent border-white/40 focus:border-brand-500 focus:ring-2 focus:ring-brand-400/60 pl-10 mobile-input" />
 							</div>
 						</label>
 
 						<label class="filter-field block rounded-2xl bg-white/95 text-gray-900 px-4 py-3 shadow-xl shadow-emerald-900/10 ring-1 ring-white/70 focus-within:ring-brand-400/80 transition">
 							<span class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">State</span>
-							<div class="relative mt-2">
-								<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500 pointer-events-none">
+							<div class="relative mt-2 mobile-icon-field">
+								<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500 pointer-events-none mobile-field-icon">
 									<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M4 6h16M4 12h10M4 18h6" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</span>
-								<select name="state" class="select bg-transparent border-white/40 focus:border-brand-500 focus:ring-2 focus:ring-brand-400/60 pl-10">
+								<select name="state" class="select bg-transparent border-white/40 focus:border-brand-500 focus:ring-2 focus:ring-brand-400/60 pl-10 mobile-select">
 									<option value="">Any state</option>
 									@foreach($states as $s)
 										<option value="{{ $s }}" @selected(($filters['state'] ?? '') === $s)>{{ $s }}</option>
@@ -91,14 +91,14 @@
 
 						<label class="filter-field block rounded-2xl bg-white/95 text-gray-900 px-4 py-3 shadow-xl shadow-emerald-900/10 ring-1 ring-white/70 focus-within:ring-brand-400/80 transition">
 							<span class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">City</span>
-							<div class="relative mt-2">
-								<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500 pointer-events-none">
+							<div class="relative mt-2 mobile-icon-field">
+								<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500 pointer-events-none mobile-field-icon">
 									<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
 										<circle cx="12" cy="9" r="2.5" />
 									</svg>
 								</span>
-								<select name="city" id="org-city-select" class="select bg-transparent border-white/40 focus:border-brand-500 focus:ring-2 focus:ring-brand-400/60 pl-10">
+								<select name="city" id="org-city-select" class="select bg-transparent border-white/40 focus:border-brand-500 focus:ring-2 focus:ring-brand-400/60 pl-10 mobile-select">
 									@include('organizations._city_options', ['cities' => $cities, 'filters' => $filters])
 								</select>
 							</div>
@@ -106,14 +106,14 @@
 
 						<label class="filter-field block rounded-2xl bg-white/95 text-gray-900 px-4 py-3 shadow-xl shadow-emerald-900/10 ring-1 ring-white/70 focus-within:ring-brand-400/80 transition">
 							<span class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Specialty</span>
-							<div class="relative mt-2">
-								<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500 pointer-events-none">
+							<div class="relative mt-2 mobile-icon-field">
+								<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500 pointer-events-none mobile-field-icon">
 									<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M12 6v6l4 2" stroke-linecap="round" stroke-linejoin="round"/>
 										<circle cx="12" cy="12" r="9" />
 									</svg>
 								</span>
-								<select name="specialty" class="select bg-transparent border-white/40 focus:border-brand-500 focus:ring-2 focus:ring-brand-400/60 pl-10">
+								<select name="specialty" class="select bg-transparent border-white/40 focus:border-brand-500 focus:ring-2 focus:ring-brand-400/60 pl-10 mobile-select">
 									<option value="">Any specialty</option>
 									@foreach($specialties as $sp)
 										<option value="{{ $sp }}" @selected(($filters['specialty'] ?? '') === $sp)>{{ $sp }}</option>
