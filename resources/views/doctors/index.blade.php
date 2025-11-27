@@ -45,7 +45,7 @@
 							/>
 						</label>
 
-						<div class="grid sm:grid-cols-2 gap-3">
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 							<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">
 								<span class="flex items-center gap-2">
 									<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -77,7 +77,7 @@
 							</label>
 						</div>
 
-						<div class="grid sm:grid-cols-2 gap-3">
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 							<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">
 								<span class="flex items-center gap-2">
 									<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
