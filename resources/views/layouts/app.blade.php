@@ -76,7 +76,7 @@
 					</nav>
 					<button
 						@click="open = !open"
-						class="sm:hidden inline-flex items-center gap-2 px-4 py-2 rounded-full border border-transparent text-sm font-semibold text-white transition-all mobile-menu-toggle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500"
+						class="sm:hidden mb-2 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-transparent text-sm font-semibold text-white transition-all mobile-menu-toggle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500"
 						:aria-label="open ? 'Close menu' : 'Open menu'"
 						aria-expanded="false"
 						:aria-expanded="open">
