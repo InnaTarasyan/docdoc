@@ -2710,19 +2710,41 @@ body.mobile-popup-open {
 		}
 		.mobile-menu-toggle {
 			background: linear-gradient(135deg, rgba(6, 95, 70, 0.96), rgba(4, 60, 19, 0.95));
-			border-color: rgba(255, 255, 255, 0.3);
+			border-color: transparent;
 			box-shadow: 0 18px 32px -18px rgba(4, 60, 30, 0.75), 0 6px 18px -12px rgba(0, 0, 0, 0.4);
 			color: #ecfdf5;
-			backdrop-filter: blur(6px);
-			-webkit-backdrop-filter: blur(6px);
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			min-height: 3rem;
+			padding: 0.65rem 1.25rem;
 		}
 		.mobile-menu-toggle:hover {
 			background: linear-gradient(135deg, rgba(6, 121, 70, 0.98), rgba(5, 68, 36, 0.98));
 			color: #ffffff;
+			transform: translateY(-1px);
+		}
+		.mobile-menu-toggle:active {
+			transform: translateY(0);
 		}
 		.mobile-menu-toggle:focus-visible {
-			outline: 2px solid rgba(6, 89, 31, 0.35);
-			outline-offset: 2px;
+			outline: 2px solid rgba(255, 255, 255, 0.35);
+			outline-offset: 3px;
+		}
+		.mobile-menu-toggle__icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			height: 2.75rem;
+			width: 2.75rem;
+			border-radius: 9999px;
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			background: rgba(255, 255, 255, 0.12);
+			box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
+		}
+		.mobile-menu-toggle__label {
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			font-size: 0.75rem;
 		}
 		.mobile-menu-toggle svg {
 			stroke-width: 2.6;

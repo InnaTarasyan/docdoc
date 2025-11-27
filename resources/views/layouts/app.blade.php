@@ -74,13 +74,21 @@
 						<a href="{{ route('specialties.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Specialties</a>
 						<a href="{{ route('about') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">About</a>
 					</nav>
-					<button @click="open = !open" class="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false" :aria-expanded="open">
-						<svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-						</svg>
-						<svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-						</svg>
+					<button
+						@click="open = !open"
+						class="sm:hidden inline-flex items-center gap-2 px-4 py-2 rounded-full border border-transparent text-sm font-semibold text-white transition-all mobile-menu-toggle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500"
+						:aria-label="open ? 'Close menu' : 'Open menu'"
+						aria-expanded="false"
+						:aria-expanded="open">
+						<span class="mobile-menu-toggle__icon" aria-hidden="true">
+							<svg x-cloak x-show="!open" x-transition.opacity xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+							</svg>
+							<svg x-cloak x-show="open" x-transition.opacity xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+							</svg>
+						</span>
+						<span class="mobile-menu-toggle__label" x-text="open ? 'Close' : 'Menu'" aria-live="polite"></span>
 					</button>
 				</div>
 				<div x-cloak x-show="open" 
