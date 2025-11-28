@@ -693,10 +693,11 @@
 			margin-bottom: 1.5rem;
 			padding: 0;
 			border-radius: 1rem !important;
-			width: 100vw;
-			max-width: none;
-			left: 50%;
-			transform: translateX(-50%);
+			width: 100%;
+			max-width: 100%;
+			left: auto;
+			right: auto;
+			transform: none;
 		}
 		.hero.bg-gradient-to-br::before {
 			filter: blur(6px);
@@ -711,11 +712,11 @@
 	}
 	.hero.bg-gradient-to-br {
 		position: relative;
-		width: 100vw;
-		max-width: none;
-		left: 50%;
+		width: 100%;
+		max-width: 100%;
+		left: auto;
 		right: auto;
-		transform: translateX(-50%);
+		transform: none;
 		margin-left: 0;
 		margin-right: 0;
 		background-image: 
@@ -752,6 +753,16 @@
 	.hero.bg-gradient-to-br > * {
 		position: relative;
 		z-index: 2;
+	}
+
+	@media (min-width: 641px) {
+		.hero.bg-gradient-to-br {
+			width: 100vw;
+			max-width: none;
+			left: 50%;
+			right: auto;
+			transform: translateX(-50%);
+		}
 	}
 .hero__inner {
 	backdrop-filter: blur(6px);
@@ -2296,10 +2307,11 @@ body.mobile-popup-open {
 		/* Hero section mobile improvements */
 		.hero.bg-gradient-to-br {
 			border-radius: 1rem !important;
-			width: 100vw;
-			max-width: none;
-			left: 50%;
-			transform: translateX(-50%);
+			width: 100%;
+			max-width: 100%;
+			left: auto;
+			right: auto;
+			transform: none;
 		}
 
 		.hero-title {
