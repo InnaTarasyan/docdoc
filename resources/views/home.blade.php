@@ -275,7 +275,7 @@
 		</div>
 		</section>
 
-		<section class="mt-6 sm:mt-8 relative sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-white/10 sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:p-8 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)]">
+		<section class="mt-6 sm:mt-8 relative px-4 py-6 sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-white/10 sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:p-8 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)]">
 			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/15 bg-white/10 backdrop-blur-2xl"></div>
 			<div class="hidden sm:block absolute -top-16 -right-10 w-64 h-64 bg-emerald-300/35 blur-[140px] rounded-full pointer-events-none"></div>
 			<div class="hidden sm:block absolute bottom-0 left-10 w-72 h-72 bg-emerald-400/30 blur-[160px] rounded-full pointer-events-none"></div>
@@ -326,7 +326,7 @@
 			</div>
 		</section>
 
-		<section class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8 relative bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 p-0 sm:p-8 sm:overflow-hidden">
+		<section class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8 relative bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 p-4 sm:p-8 sm:overflow-hidden">
 			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 opacity-40 pointer-events-none"></div>
 			<div class="hidden sm:block absolute -top-12 -left-6 w-56 h-56 bg-emerald-400/30 blur-[140px] rounded-full pointer-events-none"></div>
 			<div class="hidden sm:block absolute -bottom-10 right-0 w-72 h-72 bg-teal-300/25 blur-[160px] rounded-full pointer-events-none"></div>
