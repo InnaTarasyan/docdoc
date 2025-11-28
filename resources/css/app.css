@@ -695,6 +695,8 @@
 			border-radius: 1rem !important;
 			width: 100%;
 			max-width: 100%;
+			margin-left: 0;
+			margin-right: 0;
 			left: auto;
 			right: auto;
 			transform: none;
@@ -1140,6 +1142,7 @@
 			padding-left: 1rem;
 			padding-right: 1rem;
 		}
+		
 		.hero {
 			padding: 1.5rem 0;
 			min-height: auto;
