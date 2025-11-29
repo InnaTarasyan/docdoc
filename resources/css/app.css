@@ -1289,7 +1289,7 @@
 		.mobile-input,
 		.mobile-select {
 			width: 100%;
-			max-width: min(100%, calc(100vw - 1.75rem));
+			max-width: 100%;
 			min-width: 0;
 			box-sizing: border-box;
 			font-size: 1rem;
@@ -1311,8 +1311,91 @@
 			white-space: normal;
 			word-break: break-word;
 			text-wrap: pretty;
-			max-width: calc(100vw - 2rem);
+			max-width: 100%;
 			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+		/* Fix for doctors page container - ensure proper width constraints */
+		.mobile-filter-form,
+		.mobile-filter-form form,
+		.mobile-filter-form .grid,
+		.mobile-filter-form label {
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+		/* Ensure select elements don't exceed container width */
+		.mobile-filter-form select.mobile-select {
+			max-width: 100%;
+			width: 100%;
+		}
+		/* Specific fix for doctors page filter container */
+		aside {
+			max-width: 100vw;
+			overflow-x: hidden;
+		}
+		aside .relative.z-10 {
+			max-width: 100%;
+			overflow-x: hidden;
+			box-sizing: border-box;
+		}
+		aside .mobile-filter-form select {
+			max-width: 100% !important;
+			width: 100% !important;
+			box-sizing: border-box !important;
+		}
+		/* Ensure grid containers don't overflow */
+		aside .grid {
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+		/* Constrain select elements to prevent dropdown overflow */
+		/* Ensure selects never exceed viewport width, accounting for container padding */
+		select.mobile-select {
+			max-width: min(100%, calc(100vw - 2rem)) !important;
+			width: 100% !important;
+			box-sizing: border-box !important;
+		}
+		/* More aggressive fix for doctors page - ensure all containers are constrained */
+		main.container-tight .grid {
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+		main.container-tight aside {
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+		main.container-tight aside > div {
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+		/* Ensure the filter container doesn't exceed viewport - using class selector */
+		.doctors-filter-container {
+			max-width: 100% !important;
+			box-sizing: border-box !important;
+			overflow-x: hidden !important;
+		}
+		/* Force all selects in doctors filter container to respect container width */
+		.doctors-filter-container select.mobile-select {
+			max-width: 100% !important;
+			width: 100% !important;
+			box-sizing: border-box !important;
+		}
+		/* Ensure form and grid inside filter container are constrained */
+		.doctors-filter-container form,
+		.doctors-filter-container .grid,
+		.doctors-filter-container label {
+			max-width: 100% !important;
+			overflow-x: hidden !important;
+			box-sizing: border-box !important;
+		}
+		/* Ensure the parent grid and aside are also constrained */
+		main.container-tight > .grid {
+			max-width: 100% !important;
+			overflow-x: hidden !important;
+		}
+		main.container-tight > .grid > aside {
+			max-width: 100% !important;
+			overflow-x: hidden !important;
 		}
 		.mobile-select:focus,
 		.mobile-input:focus {
