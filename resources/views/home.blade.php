@@ -5,7 +5,7 @@
 @section('content')
 	<div class="grid gap-6 sm:gap-8">
 	<section
-		class="hero hero--desktop-photo bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-950 text-center relative w-full sm:w-full rounded-xl sm:rounded-2xl overflow-hidden -mx-4 sm:mx-0 px-4 sm:px-0"
+		class="hero hero--desktop-photo bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-950 text-center relative w-full sm:w-full rounded-xl sm:rounded-2xl overflow-hidden mx-0 sm:mx-0 px-0 sm:px-0"
 		style="
 			background-image:
 				linear-gradient(125deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.65)),
@@ -275,7 +275,7 @@
 		</div>
 		</section>
 
-		<section class="mt-6 sm:mt-8 relative px-4 py-6 sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-white/10 sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:p-8 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] -mx-4 sm:mx-0 sm:px-8">
+		<section class="mt-6 sm:mt-8 relative px-0 py-6 sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-white/10 sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:p-8 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] mx-0 sm:mx-0 sm:px-8">
 			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/15 bg-white/10 backdrop-blur-2xl"></div>
 			<div class="hidden sm:block absolute -top-16 -right-10 w-64 h-64 bg-emerald-300/35 blur-[140px] rounded-full pointer-events-none"></div>
 			<div class="hidden sm:block absolute bottom-0 left-10 w-72 h-72 bg-emerald-400/30 blur-[160px] rounded-full pointer-events-none"></div>
@@ -298,7 +298,7 @@
 					<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 bg-emerald-300/10 backdrop-blur-xl"></div>
 					<div class="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-emerald-400/35 via-emerald-300/10 to-transparent pointer-events-none rounded-l-[36px] opacity-70 hidden sm:block z-0"></div>
 					<div class="absolute inset-y-4 right-6 w-32 bg-emerald-300/35 blur-3xl rounded-full opacity-80 pointer-events-none hidden sm:block z-0"></div>
-					<div class="relative z-10 -mx-2 sm:mx-0 overflow-hidden sm:overflow-visible pb-2 sm:pb-0">
+					<div class="relative z-10 mx-0 sm:mx-0 overflow-hidden sm:overflow-visible pb-2 sm:pb-0">
 						<div class="grid w-full grid-cols-1 gap-3 sm:min-w-0 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:gap-4">
 				@forelse($popularSpecialties as $spec)
 						<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
@@ -326,7 +326,7 @@
 			</div>
 		</section>
 
-		<section class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8 relative bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 p-4 sm:p-8 sm:overflow-hidden -mx-4 sm:mx-0 sm:px-8">
+		<section class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8 relative bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 p-4 sm:p-8 sm:overflow-hidden mx-0 sm:mx-0 sm:px-8">
 			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 opacity-40 pointer-events-none"></div>
 			<div class="hidden sm:block absolute -top-12 -left-6 w-56 h-56 bg-emerald-400/30 blur-[140px] rounded-full pointer-events-none"></div>
 			<div class="hidden sm:block absolute -bottom-10 right-0 w-72 h-72 bg-teal-300/25 blur-[160px] rounded-full pointer-events-none"></div>
@@ -592,7 +592,7 @@
 		</section>
 
 		<!-- User Reviews/Testimonials Section -->
-		<section class="relative mt-8 sm:mt-12 px-4 sm:px-0 -mx-4 sm:mx-0">
+		<section class="relative mt-8 sm:mt-12 px-0 sm:px-0 mx-0 sm:mx-0">
 			<div class="relative mx-auto max-w-7xl bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(6,95,70,0.28)] rounded-[28px] sm:rounded-[36px] border border-white/10 p-6 sm:p-8 md:p-10 overflow-hidden">
 				<div class="absolute inset-0 pointer-events-none">
 					<div class="absolute -right-24 -top-24 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
@@ -741,7 +741,7 @@
 		</section>
 
 		<!-- Health Articles/Tips Section -->
-		<section class="relative mt-8 sm:mt-12 px-4 sm:px-0 -mx-4 sm:mx-0">
+		<section class="relative mt-8 sm:mt-12 px-0 sm:px-0 mx-0 sm:mx-0">
 			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
 				<div class="absolute inset-0 pointer-events-none">
 					<div class="absolute -top-24 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
@@ -873,7 +873,7 @@
 		</section>
 
 		<!-- Special Offers/Promotions Section -->
-		<section class="relative mt-8 sm:mt-12 px-4 sm:px-0 -mx-4 sm:mx-0">
+		<section class="relative mt-8 sm:mt-12 px-0 sm:px-0 mx-0 sm:mx-0">
 			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
 				<div class="absolute inset-0 pointer-events-none">
 					<div class="absolute -top-24 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
@@ -939,7 +939,7 @@
 		</section>
 
 		<!-- Mobile App Promotion Section -->
-		<section class="relative mt-8 sm:mt-12 px-4 sm:px-0 -mx-4 sm:mx-0">
+		<section class="relative mt-8 sm:mt-12 px-0 sm:px-0 mx-0 sm:mx-0">
 			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
 				<div class="absolute inset-0 pointer-events-none">
 					<div class="absolute -top-16 -left-10 w-60 h-60 bg-emerald-500/30 rounded-full blur-3xl"></div>
@@ -1066,7 +1066,7 @@
 			</div>
 		</section>
 		<!-- Partnerships Section -->
-		<section class="relative mt-8 sm:mt-12 px-4 sm:px-0 -mx-4 sm:mx-0">
+		<section class="relative mt-8 sm:mt-12 px-0 sm:px-0 mx-0 sm:mx-0">
 			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
 				<div class="absolute inset-0 pointer-events-none">
 					<div class="absolute -top-20 -right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>

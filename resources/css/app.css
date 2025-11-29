@@ -104,6 +104,14 @@
 		@apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 		width: 100%;
 	}
+	
+	/* On mobile, ensure equal left/right padding and centered content */
+	@media (max-width: 640px) {
+		.container-tight {
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+	}
 
 	/* Main content wrapper for better spacing */
 	main.container-tight {
@@ -115,6 +123,40 @@
 		main.container-tight {
 			padding-top: 1.5rem;
 			padding-bottom: 1.5rem;
+		}
+		
+		/* Center content on mobile with equal left/right padding */
+		/* Override negative margins on mobile to respect container padding */
+		main.container-tight > *,
+		main.container-tight section,
+		main.container-tight > * > section {
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
+		
+		/* Ensure all direct children respect container padding and are centered */
+		main.container-tight > * {
+			width: 100%;
+			max-width: 100%;
+		}
+		
+		/* Ensure sections don't exceed container width and are centered */
+		main.container-tight section,
+		main.container-tight > div > section {
+			width: 100% !important;
+			max-width: 100% !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+		
+		/* Ensure hero section respects container */
+		main.container-tight .hero {
+			width: 100% !important;
+			max-width: 100% !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
 		}
 	}
 
