@@ -1315,6 +1315,36 @@
 			text-overflow: ellipsis;
 			overflow: hidden;
 		}
+
+		/* Extra guard for very small screens so dropdown options never exceed viewport width */
+		@media (max-width: 576px) {
+			/* Constrain select trigger to the viewport */
+			.mobile-filter-form select.mobile-select {
+				max-width: 100vw !important;
+				width: 100% !important;
+			}
+
+			/* Ensure long option labels wrap instead of forcing horizontal growth */
+			.mobile-filter-form select.mobile-select option {
+				white-space: normal !important;
+				word-break: break-word !important;
+				overflow-wrap: break-word !important;
+				max-width: 100vw !important;
+			}
+
+			/* If any custom dropdowns are used (Bootstrap-style) keep their menus constrained on mobile */
+			.dropdown-menu {
+				max-width: 100vw;
+				width: 100%;
+				box-sizing: border-box;
+				overflow-wrap: break-word;
+				word-break: break-word;
+			}
+			.dropdown-item {
+				white-space: normal;
+				word-break: break-word;
+			}
+		}
 		/* Fix for doctors page container - ensure proper width constraints */
 		.mobile-filter-form,
 		.mobile-filter-form form,
@@ -1456,8 +1486,56 @@
 				line-height: 1.5 !important;
 			}
 
-			/* Improve label spacing on mobile */
+			/* Special handling for specialty dropdown - prevent width overflow and enable text wrapping */
+			.doctors-filter-container select[name="specialty"].mobile-select {
+				/* Force maximum width to prevent overflow - use viewport-based calculation */
+				max-width: min(100%, calc(100vw - 2rem)) !important;
+				width: 100% !important;
+				box-sizing: border-box !important;
+				
+				/* Enable text wrapping for long specialty names in the select element */
+				white-space: nowrap !important;
+				word-wrap: break-word !important;
+				word-break: break-word !important;
+				overflow-wrap: break-word !important;
+				
+				/* Ensure text doesn't overflow - truncate with ellipsis */
+				text-overflow: ellipsis !important;
+				overflow: hidden !important;
+				
+				/* Allow proper height for touch target */
+				line-height: 1.4 !important;
+				min-height: 48px !important;
+				height: 48px !important;
+				
+				/* Extra padding for better readability and arrow spacing */
+				padding-right: 3.75rem !important;
+			}
+
+			/* Specialty dropdown options - allow wrapping and better readability */
+			.doctors-filter-container select[name="specialty"].mobile-select option {
+				/* Allow text to wrap to multiple lines */
+				white-space: normal !important;
+				word-wrap: break-word !important;
+				word-break: break-word !important;
+				overflow-wrap: break-word !important;
+				
+				/* Better spacing for wrapped text */
+				padding: 14px 16px !important;
+				min-height: auto !important;
+				height: auto !important;
+				line-height: 1.5 !important;
+				
+				/* Ensure options don't exceed screen width */
+				max-width: 100vw !important;
+			}
+
+			/* Ensure all labels in doctors filter container don't cause overflow */
 			.doctors-filter-container label {
+				max-width: 100% !important;
+				width: 100% !important;
+				overflow: hidden !important;
+				min-width: 0 !important;
 				margin-bottom: 0.5rem !important;
 			}
 
@@ -1469,6 +1547,17 @@
 			/* Better spacing between filter fields on mobile */
 			.doctors-filter-container .grid {
 				gap: 1rem !important;
+				max-width: 100% !important;
+				width: 100% !important;
+				overflow: hidden !important;
+			}
+
+			/* Additional constraints for the grid containing specialty dropdown */
+			.doctors-filter-container .grid > label {
+				max-width: 100% !important;
+				width: 100% !important;
+				overflow: hidden !important;
+				min-width: 0 !important;
 			}
 		}
 		.mobile-icon-field .mobile-field-icon {
