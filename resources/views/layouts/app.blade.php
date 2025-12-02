@@ -16,6 +16,15 @@
 		</script>
 		<noscript><div><img src="https://mc.yandex.ru/watch/105613401" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 		<!-- /Yandex.Metrika counter -->
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MQ76X6QL');</script>
+		<!-- End Google Tag Manager -->
+
 		<title>@yield('title', config('app.name', 'Doc Directory'))</title>
 		<!-- jQuery (required for Select2) -->
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -72,6 +81,11 @@
 		</style>
 	</head>
 	<body class="min-h-screen bg-gray-50 text-gray-900 antialiased flex flex-col">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQ76X6QL"
+					  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
 		<header class="app-header">
 			<div class="container-tight" x-data="{ open: false }">
 				<div class="flex items-center justify-between h-16">
