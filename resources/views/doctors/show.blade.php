@@ -11,7 +11,61 @@
 @endsection
 
 @section('content')
-	<div class="space-y-6 sm:space-y-8">
+	<div
+		class="space-y-6 sm:space-y-8"
+		x-data="{
+			showBookModal: false,
+			showQuestionModal: false,
+			toast: null,
+			toastTimeout: null,
+			openBook() {
+				this.showQuestionModal = false;
+				this.showBookModal = true;
+			},
+			openQuestion() {
+				this.showBookModal = false;
+				this.showQuestionModal = true;
+			},
+			closeModals() {
+				this.showBookModal = false;
+				this.showQuestionModal = false;
+			},
+			showToast(message) {
+				this.toast = message;
+				clearTimeout(this.toastTimeout);
+				this.toastTimeout = setTimeout(() => this.toast = null, 3500);
+			}
+		}"
+		x-cloak
+	>
+		{{-- Inline toast for lightweight feedback --}}
+		<div
+			x-show="toast"
+			x-transition
+			class="fixed inset-x-4 bottom-6 z-40 sm:inset-x-auto sm:right-6 sm:left-auto sm:max-w-sm"
+			role="status"
+			aria-live="polite"
+		>
+			<div class="flex items-start gap-3 rounded-2xl bg-emerald-600 text-emerald-50 px-4 py-3 shadow-xl shadow-emerald-900/30 border border-emerald-300/60">
+				<div class="mt-0.5">
+					<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M12 9v4m0 4h.01M10.29 3.86 2.82 18a1.7 1.7 0 0 0 0 1.7c.3.53.86.86 1.47.86h15.42c.61 0 1.17-.33 1.47-.86a1.7 1.7 0 0 0 0-1.7L13.71 3.86a1.7 1.7 0 0 0-2.96 0Z" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</div>
+				<div class="text-sm font-medium" x-text="toast"></div>
+				<button
+					type="button"
+					class="ml-auto text-emerald-100/80 hover:text-white transition"
+					@click="toast = null"
+					aria-label="Close notification"
+				>
+					<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M6 6l12 12M6 18L18 6" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</button>
+			</div>
+		</div>
+
 		{{-- Hero / main profile block --}}
 		<section class="relative bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 rounded-2xl sm:rounded-[32px] border border-gray-100 sm:border-white/10 shadow-sm sm:shadow-[0_25px_60px_rgba(6,95,70,0.35)] overflow-hidden">
 			<div class="hidden sm:block absolute inset-0 rounded-[32px] border border-white/15 opacity-40 pointer-events-none"></div>
@@ -89,6 +143,20 @@
 
 					<div class="w-full lg:w-auto">
 						<div class="rounded-2xl sm:rounded-3xl bg-gray-50 sm:bg-white/10 border border-gray-100 sm:border-white/20 px-4 py-3 sm:px-5 sm:py-4 text-sm sm:text-base text-gray-800 sm:text-emerald-50 flex flex-col gap-3 sm:gap-4">
+							<div class="flex items-center justify-between gap-3">
+								<p class="text-xs font-semibold tracking-wide text-gray-500 sm:text-emerald-200 uppercase">
+									Appointments & questions
+								</p>
+								<a
+									href="{{ route('doctors.index') }}"
+									class="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-100/80 hover:text-white"
+								>
+									<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+									<span>Back to search</span>
+								</a>
+							</div>
 							<div class="flex items-center justify-between gap-4">
 								<div>
 									<p class="text-xs uppercase tracking-wide text-gray-500 sm:text-emerald-200 font-semibold">Patient rating</p>
@@ -109,10 +177,25 @@
 								</div>
 							</div>
 							<div class="flex flex-col sm:flex-row sm:items-center gap-2">
-								<button class="inline-flex items-center justify-center px-4 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-md shadow-emerald-900/30 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900/40">
+								<button
+									type="button"
+									@click="openBook()"
+									class="inline-flex items-center justify-center px-4 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-md shadow-emerald-900/30 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900/40"
+								>
+									<svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="M12 5v14m-7-7h14" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
 									<span>Book an appointment</span>
 								</button>
-								<button class="inline-flex items-center justify-center px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold text-brand-700 sm:text-emerald-50 bg-white sm:bg-transparent border border-brand-100 sm:border-white/40 hover:bg-brand-50 sm:hover:bg-white/10 transition">
+								<button
+									type="button"
+									@click="openQuestion()"
+									class="inline-flex items-center justify-center px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold text-brand-700 sm:text-emerald-50 bg-white sm:bg-transparent border border-brand-100 sm:border-white/40 hover:bg-brand-50 sm:hover:bg-white/10 transition"
+								>
+									<svg class="w-4 h-4 mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="M12 18h.01M8 9a4 4 0 0 1 7.06-2.53A3.5 3.5 0 0 1 14 13.5h-1v1.5" stroke-linecap="round" stroke-linejoin="round"/>
+										<path d="M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H7L5 7v12a2 2 0 0 0 2 2Z" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
 									<span>Ask a question</span>
 								</button>
 							</div>
@@ -253,12 +336,173 @@
 						<p class="text-xs sm:text-sm text-emerald-50/90 mb-3">
 							Use search filters or browse similar doctors to find the right specialist for your needs.
 						</p>
-						<a href="{{ route('doctors.index') }}" class="inline-flex items-center justify-center px-4 py-2.5 rounded-full bg-white text-sm font-semibold text-brand-800 hover:bg-brand-50 transition">
+						<a
+							href="{{ route('doctors.index') }}"
+							class="inline-flex items-center justify-center px-4 py-2.5 rounded-full bg-white text-sm font-semibold text-brand-800 hover:bg-brand-50 transition"
+						>
+							<svg class="w-4 h-4 mr-1.5 text-brand-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
 							<span>Back to search</span>
 						</a>
 					</div>
 				</div>
 			</aside>
+		</div>
+
+		{{-- Book appointment modal (imitation, no backend call) --}}
+		<div
+			x-show="showBookModal"
+			x-transition.opacity
+			class="fixed inset-0 z-40 flex items-end sm:items-center justify-center bg-black/40 px-4 py-4 sm:py-6"
+			aria-modal="true"
+			role="dialog"
+		>
+			<div
+				x-show="showBookModal"
+				x-transition
+				@click.outside="showBookModal = false"
+				class="w-full max-w-lg rounded-3xl bg-white shadow-2xl border border-gray-100 p-5 sm:p-6 md:p-7"
+			>
+				<div class="flex items-start justify-between gap-3">
+					<div>
+						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-500">Booking (preview only)</p>
+						<h2 class="mt-1 text-lg sm:text-xl font-semibold text-gray-900">Book an appointment with {{ $doctor->name }}</h2>
+						<p class="mt-1 text-xs sm:text-sm text-gray-500">
+							This is a design-only flow — your details are not sent anywhere, but you can see how booking could look.
+						</p>
+					</div>
+					<button
+						type="button"
+						class="inline-flex rounded-full p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100"
+						@click="showBookModal = false"
+						aria-label="Close booking form"
+					>
+						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M6 6l12 12M6 18L18 6" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</button>
+				</div>
+
+				<form
+					class="mt-4 space-y-3"
+					@submit.prevent="
+						closeModals();
+						showToast('Appointment request preview submitted. In a real app, this would be sent to the clinic.');
+					"
+				>
+					<div class="grid sm:grid-cols-2 gap-3">
+						<label class="block text-sm font-medium text-gray-700">
+							<span>Your name</span>
+							<input type="text" class="mt-1 input h-10" placeholder="Jane Doe" required>
+						</label>
+						<label class="block text-sm font-medium text-gray-700">
+							<span>Contact email</span>
+							<input type="email" class="mt-1 input h-10" placeholder="you@example.com" required>
+						</label>
+					</div>
+					<div class="grid sm:grid-cols-2 gap-3">
+						<label class="block text-sm font-medium text-gray-700">
+							<span>Preferred date</span>
+							<input type="date" class="mt-1 input h-10">
+						</label>
+						<label class="block text-sm font-medium text-gray-700">
+							<span>Time of day</span>
+							<select class="mt-1 select h-10">
+								<option value="">Any</option>
+								<option>Morning</option>
+								<option>Afternoon</option>
+								<option>Evening</option>
+							</select>
+						</label>
+					</div>
+					<label class="block text-sm font-medium text-gray-700">
+						<span>Reason for visit</span>
+						<textarea class="mt-1 input min-h-[80px] resize-y" placeholder="Short description to help the clinic prepare"></textarea>
+					</label>
+
+					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
+						<button
+							type="submit"
+							class="btn-primary w-full sm:w-auto justify-center"
+						>
+							Preview submit
+						</button>
+						<p class="text-[11px] sm:text-xs text-gray-500">
+							This is a demo form only. No real booking is made.
+						</p>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		{{-- Ask a question modal (imitation, no backend call) --}}
+		<div
+			x-show="showQuestionModal"
+			x-transition.opacity
+			class="fixed inset-0 z-40 flex items-end sm:items-center justify-center bg-black/40 px-4 py-4 sm:py-6"
+			aria-modal="true"
+			role="dialog"
+		>
+			<div
+				x-show="showQuestionModal"
+				x-transition
+				@click.outside="showQuestionModal = false"
+				class="w-full max-w-lg rounded-3xl bg-white shadow-2xl border border-gray-100 p-5 sm:p-6 md:p-7"
+			>
+				<div class="flex items-start justify-between gap-3">
+					<div>
+						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-500">Question (preview only)</p>
+						<h2 class="mt-1 text-lg sm:text-xl font-semibold text-gray-900">Ask a question about {{ $doctor->name }}</h2>
+						<p class="mt-1 text-xs sm:text-sm text-gray-500">
+							Use this demo form to see how a quick question flow could look.
+						</p>
+					</div>
+					<button
+						type="button"
+						class="inline-flex rounded-full p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100"
+						@click="showQuestionModal = false"
+						aria-label="Close question form"
+					>
+						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M6 6l12 12M6 18L18 6" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</button>
+				</div>
+
+				<form
+					class="mt-4 space-y-3"
+					@submit.prevent="
+						closeModals();
+						showToast('Question preview submitted. In production, this could notify the clinic or support team.');
+					"
+				>
+					<label class="block text-sm font-medium text-gray-700">
+						<span>Your email (for reply)</span>
+						<input type="email" class="mt-1 input h-10" placeholder="you@example.com" required>
+					</label>
+					<label class="block text-sm font-medium text-gray-700">
+						<span>Your question</span>
+						<textarea
+							class="mt-1 input min-h-[90px] resize-y"
+							placeholder="Ask about availability, insurance, languages spoken, or anything else important to you."
+							required
+						></textarea>
+					</label>
+
+					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
+						<button
+							type="submit"
+							class="btn-primary w-full sm:w-auto justify-center"
+						>
+							Preview send
+						</button>
+						<p class="text-[11px] sm:text-xs text-gray-500">
+							This is a visual-only interaction; no message is stored.
+						</p>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 @endsection
