@@ -174,7 +174,24 @@ class DoctorController extends Controller
 
 		$data['doctor_id'] = $doctor->id;
 
-		Review::create($data);
+		$review = Review::create($data);
+
+		// If this is an AJAX request, return a JSON payload with fresh reviews HTML
+		if ($request->wantsJson()) {
+			// Reload reviews in latest-first order
+			$doctor->load(['reviews' => function ($q) {
+				$q->latest();
+			}]);
+
+			$html = view('doctors._reviews_list', [
+				'doctor' => $doctor,
+			])->render();
+
+			return response()->json([
+				'status' => 'Thank you for sharing your experience.',
+				'html' => $html,
+			]);
+		}
 
 		return redirect()
 			->route('doctors.show', $doctor)

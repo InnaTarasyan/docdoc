@@ -591,3 +591,96 @@ document.addEventListener('DOMContentLoaded', function() {
 		mq.addListener(handleMqChange);
 	}
 });
+
+function initAjaxReviewForms() {
+	const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+	const csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
+
+	document.querySelectorAll('form[data-ajax-review="true"]').forEach((form) => {
+		const successBox = document.querySelector('[data-review-success]');
+		const errorsBox = document.querySelector('[data-review-errors]');
+		const reviewsContainer = document.getElementById('doctor-reviews-list');
+
+		if (!reviewsContainer) {
+			return;
+		}
+
+		form.addEventListener('submit', async (event) => {
+			// If fetch is not available, fall back to normal submit
+			if (typeof fetch !== 'function') {
+				return;
+			}
+
+			event.preventDefault();
+
+			if (successBox) {
+				successBox.classList.add('hidden');
+				successBox.textContent = '';
+			}
+			if (errorsBox) {
+				errorsBox.classList.add('hidden');
+				errorsBox.textContent = '';
+			}
+
+			const formData = new FormData(form);
+
+			const headers = {
+				'Accept': 'application/json',
+				'X-Requested-With': 'XMLHttpRequest',
+			};
+			if (csrfToken) {
+				headers['X-CSRF-TOKEN'] = csrfToken;
+			}
+
+			try {
+				const response = await fetch(form.action, {
+					method: 'POST',
+					headers,
+					body: formData,
+				});
+
+				if (response.status === 422) {
+					const data = await response.json();
+					if (errorsBox && data && data.errors) {
+						const messages = [];
+						Object.keys(data.errors).forEach((field) => {
+							data.errors[field].forEach((msg) => messages.push(msg));
+						});
+						errorsBox.textContent = messages.join(' ');
+						errorsBox.classList.remove('hidden');
+					}
+					return;
+				}
+
+				if (!response.ok) {
+					if (errorsBox) {
+						errorsBox.textContent = 'Something went wrong while submitting your review. Please try again.';
+						errorsBox.classList.remove('hidden');
+					}
+					return;
+				}
+
+				const data = await response.json();
+
+				if (data.html) {
+					reviewsContainer.innerHTML = data.html;
+				}
+
+				if (successBox && data.status) {
+					successBox.textContent = data.status;
+					successBox.classList.remove('hidden');
+				}
+
+				// Reset form fields after successful submit
+				form.reset();
+			} catch (error) {
+				if (errorsBox) {
+					errorsBox.textContent = 'Unable to submit review right now. Please check your connection and try again.';
+					errorsBox.classList.remove('hidden');
+				}
+			}
+		});
+	});
+}
+
+document.addEventListener('DOMContentLoaded', initAjaxReviewForms);

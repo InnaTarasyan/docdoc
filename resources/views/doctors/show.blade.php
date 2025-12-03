@@ -16,6 +16,8 @@
 		x-data="{
 			showBookModal: false,
 			showQuestionModal: false,
+			toastVisible: false,
+			toastMessage: '',
 			openBook() {
 				this.showQuestionModal = false;
 				this.showBookModal = true;
@@ -27,6 +29,13 @@
 			closeModals() {
 				this.showBookModal = false;
 				this.showQuestionModal = false;
+			},
+			showToast(message) {
+				this.toastMessage = message;
+				this.toastVisible = true;
+				setTimeout(() => {
+					this.toastVisible = false;
+				}, 4000);
 			}
 		}"
 		x-cloak
@@ -221,20 +230,32 @@
 				</div>
 
 				<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-6 space-y-4">
-					<div class="flex items-center justify-between gap-2">
-						<h2 class="text-base sm:text-lg font-semibold text-gray-900">Patient reviews</h2>
-						@if($doctor->reviews->count() > 0)
-							<span class="text-xs text-gray-500">{{ $doctor->reviews->count() }} {{ \Illuminate\Support\Str::plural('review', $doctor->reviews->count()) }}</span>
-						@endif
+					<div id="doctor-reviews-list">
+						@include('doctors._reviews_list', ['doctor' => $doctor])
 					</div>
 
 					@if(session('status'))
-						<div class="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-sm text-emerald-800">
+						<div class="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-sm text-emerald-800 mb-2">
 							{{ session('status') }}
 						</div>
 					@endif
 
-					<form action="{{ route('doctors.reviews.store', $doctor) }}" method="post" class="space-y-3">
+					<div
+						data-review-success
+						class="hidden rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-sm text-emerald-800"
+					></div>
+
+					<div
+						data-review-errors
+						class="hidden rounded-xl bg-red-50 border border-red-200 px-4 py-2 text-sm text-red-800"
+					></div>
+
+					<form
+						action="{{ route('doctors.reviews.store', $doctor) }}"
+						method="post"
+						class="space-y-3"
+						data-ajax-review="true"
+					>
 						@csrf
 						<div class="grid sm:grid-cols-2 gap-3">
 							<label class="block text-sm font-medium text-gray-700">
@@ -450,7 +471,7 @@
 					</button>
 				</div>
 
-				<form class="mt-4 space-y-3">
+				<form class="mt-4 space-y-3" @submit.prevent="closeModals(); showToast('Your appointment request has been sent. The clinic will follow up to confirm.')">
 					<div class="grid sm:grid-cols-2 gap-3">
 						<label class="block text-sm font-medium text-gray-700">
 							<span>Your name</span>
@@ -483,9 +504,8 @@
 
 					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
 						<button
-							type="button"
+							type="submit"
 							class="btn-primary w-full sm:w-auto justify-center"
-							@click="closeModals()"
 						>
 							Request appointment
 						</button>
@@ -527,7 +547,7 @@
 					</button>
 				</div>
 
-				<form class="mt-4 space-y-3">
+				<form class="mt-4 space-y-3" @submit.prevent="closeModals(); showToast('Your question has been sent. You’ll receive a reply at the email you provided.')">
 					<label class="block text-sm font-medium text-gray-700">
 						<span>Your email (for reply)</span>
 						<input type="email" class="mt-1 input h-10" placeholder="you@example.com" required>
@@ -543,14 +563,28 @@
 
 					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
 						<button
-							type="button"
+							type="submit"
 							class="btn-primary w-full sm:w-auto justify-center"
-							@click="closeModals()"
 						>
 							Send question
 						</button>
 					</div>
 				</form>
+			</div>
+		</div>
+
+		{{-- Global toast for lightweight success messages --}}
+		<div
+			x-show="toastVisible"
+			x-transition.opacity.duration.200ms
+			x-transition.scale.duration.200ms
+			class="fixed bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-6 sm:translate-x-0 z-50"
+		>
+			<div class="rounded-full bg-gray-900 text-white text-sm sm:text-base px-4 sm:px-5 py-2.5 shadow-lg shadow-black/40 flex items-center gap-2">
+				<svg class="w-4 h-4 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				<p x-text="toastMessage"></p>
 			</div>
 		</div>
 	</div>
