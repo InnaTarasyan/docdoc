@@ -32,7 +32,7 @@
 				</div>
 				<div class="privacy-policy-section-body">
 					<p class="privacy-policy-text">
-						Welcome to DocDoc. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.
+						Welcome to PrimeDoctors. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.
 					</p>
 				</div>
 			</section>

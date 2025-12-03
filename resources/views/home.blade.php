@@ -603,7 +603,7 @@
 							<div class="space-y-3">
 							<p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-900 bg-emerald-50/90 rounded-full px-4 py-1 border border-emerald-100 shadow-sm">Testimonials</p>
 							<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-emerald-50 leading-tight">What Our Patients Say</h2>
-							<p class="text-base md:text-lg text-emerald-100 leading-relaxed">Real healthcare journeys from people who discovered trusted doctors and clinics with DocDoc.</p>
+							<p class="text-base md:text-lg text-emerald-100 leading-relaxed">Real healthcare journeys from people who discovered trusted doctors and clinics with PrimeDoctors.</p>
 							</div>
 							<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
 							<div class="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-900/10">
@@ -1077,7 +1077,7 @@
 					<div class="text-center mb-8 sm:mb-10 lg:mb-12 space-y-4">
 						<p class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-50/90 backdrop-blur">Trusted partners</p>
 						<div class="space-y-3">
-							<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Healthcare collaborations that power DocDoc</h2>
+							<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Healthcare collaborations that power PrimeDoctors</h2>
 							<p class="text-sm sm:text-base md:text-lg text-emerald-100 max-w-3xl mx-auto">We work with top-tier networks to deliver better coverage, clinical expertise, and faster patient outcomes across every specialty.</p>
 						</div>
 					</div>

@@ -93,7 +93,7 @@
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6 text-brand-600 group-hover:text-brand-700 transition-colors">
 							<path d="M12 4v16M4 12h16" stroke-width="2" stroke-linecap="round"/>
 						</svg>
-						<span>DocDoc</span>
+						<span>PrimeDoctors</span>
 					</a>
 					<nav class="hidden sm:flex items-center gap-6 text-sm">
 						<a href="{{ route('doctors.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Doctors</a>

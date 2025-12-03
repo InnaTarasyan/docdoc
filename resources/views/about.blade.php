@@ -20,7 +20,7 @@
 					<p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-700 sm:text-emerald-100/80">Independent builder</p>
 					<h1 class="text-3xl font-semibold leading-tight text-gray-900 sm:text-white">Hi, I'm Inna Tarasyan</h1>
 					<p class="text-base text-gray-600 sm:text-emerald-50/90">
-						I build healthcare data tools that feel modern, credible, and fast. The DocDoc directory imports official NPI Registry data,
+						I build healthcare data tools that feel modern, credible, and fast. The PrimeDoctors directory imports official NPI Registry data,
 						organizes it with Laravel, and exposes mobile-friendly ways to explore doctors, organizations, and specialties.
 					</p>
 					<div class="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:grid-cols-3">
@@ -120,7 +120,7 @@
 				<p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-700">Contact & ownership</p>
 				<h2 class="text-2xl font-semibold text-gray-900">Built and run by one person</h2>
 				<p class="text-sm text-gray-600">
-					DocDoc is a solo project. No outside company runs the data or interfaces—every component from design to infrastructure is authored and maintained by me.
+					PrimeDoctors is a solo project. No outside company runs the data or interfaces—every component from design to infrastructure is authored and maintained by me.
 				</p>
 				<div class="mt-4 space-y-3">
 					<div class="flex items-start gap-3 rounded-2xl border border-gray-100 bg-brand-50/50 px-4 py-3">

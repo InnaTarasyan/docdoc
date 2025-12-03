@@ -33,7 +33,7 @@
 				</div>
 				<div class="terms-of-use-section-body">
 					<p class="terms-of-use-text">
-						By accessing and using DocDoc, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+						By accessing and using PrimeDoctors, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
 					</p>
 				</div>
 			</section>
@@ -49,7 +49,7 @@
 				</div>
 				<div class="terms-of-use-section-body">
 					<p class="terms-of-use-text">
-						Permission is granted to temporarily access the materials on DocDoc's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+						Permission is granted to temporarily access the materials on PrimeDoctors' website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
 					</p>
 					<ul class="terms-of-use-list">
 						<li class="terms-of-use-list-item">
@@ -87,7 +87,7 @@
 				</div>
 				<div class="terms-of-use-section-body">
 					<p class="terms-of-use-text">
-						The materials on DocDoc's website are provided on an 'as is' basis. DocDoc makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+						The materials on PrimeDoctors' website are provided on an 'as is' basis. PrimeDoctors makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
 					</p>
 				</div>
 			</section>
@@ -103,7 +103,7 @@
 				</div>
 				<div class="terms-of-use-section-body">
 					<p class="terms-of-use-text">
-						In no event shall DocDoc or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on DocDoc's website, even if DocDoc or a DocDoc authorized representative has been notified orally or in writing of the possibility of such damage.
+						In no event shall PrimeDoctors or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on PrimeDoctors' website, even if PrimeDoctors or a PrimeDoctors authorized representative has been notified orally or in writing of the possibility of such damage.
 					</p>
 				</div>
 			</section>
@@ -119,7 +119,7 @@
 				</div>
 				<div class="terms-of-use-section-body">
 					<p class="terms-of-use-text">
-						The materials appearing on DocDoc's website could include technical, typographical, or photographic errors. DocDoc does not warrant that any of the materials on its website are accurate, complete, or current. DocDoc may make changes to the materials contained on its website at any time without notice.
+						The materials appearing on PrimeDoctors' website could include technical, typographical, or photographic errors. PrimeDoctors does not warrant that any of the materials on its website are accurate, complete, or current. PrimeDoctors may make changes to the materials contained on its website at any time without notice.
 					</p>
 				</div>
 			</section>
@@ -135,7 +135,7 @@
 				</div>
 				<div class="terms-of-use-section-body">
 					<p class="terms-of-use-text">
-						DocDoc has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by DocDoc of the site. Use of any such linked website is at the user's own risk.
+						PrimeDoctors has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by PrimeDoctors of the site. Use of any such linked website is at the user's own risk.
 					</p>
 				</div>
 			</section>
@@ -151,7 +151,7 @@
 				</div>
 				<div class="terms-of-use-section-body">
 					<p class="terms-of-use-text">
-						DocDoc may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
+						PrimeDoctors may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
 					</p>
 				</div>
 			</section>
