@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Models\Specialty;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -145,6 +146,10 @@ class DoctorController extends Controller
 
 	public function show(Doctor $doctor)
 	{
+		$doctor->load(['reviews' => function ($q) {
+			$q->latest();
+		}]);
+
 		$related = Doctor::query()
 			->where('id', '!=', $doctor->id)
 			->where('city', $doctor->city)
@@ -157,6 +162,23 @@ class DoctorController extends Controller
 			'doctor' => $doctor,
 			'related' => $related,
 		]);
+	}
+
+	public function storeReview(Request $request, Doctor $doctor)
+	{
+		$data = $request->validate([
+			'name' => ['required', 'string', 'max:255'],
+			'rating' => ['required', 'integer', 'min:1', 'max:5'],
+			'comment' => ['nullable', 'string', 'max:5000'],
+		]);
+
+		$data['doctor_id'] = $doctor->id;
+
+		Review::create($data);
+
+		return redirect()
+			->route('doctors.show', $doctor)
+			->with('status', 'Thank you for sharing your experience.');
 	}
 }
 

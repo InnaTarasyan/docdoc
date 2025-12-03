@@ -16,8 +16,6 @@
 		x-data="{
 			showBookModal: false,
 			showQuestionModal: false,
-			toast: null,
-			toastTimeout: null,
 			openBook() {
 				this.showQuestionModal = false;
 				this.showBookModal = true;
@@ -29,42 +27,10 @@
 			closeModals() {
 				this.showBookModal = false;
 				this.showQuestionModal = false;
-			},
-			showToast(message) {
-				this.toast = message;
-				clearTimeout(this.toastTimeout);
-				this.toastTimeout = setTimeout(() => this.toast = null, 3500);
 			}
 		}"
 		x-cloak
 	>
-		{{-- Inline toast for lightweight feedback --}}
-		<div
-			x-show="toast"
-			x-transition
-			class="fixed inset-x-4 bottom-6 z-40 sm:inset-x-auto sm:right-6 sm:left-auto sm:max-w-sm"
-			role="status"
-			aria-live="polite"
-		>
-			<div class="flex items-start gap-3 rounded-2xl bg-emerald-600 text-emerald-50 px-4 py-3 shadow-xl shadow-emerald-900/30 border border-emerald-300/60">
-				<div class="mt-0.5">
-					<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M12 9v4m0 4h.01M10.29 3.86 2.82 18a1.7 1.7 0 0 0 0 1.7c.3.53.86.86 1.47.86h15.42c.61 0 1.17-.33 1.47-.86a1.7 1.7 0 0 0 0-1.7L13.71 3.86a1.7 1.7 0 0 0-2.96 0Z" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
-				</div>
-				<div class="text-sm font-medium" x-text="toast"></div>
-				<button
-					type="button"
-					class="ml-auto text-emerald-100/80 hover:text-white transition"
-					@click="toast = null"
-					aria-label="Close notification"
-				>
-					<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M6 6l12 12M6 18L18 6" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
-				</button>
-			</div>
-		</div>
 
 		{{-- Hero / main profile block --}}
 		<section class="relative bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 rounded-2xl sm:rounded-[32px] border border-gray-100 sm:border-white/10 shadow-sm sm:shadow-[0_25px_60px_rgba(6,95,70,0.35)] overflow-hidden">
@@ -254,6 +220,107 @@
 					</div>
 				</div>
 
+				<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-6 space-y-4">
+					<div class="flex items-center justify-between gap-2">
+						<h2 class="text-base sm:text-lg font-semibold text-gray-900">Patient reviews</h2>
+						@if($doctor->reviews->count() > 0)
+							<span class="text-xs text-gray-500">{{ $doctor->reviews->count() }} {{ \Illuminate\Support\Str::plural('review', $doctor->reviews->count()) }}</span>
+						@endif
+					</div>
+
+					@if(session('status'))
+						<div class="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-sm text-emerald-800">
+							{{ session('status') }}
+						</div>
+					@endif
+
+					<form action="{{ route('doctors.reviews.store', $doctor) }}" method="post" class="space-y-3">
+						@csrf
+						<div class="grid sm:grid-cols-2 gap-3">
+							<label class="block text-sm font-medium text-gray-700">
+								<span>Your name</span>
+								<input
+									type="text"
+									name="name"
+									value="{{ old('name') }}"
+									class="mt-1 input h-10"
+									placeholder="Jane Doe"
+									required
+								>
+								@error('name')
+									<p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+								@enderror
+							</label>
+							<label class="block text-sm font-medium text-gray-700">
+								<span>Rating</span>
+								<select
+									name="rating"
+									class="mt-1 select h-10"
+									required
+								>
+									<option value="">Choose</option>
+									@for($i = 5; $i >= 1; $i--)
+										<option value="{{ $i }}" @selected((int) old('rating') === $i)>{{ $i }} / 5</option>
+									@endfor
+								</select>
+								@error('rating')
+									<p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+								@enderror
+							</label>
+						</div>
+						<label class="block text-sm font-medium text-gray-700">
+							<span>Your review</span>
+							<textarea
+								name="comment"
+								class="mt-1 input min-h-[80px] resize-y"
+								placeholder="Share what went well, and what could be improved."
+							>{{ old('comment') }}</textarea>
+							@error('comment')
+								<p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+							@enderror
+						</label>
+						<div class="flex flex-col sm:flex-row sm:items-center gap-3">
+							<button type="submit" class="btn-primary w-full sm:w-auto justify-center">
+								Submit review
+							</button>
+							<p class="text-[11px] sm:text-xs text-gray-500">
+								Reviews help other patients understand what to expect from this doctor.
+							</p>
+						</div>
+					</form>
+
+					@if($doctor->reviews->count() > 0)
+						<div class="mt-4 space-y-3">
+							@foreach($doctor->reviews as $review)
+								<article class="rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm">
+									<div class="flex items-start justify-between gap-3">
+										<div>
+											<p class="font-semibold text-gray-900">{{ $review->name }}</p>
+											<p class="text-xs text-gray-500">{{ $review->created_at->format('M j, Y') }}</p>
+										</div>
+										<div class="flex items-center gap-1 text-amber-400">
+											@for($i = 0; $i < 5; $i++)
+												<svg class="w-4 h-4" viewBox="0 0 24 24" fill="{{ $i < $review->rating ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="1.5">
+													<path d="m12 3.5 2.47 5 5.53.8-4 3.9.94 5.5L12 16.9 7.06 18.7 8 13.9l-4-3.9 5.53-.8L12 3.5Z"/>
+												</svg>
+											@endfor
+										</div>
+									</div>
+									@if($review->comment)
+										<p class="mt-2 text-gray-700 leading-relaxed">
+											{{ $review->comment }}
+										</p>
+									@endif
+								</article>
+							@endforeach
+						</div>
+					@else
+						<p class="mt-2 text-sm text-gray-500">
+							No reviews yet — be the first to share your experience.
+						</p>
+					@endif
+				</div>
+
 				@if($related->count() > 0)
 					<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-6">
 						<div class="flex items-center justify-between gap-2 mb-3 sm:mb-4">
@@ -338,7 +405,7 @@
 						</p>
 						<a
 							href="{{ route('doctors.index') }}"
-							class="inline-flex items-center justify-center px-4 py-2.5 rounded-full bg-white text-sm font-semibold text-brand-800 hover:bg-brand-50 transition"
+							class="inline-flex items-center justify-center px-4 py-2.5 rounded-full bg-white text-sm font-semibold text-black hover:bg-brand-50 transition"
 						>
 							<svg class="w-4 h-4 mr-1.5 text-brand-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 								<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -350,7 +417,7 @@
 			</aside>
 		</div>
 
-		{{-- Book appointment modal (imitation, no backend call) --}}
+		{{-- Book appointment modal --}}
 		<div
 			x-show="showBookModal"
 			x-transition.opacity
@@ -366,10 +433,9 @@
 			>
 				<div class="flex items-start justify-between gap-3">
 					<div>
-						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-500">Booking (preview only)</p>
 						<h2 class="mt-1 text-lg sm:text-xl font-semibold text-gray-900">Book an appointment with {{ $doctor->name }}</h2>
 						<p class="mt-1 text-xs sm:text-sm text-gray-500">
-							This is a design-only flow — your details are not sent anywhere, but you can see how booking could look.
+							Share your contact details and preferred time so the clinic can follow up to confirm.
 						</p>
 					</div>
 					<button
@@ -384,13 +450,7 @@
 					</button>
 				</div>
 
-				<form
-					class="mt-4 space-y-3"
-					@submit.prevent="
-						closeModals();
-						showToast('Appointment request preview submitted. In a real app, this would be sent to the clinic.');
-					"
-				>
+				<form class="mt-4 space-y-3">
 					<div class="grid sm:grid-cols-2 gap-3">
 						<label class="block text-sm font-medium text-gray-700">
 							<span>Your name</span>
@@ -423,20 +483,18 @@
 
 					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
 						<button
-							type="submit"
+							type="button"
 							class="btn-primary w-full sm:w-auto justify-center"
+							@click="closeModals()"
 						>
-							Preview submit
+							Request appointment
 						</button>
-						<p class="text-[11px] sm:text-xs text-gray-500">
-							This is a demo form only. No real booking is made.
-						</p>
 					</div>
 				</form>
 			</div>
 		</div>
 
-		{{-- Ask a question modal (imitation, no backend call) --}}
+		{{-- Ask a question modal --}}
 		<div
 			x-show="showQuestionModal"
 			x-transition.opacity
@@ -452,10 +510,9 @@
 			>
 				<div class="flex items-start justify-between gap-3">
 					<div>
-						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-500">Question (preview only)</p>
 						<h2 class="mt-1 text-lg sm:text-xl font-semibold text-gray-900">Ask a question about {{ $doctor->name }}</h2>
 						<p class="mt-1 text-xs sm:text-sm text-gray-500">
-							Use this demo form to see how a quick question flow could look.
+							Ask about availability, insurance, languages spoken, or anything else important to you.
 						</p>
 					</div>
 					<button
@@ -470,13 +527,7 @@
 					</button>
 				</div>
 
-				<form
-					class="mt-4 space-y-3"
-					@submit.prevent="
-						closeModals();
-						showToast('Question preview submitted. In production, this could notify the clinic or support team.');
-					"
-				>
+				<form class="mt-4 space-y-3">
 					<label class="block text-sm font-medium text-gray-700">
 						<span>Your email (for reply)</span>
 						<input type="email" class="mt-1 input h-10" placeholder="you@example.com" required>
@@ -492,14 +543,12 @@
 
 					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
 						<button
-							type="submit"
+							type="button"
 							class="btn-primary w-full sm:w-auto justify-center"
+							@click="closeModals()"
 						>
-							Preview send
+							Send question
 						</button>
-						<p class="text-[11px] sm:text-xs text-gray-500">
-							This is a visual-only interaction; no message is stored.
-						</p>
 					</div>
 				</form>
 			</div>

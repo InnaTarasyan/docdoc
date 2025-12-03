@@ -19,6 +19,7 @@ Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 
 Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors.index');
 Route::get('/doctors/{doctor}', [DoctorController::class, 'show'])->name('doctors.show');
+Route::post('/doctors/{doctor}/reviews', [DoctorController::class, 'storeReview'])->name('doctors.reviews.store');
 
 Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
 Route::get('/organizations/{organization}', [OrganizationController::class, 'show'])->name('organizations.show');

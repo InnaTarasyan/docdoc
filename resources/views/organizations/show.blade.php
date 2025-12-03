@@ -16,8 +16,6 @@
 		x-data="{
 			showBookModal: false,
 			showQuestionModal: false,
-			toast: null,
-			toastTimeout: null,
 			openBook() {
 				this.showQuestionModal = false;
 				this.showBookModal = true;
@@ -29,41 +27,10 @@
 			closeModals() {
 				this.showBookModal = false;
 				this.showQuestionModal = false;
-			},
-			showToast(message) {
-				this.toast = message;
-				clearTimeout(this.toastTimeout);
-				this.toastTimeout = setTimeout(() => this.toast = null, 3500);
 			}
 		}"
 		x-cloak
 	>
-		<div
-			x-show="toast"
-			x-transition
-			class="fixed inset-x-4 bottom-6 z-40 sm:inset-x-auto sm:right-6 sm:left-auto sm:max-w-sm"
-			role="status"
-			aria-live="polite"
-		>
-			<div class="flex items-start gap-3 rounded-2xl bg-emerald-600 text-emerald-50 px-4 py-3 shadow-xl shadow-emerald-900/30 border border-emerald-300/60">
-				<div class="mt-0.5">
-					<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M12 9v4m0 4h.01M10.29 3.86 2.82 18a1.7 1.7 0 0 0 0 1.7c.3.53.86.86 1.47.86h15.42c.61 0 1.17-.33 1.47-.86a1.7 1.7 0 0 0 0-1.7L13.71 3.86a1.7 1.7 0 0 0-2.96 0Z" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
-				</div>
-				<div class="text-sm font-medium" x-text="toast"></div>
-				<button
-					type="button"
-					class="ml-auto text-emerald-100/80 hover:text-white transition"
-					@click="toast = null"
-					aria-label="Close notification"
-				>
-					<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M6 6l12 12M6 18L18 6" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
-				</button>
-			</div>
-		</div>
 
 		<section class="lg:col-span-2 space-y-4 sm:space-y-6">
 			<div class="bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 rounded-2xl sm:rounded-[32px] border border-gray-100 sm:border-white/10 shadow-sm sm:shadow-[0_25px_60px_rgba(6,95,70,0.3)] overflow-hidden">
@@ -158,7 +125,7 @@
 									</button>
 								</div>
 								<p class="text-[11px] sm:text-xs text-gray-500 sm:text-emerald-100/80">
-									Booking and questions here are design previews only — no real data is sent.
+									The team can follow up using the contact details you provide.
 								</p>
 							</div>
 						</div>
@@ -232,10 +199,10 @@
 					<p class="text-xs sm:text-sm text-emerald-50/90 mb-3">
 						Use filters to compare clinics, hospitals, and medical centers in your area.
 					</p>
-					<a
-						href="{{ route('organizations.index') }}"
-						class="inline-flex items-center justify-center px-4 py-2.5 rounded-full bg-white text-sm font-semibold text-brand-800 hover:bg-brand-50 transition"
-					>
+						<a
+							href="{{ route('organizations.index') }}"
+							class="inline-flex items-center justify-center px-4 py-2.5 rounded-full bg-white text-sm font-semibold text-black hover:bg-brand-50 transition"
+						>
 						<svg class="w-4 h-4 mr-1.5 text-brand-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -245,7 +212,7 @@
 			</div>
 		</aside>
 
-		{{-- Book visit modal (imitation) --}}
+		{{-- Book visit modal --}}
 		<div
 			x-show="showBookModal"
 			x-transition.opacity
@@ -261,10 +228,9 @@
 			>
 				<div class="flex items-start justify-between gap-3">
 					<div>
-						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-500">Booking (preview only)</p>
 						<h2 class="mt-1 text-lg sm:text-xl font-semibold text-gray-900">Book a visit at {{ $organization->name }}</h2>
 						<p class="mt-1 text-xs sm:text-sm text-gray-500">
-							This is a visual-only booking experience. Use it to see how a real flow could feel.
+							Share when you’d like to come in and how the clinic can reach you to confirm your visit.
 						</p>
 					</div>
 					<button
@@ -279,13 +245,7 @@
 					</button>
 				</div>
 
-				<form
-					class="mt-4 space-y-3"
-					@submit.prevent="
-						closeModals();
-						showToast('Visit request preview submitted. In a production app, this would notify the organization.');
-					"
-				>
+				<form class="mt-4 space-y-3">
 					<div class="grid sm:grid-cols-2 gap-3">
 						<label class="block text-sm font-medium text-gray-700">
 							<span>Your name</span>
@@ -318,20 +278,18 @@
 
 					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
 						<button
-							type="submit"
+							type="button"
 							class="btn-primary w-full sm:w-auto justify-center"
+							@click="closeModals()"
 						>
-							Preview submit
+							Request visit
 						</button>
-						<p class="text-[11px] sm:text-xs text-gray-500">
-							No real appointment is created from this form.
-						</p>
 					</div>
 				</form>
 			</div>
 		</div>
 
-		{{-- Ask a question modal (imitation) --}}
+		{{-- Ask a question modal --}}
 		<div
 			x-show="showQuestionModal"
 			x-transition.opacity
@@ -347,10 +305,9 @@
 			>
 				<div class="flex items-start justify-between gap-3">
 					<div>
-						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-500">Question (preview only)</p>
 						<h2 class="mt-1 text-lg sm:text-xl font-semibold text-gray-900">Ask about {{ $organization->name }}</h2>
 						<p class="mt-1 text-xs sm:text-sm text-gray-500">
-							Great for testing how a support or triage form could behave on mobile and desktop.
+							Ask about services, insurance coverage, opening hours, or anything else you need to clarify.
 						</p>
 					</div>
 					<button
@@ -365,13 +322,7 @@
 					</button>
 				</div>
 
-				<form
-					class="mt-4 space-y-3"
-					@submit.prevent="
-						closeModals();
-						showToast('Question preview submitted. In production, this would route to the organization or support.');
-					"
-				>
+				<form class="mt-4 space-y-3">
 					<label class="block text-sm font-medium text-gray-700">
 						<span>Your email</span>
 						<input type="email" class="mt-1 input h-10" placeholder="you@example.com" required>
@@ -387,14 +338,12 @@
 
 					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
 						<button
-							type="submit"
+							type="button"
 							class="btn-primary w-full sm:w-auto justify-center"
+							@click="closeModals()"
 						>
-							Preview send
+							Send question
 						</button>
-						<p class="text-[11px] sm:text-xs text-gray-500">
-							This interaction is for UX preview only; no message is stored or sent.
-						</p>
 					</div>
 				</form>
 			</div>

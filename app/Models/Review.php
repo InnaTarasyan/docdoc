@@ -5,23 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Doctor extends Model
+class Review extends Model
 {
 	use HasFactory;
 
 	protected $fillable = [
-		'npi',
+		'doctor_id',
 		'name',
-		'gender',
-		'city',
-		'state',
-		'taxonomy',
-		'organization_name',
+		'rating',
+		'comment',
 	];
 
-	public function reviews()
+	public function doctor()
 	{
-		return $this->hasMany(Review::class)->latest();
+		return $this->belongsTo(Doctor::class);
 	}
 }
 
