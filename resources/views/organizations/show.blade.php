@@ -26,17 +26,42 @@
 		x-data="{
 			showBookModal: false,
 			showQuestionModal: false,
+			toastVisible: false,
+			toastMessage: '',
+			bookForm: {
+				name: '',
+				email: ''
+			},
+			questionForm: {
+				email: '',
+				question: ''
+			},
+			get isBookFormValid() {
+				return this.bookForm.name.trim() !== '' && this.bookForm.email.trim() !== '' && this.bookForm.email.includes('@');
+			},
+			get isQuestionFormValid() {
+				return this.questionForm.email.trim() !== '' && this.questionForm.email.includes('@') && this.questionForm.question.trim() !== '';
+			},
 			openBook() {
 				this.showQuestionModal = false;
 				this.showBookModal = true;
+				this.bookForm = { name: '', email: '' };
 			},
 			openQuestion() {
 				this.showBookModal = false;
 				this.showQuestionModal = true;
+				this.questionForm = { email: '', question: '' };
 			},
 			closeModals() {
 				this.showBookModal = false;
 				this.showQuestionModal = false;
+			},
+			showToast(message) {
+				this.toastMessage = message;
+				this.toastVisible = true;
+				setTimeout(() => {
+					this.toastVisible = false;
+				}, 4000);
 			}
 		}"
 		x-cloak
@@ -138,9 +163,9 @@
 								<button
 									type="button"
 									@click="openBook()"
-									class="inline-flex items-center justify-center rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-brand-700 shadow-md shadow-emerald-900/20 transition hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-800"
+									class="inline-flex items-center justify-center rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-black shadow-md shadow-emerald-900/20 transition hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-800"
 								>
-									<svg class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<svg class="mr-2 h-4 w-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M12 5v14m-7-7h14" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 									Book a visit
@@ -158,8 +183,81 @@
 								</button>
 							</div>
 							<p class="mt-2 text-[11px] text-emerald-100/80">
-								Response typically within one business day. We’ll use your contact details to confirm.
+								Response typically within one business day. We'll use your contact details to confirm.
 							</p>
+						</div>
+					</div>
+
+					<div class="w-full lg:w-auto">
+						<div
+							class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-lg ring-1 ring-white/15 backdrop-blur"
+							x-data="{
+								galleryIndex: 0,
+								images: [
+									'https://images.unsplash.com/photo-1580281657521-96b9f2fbf910?auto=format&fit=crop&w=900&q=80',
+									'https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=900&q=80',
+									'https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=900&q=80',
+									'https://images.unsplash.com/photo-1582719478248-54e9f2af1121?auto=format&fit=crop&w=900&q=80'
+								],
+								next() { this.galleryIndex = (this.galleryIndex + 1) % this.images.length },
+								prev() { this.galleryIndex = (this.galleryIndex - 1 + this.images.length) % this.images.length }
+							}"
+						>
+							<div class="flex items-center justify-between gap-2 mb-3">
+								<div>
+									<h3 class="text-sm font-semibold text-white">Clinic gallery</h3>
+									<p class="text-xs text-emerald-100/80">Swipe through the space</p>
+								</div>
+								<div class="hidden sm:flex items-center gap-1.5">
+									<button type="button" class="rounded-full p-1.5 ring-1 ring-white/30 hover:bg-white/10 text-white" @click="prev()">
+										<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+									<button type="button" class="rounded-full p-1.5 ring-1 ring-white/30 hover:bg-white/10 text-white" @click="next()">
+										<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+								</div>
+							</div>
+
+							<div class="relative overflow-hidden rounded-xl aspect-[4/3] bg-gray-100/20 ring-1 ring-white/20">
+								<template x-for="(image, idx) in images" :key="image">
+									<img
+										x-show="galleryIndex === idx"
+										x-transition.opacity
+										:src="image"
+										alt="Clinic photo"
+										class="absolute inset-0 h-full w-full object-cover"
+										loading="lazy"
+									>
+								</template>
+								<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+									<template x-for="(image, idx) in images" :key="idx">
+										<button
+											type="button"
+											class="h-2 w-2 rounded-full"
+											:class="galleryIndex === idx ? 'bg-white ring-1 ring-white/50' : 'bg-white/40'"
+											@click="galleryIndex = idx"
+										></button>
+									</template>
+								</div>
+								<div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+									<button type="button" class="m-2 rounded-full bg-white/80 p-1.5 shadow" @click="prev()">
+										<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+								</div>
+								<div class="absolute inset-y-0 right-0 flex items-center sm:hidden">
+									<button type="button" class="m-2 rounded-full bg-white/80 p-1.5 shadow" @click="next()">
+										<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -397,12 +495,12 @@
 								<p class="text-sm text-emerald-50/90">Compare clinics, hospitals, and diagnostic centers nearby.</p>
 								<a
 									href="{{ route('organizations.index') }}"
-									class="inline-flex items-center justify-center rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-brand-700 shadow-md shadow-emerald-900/20 transition hover:bg-brand-50"
+									class="inline-flex items-center justify-center rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-black shadow-md shadow-emerald-900/20 transition hover:bg-brand-50"
 								>
-									<svg class="mr-1.5 h-4 w-4 text-brand-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<svg class="mr-1.5 h-4 w-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
-									Back to search
+									<span class="text-black">Back to search</span>
 								</a>
 							</div>
 						</div>
@@ -434,6 +532,195 @@
 				</div>
 			</aside>
 		</div>
+
+		<div class="grid gap-4 sm:gap-6 lg:grid-cols-3">
+			<div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm space-y-3">
+				<div class="flex items-center gap-2">
+					<div class="h-9 w-9 flex items-center justify-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</div>
+					<div>
+						<p class="text-xs uppercase tracking-wide text-gray-500">Fast responses</p>
+						<p class="text-sm font-semibold text-gray-900">Replies usually within 1 business day</p>
+					</div>
+				</div>
+				<div class="flex items-center justify-between text-xs text-gray-600">
+					<span>Bookings confirmed last week</span>
+					<span class="font-semibold text-brand-700">+18</span>
+				</div>
+				<div class="h-2 rounded-full bg-gray-100 overflow-hidden">
+					<div class="h-full w-3/5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+				</div>
+			</div>
+			<div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm space-y-3">
+				<div class="flex items-center gap-2">
+					<div class="h-9 w-9 flex items-center justify-center rounded-lg bg-amber-50 text-amber-700 ring-1 ring-amber-100">
+						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="12" cy="12" r="9"/>
+							<path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</div>
+					<div>
+						<p class="text-xs uppercase tracking-wide text-gray-500">Flexible slots</p>
+						<p class="text-sm font-semibold text-gray-900">Same-week appointments available</p>
+					</div>
+				</div>
+				<div class="flex items-center justify-between text-xs text-gray-600">
+					<span>Average wait</span>
+					<span class="font-semibold text-amber-700">2-4 days</span>
+				</div>
+				<div class="h-2 rounded-full bg-gray-100 overflow-hidden">
+					<div class="h-full w-2/3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500"></div>
+				</div>
+			</div>
+			<div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm space-y-3">
+				<div class="flex items-center gap-2">
+					<div class="h-9 w-9 flex items-center justify-center rounded-lg bg-blue-50 text-blue-700 ring-1 ring-blue-100">
+						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M4 7h16M4 12h10m-10 5h16" stroke-linecap="round"/>
+						</svg>
+					</div>
+					<div>
+						<p class="text-xs uppercase tracking-wide text-gray-500">Patients stay</p>
+						<p class="text-sm font-semibold text-gray-900">92% return for follow-ups</p>
+					</div>
+				</div>
+				<div class="flex items-center justify-between text-xs text-gray-600">
+					<span>Mobile booking success</span>
+					<span class="font-semibold text-blue-700">Stable</span>
+				</div>
+				<div class="h-2 rounded-full bg-gray-100 overflow-hidden">
+					<div class="h-full w-4/5 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500"></div>
+				</div>
+			</div>
+		</div>
+
+		@if($nearbyDoctors->count() > 0)
+			<div class="mt-6 sm:mt-8 rounded-3xl border border-gray-100 bg-white p-4 sm:p-6 shadow-sm">
+				<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+					<div>
+						<h2 class="text-lg font-semibold text-gray-900">Doctors from the same city</h2>
+						<p class="text-sm text-gray-600">Similar doctors practicing around {{ $organization->city ?: ($organization->state ?: 'the area') }}.</p>
+					</div>
+					<span class="text-xs font-semibold uppercase tracking-wide text-gray-500">Curated nearby matches</span>
+				</div>
+				<div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+					@foreach($nearbyDoctors as $doctor)
+						<a href="{{ route('doctors.show', $doctor) }}" class="group relative block rounded-xl border border-gray-100 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-md">
+							<div class="flex items-start justify-between gap-3">
+								<div class="space-y-1.5">
+									<div class="text-base font-semibold text-gray-900 group-hover:text-brand-700 line-clamp-2">
+										{{ $doctor->name }}
+									</div>
+									<div class="text-sm text-gray-600 line-clamp-2">
+										{{ $doctor->taxonomy ?: 'Specialty not specified' }}
+									</div>
+									@if($doctor->city || $doctor->state)
+										<div class="text-xs font-medium text-gray-700 flex items-center gap-1.5">
+											<svg class="h-3.5 w-3.5 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
+												<circle cx="12" cy="9" r="2.5"/>
+											</svg>
+											<span>{{ $doctor->city ?: '—' }}{{ $doctor->state ? ', '.$doctor->state : '' }}</span>
+										</div>
+									@endif
+								</div>
+								<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+									<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="m5 12 5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</div>
+							</div>
+							<div class="mt-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-700">
+								<span class="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 ring-1 ring-brand-100">
+									View profile
+									<svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</span>
+							</div>
+						</a>
+					@endforeach
+				</div>
+			</div>
+		@endif
+
+		@if($nearbyClinics->count() > 0)
+			<div class="mt-6 sm:mt-8 rounded-3xl border border-gray-100 bg-white p-4 sm:p-6 shadow-sm">
+				<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+					<div>
+						<h2 class="text-lg font-semibold text-gray-900">Nearby clinics</h2>
+						<p class="text-sm text-gray-600">Other clinics around {{ $organization->city ?: ($organization->state ?: 'you') }} you may want to compare.</p>
+					</div>
+					<a href="{{ route('organizations.index') }}" class="text-sm font-semibold text-brand-700 hover:text-brand-800 inline-flex items-center gap-1">
+						See all clinics
+						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
+				</div>
+				<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					@foreach($nearbyClinics as $clinic)
+						@php
+							$seed = abs(crc32(($clinic->name ?? '') . '|' . (string) $clinic->id));
+							$hospitalImages = [
+								'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=256&h=256&fit=crop',
+								'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=256&h=256&fit=crop',
+								'https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=256&h=256&fit=crop',
+								'https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=256&h=256&fit=crop',
+								'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=256&h=256&fit=crop',
+								'https://images.unsplash.com/photo-1497366216548-37526070297c?w=256&h=256&fit=crop',
+								'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=256&h=256&fit=crop',
+								'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=256&h=256&fit=crop'
+							];
+							$imgUrl = $hospitalImages[$seed % count($hospitalImages)];
+						@endphp
+						<a href="{{ route('organizations.show', $clinic) }}" class="group relative block overflow-hidden rounded-2xl border border-gray-100 bg-gradient-to-b from-white to-gray-50 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md">
+							<div class="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-gray-800/50 to-gray-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+							<div class="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-300" style="background-image: url('{{ $imgUrl }}');"></div>
+							<div class="relative z-10 p-4">
+								<div class="flex items-start gap-4">
+									<div class="relative shrink-0">
+										<img src="{{ $imgUrl }}" alt="{{ $clinic->name }}" class="organization-image w-16 h-16 rounded-lg ring-2 ring-gray-200 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" width="64" height="64">
+										<div class="absolute -bottom-1 -right-1 bg-brand-600 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+											<svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+												<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+												<path d="M17 21v-8H7v8M7 3v5h8" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+										</div>
+									</div>
+									<div class="min-w-0 flex-1">
+										<div class="font-medium text-gray-900 truncate group-hover:text-brand-700 transition-colors flex items-center gap-2">
+											<span>{{ $clinic->name }}</span>
+											<svg class="w-4 h-4 text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M12 4v16M4 12h16" stroke-linecap="round"></path>
+											</svg>
+										</div>
+										<div class="text-sm text-gray-600 truncate mt-0.5">{{ $clinic->city ?: '—' }}{{ $clinic->state ? ', '.$clinic->state : '' }}</div>
+										@if($clinic->phone)
+											<div class="text-sm text-gray-700 mt-1 truncate flex items-center gap-1">
+												<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+													<path d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"></path>
+												</svg>
+												{{ $clinic->phone }}
+											</div>
+										@endif
+									</div>
+								</div>
+								<div class="mt-3 flex items-center gap-2">
+									<span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-100">
+										Open for booking
+									</span>
+								</div>
+							</div>
+						</a>
+					@endforeach
+				</div>
+			</div>
+		@endif
+
 
 		<div class="fixed inset-x-4 bottom-4 z-30 sm:hidden">
 			<div class="flex items-center gap-2 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-gray-200 backdrop-blur">
@@ -494,15 +781,15 @@
 					</button>
 				</div>
 
-				<form class="mt-4 space-y-3">
+				<form class="mt-4 space-y-3" @submit.prevent="if(isBookFormValid) { closeModals(); showToast('Visit request sent. The clinic will call you back soon.'); }">
 					<div class="grid sm:grid-cols-2 gap-3">
 						<label class="block text-sm font-medium text-gray-700">
-							<span>Your name</span>
-							<input type="text" class="mt-1 input h-10" placeholder="John Smith" required>
+							<span>Your name <span class="text-red-500">*</span></span>
+							<input type="text" x-model="bookForm.name" class="mt-1 input h-10" placeholder="John Smith" required>
 						</label>
 						<label class="block text-sm font-medium text-gray-700">
-							<span>Contact email</span>
-							<input type="email" class="mt-1 input h-10" placeholder="you@example.com" required>
+							<span>Contact email <span class="text-red-500">*</span></span>
+							<input type="email" x-model="bookForm.email" class="mt-1 input h-10" placeholder="you@example.com" required>
 						</label>
 					</div>
 					<div class="grid sm:grid-cols-2 gap-3">
@@ -527,9 +814,9 @@
 
 					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
 						<button
-							type="button"
-							class="btn-primary w-full sm:w-auto justify-center"
-							@click="closeModals()"
+							type="submit"
+							:disabled="!isBookFormValid"
+							:class="isBookFormValid ? 'btn-primary w-full sm:w-auto justify-center' : 'btn-primary w-full sm:w-auto justify-center opacity-50 cursor-not-allowed'"
 						>
 							Request visit
 						</button>
@@ -571,14 +858,15 @@
 					</button>
 				</div>
 
-				<form class="mt-4 space-y-3">
+				<form class="mt-4 space-y-3" @submit.prevent="if(isQuestionFormValid) { closeModals(); showToast('Question sent. Expect a reply from the clinic.'); }">
 					<label class="block text-sm font-medium text-gray-700">
-						<span>Your email</span>
-						<input type="email" class="mt-1 input h-10" placeholder="you@example.com" required>
+						<span>Your email <span class="text-red-500">*</span></span>
+						<input type="email" x-model="questionForm.email" class="mt-1 input h-10" placeholder="you@example.com" required>
 					</label>
 					<label class="block text-sm font-medium text-gray-700">
-						<span>Your question</span>
+						<span>Your question <span class="text-red-500">*</span></span>
 						<textarea
+							x-model="questionForm.question"
 							class="mt-1 input min-h-[90px] resize-y"
 							placeholder="Ask about services, insurance coverage, opening hours, or anything else."
 							required
@@ -587,14 +875,29 @@
 
 					<div class="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
 						<button
-							type="button"
-							class="btn-primary w-full sm:w-auto justify-center"
-							@click="closeModals()"
+							type="submit"
+							:disabled="!isQuestionFormValid"
+							:class="isQuestionFormValid ? 'btn-primary w-full sm:w-auto justify-center' : 'btn-primary w-full sm:w-auto justify-center opacity-50 cursor-not-allowed'"
 						>
 							Send question
 						</button>
 					</div>
 				</form>
+			</div>
+		</div>
+
+		{{-- Global toast for lightweight success messages --}}
+		<div
+			x-show="toastVisible"
+			x-transition.opacity.duration.200ms
+			x-transition.scale.duration.200ms
+			class="fixed bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-6 sm:translate-x-0 z-50"
+		>
+			<div class="rounded-full bg-gray-900 text-white text-sm sm:text-base px-4 sm:px-5 py-2.5 shadow-lg shadow-black/40 flex items-center gap-2">
+				<svg class="w-4 h-4 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				<p x-text="toastMessage"></p>
 			</div>
 		</div>
 	</div>

@@ -82,9 +82,27 @@ class OrganizationController extends Controller
 			->limit(12)
 			->get();
 
+		$nearbyDoctors = Doctor::query()
+			->when($organization->city, fn ($q) => $q->where('city', $organization->city))
+			->when(!$organization->city && $organization->state, fn ($q) => $q->where('state', $organization->state))
+			->when($organization->name, fn ($q) => $q->where('organization_name', '!=', $organization->name))
+			->orderBy('name')
+			->limit(8)
+			->get();
+
+		$nearbyClinics = Organization::query()
+			->when($organization->city, fn ($q) => $q->where('city', $organization->city))
+			->when(!$organization->city && $organization->state, fn ($q) => $q->where('state', $organization->state))
+			->where('id', '!=', $organization->id)
+			->orderBy('name')
+			->limit(6)
+			->get();
+
 		return view('organizations.show', [
 			'organization' => $organization,
 			'linkedDoctors' => $linkedDoctors,
+			'nearbyDoctors' => $nearbyDoctors,
+			'nearbyClinics' => $nearbyClinics,
 		]);
 	}
 }
