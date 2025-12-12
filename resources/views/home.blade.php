@@ -773,7 +773,7 @@
 									<p class="text-sm font-semibold text-white">Updated every Monday</p>
 								</div>
 							</div>
-							<a href="#" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-white/90 px-5 py-3 text-base font-semibold text-emerald-900 shadow-lg shadow-emerald-900/30 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900">
+							<a href="{{ route('blog.index') }}" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-white/90 px-5 py-3 text-base font-semibold text-emerald-900 shadow-lg shadow-emerald-900/30 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900">
 								<span>View all articles</span>
 								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

@@ -99,6 +99,7 @@
 						<a href="{{ route('doctors.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Doctors</a>
 						<a href="{{ route('organizations.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Organizations</a>
 						<a href="{{ route('specialties.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Specialties</a>
+						<a href="{{ route('blog.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Blog</a>
 						<a href="{{ route('about') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">About</a>
 					</nav>
 					<button
@@ -130,6 +131,7 @@
 						<a href="{{ route('doctors.index') }}" class="block px-4 py-2.5 hover:bg-gray-50 rounded-md transition-colors text-gray-700 hover:text-gray-900">Doctors</a>
 						<a href="{{ route('organizations.index') }}" class="block px-4 py-2.5 hover:bg-gray-50 rounded-md transition-colors text-gray-700 hover:text-gray-900">Organizations</a>
 						<a href="{{ route('specialties.index') }}" class="block px-4 py-2.5 hover:bg-gray-50 rounded-md transition-colors text-gray-700 hover:text-gray-900">Specialties</a>
+						<a href="{{ route('blog.index') }}" class="block px-4 py-2.5 hover:bg-gray-50 rounded-md transition-colors text-gray-700 hover:text-gray-900">Blog</a>
 						<a href="{{ route('about') }}" class="block px-4 py-2.5 hover:bg-gray-50 rounded-md transition-colors text-gray-700 hover:text-gray-900">About</a>
 					</div>
 				</div>
