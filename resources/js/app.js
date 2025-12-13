@@ -597,9 +597,16 @@ function initAjaxReviewForms() {
 	const csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
 
 	document.querySelectorAll('form[data-ajax-review="true"]').forEach((form) => {
-		const successBox = document.querySelector('[data-review-success]');
-		const errorsBox = document.querySelector('[data-review-errors]');
-		const reviewsContainer = document.getElementById('doctor-reviews-list');
+		// Find success/error boxes relative to the form
+		const formParent = form.closest('.rounded-2xl, .space-y-4, .space-y-6');
+		const successBox = formParent ? formParent.querySelector('[data-review-success]') : document.querySelector('[data-review-success]');
+		const errorsBox = formParent ? formParent.querySelector('[data-review-errors]') : document.querySelector('[data-review-errors]');
+		
+		// Try to find reviews container - check for both doctor and organization
+		let reviewsContainer = document.getElementById('doctor-reviews-list');
+		if (!reviewsContainer) {
+			reviewsContainer = document.getElementById('organization-reviews-list');
+		}
 
 		if (!reviewsContainer) {
 			return;

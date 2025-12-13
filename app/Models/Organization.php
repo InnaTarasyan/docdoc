@@ -16,6 +16,11 @@ class Organization extends Model
 		'state',
 		'phone',
 	];
+
+	public function reviews()
+	{
+		return $this->hasMany(Review::class)->latest();
+	}
 }
 
 

@@ -459,6 +459,88 @@
 						</div>
 					</div>
 				@endif
+
+				<div class="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6 space-y-4">
+					<div id="organization-reviews-list">
+						@include('organizations._reviews_list', ['organization' => $organization])
+					</div>
+
+					@if(session('status'))
+						<div class="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-sm text-emerald-800 mb-2">
+							{{ session('status') }}
+						</div>
+					@endif
+
+					<div
+						data-review-success
+						class="hidden rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-sm text-emerald-800"
+					></div>
+
+					<div
+						data-review-errors
+						class="hidden rounded-xl bg-red-50 border border-red-200 px-4 py-2 text-sm text-red-800"
+					></div>
+
+					<form
+						action="{{ route('organizations.reviews.store', $organization) }}"
+						method="post"
+						class="space-y-3"
+						data-ajax-review="true"
+					>
+						@csrf
+						<div class="grid sm:grid-cols-2 gap-3">
+							<label class="block text-sm font-medium text-gray-700">
+								<span>Your name</span>
+								<input
+									type="text"
+									name="name"
+									value="{{ old('name') }}"
+									class="mt-1 input h-10"
+									placeholder="Jane Doe"
+									required
+								>
+								@error('name')
+									<p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+								@enderror
+							</label>
+							<label class="block text-sm font-medium text-gray-700">
+								<span>Rating</span>
+								<select
+									name="rating"
+									class="mt-1 select h-10"
+									required
+								>
+									<option value="">Choose</option>
+									@for($i = 5; $i >= 1; $i--)
+										<option value="{{ $i }}" @selected((int) old('rating') === $i)>{{ $i }} / 5</option>
+									@endfor
+								</select>
+								@error('rating')
+									<p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+								@enderror
+							</label>
+						</div>
+						<label class="block text-sm font-medium text-gray-700">
+							<span>Your review</span>
+							<textarea
+								name="comment"
+								class="mt-1 input min-h-[80px] resize-y"
+								placeholder="Share what went well, and what could be improved."
+							>{{ old('comment') }}</textarea>
+							@error('comment')
+								<p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+							@enderror
+						</label>
+						<div class="flex flex-col sm:flex-row sm:items-center gap-3">
+							<button type="submit" class="btn-primary w-full sm:w-auto justify-center">
+								Submit review
+							</button>
+							<p class="text-[11px] sm:text-xs text-gray-500">
+								Reviews help other patients understand what to expect from this clinic.
+							</p>
+						</div>
+					</form>
+				</div>
 			</section>
 
 			<aside class="lg:col-span-1">
@@ -599,44 +681,70 @@
 
 		@if($nearbyDoctors->count() > 0)
 			<div class="mt-6 sm:mt-8 rounded-3xl border border-gray-100 bg-white p-4 sm:p-6 shadow-sm">
-				<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+				<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
 					<div>
-						<h2 class="text-lg font-semibold text-gray-900">Doctors from the same city</h2>
-						<p class="text-sm text-gray-600">Similar doctors practicing around {{ $organization->city ?: ($organization->state ?: 'the area') }}.</p>
+						<h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2">
+							<svg class="w-6 h-6 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
+								<circle cx="12" cy="9" r="2.5"/>
+							</svg>
+							<span>Nearby doctors</span>
+						</h2>
+						<p class="text-sm text-gray-600 mt-1">Doctors with addresses near {{ $organization->name }} in {{ $organization->city ?: ($organization->state ?: 'the area') }}.</p>
 					</div>
-					<span class="text-xs font-semibold uppercase tracking-wide text-gray-500">Curated nearby matches</span>
+					<a href="{{ route('doctors.index', ['city' => $organization->city, 'state' => $organization->state]) }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800 px-3 py-1.5 rounded-lg hover:bg-brand-50 transition">
+						<span>View all doctors</span>
+						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
 				</div>
-				<div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+				<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
 					@foreach($nearbyDoctors as $doctor)
-						<a href="{{ route('doctors.show', $doctor) }}" class="group relative block rounded-xl border border-gray-100 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-md">
+						<a href="{{ route('doctors.show', $doctor) }}" class="group relative block rounded-xl border border-gray-100 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-brand-500 hover:shadow-lg">
 							<div class="flex items-start justify-between gap-3">
-								<div class="space-y-1.5">
-									<div class="text-base font-semibold text-gray-900 group-hover:text-brand-700 line-clamp-2">
-										{{ $doctor->name }}
-									</div>
-									<div class="text-sm text-gray-600 line-clamp-2">
-										{{ $doctor->taxonomy ?: 'Specialty not specified' }}
+								<div class="flex-1 space-y-2">
+									<div class="flex items-start gap-2">
+										<div class="flex-1">
+											<div class="text-base font-semibold text-gray-900 group-hover:text-brand-700 line-clamp-2 transition-colors">
+												{{ $doctor->name }}
+											</div>
+											@if($doctor->taxonomy)
+												<div class="text-sm text-gray-600 mt-1 line-clamp-1">
+													{{ $doctor->taxonomy }}
+												</div>
+											@endif
+										</div>
 									</div>
 									@if($doctor->city || $doctor->state)
-										<div class="text-xs font-medium text-gray-700 flex items-center gap-1.5">
-											<svg class="h-3.5 w-3.5 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<div class="flex items-center gap-1.5 text-xs font-medium text-gray-700">
+											<svg class="h-3.5 w-3.5 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 												<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
 												<circle cx="12" cy="9" r="2.5"/>
 											</svg>
-											<span>{{ $doctor->city ?: '—' }}{{ $doctor->state ? ', '.$doctor->state : '' }}</span>
+											<span class="line-clamp-1">{{ $doctor->city ?: '—' }}{{ $doctor->state ? ', '.$doctor->state : '' }}</span>
+										</div>
+									@endif
+									@if($doctor->organization_name)
+										<div class="flex items-center gap-1.5 text-xs text-gray-500">
+											<svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M4 21V9l8-5 8 5v12H4Z"/>
+												<path d="M9 21v-6h6v6"/>
+											</svg>
+											<span class="line-clamp-1">{{ $doctor->organization_name }}</span>
 										</div>
 									@endif
 								</div>
-								<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+								<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700 ring-1 ring-brand-100 group-hover:bg-brand-100 group-hover:ring-brand-200 transition-colors">
 									<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="m5 12 5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</div>
 							</div>
-							<div class="mt-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-700">
-								<span class="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 ring-1 ring-brand-100">
-									View profile
-									<svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<div class="mt-3 pt-3 border-t border-gray-100">
+								<span class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 group-hover:text-brand-800">
+									<span>View profile</span>
+									<svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</span>
@@ -649,19 +757,25 @@
 
 		@if($nearbyClinics->count() > 0)
 			<div class="mt-6 sm:mt-8 rounded-3xl border border-gray-100 bg-white p-4 sm:p-6 shadow-sm">
-				<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+				<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
 					<div>
-						<h2 class="text-lg font-semibold text-gray-900">Nearby clinics</h2>
-						<p class="text-sm text-gray-600">Other clinics around {{ $organization->city ?: ($organization->state ?: 'you') }} you may want to compare.</p>
+						<h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2">
+							<svg class="w-6 h-6 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M4 21V9l8-5 8 5v12H4Z"/>
+								<path d="M9 21v-6h6v6"/>
+							</svg>
+							<span>Nearby clinics</span>
+						</h2>
+						<p class="text-sm text-gray-600 mt-1">Other healthcare facilities in {{ $organization->city ?: ($organization->state ?: 'the area') }} you may want to compare.</p>
 					</div>
-					<a href="{{ route('organizations.index') }}" class="text-sm font-semibold text-brand-700 hover:text-brand-800 inline-flex items-center gap-1">
-						See all clinics
+					<a href="{{ route('organizations.index', ['city' => $organization->city, 'state' => $organization->state]) }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800 px-3 py-1.5 rounded-lg hover:bg-brand-50 transition">
+						<span>View all clinics</span>
 						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</a>
 				</div>
-						<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					@foreach($nearbyClinics as $clinic)
 						@php
 							$seed = abs(crc32(($clinic->name ?? '') . '|' . (string) $clinic->id));
@@ -676,41 +790,51 @@
 							];
 							$imgUrl = $hospitalImages[$seed % count($hospitalImages)];
 						@endphp
-						<a href="{{ route('organizations.show', $clinic) }}" class="group relative block overflow-hidden rounded-2xl border border-gray-100 bg-gradient-to-b from-white to-gray-50 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md">
-							<div class="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-gray-800/50 to-gray-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-							<div class="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-300" style="background-image: url('{{ $imgUrl }}');"></div>
-							<div class="relative z-10 p-4">
-								<div class="flex items-start gap-4">
-									<div class="relative shrink-0">
-										<img src="{{ $imgUrl }}" alt="{{ $clinic->name }}" class="organization-image w-16 h-16 rounded-lg ring-2 ring-gray-200 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" width="64" height="64">
-										<div class="absolute -bottom-1 -right-1 bg-brand-600 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
-											<svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-												<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M17 21v-8H7v8M7 3v5h8" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</div>
-									</div>
-									<div class="min-w-0 flex-1">
-										<div class="font-medium text-gray-900 truncate group-hover:text-brand-700 transition-colors flex items-center gap-2">
-											<span>{{ $clinic->name }}</span>
-											<svg class="w-4 h-4 text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-												<path d="M12 4v16M4 12h16" stroke-linecap="round"></path>
-											</svg>
-										</div>
-										<div class="text-sm text-gray-600 truncate mt-0.5">{{ $clinic->city ?: '—' }}{{ $clinic->state ? ', '.$clinic->state : '' }}</div>
-										@if($clinic->phone)
-											<div class="text-sm text-gray-700 mt-1 truncate flex items-center gap-1">
-												<svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-													<path d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"></path>
-												</svg>
-												{{ $clinic->phone }}
-											</div>
-										@endif
+						<a href="{{ route('organizations.show', $clinic) }}" class="group relative block overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-brand-500 hover:shadow-lg">
+							<div class="relative">
+								<div class="aspect-[4/3] overflow-hidden bg-gray-100">
+									<img src="{{ $imgUrl }}" alt="{{ $clinic->name }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
+									<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+								</div>
+								<div class="absolute top-3 right-3">
+									<div class="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+										<svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
 									</div>
 								</div>
-								<div class="mt-3 flex items-center gap-2">
-									<span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-100">
-										Open for booking
+							</div>
+							<div class="p-4">
+								<div class="flex items-start justify-between gap-2 mb-2">
+									<h3 class="font-semibold text-gray-900 group-hover:text-brand-700 transition-colors line-clamp-2 flex-1">
+										{{ $clinic->name }}
+									</h3>
+								</div>
+								<div class="space-y-2">
+									@if($clinic->city || $clinic->state)
+										<div class="flex items-center gap-1.5 text-sm text-gray-600">
+											<svg class="h-4 w-4 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
+												<circle cx="12" cy="9" r="2.5"/>
+											</svg>
+											<span class="line-clamp-1">{{ $clinic->city ?: '—' }}{{ $clinic->state ? ', '.$clinic->state : '' }}</span>
+										</div>
+									@endif
+									@if($clinic->phone)
+										<div class="flex items-center gap-1.5 text-sm text-gray-600">
+											<svg class="h-4 w-4 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											<span class="line-clamp-1">{{ $clinic->phone }}</span>
+										</div>
+									@endif
+								</div>
+								<div class="mt-3 pt-3 border-t border-gray-100">
+									<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-100">
+										<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="m5 12 5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+										<span>Open for booking</span>
 									</span>
 								</div>
 							</div>

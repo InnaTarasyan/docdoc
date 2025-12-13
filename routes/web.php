@@ -24,6 +24,7 @@ Route::post('/doctors/{doctor}/reviews', [DoctorController::class, 'storeReview'
 
 Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
 Route::get('/organizations/{organization}', [OrganizationController::class, 'show'])->name('organizations.show');
+Route::post('/organizations/{organization}/reviews', [OrganizationController::class, 'storeReview'])->name('organizations.reviews.store');
 
 Route::get('/specialties', [SpecialtyController::class, 'index'])->name('specialties.index');
 

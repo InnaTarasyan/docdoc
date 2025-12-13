@@ -11,6 +11,7 @@ class Review extends Model
 
 	protected $fillable = [
 		'doctor_id',
+		'organization_id',
 		'name',
 		'rating',
 		'comment',
@@ -19,6 +20,11 @@ class Review extends Model
 	public function doctor()
 	{
 		return $this->belongsTo(Doctor::class);
+	}
+
+	public function organization()
+	{
+		return $this->belongsTo(Organization::class);
 	}
 }
 

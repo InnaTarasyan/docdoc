@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Models\Organization;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
@@ -76,6 +77,10 @@ class OrganizationController extends Controller
 
 	public function show(Organization $organization)
 	{
+		$organization->load(['reviews' => function ($q) {
+			$q->latest();
+		}]);
+
 		$linkedDoctors = Doctor::query()
 			->where('organization_name', $organization->name)
 			->orderBy('name')
@@ -104,6 +109,40 @@ class OrganizationController extends Controller
 			'nearbyDoctors' => $nearbyDoctors,
 			'nearbyClinics' => $nearbyClinics,
 		]);
+	}
+
+	public function storeReview(Request $request, Organization $organization)
+	{
+		$data = $request->validate([
+			'name' => ['required', 'string', 'max:255'],
+			'rating' => ['required', 'integer', 'min:1', 'max:5'],
+			'comment' => ['nullable', 'string', 'max:5000'],
+		]);
+
+		$data['organization_id'] = $organization->id;
+
+		$review = Review::create($data);
+
+		// If this is an AJAX request, return a JSON payload with fresh reviews HTML
+		if ($request->wantsJson()) {
+			// Reload reviews in latest-first order
+			$organization->load(['reviews' => function ($q) {
+				$q->latest();
+			}]);
+
+			$html = view('organizations._reviews_list', [
+				'organization' => $organization,
+			])->render();
+
+			return response()->json([
+				'status' => 'Thank you for sharing your experience.',
+				'html' => $html,
+			]);
+		}
+
+		return redirect()
+			->route('organizations.show', $organization)
+			->with('status', 'Thank you for sharing your experience.');
 	}
 }
 
