@@ -91,8 +91,10 @@ class OrganizationController extends Controller
 			->when($organization->city, fn ($q) => $q->where('city', $organization->city))
 			->when(!$organization->city && $organization->state, fn ($q) => $q->where('state', $organization->state))
 			->when($organization->name, fn ($q) => $q->where('organization_name', '!=', $organization->name))
+			->whereNotNull('city')
+			->whereNotNull('state')
 			->orderBy('name')
-			->limit(8)
+			->limit(12)
 			->get();
 
 		$nearbyClinics = Organization::query()

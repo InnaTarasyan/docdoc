@@ -264,14 +264,14 @@
 			</div>
 		</div>
 
-		<div class="grid gap-6 lg:grid-cols-3">
-			<section class="space-y-6 lg:col-span-2">
-				<div class="grid gap-4 sm:grid-cols-2">
-					<div class="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6">
+		<div class="grid gap-4 sm:gap-6 lg:grid-cols-3">
+			<section class="space-y-4 sm:space-y-6 lg:col-span-2">
+				<div class="grid gap-3 sm:gap-4 sm:grid-cols-2">
+					<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-3 sm:p-4 lg:p-6 shadow-sm">
 						<div class="flex items-start justify-between gap-3">
 							<div>
-								<h2 class="text-lg font-semibold text-gray-900">Location</h2>
-								<p class="mt-1 text-sm text-gray-600">
+								<h2 class="text-base sm:text-lg font-semibold text-gray-900">Location</h2>
+								<p class="mt-1 text-xs sm:text-sm text-gray-600">
 									{{ $organization->city ?: '—' }}{{ $organization->state ? ', '.$organization->state : '' }}
 								</p>
 							</div>
@@ -291,11 +291,11 @@
 						@endif
 					</div>
 
-					<div class="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6">
+					<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-3 sm:p-4 lg:p-6 shadow-sm">
 						<div class="flex items-start justify-between gap-3">
 							<div>
-								<h2 class="text-lg font-semibold text-gray-900">Contact</h2>
-								<p class="mt-1 text-sm text-gray-700">
+								<h2 class="text-base sm:text-lg font-semibold text-gray-900">Contact</h2>
+								<p class="mt-1 text-xs sm:text-sm text-gray-700">
 									{{ $organization->phone ?: 'Phone not listed in registry data.' }}
 								</p>
 							</div>
@@ -309,11 +309,11 @@
 					</div>
 				</div>
 
-				<div class="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6">
-					<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-3 sm:p-4 lg:p-6 shadow-sm">
+					<div class="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between">
 						<div>
-							<h2 class="text-lg font-semibold text-gray-900">At a glance</h2>
-							<p class="text-sm text-gray-600">Snapshot of availability and focus areas.</p>
+							<h2 class="text-base sm:text-lg font-semibold text-gray-900">At a glance</h2>
+							<p class="text-xs sm:text-sm text-gray-600 mt-0.5 sm:mt-1">Snapshot of availability and focus areas.</p>
 						</div>
 						<div class="inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700 ring-1 ring-brand-100">
 							<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -323,51 +323,51 @@
 						</div>
 					</div>
 
-					<div class="mt-4 grid gap-3 sm:grid-cols-2">
-						<div class="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50 px-4 py-3">
-							<div class="mt-1 flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-brand-100">
-								<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<div class="mt-3 sm:mt-4 grid gap-2.5 sm:gap-3 sm:grid-cols-2">
+						<div class="flex items-start gap-2.5 sm:gap-3 rounded-lg sm:rounded-xl border border-gray-100 bg-gray-50 px-3 sm:px-4 py-2.5 sm:py-3">
+							<div class="mt-0.5 sm:mt-1 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-brand-100">
+								<svg class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<path d="M8 7v10M16 7v10M4 11h16M4 15h16" stroke-linecap="round"/>
 								</svg>
 							</div>
 							<div>
-								<p class="text-sm font-semibold text-gray-900">Visit planning</p>
-								<p class="text-xs text-gray-600">Schedule requests, follow-up reminders, and prep guidance are part of booking.</p>
+								<p class="text-xs sm:text-sm font-semibold text-gray-900">Visit planning</p>
+								<p class="text-[10px] sm:text-xs text-gray-600 mt-0.5">Schedule requests, follow-up reminders, and prep guidance are part of booking.</p>
 							</div>
 						</div>
-						<div class="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50 px-4 py-3">
-							<div class="mt-1 flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-brand-100">
-								<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<div class="flex items-start gap-2.5 sm:gap-3 rounded-lg sm:rounded-xl border border-gray-100 bg-gray-50 px-3 sm:px-4 py-2.5 sm:py-3">
+							<div class="mt-0.5 sm:mt-1 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-brand-100">
+								<svg class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<path d="M12 6v6l4 2" stroke-linecap="round" stroke-linejoin="round"/>
 									<circle cx="12" cy="12" r="9"/>
 								</svg>
 							</div>
 							<div>
-								<p class="text-sm font-semibold text-gray-900">Quick response window</p>
-								<p class="text-xs text-gray-600">We aim to respond within a business day after your request.</p>
+								<p class="text-xs sm:text-sm font-semibold text-gray-900">Quick response window</p>
+								<p class="text-[10px] sm:text-xs text-gray-600 mt-0.5">We aim to respond within a business day after your request.</p>
 							</div>
 						</div>
-						<div class="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50 px-4 py-3">
-							<div class="mt-1 flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-brand-100">
-								<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<div class="flex items-start gap-2.5 sm:gap-3 rounded-lg sm:rounded-xl border border-gray-100 bg-gray-50 px-3 sm:px-4 py-2.5 sm:py-3">
+							<div class="mt-0.5 sm:mt-1 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-brand-100">
+								<svg class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<path d="M4 7h16M4 12h10m-10 5h16" stroke-linecap="round"/>
 								</svg>
 							</div>
 							<div>
-								<p class="text-sm font-semibold text-gray-900">Care coordination</p>
-								<p class="text-xs text-gray-600">One place to align doctors, tests, and follow-up visits.</p>
+								<p class="text-xs sm:text-sm font-semibold text-gray-900">Care coordination</p>
+								<p class="text-[10px] sm:text-xs text-gray-600 mt-0.5">One place to align doctors, tests, and follow-up visits.</p>
 							</div>
 						</div>
-						<div class="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50 px-4 py-3">
-							<div class="mt-1 flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-brand-100">
-								<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<div class="flex items-start gap-2.5 sm:gap-3 rounded-lg sm:rounded-xl border border-gray-100 bg-gray-50 px-3 sm:px-4 py-2.5 sm:py-3">
+							<div class="mt-0.5 sm:mt-1 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-brand-100">
+								<svg class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<circle cx="12" cy="12" r="9"/>
 									<path d="M8 12c0-2 1.5-4 4-4s4 2 4 4-1.5 4-4 4-4-2-4-4Z" stroke-linecap="round" stroke-linejoin="round"/>
 								</svg>
 							</div>
 							<div>
-								<p class="text-sm font-semibold text-gray-900">Comfort-first spaces</p>
-								<p class="text-xs text-gray-600">Modern reception, calm waiting areas, and mobile-friendly check-in.</p>
+								<p class="text-xs sm:text-sm font-semibold text-gray-900">Comfort-first spaces</p>
+								<p class="text-[10px] sm:text-xs text-gray-600 mt-0.5">Modern reception, calm waiting areas, and mobile-friendly check-in.</p>
 							</div>
 						</div>
 					</div>
@@ -406,9 +406,9 @@
 				</div>
 
 				@if($linkedDoctors->count() > 0)
-					<div class="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6">
+					<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-3 sm:p-4 lg:p-6 shadow-sm">
 						<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-							<h2 class="text-lg font-semibold text-gray-900">Doctors at this organization</h2>
+							<h2 class="text-base sm:text-lg font-semibold text-gray-900">Doctors at this organization</h2>
 							<a
 								href="{{ route('organizations.index') }}"
 								class="inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800"
@@ -419,37 +419,37 @@
 								<span>Browse other clinics</span>
 							</a>
 						</div>
-						<div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+						<div class="mt-3 sm:mt-4 grid gap-3 sm:gap-4 sm:grid-cols-2 xl:grid-cols-3">
 							@foreach($linkedDoctors as $doctor)
-								<a href="{{ route('doctors.show', $doctor) }}" class="group relative block rounded-xl border border-gray-100 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-md">
-									<div class="flex items-start justify-between gap-3">
-										<div class="space-y-1.5">
-											<div class="text-base font-semibold text-gray-900 group-hover:text-brand-700 line-clamp-2">
+								<a href="{{ route('doctors.show', $doctor) }}" class="group relative block rounded-lg sm:rounded-xl border border-gray-100 bg-gradient-to-b from-white to-gray-50 p-3 sm:p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-md">
+									<div class="flex items-start justify-between gap-2 sm:gap-3">
+										<div class="space-y-1 sm:space-y-1.5 flex-1 min-w-0">
+											<div class="text-sm sm:text-base font-semibold text-gray-900 group-hover:text-brand-700 line-clamp-2">
 												{{ $doctor->name }}
 											</div>
-											<div class="text-sm text-gray-600 line-clamp-2">
+											<div class="text-xs sm:text-sm text-gray-600 line-clamp-2">
 												{{ $doctor->taxonomy ?: 'Specialty not specified' }}
 											</div>
 											@if($doctor->city || $doctor->state)
-												<div class="text-xs font-medium text-gray-700 flex items-center gap-1.5">
-													<svg class="h-3.5 w-3.5 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<div class="text-[10px] sm:text-xs font-medium text-gray-700 flex items-center gap-1 sm:gap-1.5">
+													<svg class="h-3 w-3 sm:h-3.5 sm:w-3.5 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 														<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
 														<circle cx="12" cy="9" r="2.5"/>
 													</svg>
-													<span>{{ $doctor->city ?: '—' }}{{ $doctor->state ? ', '.$doctor->state : '' }}</span>
+													<span class="truncate">{{ $doctor->city ?: '—' }}{{ $doctor->state ? ', '.$doctor->state : '' }}</span>
 												</div>
 											@endif
 										</div>
-										<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700 ring-1 ring-brand-100">
-											<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<div class="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+											<svg class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 												<path d="m5 12 5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
 										</div>
 									</div>
-									<div class="mt-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-700">
-										<span class="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 ring-1 ring-brand-100">
+									<div class="mt-2 sm:mt-3 flex items-center gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-brand-700">
+										<span class="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 sm:px-2.5 py-0.5 sm:py-1 ring-1 ring-brand-100">
 											View profile
-											<svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<svg class="h-2.5 w-2.5 sm:h-3 sm:w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 												<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
 										</span>
@@ -460,7 +460,101 @@
 					</div>
 				@endif
 
-				<div class="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6 space-y-4">
+				@if($nearbyDoctors->count() > 0)
+					<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-3 sm:p-4 lg:p-6 shadow-sm">
+						<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
+							<div>
+								<h2 class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 flex items-center gap-2">
+									<svg class="w-5 h-5 sm:w-6 sm:h-6 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
+										<circle cx="12" cy="9" r="2.5"/>
+									</svg>
+									<span>Nearby doctors</span>
+								</h2>
+								<p class="text-xs sm:text-sm text-gray-600 mt-1.5 sm:mt-2">Doctors with addresses near {{ $organization->name }} in {{ $organization->city ?: ($organization->state ?: 'the area') }}.</p>
+							</div>
+							<a href="{{ route('doctors.index', ['city' => $organization->city, 'state' => $organization->state]) }}" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-brand-700 hover:text-brand-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-brand-50 transition whitespace-nowrap">
+								<span>View all doctors</span>
+								<svg class="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</a>
+						</div>
+						<div class="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+							@foreach($nearbyDoctors as $doctor)
+								@php
+									$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
+									$idx = $seed % 80;
+									$gender = $doctor->gender ?? '';
+									$isFemale = $gender === 'F';
+									if ($gender !== 'F' && $gender !== 'M') {
+										$first = trim(explode(' ', (string) $doctor->name)[0] ?? '');
+										$lower = function_exists('mb_strtolower') ? mb_strtolower($first, 'UTF-8') : strtolower($first);
+										$femaleNames = [
+											'anna','maria','elena','olga','victoria','sofia','sofiya','anastasia','natalia','tatiana','irina','daria','polina',
+											'yulia','julia','lyudmila','svetlana','valentina','veronika','alisa','alina','oksana','ekaterina','katerina','mariya'
+										];
+										$isFemale = in_array($lower, $femaleNames, true);
+										if (!$isFemale) {
+											$isFemale = (bool) preg_match('/(a|ia|ya|na|ra|la|ta|sa|ina|eva|ova|iya|aya)$/u', $lower);
+										}
+										if (!$isFemale && !in_array($lower, $femaleNames, true)) {
+											$isFemale = ($idx % 2) === 1;
+										}
+									}
+									$folder = $isFemale ? 'women' : 'men';
+									$avatarUrl = "https://randomuser.me/api/portraits/{$folder}/{$idx}.jpg";
+									$taxonomy = $doctor->taxonomy ?? '';
+								@endphp
+								<a href="{{ route('doctors.show', $doctor) }}" class="doctor-card block rounded-xl sm:rounded-2xl bg-white border border-gray-100 p-3 sm:p-4 shadow-sm hover:border-brand-500 hover:shadow-lg transition-all duration-300 group relative overflow-hidden">
+									<div class="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+									<div class="flex items-start gap-3 sm:gap-4 relative z-10">
+										<div class="relative shrink-0">
+											<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="doctor-avatar w-12 h-12 sm:w-14 sm:h-14 rounded-full ring-2 ring-gray-200 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" decoding="async" />
+											<div class="doctor-icon-wrapper absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+												@include('components.specialty-icon', ['name' => $taxonomy, 'class' => 'w-3.5 h-3.5 sm:w-4 sm:h-4'])
+											</div>
+										</div>
+										<div class="min-w-0 flex-1">
+											<div class="font-medium sm:font-semibold text-sm sm:text-base text-gray-900 truncate group-hover:text-brand-700 transition-colors flex items-center gap-1.5 sm:gap-2">
+												<span class="line-clamp-1">{{ $doctor->name }}</span>
+												<svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+													<path d="M12 4v16M4 12h16" stroke-linecap="round"/>
+												</svg>
+											</div>
+											<div class="text-xs sm:text-sm text-gray-600 truncate mt-0.5 sm:mt-1">{{ $doctor->taxonomy ?: '—' }}</div>
+											<div class="mt-1.5 sm:mt-2 flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 text-xs sm:text-sm text-gray-600">
+												@if($doctor->gender)
+													<span class="whitespace-nowrap">{{ $doctor->gender === 'M' ? 'Male' : 'Female' }}</span>
+												@endif
+												@if($doctor->city || $doctor->state)
+													<span class="flex items-center gap-1 whitespace-nowrap">
+														<svg class="h-3 w-3 sm:h-3.5 sm:w-3.5 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+															<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
+															<circle cx="12" cy="9" r="2.5"/>
+														</svg>
+														<span class="truncate">{{ $doctor->city ?: '—' }}{{ $doctor->state ? ', '.$doctor->state : '' }}</span>
+													</span>
+												@endif
+											</div>
+											@if($doctor->organization_name)
+												<div class="text-xs sm:text-sm text-gray-700 mt-1.5 sm:mt-2 truncate flex items-center gap-1.5">
+													<svg class="h-3 w-3 sm:h-3.5 sm:w-3.5 shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+														<path d="M4 21V9l8-5 8 5v12H4Z"/>
+														<path d="M9 21v-6h6v6"/>
+													</svg>
+													<span class="truncate">{{ $doctor->organization_name }}</span>
+												</div>
+											@endif
+										</div>
+									</div>
+								</a>
+							@endforeach
+						</div>
+					</div>
+				@endif
+
+				<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-3 sm:p-4 lg:p-6 shadow-sm space-y-3 sm:space-y-4">
 					<div id="organization-reviews-list">
 						@include('organizations._reviews_list', ['organization' => $organization])
 					</div>
@@ -544,8 +638,8 @@
 			</section>
 
 			<aside class="lg:col-span-1">
-				<div class="lg:sticky lg:top-24 space-y-4">
-					<div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+				<div class="lg:sticky lg:top-24 space-y-3 sm:space-y-4">
+					<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-4 sm:p-5 shadow-sm">
 						<h2 class="text-base font-semibold text-gray-900">Quick info</h2>
 						<dl class="mt-3 space-y-2 text-sm text-gray-800">
 							<div class="flex items-center justify-between gap-3 rounded-lg bg-gray-50 px-3 py-2">
@@ -565,7 +659,7 @@
 						</dl>
 					</div>
 
-					<div class="overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 via-emerald-600 to-teal-500 p-5 text-white shadow-lg">
+					<div class="overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-brand-600 via-emerald-600 to-teal-500 p-4 sm:p-5 text-white shadow-lg">
 						<div class="flex items-start gap-3">
 							<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/25">
 								<svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -588,7 +682,7 @@
 						</div>
 					</div>
 
-					<div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+					<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-4 sm:p-5 shadow-sm">
 						<h3 class="text-base font-semibold text-gray-900">Good to know</h3>
 						<ul class="mt-3 space-y-2 text-sm text-gray-700">
 							<li class="flex items-start gap-2">
@@ -615,8 +709,8 @@
 			</aside>
 		</div>
 
-		<div class="grid gap-4 sm:gap-6 lg:grid-cols-3">
-			<div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm space-y-3">
+		<div class="grid gap-3 sm:gap-4 lg:gap-6 lg:grid-cols-3">
+			<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-4 sm:p-5 shadow-sm space-y-2 sm:space-y-3">
 				<div class="flex items-center gap-2">
 					<div class="h-9 w-9 flex items-center justify-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-brand-100">
 						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -636,7 +730,7 @@
 					<div class="h-full w-3/5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400"></div>
 				</div>
 			</div>
-			<div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm space-y-3">
+			<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-4 sm:p-5 shadow-sm space-y-2 sm:space-y-3">
 				<div class="flex items-center gap-2">
 					<div class="h-9 w-9 flex items-center justify-center rounded-lg bg-amber-50 text-amber-700 ring-1 ring-amber-100">
 						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -657,7 +751,7 @@
 					<div class="h-full w-2/3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500"></div>
 				</div>
 			</div>
-			<div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm space-y-3">
+			<div class="rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-4 sm:p-5 shadow-sm space-y-2 sm:space-y-3">
 				<div class="flex items-center gap-2">
 					<div class="h-9 w-9 flex items-center justify-center rounded-lg bg-blue-50 text-blue-700 ring-1 ring-blue-100">
 						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -679,103 +773,27 @@
 			</div>
 		</div>
 
-		@if($nearbyDoctors->count() > 0)
-			<div class="mt-6 sm:mt-8 rounded-3xl border border-gray-100 bg-white p-4 sm:p-6 shadow-sm">
-				<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
-					<div>
-						<h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2">
-							<svg class="w-6 h-6 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
-								<circle cx="12" cy="9" r="2.5"/>
-							</svg>
-							<span>Nearby doctors</span>
-						</h2>
-						<p class="text-sm text-gray-600 mt-1">Doctors with addresses near {{ $organization->name }} in {{ $organization->city ?: ($organization->state ?: 'the area') }}.</p>
-					</div>
-					<a href="{{ route('doctors.index', ['city' => $organization->city, 'state' => $organization->state]) }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800 px-3 py-1.5 rounded-lg hover:bg-brand-50 transition">
-						<span>View all doctors</span>
-						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</a>
-				</div>
-				<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-					@foreach($nearbyDoctors as $doctor)
-						<a href="{{ route('doctors.show', $doctor) }}" class="group relative block rounded-xl border border-gray-100 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-brand-500 hover:shadow-lg">
-							<div class="flex items-start justify-between gap-3">
-								<div class="flex-1 space-y-2">
-									<div class="flex items-start gap-2">
-										<div class="flex-1">
-											<div class="text-base font-semibold text-gray-900 group-hover:text-brand-700 line-clamp-2 transition-colors">
-												{{ $doctor->name }}
-											</div>
-											@if($doctor->taxonomy)
-												<div class="text-sm text-gray-600 mt-1 line-clamp-1">
-													{{ $doctor->taxonomy }}
-												</div>
-											@endif
-										</div>
-									</div>
-									@if($doctor->city || $doctor->state)
-										<div class="flex items-center gap-1.5 text-xs font-medium text-gray-700">
-											<svg class="h-3.5 w-3.5 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-												<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
-												<circle cx="12" cy="9" r="2.5"/>
-											</svg>
-											<span class="line-clamp-1">{{ $doctor->city ?: '—' }}{{ $doctor->state ? ', '.$doctor->state : '' }}</span>
-										</div>
-									@endif
-									@if($doctor->organization_name)
-										<div class="flex items-center gap-1.5 text-xs text-gray-500">
-											<svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-												<path d="M4 21V9l8-5 8 5v12H4Z"/>
-												<path d="M9 21v-6h6v6"/>
-											</svg>
-											<span class="line-clamp-1">{{ $doctor->organization_name }}</span>
-										</div>
-									@endif
-								</div>
-								<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700 ring-1 ring-brand-100 group-hover:bg-brand-100 group-hover:ring-brand-200 transition-colors">
-									<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-										<path d="m5 12 5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-								</div>
-							</div>
-							<div class="mt-3 pt-3 border-t border-gray-100">
-								<span class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 group-hover:text-brand-800">
-									<span>View profile</span>
-									<svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-										<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-								</span>
-							</div>
-						</a>
-					@endforeach
-				</div>
-			</div>
-		@endif
-
 		@if($nearbyClinics->count() > 0)
-			<div class="mt-6 sm:mt-8 rounded-3xl border border-gray-100 bg-white p-4 sm:p-6 shadow-sm">
-				<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
+			<div class="mt-6 sm:mt-8 rounded-2xl sm:rounded-3xl border border-gray-100 bg-white p-4 sm:p-6 lg:p-8 shadow-sm">
+				<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
 					<div>
-						<h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2">
-							<svg class="w-6 h-6 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<h2 class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 flex items-center gap-2">
+							<svg class="w-5 h-5 sm:w-6 sm:h-6 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 								<path d="M4 21V9l8-5 8 5v12H4Z"/>
 								<path d="M9 21v-6h6v6"/>
 							</svg>
 							<span>Nearby clinics</span>
 						</h2>
-						<p class="text-sm text-gray-600 mt-1">Other healthcare facilities in {{ $organization->city ?: ($organization->state ?: 'the area') }} you may want to compare.</p>
+						<p class="text-xs sm:text-sm text-gray-600 mt-1.5 sm:mt-2">Other healthcare facilities in {{ $organization->city ?: ($organization->state ?: 'the area') }} you may want to compare.</p>
 					</div>
-					<a href="{{ route('organizations.index', ['city' => $organization->city, 'state' => $organization->state]) }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800 px-3 py-1.5 rounded-lg hover:bg-brand-50 transition">
+					<a href="{{ route('organizations.index', ['city' => $organization->city, 'state' => $organization->state]) }}" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-brand-700 hover:text-brand-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-brand-50 transition whitespace-nowrap">
 						<span>View all clinics</span>
-						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<svg class="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<path d="M4 12h16m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</a>
 				</div>
-				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				<div class="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					@foreach($nearbyClinics as $clinic)
 						@php
 							$seed = abs(crc32(($clinic->name ?? '') . '|' . (string) $clinic->id));
@@ -790,7 +808,7 @@
 							];
 							$imgUrl = $hospitalImages[$seed % count($hospitalImages)];
 						@endphp
-						<a href="{{ route('organizations.show', $clinic) }}" class="group relative block overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-brand-500 hover:shadow-lg">
+						<a href="{{ route('organizations.show', $clinic) }}" class="group relative block overflow-hidden rounded-lg sm:rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 sm:hover:-translate-y-1 hover:border-brand-500 hover:shadow-lg">
 							<div class="relative">
 								<div class="aspect-[4/3] overflow-hidden bg-gray-100">
 									<img src="{{ $imgUrl }}" alt="{{ $clinic->name }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
@@ -804,16 +822,16 @@
 									</div>
 								</div>
 							</div>
-							<div class="p-4">
+							<div class="p-3 sm:p-4">
 								<div class="flex items-start justify-between gap-2 mb-2">
-									<h3 class="font-semibold text-gray-900 group-hover:text-brand-700 transition-colors line-clamp-2 flex-1">
+									<h3 class="text-sm sm:text-base font-semibold text-gray-900 group-hover:text-brand-700 transition-colors line-clamp-2 flex-1">
 										{{ $clinic->name }}
 									</h3>
 								</div>
-								<div class="space-y-2">
+								<div class="space-y-1.5 sm:space-y-2">
 									@if($clinic->city || $clinic->state)
-										<div class="flex items-center gap-1.5 text-sm text-gray-600">
-											<svg class="h-4 w-4 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<div class="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600">
+											<svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 												<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/>
 												<circle cx="12" cy="9" r="2.5"/>
 											</svg>
@@ -821,16 +839,16 @@
 										</div>
 									@endif
 									@if($clinic->phone)
-										<div class="flex items-center gap-1.5 text-sm text-gray-600">
-											<svg class="h-4 w-4 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<div class="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600">
+											<svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 												<path d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
 											<span class="line-clamp-1">{{ $clinic->phone }}</span>
 										</div>
 									@endif
 								</div>
-								<div class="mt-3 pt-3 border-t border-gray-100">
-									<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-100">
+								<div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-100">
+									<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold text-emerald-700 ring-1 ring-emerald-100">
 										<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 											<path d="m5 12 5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
