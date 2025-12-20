@@ -42,3 +42,6 @@ Route::get('/terms-of-use', [LegalController::class, 'terms'])->name('legal.term
 
 // About page
 Route::get('/about', [LegalController::class, 'about'])->name('about');
+
+// Stories (general reviews/testimonials)
+Route::post('/stories', [HomeController::class, 'storeStory'])->name('stories.store');

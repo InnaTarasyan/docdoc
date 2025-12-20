@@ -692,6 +692,199 @@ function initAjaxReviewForms() {
 
 document.addEventListener('DOMContentLoaded', initAjaxReviewForms);
 
+// Share Story Modal and AJAX Form
+function initShareStoryModal() {
+	const modal = document.getElementById('share-story-modal');
+	const trigger = document.getElementById('share-story-trigger');
+	const closeBtn = document.getElementById('share-story-close');
+	const form = document.getElementById('share-story-form');
+	const successBox = document.getElementById('share-story-success');
+	const errorsBox = document.getElementById('share-story-errors');
+	const submitBtn = document.getElementById('share-story-submit');
+	const spinner = document.getElementById('share-story-spinner');
+	const submitText = submitBtn?.querySelector('.submit-text');
+
+	if (!modal || !trigger || !form) {
+		return;
+	}
+
+	const openModal = () => {
+		modal.classList.remove('hidden');
+		modal.classList.add('flex');
+		modal.setAttribute('aria-hidden', 'false');
+		document.body.style.overflow = 'hidden';
+		// Focus first input
+		const firstInput = form.querySelector('input[name="name"]');
+		if (firstInput) {
+			setTimeout(() => firstInput.focus(), 100);
+		}
+	};
+
+	const closeModal = () => {
+		modal.classList.add('hidden');
+		modal.classList.remove('flex');
+		modal.setAttribute('aria-hidden', 'true');
+		document.body.style.overflow = '';
+		// Reset form and messages
+		form.reset();
+		if (successBox) successBox.classList.add('hidden');
+		if (errorsBox) errorsBox.classList.add('hidden');
+		if (spinner) spinner.classList.add('hidden');
+		if (submitText) submitText.textContent = 'Share Story';
+		if (submitBtn) submitBtn.disabled = false;
+	};
+
+	// Open modal
+	if (trigger) {
+		trigger.addEventListener('click', (e) => {
+			e.preventDefault();
+			openModal();
+		});
+	}
+
+	// Close modal
+	if (closeBtn) {
+		closeBtn.addEventListener('click', closeModal);
+	}
+
+	// Close on backdrop click
+	modal.addEventListener('click', (e) => {
+		if (e.target === modal) {
+			closeModal();
+		}
+	});
+
+	// Close on Escape key
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+			closeModal();
+		}
+	});
+
+	// AJAX form submission
+	if (form) {
+		const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+		const csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+
+			if (typeof fetch !== 'function') {
+				form.submit();
+				return;
+			}
+
+			// Hide previous messages
+			if (successBox) {
+				successBox.classList.add('hidden');
+				successBox.textContent = '';
+			}
+			if (errorsBox) {
+				errorsBox.classList.add('hidden');
+				errorsBox.textContent = '';
+			}
+
+			// Show loading state
+			if (submitBtn) submitBtn.disabled = true;
+			if (spinner) spinner.classList.remove('hidden');
+			if (submitText) submitText.textContent = 'Sharing...';
+
+			const formData = new FormData(form);
+			const headers = {
+				'Accept': 'application/json',
+				'X-Requested-With': 'XMLHttpRequest',
+			};
+			if (csrfToken) {
+				headers['X-CSRF-TOKEN'] = csrfToken;
+			}
+
+			try {
+				const response = await fetch(form.action, {
+					method: 'POST',
+					headers,
+					body: formData,
+				});
+
+				if (response.status === 422) {
+					const data = await response.json();
+					if (errorsBox && data && data.errors) {
+						const messages = [];
+						Object.keys(data.errors).forEach((field) => {
+							data.errors[field].forEach((msg) => messages.push(msg));
+						});
+						errorsBox.textContent = messages.join(' ');
+						errorsBox.classList.remove('hidden');
+					}
+					// Reset loading state
+					if (submitBtn) submitBtn.disabled = false;
+					if (spinner) spinner.classList.add('hidden');
+					if (submitText) submitText.textContent = 'Share Story';
+					return;
+				}
+
+				if (!response.ok) {
+					if (errorsBox) {
+						errorsBox.textContent = 'Something went wrong while submitting your story. Please try again.';
+						errorsBox.classList.remove('hidden');
+					}
+					// Reset loading state
+					if (submitBtn) submitBtn.disabled = false;
+					if (spinner) spinner.classList.add('hidden');
+					if (submitText) submitText.textContent = 'Share Story';
+					return;
+				}
+
+				const data = await response.json();
+
+				// Show success message
+				if (successBox && data.status) {
+					successBox.textContent = data.status;
+					successBox.classList.remove('hidden');
+				}
+
+				// Reset form
+				form.reset();
+
+				// If story HTML is provided, prepend it to testimonials
+				if (data.storyHtml) {
+					const testimonialsContainer = document.getElementById('patient-stories-container') || 
+						document.querySelector('[role="list"][aria-label="Patient testimonials"]');
+					if (testimonialsContainer) {
+						// Create a temporary container to parse HTML
+						const temp = document.createElement('div');
+						temp.innerHTML = data.storyHtml;
+						const newStory = temp.firstElementChild;
+						if (newStory) {
+							testimonialsContainer.insertBefore(newStory, testimonialsContainer.firstChild);
+							// Smooth scroll to new story
+							setTimeout(() => {
+								newStory.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+							}, 100);
+						}
+					}
+				}
+
+				// Close modal after 2 seconds
+				setTimeout(() => {
+					closeModal();
+				}, 2000);
+
+			} catch (error) {
+				if (errorsBox) {
+					errorsBox.textContent = 'Unable to submit story right now. Please check your connection and try again.';
+					errorsBox.classList.remove('hidden');
+				}
+				// Reset loading state
+				if (submitBtn) submitBtn.disabled = false;
+				if (spinner) spinner.classList.add('hidden');
+				if (submitText) submitText.textContent = 'Share Story';
+			}
+		});
+	}
+}
+
+document.addEventListener('DOMContentLoaded', initShareStoryModal);
+
 // AJAX pagination for states page
 function initStatesAjaxPagination() {
 	const doctorsContainer = document.getElementById('doctors-list-container');

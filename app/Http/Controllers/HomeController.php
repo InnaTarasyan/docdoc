@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use App\Models\Doctor;
 use App\Models\Organization;
+use App\Models\Review;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -122,6 +123,14 @@ class HomeController extends Controller
 			->limit(3)
 			->get();
 
+		// Get latest patient stories (general reviews without doctor/org)
+		$patientStories = Review::query()
+			->whereNull('doctor_id')
+			->whereNull('organization_id')
+			->latest()
+			->limit(3)
+			->get();
+
 		return view('home', [
 			'query' => $query,
 			'doctorsCount' => $doctorsCount,
@@ -133,7 +142,57 @@ class HomeController extends Controller
 			'mobileSpecialties' => $mobileSpecialties,
 			'states' => $states,
 			'blogPosts' => $blogPosts,
+			'patientStories' => $patientStories,
 		]);
+	}
+
+	public function storeStory(Request $request)
+	{
+		$data = $request->validate([
+			'name' => ['required', 'string', 'max:255'],
+			'rating' => ['required', 'integer', 'min:1', 'max:5'],
+			'comment' => ['required', 'string', 'max:5000'],
+			'city' => ['nullable', 'string', 'max:255'],
+			'state' => ['nullable', 'string', 'max:2'],
+		]);
+
+		// Create a review without doctor_id or organization_id (general story)
+		$review = Review::create([
+			'name' => $data['name'],
+			'rating' => $data['rating'],
+			'comment' => $data['comment'],
+			'doctor_id' => null,
+			'organization_id' => null,
+		]);
+
+		// If this is an AJAX request, return a JSON payload
+		if ($request->wantsJson()) {
+			// Get the latest stories for display
+			$latestStories = Review::query()
+				->whereNull('doctor_id')
+				->whereNull('organization_id')
+				->latest()
+				->limit(3)
+				->get();
+
+			$storyHtml = '';
+			foreach ($latestStories as $story) {
+				$initials = strtoupper(substr($story->name, 0, 2));
+				$storyHtml .= view('home._story_item', [
+					'story' => $story,
+					'initials' => $initials,
+				])->render();
+			}
+
+			return response()->json([
+				'status' => 'Thank you for sharing your story! It will help other patients find the care they need.',
+				'storyHtml' => $storyHtml,
+			]);
+		}
+
+		return redirect()
+			->route('home')
+			->with('status', 'Thank you for sharing your story!');
 	}
 }
 

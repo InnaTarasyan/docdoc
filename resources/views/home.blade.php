@@ -645,7 +645,11 @@
 								</div>
 							</div>
 							<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-							<button class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/90 px-6 py-3.5 text-base font-semibold text-emerald-900 shadow-lg shadow-emerald-900/20 ring-offset-2 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 min-h-[48px]">
+							<button 
+								type="button"
+								id="share-story-trigger"
+								class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/90 px-6 py-3.5 text-base font-semibold text-emerald-900 shadow-lg shadow-emerald-900/20 hover:shadow-xl hover:scale-[1.02] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 min-h-[48px] touch-manipulation"
+							>
 									<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 										<path d="M12 5v14m-7-7h14" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
@@ -665,105 +669,238 @@
 								</div>
 							</div>
 						</div>
-						<div class="space-y-4" role="list" aria-label="Patient testimonials">
-							<article id="testimonial-sarah" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
-								<div class="flex items-center gap-3">
-									<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">SM</div>
-									<div>
-										<p class="text-base font-semibold text-gray-900">Sarah Mitchell</p>
-										<p class="text-xs text-gray-500">Cardiology visit · Austin, TX</p>
-									</div>
-									<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-										Verified
-									</span>
-								</div>
-								<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
-									“Found an excellent cardiologist in my area. The search was easy and the doctor was professional and caring. Highly recommend!”
-								</p>
-								<div class="mt-6 flex items-center justify-between text-sm font-semibold">
-									<div class="inline-flex items-center gap-1 text-yellow-500">
-										@for($i = 0; $i < 5; $i++)
-											<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+						<div class="space-y-4" role="list" aria-label="Patient testimonials" id="patient-stories-container">
+							@forelse($patientStories ?? [] as $story)
+								@php
+									$initials = strtoupper(substr($story->name, 0, 2));
+								@endphp
+								@include('home._story_item', ['story' => $story, 'initials' => $initials])
+							@empty
+								<!-- Default testimonials if no stories exist -->
+								<article id="testimonial-sarah" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+									<div class="flex items-center gap-3">
+										<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">SM</div>
+										<div>
+											<p class="text-base font-semibold text-gray-900">Sarah Mitchell</p>
+											<p class="text-xs text-gray-500">Cardiology visit · Austin, TX</p>
+										</div>
+										<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
-										@endfor
+											Verified
+										</span>
 									</div>
-									<a href="#testimonial-sarah" class="inline-flex items-center gap-1 text-brand-700 hover:gap-1.5 transition-all">
-										Read story
-										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</a>
-								</div>
-							</article>
-							<article id="testimonial-james" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
-								<div class="flex items-center gap-3">
-									<div class="w-12 h-12 rounded-full bg-brand-100 text-brand-700 font-semibold flex items-center justify-center">JD</div>
-									<div>
-										<p class="text-base font-semibold text-gray-900">James Davis</p>
-										<p class="text-xs text-gray-500">Primary care · Seattle, WA</p>
+									<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
+										"Found an excellent cardiologist in my area. The search was easy and the doctor was professional and caring. Highly recommend!"
+									</p>
+									<div class="mt-6 flex items-center justify-between text-sm font-semibold">
+										<div class="inline-flex items-center gap-1 text-yellow-500">
+											@for($i = 0; $i < 5; $i++)
+												<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+												</svg>
+											@endfor
+										</div>
 									</div>
-									<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
-										Family care
-									</span>
-								</div>
-								<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
-									“The platform made it simple to compare different clinics and read about their services. Found exactly what I needed for my family.”
-								</p>
-								<div class="mt-6 flex items-center justify-between text-sm font-semibold">
-									<div class="inline-flex items-center gap-1 text-yellow-500">
-										@for($i = 0; $i < 5; $i++)
-											<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-											</svg>
-										@endfor
+								</article>
+								<article id="testimonial-james" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+									<div class="flex items-center gap-3">
+										<div class="w-12 h-12 rounded-full bg-brand-100 text-brand-700 font-semibold flex items-center justify-center">JD</div>
+										<div>
+											<p class="text-base font-semibold text-gray-900">James Davis</p>
+											<p class="text-xs text-gray-500">Primary care · Seattle, WA</p>
+										</div>
+										<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
+											Family care
+										</span>
 									</div>
-									<a href="#testimonial-james" class="inline-flex items-center gap-1 text-brand-700 hover:gap-1.5 transition-all">
-										Read story
-										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</a>
-								</div>
-							</article>
-							<article id="testimonial-emily" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
-								<div class="flex items-center gap-3">
-									<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">EW</div>
-									<div>
-										<p class="text-base font-semibold text-gray-900">Emily Wilson</p>
-										<p class="text-xs text-gray-500">Pediatric visit · Denver, CO</p>
+									<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
+										"The platform made it simple to compare different clinics and read about their services. Found exactly what I needed for my family."
+									</p>
+									<div class="mt-6 flex items-center justify-between text-sm font-semibold">
+										<div class="inline-flex items-center gap-1 text-yellow-500">
+											@for($i = 0; $i < 5; $i++)
+												<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+												</svg>
+											@endfor
+										</div>
 									</div>
-									<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-700">
-										Pediatrics
-									</span>
-								</div>
-								<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
-									“Great experience! I was able to find a pediatrician for my daughter quickly. The information provided was comprehensive and helpful.”
-								</p>
-								<div class="mt-6 flex items-center justify-between text-sm font-semibold">
-									<div class="inline-flex items-center gap-1 text-yellow-500">
-										@for($i = 0; $i < 5; $i++)
-											<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/>
-											</svg>
-										@endfor
+								</article>
+								<article id="testimonial-emily" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+									<div class="flex items-center gap-3">
+										<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">EW</div>
+										<div>
+											<p class="text-base font-semibold text-gray-900">Emily Wilson</p>
+											<p class="text-xs text-gray-500">Pediatric visit · Denver, CO</p>
+										</div>
+										<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-700">
+											Pediatrics
+										</span>
 									</div>
-									<a href="#testimonial-emily" class="inline-flex items-center gap-1 text-brand-700 hover:gap-1.5 transition-all">
-										Read story
-										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</a>
-								</div>
-							</article>
+									<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
+										"Great experience! I was able to find a pediatrician for my daughter quickly. The information provided was comprehensive and helpful."
+									</p>
+									<div class="mt-6 flex items-center justify-between text-sm font-semibold">
+										<div class="inline-flex items-center gap-1 text-yellow-500">
+											@for($i = 0; $i < 5; $i++)
+												<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/>
+												</svg>
+											@endfor
+										</div>
+									</div>
+								</article>
+							@endforelse
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+
+		<!-- Share Story Modal -->
+		<div 
+			id="share-story-modal" 
+			class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/50 backdrop-blur-sm"
+			aria-hidden="true"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="share-story-modal-title"
+		>
+			<div class="relative w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden rounded-2xl sm:rounded-3xl bg-white shadow-2xl">
+				<!-- Close button -->
+				<button 
+					type="button"
+					id="share-story-close"
+					class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 active:bg-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 touch-manipulation"
+					aria-label="Close modal"
+				>
+					<svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+
+				<!-- Modal content -->
+				<div class="overflow-y-auto max-h-[95vh] sm:max-h-[90vh]">
+					<div class="p-4 sm:p-6 md:p-8">
+						<!-- Header -->
+						<div class="mb-4 sm:mb-6">
+							<h2 id="share-story-modal-title" class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+								Share Your Story
+							</h2>
+							<p class="text-xs sm:text-sm md:text-base text-gray-600">
+								Help others by sharing your healthcare experience. Your story will inspire and guide fellow patients.
+							</p>
+						</div>
+
+						<!-- Success/Error messages -->
+						<div id="share-story-success" class="hidden mb-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm"></div>
+						<div id="share-story-errors" class="hidden mb-4 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-800 text-sm"></div>
+
+						<!-- Form -->
+						<form 
+							id="share-story-form"
+							action="{{ route('stories.store') }}"
+							method="POST"
+							data-ajax-story="true"
+							class="space-y-5"
+						>
+							@csrf
+							
+							<!-- Name -->
+							<label class="block">
+								<span class="text-sm font-semibold text-gray-900 mb-1.5 block">Your name</span>
+								<input
+									type="text"
+									name="name"
+									value="{{ old('name') }}"
+									class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm sm:text-base"
+									placeholder="Jane Doe"
+									required
+								>
+								<span class="text-xs text-gray-500 mt-1.5 block">This will be displayed with your story</span>
+							</label>
+
+							<!-- Location (optional) -->
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+								<label class="block">
+									<span class="text-sm font-semibold text-gray-900 mb-1.5 block">City (optional)</span>
+									<input
+										type="text"
+										name="city"
+										value="{{ old('city') }}"
+										class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm sm:text-base"
+										placeholder="Austin"
+									>
+								</label>
+								<label class="block">
+									<span class="text-sm font-semibold text-gray-900 mb-1.5 block">State (optional)</span>
+									<input
+										type="text"
+										name="state"
+										value="{{ old('state') }}"
+										class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm sm:text-base"
+										placeholder="TX"
+										maxlength="2"
+									>
+								</label>
+							</div>
+
+							<!-- Rating -->
+							<label class="block">
+								<span class="text-sm font-semibold text-gray-900 mb-1.5 block">Overall experience rating</span>
+								<div class="flex items-center gap-2">
+									<select
+										name="rating"
+										class="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm sm:text-base bg-white"
+										required
+									>
+										<option value="">Select a rating</option>
+										@for($i = 5; $i >= 1; $i--)
+											<option value="{{ $i }}" @selected((int) old('rating') === $i)>
+												{{ $i }} {{ $i === 1 ? 'star' : 'stars' }} - {{ $i === 5 ? 'Excellent' : ($i === 4 ? 'Very Good' : ($i === 3 ? 'Good' : ($i === 2 ? 'Fair' : 'Poor'))) }}
+											</option>
+										@endfor
+									</select>
+								</div>
+							</label>
+
+							<!-- Story/Comment -->
+							<label class="block">
+								<span class="text-sm font-semibold text-gray-900 mb-1.5 block">Your story</span>
+								<textarea
+									name="comment"
+									rows="5"
+									class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm sm:text-base resize-y"
+									placeholder="Share your experience finding care, what went well, and how it helped you..."
+									required
+								>{{ old('comment') }}</textarea>
+								<span class="text-xs text-gray-500 mt-1.5 block">Your story helps others make informed healthcare decisions</span>
+							</label>
+
+							<!-- Submit button -->
+							<div class="flex flex-col sm:flex-row sm:items-center gap-3 pt-2">
+								<button 
+									type="submit"
+									id="share-story-submit"
+									class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 sm:px-6 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white shadow-lg hover:bg-emerald-700 hover:shadow-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 min-h-[44px] sm:min-h-[48px] touch-manipulation disabled:opacity-50 disabled:cursor-not-allowed"
+								>
+									<span class="submit-text">Share Story</span>
+									<svg id="share-story-spinner" class="hidden w-4 h-4 sm:w-5 sm:h-5 animate-spin" viewBox="0 0 24 24" fill="none">
+										<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+										<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+									</svg>
+								</button>
+								<p class="text-xs sm:text-sm text-gray-500">
+									By sharing, you help build a trusted community of patient experiences.
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<!-- Health Articles/Tips Section -->
 		<section class="relative mt-8 sm:mt-12 px-0 sm:px-0 mx-0 sm:mx-0">
