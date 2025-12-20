@@ -56,25 +56,6 @@
 			</div>
 		</div>
 
-		<!-- Popular Cities -->
-		@if($cities->count() > 0)
-		<section class="relative rounded-2xl sm:rounded-[30px] border border-gray-100 sm:border-white/15 bg-white/95 shadow-sm sm:shadow-2xl p-4 sm:p-6 overflow-hidden">
-			<div class="hidden sm:block absolute -top-8 -right-6 w-36 h-36 bg-emerald-200/40 blur-3xl rounded-full pointer-events-none"></div>
-			<div class="hidden sm:block absolute inset-0 rounded-[30px] border border-white/10 pointer-events-none"></div>
-			<div class="relative z-10">
-				<h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4">Popular Cities in {{ $stateName }}</h2>
-				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-					@foreach($cities as $city)
-						<a href="{{ route('doctors.index', ['state' => $stateAbbr, 'city' => $city['name']]) }}" class="block rounded-xl border border-gray-100 bg-white p-3 hover:border-brand-500 hover:shadow-md transition-all duration-300 group">
-							<div class="text-sm font-semibold text-gray-900 group-hover:text-brand-700 transition-colors">{{ $city['name'] }}</div>
-							<div class="text-xs text-gray-600 mt-1">{{ number_format($city['count'], 0, '.', ' ') }} doctors</div>
-						</a>
-					@endforeach
-				</div>
-			</div>
-		</section>
-		@endif
-
 		<!-- Popular Specialties -->
 		@if($specialties->count() > 0)
 		<section class="relative rounded-2xl sm:rounded-[30px] border border-gray-100 sm:border-white/15 bg-white/95 shadow-sm sm:shadow-2xl p-4 sm:p-6 overflow-hidden">

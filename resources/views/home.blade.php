@@ -339,9 +339,9 @@
 					@foreach($states as $state)
 						<a href="{{ route('states.show', strtolower($state['abbreviation'])) }}" class="item marked block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
 							<div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-transparent to-brand-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-							<div class="relative z-10">
-								<div class="item__counter text-xs sm:text-sm font-semibold text-brand-700 mb-1">{!! number_format($state['count'], 0, '.', '&nbsp;') !!}</div>
-								<div class="item__title text-sm sm:text-base font-medium group-hover:text-brand-800 transition-colors break-words">{{ $state['name'] }}</div>
+							<div class="relative z-10 flex flex-col gap-2.5">
+								<div class="item__counter inline-flex items-center justify-center bg-[#13a546] text-white text-xs font-semibold rounded-sm px-2.5 py-0.5 w-fit h-5 leading-none">{!! number_format($state['count'], 0, '.', '&nbsp;') !!}</div>
+								<div class="item__title text-sm sm:text-base font-medium group-hover:text-brand-800 transition-colors break-words leading-snug">{{ $state['name'] }}</div>
 							</div>
 						</a>
 					@endforeach

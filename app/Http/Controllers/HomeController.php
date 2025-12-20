@@ -89,8 +89,13 @@ class HomeController extends Controller
 
 		// Prepare states array with names and counts
 		$stateMapping = $this->getStateNameMapping();
+		$excludedStates = ['DC', 'AE', 'AP', 'PR']; // Exclude these states from the list
 		$states = [];
 		foreach ($statesWithCounts as $abbr => $count) {
+			// Skip excluded states
+			if (in_array($abbr, $excludedStates, true)) {
+				continue;
+			}
 			$states[] = [
 				'abbreviation' => $abbr,
 				'name' => $stateMapping[$abbr] ?? $abbr,
