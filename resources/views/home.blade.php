@@ -283,7 +283,7 @@
 				<div class="hidden sm:block absolute bottom-0 left-10 w-72 h-72 bg-emerald-400/30 blur-[160px] rounded-full pointer-events-none"></div>
 
 				<div class="relative z-10">
-					<div class="home-citys__title text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white mb-4 sm:mb-6 text-center sm:text-left">States</div>
+					<div class="home-citys__title text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white mb-4 sm:mb-6 text-center sm:text-left">Popular States</div>
 					<div class="home-citys__list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2.5 sm:gap-3 md:gap-4">
 						@foreach($states as $state)
 							<a href="{{ route('states.show', strtolower($state['abbreviation'])) }}" class="item marked block rounded-xl sm:rounded-2xl bg-white border border-gray-100/80 shadow-sm px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-4 hover:border-emerald-500 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 no-underline">

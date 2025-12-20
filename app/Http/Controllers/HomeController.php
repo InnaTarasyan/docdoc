@@ -92,13 +92,13 @@ class HomeController extends Controller
 		$excludedStates = ['DC', 'AE', 'AP', 'PR']; // Exclude these states from the list
 		$states = [];
 		foreach ($statesWithCounts as $abbr => $count) {
-			// Skip excluded states
-			if (in_array($abbr, $excludedStates, true)) {
+			// Skip excluded states and only include valid USA states
+			if (in_array($abbr, $excludedStates, true) || !isset($stateMapping[$abbr])) {
 				continue;
 			}
 			$states[] = [
 				'abbreviation' => $abbr,
-				'name' => $stateMapping[$abbr] ?? $abbr,
+				'name' => $stateMapping[$abbr],
 				'count' => $count,
 			];
 		}
@@ -110,6 +110,9 @@ class HomeController extends Controller
 			}
 			return $b['count'] <=> $a['count'];
 		});
+
+		// Limit to top 24 popular states
+		$states = array_slice($states, 0, 24);
 
 		return view('home', [
 			'query' => $query,
