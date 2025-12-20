@@ -670,88 +670,135 @@
 							</div>
 						</div>
 						<div class="space-y-4" role="list" aria-label="Patient testimonials" id="patient-stories-container">
+							<article id="testimonial-sarah" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+								<div class="flex items-center gap-3">
+									<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">SM</div>
+									<div>
+										<p class="text-base font-semibold text-gray-900">Sarah Mitchell</p>
+										<p class="text-xs text-gray-500">Cardiology visit · Austin, TX</p>
+									</div>
+									<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+										Verified
+									</span>
+								</div>
+								<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
+									"Found an excellent cardiologist in my area. The search was easy and the doctor was professional and caring. Highly recommend!"
+								</p>
+								<div class="mt-6 flex items-center justify-between text-sm font-semibold">
+									<div class="inline-flex items-center gap-1 text-yellow-500">
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																			</div>
+									<a href="#testimonial-sarah" class="inline-flex items-center gap-1 text-brand-700 hover:gap-1.5 transition-all">
+										Read story
+										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+									</a>
+								</div>
+							</article>
+							<article id="testimonial-james" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+								<div class="flex items-center gap-3">
+									<div class="w-12 h-12 rounded-full bg-brand-100 text-brand-700 font-semibold flex items-center justify-center">JD</div>
+									<div>
+										<p class="text-base font-semibold text-gray-900">James Davis</p>
+										<p class="text-xs text-gray-500">Primary care · Seattle, WA</p>
+									</div>
+									<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
+										Family care
+									</span>
+								</div>
+								<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
+									"The platform made it simple to compare different clinics and read about their services. Found exactly what I needed for my family."
+								</p>
+								<div class="mt-6 flex items-center justify-between text-sm font-semibold">
+									<div class="inline-flex items-center gap-1 text-yellow-500">
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+																			</div>
+									<a href="#testimonial-james" class="inline-flex items-center gap-1 text-brand-700 hover:gap-1.5 transition-all">
+										Read story
+										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+									</a>
+								</div>
+							</article>
+							<article id="testimonial-emily" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
+								<div class="flex items-center gap-3">
+									<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">EW</div>
+									<div>
+										<p class="text-base font-semibold text-gray-900">Emily Wilson</p>
+										<p class="text-xs text-gray-500">Pediatric visit · Denver, CO</p>
+									</div>
+									<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-700">
+										Pediatrics
+									</span>
+								</div>
+								<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
+									"Great experience! I was able to find a pediatrician for my daughter quickly. The information provided was comprehensive and helpful."
+								</p>
+								<div class="mt-6 flex items-center justify-between text-sm font-semibold">
+									<div class="inline-flex items-center gap-1 text-yellow-500">
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"></path>
+											</svg>
+																					<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"></path>
+											</svg>
+																			</div>
+									<a href="#testimonial-emily" class="inline-flex items-center gap-1 text-brand-700 hover:gap-1.5 transition-all">
+										Read story
+										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+									</a>
+								</div>
+							</article>
 							@forelse($patientStories ?? [] as $story)
 								@php
 									$initials = strtoupper(substr($story->name, 0, 2));
 								@endphp
 								@include('home._story_item', ['story' => $story, 'initials' => $initials])
 							@empty
-								<!-- Default testimonials if no stories exist -->
-								<article id="testimonial-sarah" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
-									<div class="flex items-center gap-3">
-										<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">SM</div>
-										<div>
-											<p class="text-base font-semibold text-gray-900">Sarah Mitchell</p>
-											<p class="text-xs text-gray-500">Cardiology visit · Austin, TX</p>
-										</div>
-										<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-												<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
-											</svg>
-											Verified
-										</span>
-									</div>
-									<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
-										"Found an excellent cardiologist in my area. The search was easy and the doctor was professional and caring. Highly recommend!"
-									</p>
-									<div class="mt-6 flex items-center justify-between text-sm font-semibold">
-										<div class="inline-flex items-center gap-1 text-yellow-500">
-											@for($i = 0; $i < 5; $i++)
-												<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-												</svg>
-											@endfor
-										</div>
-									</div>
-								</article>
-								<article id="testimonial-james" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
-									<div class="flex items-center gap-3">
-										<div class="w-12 h-12 rounded-full bg-brand-100 text-brand-700 font-semibold flex items-center justify-center">JD</div>
-										<div>
-											<p class="text-base font-semibold text-gray-900">James Davis</p>
-											<p class="text-xs text-gray-500">Primary care · Seattle, WA</p>
-										</div>
-										<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
-											Family care
-										</span>
-									</div>
-									<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
-										"The platform made it simple to compare different clinics and read about their services. Found exactly what I needed for my family."
-									</p>
-									<div class="mt-6 flex items-center justify-between text-sm font-semibold">
-										<div class="inline-flex items-center gap-1 text-yellow-500">
-											@for($i = 0; $i < 5; $i++)
-												<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-												</svg>
-											@endfor
-										</div>
-									</div>
-								</article>
-								<article id="testimonial-emily" class="h-full rounded-3xl border border-white/30 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl" role="listitem">
-									<div class="flex items-center gap-3">
-										<div class="w-12 h-12 rounded-full bg-brand-200 text-brand-700 font-semibold flex items-center justify-center">EW</div>
-										<div>
-											<p class="text-base font-semibold text-gray-900">Emily Wilson</p>
-											<p class="text-xs text-gray-500">Pediatric visit · Denver, CO</p>
-										</div>
-										<span class="ml-auto inline-flex items-center gap-1 rounded-full bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-700">
-											Pediatrics
-										</span>
-									</div>
-									<p class="mt-5 text-base leading-relaxed text-gray-700 border-l-2 border-brand-100 pl-4">
-										"Great experience! I was able to find a pediatrician for my daughter quickly. The information provided was comprehensive and helpful."
-									</p>
-									<div class="mt-6 flex items-center justify-between text-sm font-semibold">
-										<div class="inline-flex items-center gap-1 text-yellow-500">
-											@for($i = 0; $i < 5; $i++)
-												<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/>
-												</svg>
-											@endfor
-										</div>
-									</div>
-								</article>
 							@endforelse
 						</div>
 					</div>
