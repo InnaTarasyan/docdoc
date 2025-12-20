@@ -8,6 +8,7 @@ use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\StateController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -27,6 +28,9 @@ Route::get('/organizations/{organization}', [OrganizationController::class, 'sho
 Route::post('/organizations/{organization}/reviews', [OrganizationController::class, 'storeReview'])->name('organizations.reviews.store');
 
 Route::get('/specialties', [SpecialtyController::class, 'index'])->name('specialties.index');
+
+// States
+Route::get('/states/{state}', [StateController::class, 'show'])->name('states.show');
 
 // Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

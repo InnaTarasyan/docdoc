@@ -326,6 +326,30 @@
 			</div>
 		</section>
 
+		<!-- Popular States Section -->
+		@if(isset($states) && count($states) > 0)
+		<section class="home-citys mt-6 sm:mt-8 relative px-0 py-6 sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-white/10 sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:p-8 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] mx-0 sm:mx-0 sm:px-8">
+			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/15 bg-white/10 backdrop-blur-2xl"></div>
+			<div class="hidden sm:block absolute -top-16 -right-10 w-64 h-64 bg-emerald-300/35 blur-[140px] rounded-full pointer-events-none"></div>
+			<div class="hidden sm:block absolute bottom-0 left-10 w-72 h-72 bg-emerald-400/30 blur-[160px] rounded-full pointer-events-none"></div>
+
+			<div class="relative z-10">
+				<div class="home-citys__title text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white mb-4 sm:mb-6 text-center sm:text-left">Popular States</div>
+				<div class="home-citys__list grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+					@foreach($states as $state)
+						<a href="{{ route('states.show', strtolower($state['abbreviation'])) }}" class="item marked block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
+							<div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-transparent to-brand-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+							<div class="relative z-10">
+								<div class="item__counter text-xs sm:text-sm font-semibold text-brand-700 mb-1">{!! number_format($state['count'], 0, '.', '&nbsp;') !!}</div>
+								<div class="item__title text-sm sm:text-base font-medium group-hover:text-brand-800 transition-colors break-words">{{ $state['name'] }}</div>
+							</div>
+						</a>
+					@endforeach
+				</div>
+			</div>
+		</section>
+		@endif
+
 		<section class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8 relative bg-white sm:bg-gradient-to-br sm:from-emerald-900 sm:via-emerald-800 sm:to-emerald-900 sm:shadow-[0_25px_60px_rgba(6,95,70,0.28)] sm:rounded-[36px] sm:border sm:border-white/10 p-4 sm:p-8 sm:overflow-hidden mx-0 sm:mx-0 sm:px-8">
 			<div class="hidden sm:block absolute inset-0 rounded-[36px] border border-white/10 opacity-40 pointer-events-none"></div>
 			<div class="hidden sm:block absolute -top-12 -left-6 w-56 h-56 bg-emerald-400/30 blur-[140px] rounded-full pointer-events-none"></div>
