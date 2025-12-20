@@ -691,3 +691,196 @@ function initAjaxReviewForms() {
 }
 
 document.addEventListener('DOMContentLoaded', initAjaxReviewForms);
+
+// AJAX pagination for states page
+function initStatesAjaxPagination() {
+	const doctorsContainer = document.getElementById('doctors-list-container');
+	const organizationsContainer = document.getElementById('organizations-list-container');
+
+	// Handle doctors pagination
+	if (doctorsContainer) {
+		doctorsContainer.addEventListener('click', async (e) => {
+			const link = e.target.closest('a');
+			if (!link) return;
+
+			// Check if it's a pagination link
+			const href = link.getAttribute('href');
+			if (!href) return;
+			
+			// Check if link is within pagination container
+			const isInPagination = link.closest('.pagination') || link.closest('[role="navigation"]');
+			if (!isInPagination) return;
+			
+			// Make sure it's a pagination link (has doctors_page parameter)
+			try {
+				const url = new URL(href, window.location.origin);
+				if (!url.searchParams.has('doctors_page')) return;
+			} catch (e) {
+				// If URL parsing fails, skip
+				return;
+			}
+
+			e.preventDefault();
+
+			try {
+				const url = new URL(href, window.location.origin);
+				url.searchParams.set('type', 'doctors');
+
+				const response = await fetch(url.toString(), {
+					headers: {
+						'Accept': 'application/json',
+					},
+				});
+
+				if (!response.ok) return;
+
+				const data = await response.json();
+
+				if (data.html) {
+					doctorsContainer.innerHTML = data.html;
+					// Scroll to top of doctors section
+					doctorsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+
+				// Update URL without reload
+				if (data.url) {
+					const currentUrl = new URL(window.location.href);
+					const newUrl = new URL(data.url, window.location.origin);
+					// Preserve organizations_page if it exists
+					if (currentUrl.searchParams.has('organizations_page')) {
+						newUrl.searchParams.set('organizations_page', currentUrl.searchParams.get('organizations_page'));
+					}
+					history.pushState({}, '', newUrl.toString());
+				}
+			} catch (error) {
+				console.error('Error loading doctors page:', error);
+			}
+		});
+	}
+
+	// Handle organizations pagination
+	if (organizationsContainer) {
+		organizationsContainer.addEventListener('click', async (e) => {
+			const link = e.target.closest('a');
+			if (!link) return;
+
+			// Check if it's a pagination link
+			const href = link.getAttribute('href');
+			if (!href) return;
+			
+			// Check if link is within pagination container
+			const isInPagination = link.closest('.pagination') || link.closest('[role="navigation"]');
+			if (!isInPagination) return;
+			
+			// Make sure it's a pagination link (has organizations_page parameter)
+			try {
+				const url = new URL(href, window.location.origin);
+				if (!url.searchParams.has('organizations_page')) return;
+			} catch (e) {
+				// If URL parsing fails, skip
+				return;
+			}
+
+			e.preventDefault();
+
+			try {
+				const url = new URL(href, window.location.origin);
+				url.searchParams.set('type', 'organizations');
+
+				const response = await fetch(url.toString(), {
+					headers: {
+						'Accept': 'application/json',
+					},
+				});
+
+				if (!response.ok) return;
+
+				const data = await response.json();
+
+				if (data.html) {
+					organizationsContainer.innerHTML = data.html;
+					// Scroll to top of organizations section
+					organizationsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+
+				// Update URL without reload
+				if (data.url) {
+					const currentUrl = new URL(window.location.href);
+					const newUrl = new URL(data.url, window.location.origin);
+					// Preserve doctors_page if it exists
+					if (currentUrl.searchParams.has('doctors_page')) {
+						newUrl.searchParams.set('doctors_page', currentUrl.searchParams.get('doctors_page'));
+					}
+					history.pushState({}, '', newUrl.toString());
+				}
+			} catch (error) {
+				console.error('Error loading organizations page:', error);
+			}
+		});
+	}
+
+	// Handle browser back/forward buttons
+	window.addEventListener('popstate', async () => {
+		const url = new URL(window.location.href);
+		const doctorsPage = url.searchParams.get('doctors_page') || '1';
+		const organizationsPage = url.searchParams.get('organizations_page') || '1';
+
+		// Reload doctors if page changed
+		if (doctorsContainer) {
+			const state = doctorsContainer.getAttribute('data-state');
+			if (state) {
+				try {
+					const fetchUrl = new URL(`/states/${state}`, window.location.origin);
+					fetchUrl.searchParams.set('doctors_page', doctorsPage);
+					fetchUrl.searchParams.set('organizations_page', organizationsPage);
+					fetchUrl.searchParams.set('type', 'doctors');
+					
+					const response = await fetch(fetchUrl.toString(), {
+						headers: {
+							'Accept': 'application/json',
+						},
+					});
+
+					if (response.ok) {
+						const data = await response.json();
+						if (data.html) {
+							doctorsContainer.innerHTML = data.html;
+						}
+					}
+				} catch (error) {
+					console.error('Error loading doctors on popstate:', error);
+				}
+			}
+		}
+
+		// Reload organizations if page changed
+		if (organizationsContainer) {
+			const state = organizationsContainer.getAttribute('data-state');
+			if (state) {
+				try {
+					const fetchUrl = new URL(`/states/${state}`, window.location.origin);
+					fetchUrl.searchParams.set('doctors_page', doctorsPage);
+					fetchUrl.searchParams.set('organizations_page', organizationsPage);
+					fetchUrl.searchParams.set('type', 'organizations');
+					
+					const response = await fetch(fetchUrl.toString(), {
+						headers: {
+							'Accept': 'application/json',
+						},
+					});
+
+					if (response.ok) {
+						const data = await response.json();
+						if (data.html) {
+							organizationsContainer.innerHTML = data.html;
+						}
+					}
+				} catch (error) {
+					console.error('Error loading organizations on popstate:', error);
+				}
+			}
+		}
+	});
+}
+
+document.addEventListener('DOMContentLoaded', initStatesAjaxPagination);

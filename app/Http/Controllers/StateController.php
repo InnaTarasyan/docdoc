@@ -39,17 +39,23 @@ class StateController extends Controller
 
 		$stateName = $stateMapping[$stateAbbr];
 
+		// Get page parameter for pagination
+		$doctorsPage = (int) $request->get('doctors_page', 1);
+		$organizationsPage = (int) $request->get('organizations_page', 1);
+
 		// Get doctors in this state
 		$doctors = Doctor::query()
 			->where('state', $stateAbbr)
 			->orderBy('name')
-			->paginate(20);
+			->paginate(20, ['*'], 'doctors_page', $doctorsPage)
+			->appends($request->except('doctors_page'));
 
 		// Get organizations in this state
 		$organizations = Organization::query()
 			->where('state', $stateAbbr)
 			->orderBy('name')
-			->paginate(20);
+			->paginate(20, ['*'], 'organizations_page', $organizationsPage)
+			->appends($request->except('organizations_page'));
 
 		// Get counts
 		$doctorsCount = Doctor::query()
@@ -95,6 +101,41 @@ class StateController extends Controller
 					'count' => $item->count,
 				];
 			});
+
+		// Handle AJAX requests
+		if ($request->wantsJson()) {
+			$type = $request->get('type', 'doctors'); // 'doctors' or 'organizations'
+			
+			if ($type === 'doctors') {
+				$html = view('states._doctors_list', [
+					'doctors' => $doctors,
+					'stateName' => $stateName,
+				])->render();
+				
+				return response()->json([
+					'html' => $html,
+					'url' => url()->full(),
+					'pagination' => [
+						'current' => $doctors->currentPage(),
+						'last' => $doctors->lastPage(),
+					],
+				]);
+			} else {
+				$html = view('states._organizations_list', [
+					'organizations' => $organizations,
+					'stateName' => $stateName,
+				])->render();
+				
+				return response()->json([
+					'html' => $html,
+					'url' => url()->full(),
+					'pagination' => [
+						'current' => $organizations->currentPage(),
+						'last' => $organizations->lastPage(),
+					],
+				]);
+			}
+		}
 
 		return view('states.show', [
 			'stateAbbr' => $stateAbbr,
