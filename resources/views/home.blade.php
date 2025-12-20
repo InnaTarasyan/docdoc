@@ -325,18 +325,18 @@
 					<div class="relative z-10 mx-0 sm:mx-0 overflow-hidden sm:overflow-visible pb-2 sm:pb-0">
 						<div class="grid w-full grid-cols-1 gap-3 sm:min-w-0 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:gap-4">
 				@forelse($popularSpecialties as $spec)
-						<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
-							<div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-transparent to-brand-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+						<a href="{{ route('doctors.index', ['specialty' => $spec->description]) }}" class="specialty-card block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-emerald-500 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40">
+							<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
 							<div class="flex items-center gap-3 relative z-10">
-								<div class="specialty-icon-wrapper flex-shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-brand-50 text-brand-700 ring-1 ring-brand-100 group-hover:scale-110 transition-all duration-300">
+								<div class="specialty-icon-wrapper flex-shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100 group-hover:scale-110 transition-all duration-200">
 									@include('components.specialty-icon', ['name' => $spec->description, 'class' => 'w-5 h-5'])
 								</div>
 								<div class="min-w-0 flex-1">
-									<span class="block font-medium group-hover:text-brand-800 transition-colors break-words sm:truncate">{{ $spec->description }}</span>
+									<span class="block font-medium group-hover:text-emerald-700 transition-colors break-words sm:truncate">{{ $spec->description }}</span>
 									<span class="mt-0.5 block text-xs uppercase tracking-wide text-gray-500">Tap to explore</span>
 								</div>
 							</div>
-							<div class="absolute top-2 right-2 text-brand-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+							<div class="absolute top-2 right-2 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
 								<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
 								</svg>
@@ -377,8 +377,8 @@
 					@endphp
 					<div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
 						@forelse($featuredDoctors as $doctor)
-							<a href="{{ route('doctors.show', $doctor) }}" class="doctor-card block rounded-2xl bg-white/95 border border-gray-100 p-4 shadow-sm hover:border-brand-500 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 transition-all duration-300 group relative overflow-hidden">
-								<div class="absolute inset-0 bg-gradient-to-br from-brand-50/80 via-transparent to-brand-100/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+							<a href="{{ route('doctors.show', $doctor) }}" class="doctor-card block rounded-2xl bg-white/95 border border-gray-100 p-4 shadow-sm hover:border-emerald-500 hover:shadow-md hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 transition-all duration-200 group relative overflow-hidden">
+								<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
 								@php
 									$seed = abs(crc32($doctor->name ?? (string) $doctor->id));
 									$maxPortraits = 100;
@@ -415,14 +415,14 @@
 								<div class="relative z-10 flex flex-col gap-4">
 									<div class="flex items-start gap-4">
 										<div class="relative shrink-0">
-											<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="doctor-avatar w-16 h-16 rounded-full ring-2 ring-brand-100 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" decoding="async" />
-											<div class="doctor-icon-wrapper absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+											<img src="{{ $avatarUrl }}" alt="{{ $doctor->name }}" class="doctor-avatar w-16 h-16 rounded-full ring-2 ring-emerald-100 group-hover:ring-emerald-400 object-cover bg-white transition-all duration-200" loading="lazy" decoding="async" />
+											<div class="doctor-icon-wrapper absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-200 transform scale-75 group-hover:scale-100">
 												@include('components.specialty-icon', ['name' => $taxonomy, 'class' => 'w-4 h-4'])
 											</div>
 										</div>
 										<div class="min-w-0 flex-1">
 											<div class="flex items-start justify-between gap-2">
-												<div class="font-semibold text-gray-900 truncate group-hover:text-brand-700 transition-colors">{{ $doctor->name }}</div>
+												<div class="font-semibold text-gray-900 truncate group-hover:text-emerald-700 transition-colors">{{ $doctor->name }}</div>
 												<div class="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">
 													<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 														<path d="m12 17 5 3-1.5-5.727L20 9.5l-5.8-.5L12 3 9.8 9 4 9.5l4.5 4.773L7 20z" stroke-linejoin="round" stroke-linecap="round"/>
@@ -525,8 +525,8 @@
 					@endphp
 					<div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
 						@forelse($featuredOrganizations as $org)
-							<a href="{{ route('organizations.show', $org) }}" class="organization-card block rounded-2xl bg-white/95 border border-gray-100 p-4 shadow-sm hover:border-brand-500 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 transition-all duration-300 group relative overflow-hidden">
-								<div class="absolute inset-0 bg-gradient-to-br from-brand-50/70 via-transparent to-brand-100/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+							<a href="{{ route('organizations.show', $org) }}" class="organization-card block rounded-2xl bg-white/95 border border-gray-100 p-4 shadow-sm hover:border-emerald-500 hover:shadow-md hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 transition-all duration-200 group relative overflow-hidden">
+								<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
 								@php
 									$seed = abs(crc32(($org->name ?? '') . '|' . (string) $org->id));
 									$imgIndex = $featuredHospitalImageCount > 0 ? ($seed % $featuredHospitalImageCount) : 0;
@@ -543,8 +543,8 @@
 								<div class="relative z-10 flex flex-col gap-4">
 									<div class="flex items-start gap-4">
 										<div class="relative shrink-0">
-											<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="organization-image w-16 h-16 rounded-2xl ring-2 ring-brand-100 group-hover:ring-brand-400 object-cover bg-white transition-all duration-300" loading="lazy" decoding="async" width="64" height="64" />
-											<div class="absolute -bottom-1 -right-1 bg-brand-600 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+											<img src="{{ $imgUrl }}" alt="{{ $org->name }}" class="organization-image w-16 h-16 rounded-2xl ring-2 ring-emerald-100 group-hover:ring-emerald-400 object-cover bg-white transition-all duration-200" loading="lazy" decoding="async" width="64" height="64" />
+											<div class="absolute -bottom-1 -right-1 bg-emerald-600 text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 transform scale-75 group-hover:scale-100">
 												<svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
 													<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke-linecap="round" stroke-linejoin="round"/>
 													<path d="M17 21v-8H7v8M7 3v5h8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -553,7 +553,7 @@
 										</div>
 										<div class="min-w-0 flex-1">
 											<div class="flex items-start justify-between gap-2">
-												<div class="font-semibold text-gray-900 truncate group-hover:text-brand-700 transition-colors">{{ $org->name }}</div>
+												<div class="font-semibold text-gray-900 truncate group-hover:text-emerald-700 transition-colors">{{ $org->name }}</div>
 												<span class="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
 													<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 														<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -808,16 +808,17 @@
 					</div>
 
 					<div class="mt-8 grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6 xl:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
-							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-emerald-100 via-white to-emerald-200">
+						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-200 hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative">
+							<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0"></div>
+							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-emerald-100 via-white to-emerald-200 z-10">
 								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-emerald-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
 								</svg>
 								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-700 shadow">Wellness</div>
 							</div>
-							<div class="flex flex-1 flex-col p-5 sm:p-6">
-								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-800 transition-colors">Preventive Care: Your First Line of Defense</h3>
+							<div class="flex flex-1 flex-col p-5 sm:p-6 relative z-10">
+								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-700 transition-colors">Preventive Care: Your First Line of Defense</h3>
 								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">Learn how regular check-ups and preventive measures can help maintain your health and catch issues early.</p>
 								<div class="mt-auto space-y-4">
 									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
@@ -836,16 +837,17 @@
 								</div>
 							</div>
 						</a>
-						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
-							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-blue-100 via-white to-blue-200">
+						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-200 hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative">
+							<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0"></div>
+							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-blue-100 via-white to-blue-200 z-10">
 								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
 								</svg>
 								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-700 shadow">Education</div>
 							</div>
-							<div class="flex flex-1 flex-col p-5 sm:p-6">
-								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-800 transition-colors">Understanding Your Health Insurance</h3>
+							<div class="flex flex-1 flex-col p-5 sm:p-6 relative z-10">
+								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-700 transition-colors">Understanding Your Health Insurance</h3>
 								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">A comprehensive guide to navigating health insurance coverage and making the most of your benefits.</p>
 								<div class="mt-auto space-y-4">
 									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
@@ -864,16 +866,17 @@
 								</div>
 							</div>
 						</a>
-						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
-							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-purple-100 via-white to-purple-200">
+						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-200 hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative">
+							<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0"></div>
+							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-purple-100 via-white to-purple-200 z-10">
 								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-purple-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
 								</svg>
 								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700 shadow">Lifestyle</div>
 							</div>
-							<div class="flex flex-1 flex-col p-5 sm:p-6">
-								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-800 transition-colors">Mental Health Matters</h3>
+							<div class="flex flex-1 flex-col p-5 sm:p-6 relative z-10">
+								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-700 transition-colors">Mental Health Matters</h3>
 								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">Discover strategies for maintaining good mental health and when to seek professional help.</p>
 								<div class="mt-auto space-y-4">
 									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
