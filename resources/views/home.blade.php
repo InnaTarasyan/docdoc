@@ -284,13 +284,13 @@
 
 				<div class="relative z-10">
 					<div class="home-citys__title text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white mb-4 sm:mb-6 text-center sm:text-left">States</div>
-					<div class="home-citys__list grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+					<div class="home-citys__list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2.5 sm:gap-3 md:gap-4">
 						@foreach($states as $state)
-							<a href="{{ route('states.show', strtolower($state['abbreviation'])) }}" class="item marked block rounded-2xl bg-white border border-gray-100/80 shadow-sm px-4 py-3 sm:px-5 sm:py-4 hover:border-brand-600 hover:shadow-lg transition text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
-								<div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-transparent to-brand-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-								<div class="relative z-10 flex flex-col gap-2.5">
-									<div class="item__counter inline-flex items-center justify-center bg-[#13a546] text-white text-xs font-semibold rounded-sm px-2.5 py-0.5 w-fit h-5 leading-none">{!! number_format($state['count'], 0, '.', '&nbsp;') !!}</div>
-									<div class="item__title text-sm sm:text-base font-medium group-hover:text-brand-800 transition-colors break-words leading-snug">{{ $state['name'] }}</div>
+							<a href="{{ route('states.show', strtolower($state['abbreviation'])) }}" class="item marked block rounded-xl sm:rounded-2xl bg-white border border-gray-100/80 shadow-sm px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-4 hover:border-emerald-500 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 no-underline">
+								<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+								<div class="relative z-10 flex items-center gap-2 sm:gap-2.5">
+									<div class="item__counter inline-flex items-center justify-center bg-emerald-600 text-white text-xs font-semibold rounded-sm px-2 sm:px-2.5 py-0.5 w-fit h-5 leading-none flex-shrink-0">{!! number_format($state['count'], 0, '.', '&nbsp;') !!}</div>
+									<div class="item__title text-sm sm:text-base font-medium group-hover:text-emerald-700 transition-colors break-words leading-snug">{{ $state['name'] }}</div>
 								</div>
 							</a>
 						@endforeach
