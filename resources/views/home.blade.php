@@ -1117,6 +1117,7 @@
 		</section>
 
 		<!-- Mobile App Promotion Section -->
+	    <!--
 		<section class="relative mt-8 sm:mt-12 px-0 sm:px-0 mx-0 sm:mx-0">
 			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
 				<div class="absolute inset-0 pointer-events-none">
@@ -1243,6 +1244,8 @@
 				</div>
 			</div>
 		</section>
+		-->
+
 		<!-- Partnerships Section -->
 		<section class="relative mt-8 sm:mt-12 px-0 sm:px-0 mx-0 sm:mx-0">
 			<div class="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] sm:rounded-[36px] border border-white/10 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 shadow-[0_25px_60px_rgba(4,78,25,0.35)]">
