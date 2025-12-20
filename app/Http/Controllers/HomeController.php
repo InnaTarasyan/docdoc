@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
 use App\Models\Doctor;
 use App\Models\Organization;
 use App\Models\Specialty;
@@ -114,6 +115,13 @@ class HomeController extends Controller
 		// Limit to top 24 popular states
 		$states = array_slice($states, 0, 24);
 
+		// Get 3 latest published blog posts
+		$blogPosts = BlogPost::whereNotNull('published_at')
+			->where('published_at', '<=', now())
+			->orderBy('published_at', 'desc')
+			->limit(3)
+			->get();
+
 		return view('home', [
 			'query' => $query,
 			'doctorsCount' => $doctorsCount,
@@ -124,6 +132,7 @@ class HomeController extends Controller
 			'popularSpecialties' => $popularSpecialties,
 			'mobileSpecialties' => $mobileSpecialties,
 			'states' => $states,
+			'blogPosts' => $blogPosts,
 		]);
 	}
 }

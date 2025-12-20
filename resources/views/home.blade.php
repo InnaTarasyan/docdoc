@@ -808,93 +808,59 @@
 					</div>
 
 					<div class="mt-8 grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6 xl:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-200 hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative">
-							<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0"></div>
-							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-emerald-100 via-white to-emerald-200 z-10">
-								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-emerald-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-								</svg>
-								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-700 shadow">Wellness</div>
-							</div>
-							<div class="flex flex-1 flex-col p-5 sm:p-6 relative z-10">
-								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-700 transition-colors">Preventive Care: Your First Line of Defense</h3>
-								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">Learn how regular check-ups and preventive measures can help maintain your health and catch issues early.</p>
-								<div class="mt-auto space-y-4">
-									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
-										<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700 font-semibold">AR</span>
-										<div>
-											<p class="font-medium text-gray-900">Dr. Avery Ross</p>
-											<p>4 min read</p>
+						@forelse($blogPosts ?? [] as $index => $post)
+							@php
+								$colorSchemes = [
+									['bg' => 'from-emerald-100 via-white to-emerald-200', 'text' => 'text-emerald-700', 'icon' => 'text-emerald-400/70', 'badge' => 'text-emerald-700', 'avatar' => 'bg-emerald-50 text-emerald-700'],
+									['bg' => 'from-blue-100 via-white to-blue-200', 'text' => 'text-blue-700', 'icon' => 'text-blue-400/70', 'badge' => 'text-blue-700', 'avatar' => 'bg-blue-50 text-blue-700'],
+									['bg' => 'from-purple-100 via-white to-purple-200', 'text' => 'text-purple-700', 'icon' => 'text-purple-400/70', 'badge' => 'text-purple-700', 'avatar' => 'bg-purple-50 text-purple-700'],
+								];
+								$scheme = $colorSchemes[$index % count($colorSchemes)];
+								$authorInitials = strtoupper(substr($post->author ?? 'MD', 0, 2));
+								$excerpt = $post->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 150);
+							@endphp
+							<a href="{{ route('blog.show', $post) }}" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-200 hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative">
+								<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0"></div>
+								<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br {{ $scheme['bg'] }} z-10 overflow-hidden">
+									@if($post->image_url)
+										<img src="{{ $post->image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+									@else
+										<div class="absolute inset-0 bg-gradient-to-br {{ $scheme['bg'] }}"></div>
+										<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 {{ $scheme['icon'] }} group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+										</svg>
+									@endif
+									<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+									<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider {{ $scheme['badge'] }} shadow">{{ $post->category ?? 'General' }}</div>
+								</div>
+								<div class="flex flex-1 flex-col p-5 sm:p-6 relative z-10">
+									<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-700 transition-colors">{{ $post->title }}</h3>
+									@if($excerpt)
+										<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">{{ $excerpt }}</p>
+									@endif
+									<div class="mt-auto space-y-4">
+										<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
+											<span class="inline-flex h-9 w-9 items-center justify-center rounded-full {{ $scheme['avatar'] }} font-semibold">{{ $authorInitials }}</span>
+											<div>
+												<p class="font-medium text-gray-900">{{ $post->author ?? 'Medical Team' }}</p>
+												<p>{{ $post->read_time ?? 5 }} min read</p>
+											</div>
+										</div>
+										<div class="flex items-center gap-2 font-semibold text-emerald-700 group-hover:text-emerald-800">
+											<span>Read more</span>
+											<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+											</svg>
 										</div>
 									</div>
-									<div class="flex items-center gap-2 font-semibold text-emerald-700 group-hover:text-emerald-800">
-										<span>Read more</span>
-										<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-										</svg>
-									</div>
 								</div>
+							</a>
+						@empty
+							<div class="col-span-full text-center py-12">
+								<p class="text-gray-600 text-lg">No articles available at the moment.</p>
+								<p class="text-gray-500 text-sm mt-2">Check back soon for health tips and articles!</p>
 							</div>
-						</a>
-						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-200 hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative">
-							<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0"></div>
-							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-blue-100 via-white to-blue-200 z-10">
-								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-								</svg>
-								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-700 shadow">Education</div>
-							</div>
-							<div class="flex flex-1 flex-col p-5 sm:p-6 relative z-10">
-								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-700 transition-colors">Understanding Your Health Insurance</h3>
-								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">A comprehensive guide to navigating health insurance coverage and making the most of your benefits.</p>
-								<div class="mt-auto space-y-4">
-									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
-										<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-700 font-semibold">LB</span>
-										<div>
-											<p class="font-medium text-gray-900">Lauren Brooks, RN</p>
-											<p>6 min read</p>
-										</div>
-									</div>
-									<div class="flex items-center gap-2 font-semibold text-emerald-700 group-hover:text-emerald-800">
-										<span>Read more</span>
-										<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-										</svg>
-									</div>
-								</div>
-							</div>
-						</a>
-						<a href="#" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-200 hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative">
-							<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0"></div>
-							<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br from-purple-100 via-white to-purple-200 z-10">
-								<div class="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-								<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-purple-400/70 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-								</svg>
-								<div class="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700 shadow">Lifestyle</div>
-							</div>
-							<div class="flex flex-1 flex-col p-5 sm:p-6 relative z-10">
-								<h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-3 leading-snug group-hover:text-emerald-700 transition-colors">Mental Health Matters</h3>
-								<p class="text-sm sm:text-base text-gray-600 mb-5 line-clamp-3 leading-relaxed">Discover strategies for maintaining good mental health and when to seek professional help.</p>
-								<div class="mt-auto space-y-4">
-									<div class="flex items-center gap-3 text-xs sm:text-sm text-gray-500">
-										<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-purple-50 text-purple-700 font-semibold">SK</span>
-										<div>
-											<p class="font-medium text-gray-900">Dr. Sophia Khan</p>
-											<p>5 min read</p>
-										</div>
-									</div>
-									<div class="flex items-center gap-2 font-semibold text-emerald-700 group-hover:text-emerald-800">
-										<span>Read more</span>
-										<svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-										</svg>
-									</div>
-								</div>
-							</div>
-						</a>
+						@endforelse
 					</div>
 				</div>
 			</div>
