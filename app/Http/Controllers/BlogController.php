@@ -7,14 +7,29 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = BlogPost::whereNotNull('published_at')
-            ->where('published_at', '<=', now())
-            ->orderBy('published_at', 'desc')
-            ->paginate(12);
+        $query = BlogPost::whereNotNull('published_at')
+            ->where('published_at', '<=', now());
 
-        return view('blog.index', compact('posts'));
+        // Filter by topic if provided
+        if ($request->has('topic') && $request->topic) {
+            $query->where('topic', $request->topic);
+        }
+
+        $posts = $query->orderBy('published_at', 'desc')
+            ->paginate(12)
+            ->withQueryString(); // Preserve query parameters in pagination links
+
+        // Get all unique topics for the filter
+        $topics = BlogPost::whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->whereNotNull('topic')
+            ->distinct()
+            ->orderBy('topic')
+            ->pluck('topic');
+
+        return view('blog.index', compact('posts', 'topics'));
     }
 
     public function show(BlogPost $post)

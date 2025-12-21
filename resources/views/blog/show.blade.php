@@ -25,7 +25,7 @@
 				<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
 				<div class="absolute top-4 right-4">
 					<span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-sm px-4 py-1.5 text-sm font-semibold text-emerald-700 shadow-lg">
-						{{ $post->category }}
+						{{ $post->topic }}
 					</span>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 				</div>
 				<div class="absolute top-4 right-4">
 					<span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-sm px-4 py-1.5 text-sm font-semibold text-emerald-700 shadow-lg">
-						{{ $post->category }}
+						{{ $post->topic }}
 					</span>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 	
 	<!-- Related Articles Section -->
 	@php
-		$relatedPosts = \App\Models\BlogPost::where('category', $post->category)
+		$relatedPosts = \App\Models\BlogPost::where('topic', $post->topic)
 			->where('id', '!=', $post->id)
 			->whereNotNull('published_at')
 			->where('published_at', '<=', now())

@@ -17,8 +17,45 @@
 		</div>
 	</section>
 
+	<!-- Topic Filter Section -->
+	<section class="mt-6 sm:mt-8">
+		<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-6">
+			<div class="flex items-center justify-between mb-4">
+				<h2 class="text-lg sm:text-xl font-semibold text-gray-900">Filter by Topic</h2>
+				@if(request('topic'))
+					<a href="{{ route('blog.index') }}" class="text-sm font-medium text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+						</svg>
+						Clear filter
+					</a>
+				@endif
+			</div>
+			<div class="flex flex-wrap gap-2 sm:gap-3">
+				<a href="{{ route('blog.index') }}" 
+					class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 {{ !request('topic') ? 'bg-emerald-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+					All Topics
+				</a>
+				@foreach($topics as $topic)
+					<a href="{{ route('blog.index', ['topic' => $topic]) }}" 
+						class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 {{ request('topic') === $topic ? 'bg-emerald-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+						{{ $topic }}
+					</a>
+				@endforeach
+			</div>
+		</div>
+	</section>
+
 	<!-- Blog Posts Grid -->
 	<section class="mt-6 sm:mt-8">
+		@if(request('topic'))
+			<div class="mb-6">
+				<p class="text-gray-600 text-sm sm:text-base">
+					Showing articles in <span class="font-semibold text-emerald-700">{{ request('topic') }}</span>
+					<span class="text-gray-500">({{ $posts->total() }} {{ Str::plural('article', $posts->total()) }})</span>
+				</p>
+			</div>
+		@endif
 		@if($posts->count() > 0)
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 				@foreach($posts as $post)
@@ -33,7 +70,7 @@
 								>
 								<div class="absolute top-4 right-4">
 									<span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-emerald-700 shadow-sm">
-										{{ $post->category }}
+										{{ $post->topic }}
 									</span>
 								</div>
 							</a>
@@ -46,7 +83,7 @@
 								</div>
 								<div class="absolute top-4 right-4">
 									<span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-emerald-700 shadow-sm">
-										{{ $post->category }}
+										{{ $post->topic }}
 									</span>
 								</div>
 							</a>

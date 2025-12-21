@@ -14,7 +14,7 @@ class BlogPost extends Model
         'content',
         'image_url',
         'author',
-        'category',
+        'topic',
         'read_time',
         'published_at',
     ];
