@@ -35,6 +35,7 @@ Route::get('/states/{state}', [StateController::class, 'show'])->name('states.sh
 // Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/authors/{doctor}', [BlogController::class, 'author'])->name('blog.author');
 
 // Legal pages
 Route::get('/privacy-policy', [LegalController::class, 'privacy'])->name('legal.privacy');

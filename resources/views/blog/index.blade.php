@@ -117,7 +117,13 @@
 									<div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
 										<span class="text-emerald-700 text-xs font-semibold">{{ substr($post->author, 0, 2) }}</span>
 									</div>
-									<span class="text-sm text-gray-600 font-medium">{{ $post->author }}</span>
+									@if($post->doctor)
+										<a href="{{ route('blog.author', $post->doctor) }}" class="text-sm text-gray-600 font-medium hover:text-emerald-700 transition-colors">
+											{{ $post->author }}
+										</a>
+									@else
+										<span class="text-sm text-gray-600 font-medium">{{ $post->author }}</span>
+									@endif
 								</div>
 								<a href="{{ route('blog.show', $post) }}" class="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:text-emerald-800 group-hover:gap-2 transition-all">
 									Read more

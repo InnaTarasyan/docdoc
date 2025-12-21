@@ -51,7 +51,13 @@
 					<div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
 						<span class="text-emerald-700 text-sm font-semibold">{{ substr($post->author, 0, 2) }}</span>
 					</div>
-					<span class="font-medium text-gray-700">{{ $post->author }}</span>
+					@if($post->doctor)
+						<a href="{{ route('blog.author', $post->doctor) }}" class="font-medium text-gray-700 hover:text-emerald-700 transition-colors">
+							{{ $post->author }}
+						</a>
+					@else
+						<span class="font-medium text-gray-700">{{ $post->author }}</span>
+					@endif
 				</div>
 				<span>•</span>
 				<time datetime="{{ $post->published_at->format('Y-m-d') }}" class="font-medium">
@@ -85,7 +91,13 @@
 							<span class="text-emerald-700 font-semibold">{{ substr($post->author, 0, 2) }}</span>
 						</div>
 						<div>
-							<p class="font-semibold text-gray-900">{{ $post->author }}</p>
+							@if($post->doctor)
+								<a href="{{ route('blog.author', $post->doctor) }}" class="font-semibold text-gray-900 hover:text-emerald-700 transition-colors block">
+									{{ $post->author }}
+								</a>
+							@else
+								<p class="font-semibold text-gray-900">{{ $post->author }}</p>
+							@endif
 							<p class="text-sm text-gray-500">Medical Professional</p>
 						</div>
 					</div>

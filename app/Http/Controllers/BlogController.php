@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
     public function index(Request $request)
     {
-        $query = BlogPost::whereNotNull('published_at')
+        $query = BlogPost::with('doctor')
+            ->whereNotNull('published_at')
             ->where('published_at', '<=', now());
 
         // Filter by topic if provided
@@ -38,6 +40,21 @@ class BlogController extends Controller
             abort(404);
         }
 
+        $post->load('doctor');
+
         return view('blog.show', compact('post'));
+    }
+
+    /**
+     * Show all blog posts by a specific doctor author.
+     * Similar to: https://www.vsevrachizdes.ru/blog/authors/lukankina-irina-aleksandrovna
+     */
+    public function author(Doctor $doctor)
+    {
+        $posts = $doctor->blogPosts()
+            ->orderBy('published_at', 'desc')
+            ->paginate(12);
+
+        return view('blog.author', compact('doctor', 'posts'));
     }
 }

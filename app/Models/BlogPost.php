@@ -17,6 +17,7 @@ class BlogPost extends Model
         'topic',
         'read_time',
         'published_at',
+        'doctor_id',
     ];
 
     protected $casts = [
@@ -37,5 +38,13 @@ class BlogPost extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * Get the doctor that authored this blog post.
+     */
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
     }
 }

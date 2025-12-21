@@ -23,6 +23,14 @@ class Doctor extends Model
 	{
 		return $this->hasMany(Review::class)->latest();
 	}
+
+	/**
+	 * Get the blog posts authored by this doctor.
+	 */
+	public function blogPosts()
+	{
+		return $this->hasMany(BlogPost::class)->whereNotNull('published_at')->where('published_at', '<=', now())->latest('published_at');
+	}
 }
 
 
