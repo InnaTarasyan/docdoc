@@ -30,6 +30,7 @@ Route::post('/organizations/{organization}/reviews', [OrganizationController::cl
 Route::get('/specialties', [SpecialtyController::class, 'index'])->name('specialties.index');
 
 // States
+Route::get('/states', [StateController::class, 'index'])->name('states.index');
 Route::get('/states/{state}', [StateController::class, 'show'])->name('states.show');
 
 // Blog

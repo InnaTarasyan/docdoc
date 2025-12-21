@@ -283,7 +283,15 @@
 				<div class="hidden sm:block absolute bottom-0 left-10 w-72 h-72 bg-emerald-400/30 blur-[160px] rounded-full pointer-events-none"></div>
 
 				<div class="relative z-10">
-					<div class="home-citys__title text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white mb-4 sm:mb-6 text-center sm:text-left">Popular States</div>
+					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+						<div class="home-citys__title text-xl sm:text-2xl font-semibold text-gray-900 sm:text-white text-center sm:text-left">Popular States</div>
+						<a href="{{ route('states.index') }}" class="btn btn-white-green home-citys__all inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-white sm:bg-white/10 border border-gray-200 sm:border-white/20 text-emerald-700 sm:text-white font-semibold text-sm sm:text-base px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-emerald-50 sm:hover:bg-white/20 hover:border-emerald-300 sm:hover:border-white/30 transition-all duration-200 shadow-sm sm:shadow-md hover:shadow-md sm:hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 sm:focus-visible:ring-white/50 touch-manipulation min-h-[44px] sm:min-h-[48px]">
+							<span>All States</span>
+							<svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</a>
+					</div>
 					<div class="home-citys__list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4">
 						@foreach($states as $state)
 							<a href="{{ route('states.show', strtolower($state['abbreviation'])) }}" class="item marked block rounded-xl sm:rounded-2xl bg-white border border-gray-100/80 shadow-sm px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-4 hover:border-emerald-500 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-gray-800 group relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 no-underline hover:underline">

@@ -28,6 +28,72 @@ class StateController extends Controller
 		];
 	}
 
+	public function index(Request $request)
+	{
+		// Get unique states from both doctors and organizations tables
+		$doctorStates = Doctor::query()
+			->select('state', DB::raw('count(*) as count'))
+			->whereNotNull('state')
+			->where('state', '!=', '')
+			->groupBy('state')
+			->get()
+			->pluck('count', 'state')
+			->toArray();
+
+		$organizationStates = Organization::query()
+			->select('state', DB::raw('count(*) as count'))
+			->whereNotNull('state')
+			->where('state', '!=', '')
+			->groupBy('state')
+			->get()
+			->pluck('count', 'state')
+			->toArray();
+
+		// Merge states and sum counts
+		$statesWithCounts = [];
+		$allStates = array_unique(array_merge(array_keys($doctorStates), array_keys($organizationStates)));
+		
+		foreach ($allStates as $state) {
+			$doctorCount = $doctorStates[$state] ?? 0;
+			$orgCount = $organizationStates[$state] ?? 0;
+			$statesWithCounts[$state] = $doctorCount + $orgCount;
+		}
+
+		// Prepare states array with names and counts
+		$stateMapping = $this->getStateNameMapping();
+		$excludedStates = ['DC', 'AE', 'AP', 'PR']; // Exclude these states from the list
+		$states = [];
+		foreach ($statesWithCounts as $abbr => $count) {
+			// Skip excluded states and only include valid USA states
+			if (in_array($abbr, $excludedStates, true) || !isset($stateMapping[$abbr])) {
+				continue;
+			}
+			$states[] = [
+				'abbreviation' => $abbr,
+				'name' => $stateMapping[$abbr],
+				'count' => $count,
+			];
+		}
+
+		// Sort by count descending, then by state name
+		usort($states, function($a, $b) {
+			if ($a['count'] === $b['count']) {
+				return strcmp($a['name'], $b['name']);
+			}
+			return $b['count'] <=> $a['count'];
+		});
+
+		// Get total counts
+		$totalDoctors = Doctor::query()->count();
+		$totalOrganizations = Organization::query()->count();
+
+		return view('states.index', [
+			'states' => $states,
+			'totalDoctors' => $totalDoctors,
+			'totalOrganizations' => $totalOrganizations,
+		]);
+	}
+
 	public function show(Request $request, string $stateAbbr)
 	{
 		$stateAbbr = strtoupper($stateAbbr);
