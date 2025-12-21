@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\BlogPost;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 
 class FetchMedicalArticles extends Command
@@ -14,7 +15,7 @@ class FetchMedicalArticles extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'blog:fetch-articles';
+	protected $signature = 'blog:fetch-articles {--limit=100 : Maximum number of articles to fetch}';
 
 	/**
 	 * The console command description.
@@ -28,28 +29,53 @@ class FetchMedicalArticles extends Command
 	 */
 	public function handle(): int
 	{
-		$this->info('Fetching medical articles...');
+		$this->info('Fetching medical articles from the internet...');
+		$limit = (int) $this->option('limit');
 
-		$articles = $this->getMedicalArticles();
+		$articles = [];
+		
+		// Try fetching from internet sources
+		$this->info('Attempting to fetch articles from online sources...');
+		$onlineArticles = $this->fetchFromInternet();
+		
+		if (!empty($onlineArticles)) {
+			$this->info('Successfully fetched ' . count($onlineArticles) . ' articles from online sources.');
+			$articles = array_merge($articles, $onlineArticles);
+		} else {
+			$this->warn('Could not fetch articles from online sources. Using comprehensive article database...');
+		}
+
+		// Add comprehensive local articles
+		$localArticles = $this->getComprehensiveMedicalArticles();
+		$articles = array_merge($articles, $localArticles);
+
+		// Limit articles if specified
+		if ($limit > 0 && count($articles) > $limit) {
+			$articles = array_slice($articles, 0, $limit);
+		}
 
 		$imported = 0;
 		$bar = $this->output->createProgressBar(count($articles));
 		$bar->start();
 
 		foreach ($articles as $article) {
+			if (empty($article['title']) || empty($article['content'])) {
+				continue;
+			}
+
 			$slug = Str::slug($article['title']);
 			
 			BlogPost::updateOrCreate(
 				['slug' => $slug],
 				[
 					'title' => $article['title'],
-					'excerpt' => $article['excerpt'],
+					'excerpt' => $article['excerpt'] ?? $this->generateExcerpt($article['content']),
 					'content' => $article['content'],
-					'image_url' => $article['image_url'],
-					'author' => $article['author'],
-					'category' => $article['category'],
-					'read_time' => $article['read_time'],
-					'published_at' => Carbon::now()->subDays(rand(0, 30)),
+					'image_url' => $article['image_url'] ?? $this->getRandomMedicalImage(),
+					'author' => $article['author'] ?? $this->getRandomAuthor(),
+					'category' => $article['category'] ?? $this->getRandomCategory(),
+					'read_time' => $article['read_time'] ?? $this->calculateReadTime($article['content']),
+					'published_at' => $article['published_at'] ?? Carbon::now()->subDays(rand(0, 90)),
 				]
 			);
 			$imported++;
@@ -64,9 +90,289 @@ class FetchMedicalArticles extends Command
 	}
 
 	/**
-	 * Get medical articles with real content and images
+	 * Fetch articles from internet sources
 	 */
-	private function getMedicalArticles(): array
+	private function fetchFromInternet(): array
+	{
+		$articles = [];
+
+		// Try fetching from NewsAPI (if API key is available)
+		$newsApiKey = env('NEWS_API_KEY');
+		if ($newsApiKey) {
+			try {
+				$newsArticles = $this->fetchFromNewsAPI($newsApiKey);
+				$articles = array_merge($articles, $newsArticles);
+			} catch (\Exception $e) {
+				$this->warn('NewsAPI fetch failed: ' . $e->getMessage());
+			}
+		}
+
+		// Try fetching from RSS feeds
+		try {
+			$rssArticles = $this->fetchFromRSSFeeds();
+			$articles = array_merge($articles, $rssArticles);
+		} catch (\Exception $e) {
+			$this->warn('RSS feed fetch failed: ' . $e->getMessage());
+		}
+
+		// Try fetching from medical news websites
+		try {
+			$webArticles = $this->fetchFromMedicalWebsites();
+			$articles = array_merge($articles, $webArticles);
+		} catch (\Exception $e) {
+			$this->warn('Web scraping failed: ' . $e->getMessage());
+		}
+
+		return $articles;
+	}
+
+	/**
+	 * Fetch articles from NewsAPI
+	 */
+	private function fetchFromNewsAPI(string $apiKey): array
+	{
+		$articles = [];
+		
+		$keywords = ['health', 'medicine', 'medical', 'healthcare', 'wellness', 'disease', 'treatment'];
+		
+		foreach ($keywords as $keyword) {
+			try {
+				$response = Http::timeout(10)->get('https://newsapi.org/v2/everything', [
+					'q' => $keyword,
+					'language' => 'en',
+					'sortBy' => 'publishedAt',
+					'pageSize' => 10,
+					'apiKey' => $apiKey,
+				]);
+
+				if ($response->successful()) {
+					$data = $response->json();
+					if (isset($data['articles'])) {
+						foreach ($data['articles'] as $item) {
+							if (!empty($item['title']) && !empty($item['content'])) {
+								$articles[] = [
+									'title' => $item['title'],
+									'excerpt' => $item['description'] ?? substr(strip_tags($item['content']), 0, 200),
+									'content' => '<p>' . nl2br(e($item['content'])) . '</p>',
+									'image_url' => $item['urlToImage'] ?? null,
+									'author' => $item['author'] ?? 'Medical News',
+									'category' => $this->categorizeArticle($item['title']),
+									'published_at' => isset($item['publishedAt']) ? Carbon::parse($item['publishedAt']) : null,
+								];
+							}
+						}
+					}
+				}
+				sleep(1); // Rate limiting
+			} catch (\Exception $e) {
+				continue;
+			}
+		}
+
+		return $articles;
+	}
+
+	/**
+	 * Fetch articles from RSS feeds
+	 */
+	private function fetchFromRSSFeeds(): array
+	{
+		$articles = [];
+		
+		$feeds = [
+			'https://www.medicalnewstoday.com/rss',
+			'https://www.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC',
+			'https://www.healthline.com/rss',
+		];
+
+		foreach ($feeds as $feedUrl) {
+			try {
+				$response = Http::timeout(10)->get($feedUrl);
+				if ($response->successful()) {
+					$xml = simplexml_load_string($response->body());
+					if ($xml && isset($xml->channel->item)) {
+						foreach ($xml->channel->item as $item) {
+							$title = (string) $item->title;
+							$description = (string) ($item->description ?? '');
+							$link = (string) $item->link;
+							
+							if (!empty($title)) {
+								$articles[] = [
+									'title' => $title,
+									'excerpt' => strip_tags($description),
+									'content' => '<p>' . nl2br(e($description)) . '</p><p><a href="' . e($link) . '" target="_blank">Read more</a></p>',
+									'image_url' => $this->extractImageFromRSS($item),
+									'author' => (string) ($item->author ?? 'Medical News'),
+									'category' => $this->categorizeArticle($title),
+									'published_at' => isset($item->pubDate) ? Carbon::parse($item->pubDate) : null,
+								];
+							}
+						}
+					}
+				}
+				sleep(1);
+			} catch (\Exception $e) {
+				continue;
+			}
+		}
+
+		return $articles;
+	}
+
+	/**
+	 * Fetch articles from medical websites
+	 */
+	private function fetchFromMedicalWebsites(): array
+	{
+		$articles = [];
+		
+		// Use a simple approach - fetch from public APIs or structured data
+		// Note: Actual web scraping should respect robots.txt and terms of service
+		
+		return $articles;
+	}
+
+	/**
+	 * Extract image from RSS item
+	 */
+	private function extractImageFromRSS($item): ?string
+	{
+		$namespaces = $item->getNamespaces(true);
+		
+		if (isset($namespaces['media']) && isset($item->children($namespaces['media'])->content)) {
+			$media = $item->children($namespaces['media'])->content;
+			$attributes = $media->attributes();
+			if (isset($attributes['url'])) {
+				return (string) $attributes['url'];
+			}
+		}
+		
+		return null;
+	}
+
+	/**
+	 * Categorize article based on title
+	 */
+	private function categorizeArticle(string $title): string
+	{
+		$titleLower = strtolower($title);
+		
+		$categories = [
+			'Cardiology' => ['heart', 'cardiac', 'cardiovascular', 'blood pressure', 'cholesterol'],
+			'Oncology' => ['cancer', 'tumor', 'oncology', 'chemotherapy'],
+			'Mental Health' => ['mental', 'depression', 'anxiety', 'psychology', 'therapy'],
+			'Pediatrics' => ['child', 'pediatric', 'infant', 'baby', 'kids'],
+			'Endocrinology' => ['diabetes', 'insulin', 'thyroid', 'hormone'],
+			'Nutrition' => ['nutrition', 'diet', 'food', 'vitamin', 'supplement'],
+			'Fitness' => ['exercise', 'fitness', 'workout', 'physical activity'],
+			'Preventive Care' => ['screening', 'prevention', 'vaccine', 'check-up'],
+			'Women\'s Health' => ['women', 'pregnancy', 'menopause', 'breast'],
+			'Sleep Medicine' => ['sleep', 'insomnia', 'sleep apnea'],
+		];
+
+		foreach ($categories as $category => $keywords) {
+			foreach ($keywords as $keyword) {
+				if (strpos($titleLower, $keyword) !== false) {
+					return $category;
+				}
+			}
+		}
+
+		return 'General Health';
+	}
+
+	/**
+	 * Generate excerpt from content
+	 */
+	private function generateExcerpt(string $content, int $length = 200): string
+	{
+		$text = strip_tags($content);
+		$text = preg_replace('/\s+/', ' ', $text);
+		return substr($text, 0, $length) . '...';
+	}
+
+	/**
+	 * Calculate read time
+	 */
+	private function calculateReadTime(string $content): int
+	{
+		$wordCount = str_word_count(strip_tags($content));
+		$readTime = ceil($wordCount / 200); // Average reading speed: 200 words per minute
+		return max(3, min($readTime, 20)); // Between 3 and 20 minutes
+	}
+
+	/**
+	 * Get random medical image
+	 */
+	private function getRandomMedicalImage(): string
+	{
+		$images = [
+			'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=600&fit=crop',
+			'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop',
+		];
+		
+		return $images[array_rand($images)];
+	}
+
+	/**
+	 * Get random author
+	 */
+	private function getRandomAuthor(): string
+	{
+		$authors = [
+			'Dr. Sarah Mitchell',
+			'Dr. James Anderson',
+			'Dr. Emily Chen',
+			'Dr. Michael Thompson',
+			'Dr. Lisa Rodriguez',
+			'Dr. Robert Martinez',
+			'Dr. Jennifer Kim',
+			'Dr. Patricia Williams',
+			'Dr. David Park',
+			'Dr. Amanda Foster',
+			'Dr. Christopher Lee',
+			'Dr. Maria Garcia',
+			'Dr. John Smith',
+			'Dr. Elizabeth Brown',
+		];
+		
+		return $authors[array_rand($authors)];
+	}
+
+	/**
+	 * Get random category
+	 */
+	private function getRandomCategory(): string
+	{
+		$categories = [
+			'Cardiology',
+			'Oncology',
+			'Mental Health',
+			'Pediatrics',
+			'Endocrinology',
+			'Nutrition',
+			'Fitness',
+			'Preventive Care',
+			'Women\'s Health',
+			'Sleep Medicine',
+			'General Health',
+		];
+		
+		return $categories[array_rand($categories)];
+	}
+
+	/**
+	 * Get comprehensive medical articles database
+	 */
+	private function getComprehensiveMedicalArticles(): array
 	{
 		return [
 			[
@@ -158,6 +464,105 @@ class FetchMedicalArticles extends Command
 				'author' => 'Dr. Amanda Foster',
 				'category' => 'Women\'s Health',
 				'read_time' => 10,
+			],
+			[
+				'title' => 'Hypertension Management: Controlling High Blood Pressure',
+				'excerpt' => 'High blood pressure affects millions worldwide. Discover effective strategies for managing hypertension through lifestyle changes and medication.',
+				'content' => '<p>Hypertension, or high blood pressure, is a common condition that affects approximately 1 in 3 adults. When left untreated, it can lead to serious health complications including heart disease, stroke, and kidney failure.</p><p><strong>Understanding Blood Pressure:</strong></p><p>Blood pressure is measured in millimeters of mercury (mmHg) and recorded as two numbers:</p><ul><li><strong>Systolic:</strong> The pressure when your heart beats</li><li><strong>Diastolic:</strong> The pressure when your heart rests</li></ul><p>Normal blood pressure is below 120/80 mmHg. Hypertension is diagnosed when readings consistently exceed 130/80 mmHg.</p><p><strong>Risk Factors:</strong></p><ul><li>Age (risk increases with age)</li><li>Family history</li><li>Obesity</li><li>Physical inactivity</li><li>Smoking</li><li>Excessive alcohol consumption</li><li>High sodium intake</li><li>Stress</li><li>Chronic conditions (diabetes, kidney disease)</li></ul><p><strong>Lifestyle Modifications:</strong></p><p><strong>1. Dietary Changes:</strong></p><ul><li>Follow the DASH (Dietary Approaches to Stop Hypertension) diet</li><li>Reduce sodium intake to less than 2,300 mg per day</li><li>Increase potassium-rich foods (bananas, spinach, sweet potatoes)</li><li>Limit processed foods</li><li>Reduce alcohol consumption</li></ul><p><strong>2. Regular Exercise:</strong></p><ul><li>Aim for at least 150 minutes of moderate exercise per week</li><li>Include aerobic activities (walking, swimming, cycling)</li><li>Add strength training 2-3 times per week</li></ul><p><strong>3. Weight Management:</strong></p><p>Losing even 5-10 pounds can significantly lower blood pressure.</p><p><strong>4. Stress Management:</strong></p><ul><li>Practice relaxation techniques (meditation, deep breathing)</li><li>Get adequate sleep</li><li>Engage in hobbies and activities you enjoy</li></ul><p><strong>5. Quit Smoking:</strong></p><p>Smoking raises blood pressure and damages blood vessels. Quitting can improve your overall cardiovascular health.</p><p><strong>Medication Options:</strong></p><p>When lifestyle changes aren\'t sufficient, medications may be prescribed:</p><ul><li>ACE inhibitors</li><li>Angiotensin II receptor blockers</li><li>Diuretics</li><li>Beta-blockers</li><li>Calcium channel blockers</li></ul><p><strong>Monitoring:</strong></p><p>Regular blood pressure monitoring is essential. Consider home monitoring devices and keep a log to share with your healthcare provider.</p><p><strong>When to Seek Medical Attention:</strong></p><p>Seek immediate medical care if you experience:</p><ul><li>Severe headache</li><li>Chest pain</li><li>Shortness of breath</li><li>Vision changes</li><li>Blood pressure readings above 180/120 mmHg</li></ul><p>With proper management, most people with hypertension can lead healthy, active lives. Work closely with your healthcare provider to develop a personalized treatment plan.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop',
+				'author' => 'Dr. Christopher Lee',
+				'category' => 'Cardiology',
+				'read_time' => 8,
+			],
+			[
+				'title' => 'Asthma Management: Breathing Easier Every Day',
+				'excerpt' => 'Asthma affects millions of people worldwide. Learn about effective management strategies, trigger identification, and treatment options.',
+				'content' => '<p>Asthma is a chronic respiratory condition characterized by inflammation and narrowing of the airways, leading to difficulty breathing, wheezing, coughing, and chest tightness.</p><p><strong>Understanding Asthma:</strong></p><p>Asthma causes the airways to become swollen and sensitive, reacting strongly to various triggers. This leads to:</p><ul><li>Bronchospasm (muscle tightening around airways)</li><li>Inflammation (swelling of airway linings)</li><li>Mucus production</li></ul><p><strong>Common Triggers:</strong></p><ul><li>Allergens (pollen, dust mites, pet dander, mold)</li><li>Respiratory infections</li><li>Exercise</li><li>Cold air</li><li>Air pollutants and irritants</li><li>Strong emotions or stress</li><li>Certain medications</li><li>Food additives (sulfites)</li></ul><p><strong>Management Strategies:</strong></p><p><strong>1. Medication Adherence:</strong></p><p>Two main types of medications:</p><ul><li><strong>Quick-relief (rescue) medications:</strong> Used during asthma attacks</li><li><strong>Long-term control medications:</strong> Taken daily to prevent symptoms</li></ul><p><strong>2. Identify and Avoid Triggers:</strong></p><ul><li>Keep an asthma diary to identify patterns</li><li>Use air purifiers and filters</li><li>Maintain clean indoor air</li><li>Monitor pollen and air quality forecasts</li></ul><p><strong>3. Create an Asthma Action Plan:</strong></p><p>Work with your healthcare provider to develop a written plan that includes:</p><ul><li>Daily medications and dosages</li><li>How to recognize worsening symptoms</li><li>When to use rescue medications</li><li>When to seek emergency care</li></ul><p><strong>4. Monitor Your Breathing:</strong></p><p>Use a peak flow meter regularly to track lung function and detect early warning signs.</p><p><strong>5. Exercise Management:</strong></p><p>Exercise is important for overall health. With proper management, most people with asthma can exercise safely:</p><ul><li>Use pre-exercise medications if prescribed</li><li>Warm up gradually</li><li>Choose appropriate activities</li><li>Have rescue medication available</li></ul><p><strong>Emergency Signs:</strong></p><p>Seek immediate medical attention if you experience:</p><ul><li>Severe shortness of breath</li><li>Inability to speak in full sentences</li><li>Lips or fingernails turning blue</li><li>Rapid breathing</li><li>No improvement after using rescue inhaler</li></ul><p><strong>Prevention Tips:</strong></p><ul><li>Get annual flu vaccinations</li><li>Maintain a healthy weight</li><li>Manage stress effectively</li><li>Quit smoking and avoid secondhand smoke</li><li>Keep regular appointments with your healthcare provider</li></ul><p>With proper management, most people with asthma can lead active, healthy lives with minimal symptoms.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop',
+				'author' => 'Dr. Maria Garcia',
+				'category' => 'General Health',
+				'read_time' => 7,
+			],
+			[
+				'title' => 'Arthritis: Understanding Joint Pain and Treatment Options',
+				'excerpt' => 'Arthritis affects millions of people, causing joint pain and stiffness. Learn about different types of arthritis and effective management strategies.',
+				'content' => '<p>Arthritis is a general term for conditions that affect joints, causing pain, stiffness, and swelling. There are over 100 types of arthritis, with osteoarthritis and rheumatoid arthritis being the most common.</p><p><strong>Types of Arthritis:</strong></p><p><strong>1. Osteoarthritis (OA):</strong></p><p>The most common form, caused by wear and tear on joints over time. It typically affects:</p><ul><li>Knees</li><li>Hips</li><li>Hands</li><li>Spine</li></ul><p><strong>2. Rheumatoid Arthritis (RA):</strong></p><p>An autoimmune disease where the immune system attacks joint linings. It can affect:</p><ul><li>Multiple joints symmetrically</li><li>Other body systems</li><li>People of any age</li></ul><p><strong>3. Other Types:</strong></p><ul><li>Psoriatic arthritis</li><li>Gout</li><li>Lupus-related arthritis</li><li>Juvenile arthritis</li></ul><p><strong>Symptoms:</strong></p><ul><li>Joint pain and stiffness</li><li>Swelling</li><li>Reduced range of motion</li><li>Redness around joints</li><li>Fatigue</li><li>Morning stiffness</li></ul><p><strong>Risk Factors:</strong></p><ul><li>Age (risk increases with age)</li><li>Gender (women more prone to RA)</li><li>Family history</li><li>Previous joint injury</li><li>Obesity</li><li>Certain occupations</li></ul><p><strong>Management Strategies:</strong></p><p><strong>1. Medications:</strong></p><ul><li>Pain relievers (acetaminophen, NSAIDs)</li><li>Disease-modifying antirheumatic drugs (DMARDs) for RA</li><li>Biologics for severe cases</li><li>Corticosteroids</li></ul><p><strong>2. Physical Therapy:</strong></p><p>Can help improve:</p><ul><li>Joint flexibility</li><li>Muscle strength</li><li>Range of motion</li><li>Pain management</li></ul><p><strong>3. Exercise:</strong></p><p>Regular, low-impact exercise is crucial:</p><ul><li>Swimming</li><li>Walking</li><li>Cycling</li><li>Yoga</li><li>Tai chi</li></ul><p><strong>4. Weight Management:</strong></p><p>Maintaining a healthy weight reduces stress on weight-bearing joints.</p><p><strong>5. Assistive Devices:</strong></p><ul><li>Braces or splints</li><li>Canes or walkers</li><li>Ergonomic tools</li><li>Joint protection techniques</li></ul><p><strong>6. Heat and Cold Therapy:</strong></p><ul><li>Heat for stiffness</li><li>Cold for inflammation</li></ul><p><strong>7. Surgery:</strong></p><p>In severe cases, joint replacement surgery may be considered.</p><p><strong>Lifestyle Modifications:</strong></p><ul><li>Eat an anti-inflammatory diet</li><li>Get adequate sleep</li><li>Manage stress</li><li>Protect joints from injury</li><li>Use proper body mechanics</li></ul><p><strong>When to See a Doctor:</strong></p><p>Consult a healthcare provider if you experience:</p><ul><li>Persistent joint pain</li><li>Joint swelling</li><li>Reduced range of motion</li><li>Symptoms that interfere with daily activities</li></ul><p>Early diagnosis and treatment can help manage symptoms and prevent joint damage. Work with your healthcare team to develop a comprehensive treatment plan.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=600&fit=crop',
+				'author' => 'Dr. John Smith',
+				'category' => 'General Health',
+				'read_time' => 9,
+			],
+			[
+				'title' => 'Thyroid Health: Understanding Thyroid Disorders',
+				'excerpt' => 'The thyroid gland plays a crucial role in metabolism and overall health. Learn about thyroid disorders, symptoms, and treatment options.',
+				'content' => '<p>The thyroid is a small, butterfly-shaped gland located in the neck that produces hormones regulating metabolism, energy levels, and many bodily functions.</p><p><strong>Common Thyroid Disorders:</strong></p><p><strong>1. Hypothyroidism (Underactive Thyroid):</strong></p><p>Occurs when the thyroid doesn\'t produce enough hormones. Common causes include:</p><ul><li>Hashimoto\'s disease (autoimmune condition)</li><li>Thyroid surgery</li><li>Radiation treatment</li><li>Certain medications</li></ul><p><strong>Symptoms:</strong></p><ul><li>Fatigue</li><li>Weight gain</li><li>Cold intolerance</li><li>Dry skin</li><li>Hair loss</li><li>Depression</li><li>Constipation</li><li>Muscle weakness</li></ul><p><strong>2. Hyperthyroidism (Overactive Thyroid):</strong></p><p>Occurs when the thyroid produces too much hormone. Common causes include:</p><ul><li>Graves\' disease (autoimmune condition)</li><li>Thyroid nodules</li><li>Thyroiditis</li></ul><p><strong>Symptoms:</strong></p><ul><li>Rapid heartbeat</li><li>Weight loss</li><li>Nervousness or anxiety</li><li>Tremors</li><li>Sweating</li><li>Heat intolerance</li><li>Sleep problems</li><li>Frequent bowel movements</li></ul><p><strong>3. Thyroid Nodules:</strong></p><p>Lumps in the thyroid gland. Most are benign, but evaluation is important.</p><p><strong>4. Thyroid Cancer:</strong></p><p>Relatively uncommon but treatable when detected early.</p><p><strong>Diagnosis:</strong></p><p>Thyroid disorders are diagnosed through:</p><ul><li>Blood tests (TSH, T3, T4 levels)</li><li>Physical examination</li><li>Ultrasound</li><li>Biopsy (if nodules are present)</li></ul><p><strong>Treatment Options:</strong></p><p><strong>For Hypothyroidism:</strong></p><ul><li>Hormone replacement therapy (levothyroxine)</li><li>Regular monitoring and dosage adjustments</li></ul><p><strong>For Hyperthyroidism:</strong></p><ul><li>Antithyroid medications</li><li>Radioactive iodine therapy</li><li>Surgery (in some cases)</li></ul><p><strong>Lifestyle Management:</strong></p><ul><li>Take medications as prescribed</li><li>Regular follow-up appointments</li><li>Monitor symptoms</li><li>Maintain a balanced diet</li><li>Manage stress</li><li>Get adequate sleep</li></ul><p><strong>Iodine and Thyroid Health:</strong></p><p>Iodine is essential for thyroid function, but:</p><ul><li>Most people get enough from diet</li><li>Excessive iodine can worsen some conditions</li><li>Consult your doctor before taking iodine supplements</li></ul><p><strong>When to See a Doctor:</strong></p><p>Consult a healthcare provider if you experience:</p><ul><li>Unexplained weight changes</li><li>Persistent fatigue</li><li>Mood changes</li><li>Changes in heart rate</li><li>Swelling in the neck</li><li>Hair loss or skin changes</li></ul><p>With proper diagnosis and treatment, most thyroid disorders can be effectively managed, allowing individuals to lead healthy, normal lives.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&h=600&fit=crop',
+				'author' => 'Dr. Emily Chen',
+				'category' => 'Endocrinology',
+				'read_time' => 8,
+			],
+			[
+				'title' => 'Migraine Management: Understanding and Treating Headaches',
+				'excerpt' => 'Migraines affect millions of people worldwide. Learn about triggers, prevention strategies, and effective treatment options.',
+				'content' => '<p>Migraines are severe, recurring headaches that can significantly impact daily life. They\'re often accompanied by other symptoms and can last from hours to days.</p><p><strong>Types of Migraines:</strong></p><p><strong>1. Migraine with Aura:</strong></p><p>Includes visual or sensory disturbances before the headache begins.</p><p><strong>2. Migraine without Aura:</strong></p><p>More common, without warning signs.</p><p><strong>3. Chronic Migraine:</strong></p><p>Occurs 15 or more days per month.</p><p><strong>Symptoms:</strong></p><ul><li>Throbbing or pulsing pain (usually on one side)</li><li>Sensitivity to light, sound, or smells</li><li>Nausea and vomiting</li><li>Visual disturbances (aura)</li><li>Dizziness</li><li>Fatigue</li></ul><p><strong>Common Triggers:</strong></p><ul><li>Hormonal changes (especially in women)</li><li>Stress</li><li>Certain foods (chocolate, aged cheese, processed meats)</li><li>Food additives (MSG, artificial sweeteners)</li><li>Alcohol (especially red wine)</li><li>Caffeine (too much or withdrawal)</li><li>Changes in sleep patterns</li><li>Weather changes</li><li>Strong smells</li><li>Bright lights or loud noises</li></ul><p><strong>Prevention Strategies:</strong></p><p><strong>1. Identify Triggers:</strong></p><p>Keep a migraine diary to identify patterns and triggers.</p><p><strong>2. Lifestyle Modifications:</strong></p><ul><li>Maintain regular sleep schedule</li><li>Eat regular meals</li><li>Stay hydrated</li><li>Manage stress</li><li>Exercise regularly</li><li>Avoid known triggers</li></ul><p><strong>3. Preventive Medications:</strong></p><p>For frequent migraines, your doctor may prescribe:</p><ul><li>Beta-blockers</li><li>Antidepressants</li><li>Anticonvulsants</li><li>Botox injections (for chronic migraines)</li><li>CGRP inhibitors</li></ul><p><strong>Treatment Options:</strong></p><p><strong>Acute Treatment:</strong></p><ul><li>Over-the-counter pain relievers (ibuprofen, naproxen)</li><li>Triptans (prescription medications)</li><li>Ergotamines</li><li>Anti-nausea medications</li><li>CGRP antagonists</li></ul><p><strong>Non-Medical Approaches:</strong></p><ul><li>Rest in a dark, quiet room</li><li>Apply cold or warm compresses</li><li>Massage</li><li>Acupuncture</li><li>Biofeedback</li><li>Relaxation techniques</li></ul><p><strong>When to Seek Emergency Care:</strong></p><p>Seek immediate medical attention if you experience:</p><ul><li>Sudden, severe headache (thunderclap headache)</li><li>Headache with fever, stiff neck, or rash</li><li>Headache after head injury</li><li>Headache with confusion, vision loss, or difficulty speaking</li><li>First severe headache after age 50</li></ul><p><strong>Managing Chronic Migraines:</strong></p><p>If you experience frequent migraines:</p><ul><li>Work with a headache specialist</li><li>Consider preventive medications</li><li>Explore alternative therapies</li><li>Join support groups</li><li>Address underlying conditions</li></ul><p><strong>Impact on Daily Life:</strong></p><p>Migraines can significantly impact work, relationships, and quality of life. Don\'t hesitate to seek help and explore treatment options. With proper management, many people can reduce the frequency and severity of migraines.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
+				'author' => 'Dr. Michael Thompson',
+				'category' => 'General Health',
+				'read_time' => 7,
+			],
+			[
+				'title' => 'Osteoporosis Prevention: Building Strong Bones',
+				'excerpt' => 'Osteoporosis affects bone strength and increases fracture risk. Learn about prevention strategies and bone health maintenance.',
+				'content' => '<p>Osteoporosis is a condition characterized by weak, brittle bones that are more prone to fractures. It often develops silently, with no symptoms until a fracture occurs.</p><p><strong>Understanding Bone Health:</strong></p><p>Bones are living tissue that constantly rebuilds itself. Peak bone mass is typically reached by age 30, after which bone loss gradually occurs.</p><p><strong>Risk Factors:</strong></p><ul><li>Age (risk increases with age)</li><li>Gender (women are at higher risk)</li><li>Family history</li><li>Small body frame</li><li>Hormonal changes (menopause, low testosterone)</li><li>Certain medications (corticosteroids)</li><li>Medical conditions (rheumatoid arthritis, celiac disease)</li><li>Lifestyle factors (smoking, excessive alcohol, sedentary lifestyle)</li><li>Low calcium and vitamin D intake</li></ul><p><strong>Prevention Strategies:</strong></p><p><strong>1. Adequate Calcium Intake:</strong></p><p>Recommended daily amounts:</p><ul><li>Adults 19-50: 1,000 mg</li><li>Women 51+: 1,200 mg</li><li>Men 51-70: 1,000 mg</li><li>Men 71+: 1,200 mg</li></ul><p>Good sources include dairy products, leafy greens, fortified foods, and supplements.</p><p><strong>2. Vitamin D:</strong></p><p>Essential for calcium absorption. Sources include:</p><ul><li>Sunlight exposure</li><li>Fatty fish</li><li>Fortified foods</li><li>Supplements</li></ul><p><strong>3. Weight-Bearing Exercise:</strong></p><p>Activities that work against gravity help build bone strength:</p><ul><li>Walking</li><li>Jogging</li><li>Dancing</li><li>Stair climbing</li><li>Weight training</li><li>Tennis</li></ul><p><strong>4. Strength Training:</strong></p><p>Resistance exercises help build and maintain bone density.</p><p><strong>5. Healthy Lifestyle:</strong></p><ul><li>Don\'t smoke</li><li>Limit alcohol consumption</li><li>Maintain a healthy weight</li><li>Eat a balanced diet</li></ul><p><strong>6. Fall Prevention:</strong></p><ul><li>Remove tripping hazards</li><li>Improve lighting</li><li>Use handrails</li><li>Wear appropriate footwear</li><li>Consider balance exercises</li></ul><p><strong>Screening:</strong></p><p>Bone density testing (DEXA scan) is recommended for:</p><ul><li>Women 65 and older</li><li>Men 70 and older</li><li>Postmenopausal women with risk factors</li><li>Anyone who has had a fracture</li></ul><p><strong>Treatment Options:</strong></p><p>If osteoporosis is diagnosed, treatment may include:</p><ul><li>Bisphosphonates</li><li>Hormone therapy</li><li>RANK ligand inhibitors</li><li>Parathyroid hormone analogs</li><li>Calcium and vitamin D supplements</li></ul><p><strong>Nutrition Tips:</strong></p><ul><li>Include calcium-rich foods in every meal</li><li>Limit sodium (can increase calcium loss)</li><li>Eat plenty of fruits and vegetables</li><li>Consider protein intake (important for bone health)</li></ul><p><strong>When to See a Doctor:</strong></p><p>Consult a healthcare provider if you:</p><ul><li>Are at risk for osteoporosis</li><li>Have experienced a fracture</li><li>Have lost height</li><li>Have back pain</li><li>Have a family history of osteoporosis</li></ul><p>Building strong bones is a lifelong process. Start early, but it\'s never too late to improve bone health through lifestyle changes and appropriate medical care.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop',
+				'author' => 'Dr. Lisa Rodriguez',
+				'category' => 'Preventive Care',
+				'read_time' => 8,
+			],
+			[
+				'title' => 'Allergy Management: Living Well with Allergies',
+				'excerpt' => 'Allergies affect millions of people. Learn about identifying triggers, prevention strategies, and effective treatment options.',
+				'content' => '<p>Allergies occur when the immune system overreacts to substances that are normally harmless. Common allergens include pollen, dust mites, pet dander, foods, and medications.</p><p><strong>Types of Allergies:</strong></p><p><strong>1. Seasonal Allergies (Hay Fever):</strong></p><p>Caused by pollen from trees, grasses, and weeds.</p><p><strong>2. Perennial Allergies:</strong></p><p>Caused by year-round allergens like dust mites, pet dander, and mold.</p><p><strong>3. Food Allergies:</strong></p><p>Common triggers include peanuts, tree nuts, shellfish, eggs, milk, soy, and wheat.</p><p><strong>4. Drug Allergies:</strong></p><p>Reactions to medications.</p><p><strong>5. Insect Sting Allergies:</strong></p><p>Reactions to bee stings, wasp stings, etc.</p><p><strong>Common Symptoms:</strong></p><ul><li>Sneezing</li><li>Runny or stuffy nose</li><li>Itchy, watery eyes</li><li>Skin rashes or hives</li><li>Swelling</li><li>Difficulty breathing</li><li>Anaphylaxis (severe, life-threatening reaction)</li></ul><p><strong>Diagnosis:</strong></p><p>Allergies are diagnosed through:</p><ul><li>Medical history</li><li>Physical examination</li><li>Skin prick tests</li><li>Blood tests (IgE levels)</li><li>Elimination diets (for food allergies)</li></ul><p><strong>Management Strategies:</strong></p><p><strong>1. Avoidance:</strong></p><p>The most effective strategy is to avoid known allergens:</p><ul><li>Monitor pollen counts</li><li>Keep windows closed during high pollen seasons</li><li>Use air purifiers</li><li>Wash bedding regularly</li><li>Keep pets out of bedrooms</li><li>Read food labels carefully</li></ul><p><strong>2. Medications:</strong></p><ul><li>Antihistamines</li><li>Decongestants</li><li>Nasal corticosteroids</li><li>Eye drops</li><li>Epinephrine auto-injectors (for severe allergies)</li></ul><p><strong>3. Immunotherapy:</strong></p><p>Allergy shots or sublingual tablets can help desensitize the immune system over time.</p><p><strong>4. Environmental Controls:</strong></p><ul><li>Use HEPA filters</li><li>Reduce humidity (to control dust mites and mold)</li><li>Remove carpeting</li><li>Use allergen-proof covers</li><li>Regular cleaning</li></ul><p><strong>5. Emergency Preparedness:</strong></p><p>For severe allergies:</p><ul><li>Carry epinephrine auto-injector</li><li>Wear medical alert bracelet</li><li>Educate family and friends</li><li>Have an action plan</li></ul><p><strong>Seasonal Allergy Tips:</strong></p><ul><li>Check pollen forecasts</li><li>Shower after outdoor activities</li><li>Change clothes when coming indoors</li><li>Wear sunglasses outdoors</li><li>Consider starting medications before season begins</li></ul><p><strong>Food Allergy Management:</strong></p><ul><li>Read labels carefully</li><li>Ask about ingredients when dining out</li><li>Carry safe snacks</li><li>Educate others about your allergy</li><li>Have an emergency plan</li></ul><p><strong>When to Seek Emergency Care:</strong></p><p>Seek immediate medical attention for anaphylaxis symptoms:</p><ul><li>Difficulty breathing</li><li>Swelling of face, lips, or throat</li><li>Rapid pulse</li><li>Dizziness or fainting</li><li>Hives or widespread rash</li></ul><p><strong>Living with Allergies:</strong></p><p>While allergies can be challenging, proper management allows most people to lead normal, active lives. Work with an allergist to develop a comprehensive management plan tailored to your specific allergies.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop',
+				'author' => 'Dr. Robert Martinez',
+				'category' => 'General Health',
+				'read_time' => 7,
+			],
+			[
+				'title' => 'Digestive Health: Maintaining a Healthy Gut',
+				'excerpt' => 'Digestive health is crucial for overall well-being. Learn about common digestive issues and how to maintain a healthy digestive system.',
+				'content' => '<p>The digestive system plays a vital role in breaking down food, absorbing nutrients, and eliminating waste. Maintaining digestive health is essential for overall well-being.</p><p><strong>Common Digestive Issues:</strong></p><p><strong>1. Irritable Bowel Syndrome (IBS):</strong></p><p>A functional disorder causing abdominal pain, bloating, and changes in bowel habits.</p><p><strong>2. Gastroesophageal Reflux Disease (GERD):</strong></p><p>Chronic acid reflux causing heartburn and discomfort.</p><p><strong>3. Constipation:</strong></p><p>Infrequent or difficult bowel movements.</p><p><strong>4. Diarrhea:</strong></p><p>Loose, watery stools.</p><p><strong>5. Inflammatory Bowel Disease (IBD):</strong></p><p>Chronic conditions including Crohn\'s disease and ulcerative colitis.</p><p><strong>6. Celiac Disease:</strong></p><p>Autoimmune reaction to gluten.</p><p><strong>Maintaining Digestive Health:</strong></p><p><strong>1. Balanced Diet:</strong></p><ul><li>Eat plenty of fiber (fruits, vegetables, whole grains)</li><li>Stay hydrated</li><li>Limit processed foods</li><li>Include probiotics (yogurt, fermented foods)</li><li>Eat regular meals</li></ul><p><strong>2. Fiber Intake:</strong></p><p>Recommended daily intake:</p><ul><li>Women: 25 grams</li><li>Men: 38 grams</li></ul><p>Gradually increase fiber to avoid bloating.</p><p><strong>3. Hydration:</strong></p><p>Drink plenty of water throughout the day to support digestion.</p><p><strong>4. Regular Exercise:</strong></p><p>Physical activity helps maintain regular bowel movements and reduces stress.</p><p><strong>5. Stress Management:</strong></p><p>Stress can significantly impact digestive health. Practice relaxation techniques.</p><p><strong>6. Mindful Eating:</strong></p><ul><li>Eat slowly</li><li>Chew thoroughly</li><li>Avoid eating when stressed</li><li>Pay attention to hunger and fullness cues</li></ul><p><strong>7. Probiotics and Prebiotics:</strong></p><p>Support healthy gut bacteria:</p><ul><li>Probiotics: Live beneficial bacteria (yogurt, kefir, sauerkraut)</li><li>Prebiotics: Food for beneficial bacteria (garlic, onions, bananas)</li></ul><p><strong>Foods to Avoid (if sensitive):</strong></p><ul><li>Spicy foods</li><li>Fatty foods</li><li>Caffeine</li><li>Alcohol</li><li>Carbonated beverages</li><li>Artificial sweeteners</li></ul><p><strong>When to See a Doctor:</strong></p><p>Consult a healthcare provider if you experience:</p><ul><li>Persistent abdominal pain</li><li>Unexplained weight loss</li><li>Blood in stool</li><li>Persistent diarrhea or constipation</li><li>Difficulty swallowing</li><li>Severe heartburn</li><li>Changes in bowel habits</li></ul><p><strong>Prevention Tips:</strong></p><ul><li>Maintain a healthy weight</li><li>Don\'t smoke</li><li>Limit alcohol</li><li>Get regular exercise</li><li>Manage stress</li><li>Eat a balanced diet</li><li>Stay hydrated</li></ul><p><strong>Digestive Health Screening:</strong></p><p>Regular screenings are important:</p><ul><li>Colonoscopy (starting at age 45)</li><li>Discuss family history with your doctor</li><li>Report any concerning symptoms</li></ul><p>Taking care of your digestive system through healthy lifestyle choices can prevent many problems and improve your overall quality of life.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=600&fit=crop',
+				'author' => 'Dr. Jennifer Kim',
+				'category' => 'General Health',
+				'read_time' => 8,
+			],
+			[
+				'title' => 'Skin Health: Caring for Your Body\'s Largest Organ',
+				'excerpt' => 'Healthy skin is important for protection and appearance. Learn about common skin conditions and effective skincare practices.',
+				'content' => '<p>The skin is the body\'s largest organ, serving as a protective barrier and playing a crucial role in overall health. Proper skin care is essential for maintaining healthy, vibrant skin.</p><p><strong>Common Skin Conditions:</strong></p><p><strong>1. Acne:</strong></p><p>Affects people of all ages, caused by clogged pores and bacteria.</p><p><strong>2. Eczema (Atopic Dermatitis):</strong></p><p>Chronic inflammatory condition causing dry, itchy skin.</p><p><strong>3. Psoriasis:</strong></p><p>Autoimmune condition causing rapid skin cell growth.</p><p><strong>4. Rosacea:</strong></p><p>Chronic condition causing facial redness and visible blood vessels.</p><p><strong>5. Skin Cancer:</strong></p><p>Most common type of cancer, highly treatable when detected early.</p><p><strong>Basic Skincare Routine:</strong></p><p><strong>1. Cleansing:</strong></p><ul><li>Use gentle, pH-balanced cleanser</li><li>Wash twice daily (morning and evening)</li><li>Avoid harsh scrubbing</li><li>Use lukewarm water</li></ul><p><strong>2. Moisturizing:</strong></p><ul><li>Apply moisturizer while skin is still damp</li><li>Choose products suitable for your skin type</li><li>Use daily, even for oily skin</li></ul><p><strong>3. Sun Protection:</strong></p><ul><li>Use broad-spectrum SPF 30+ daily</li><li>Reapply every 2 hours when outdoors</li><li>Wear protective clothing</li><li>Seek shade during peak sun hours</li></ul><p><strong>4. Exfoliation:</strong></p><p>Remove dead skin cells 1-2 times per week, depending on skin type.</p><p><strong>Sun Protection:</strong></p><p>UV radiation is the leading cause of skin aging and skin cancer:</p><ul><li>Apply sunscreen daily</li><li>Wear wide-brimmed hats</li><li>Use sunglasses</li><li>Avoid tanning beds</li><li>Check skin regularly for changes</li></ul><p><strong>Healthy Lifestyle Habits:</strong></p><ul><li>Stay hydrated</li><li>Eat a balanced diet rich in antioxidants</li><li>Get adequate sleep</li><li>Manage stress</li><li>Don\'t smoke</li><li>Limit alcohol</li></ul><p><strong>Skin Cancer Prevention:</strong></p><ul><li>Regular self-exams</li><li>Annual dermatologist visits</li><li>Know the ABCDEs of melanoma</li><li>Protect from UV radiation</li></ul><p><strong>Treating Common Issues:</strong></p><p><strong>For Acne:</strong></p><ul><li>Use non-comedogenic products</li><li>Avoid picking or squeezing</li><li>Consider over-the-counter treatments</li><li>Consult dermatologist for persistent cases</li></ul><p><strong>For Dry Skin:</strong></p><ul><li>Use gentle cleansers</li><li>Moisturize frequently</li><li>Use humidifiers</li><li>Avoid hot showers</li></ul><p><strong>For Sensitive Skin:</strong></p><ul><li>Avoid fragrances and harsh chemicals</li><li>Patch test new products</li><li>Use gentle, hypoallergenic products</li></ul><p><strong>When to See a Dermatologist:</strong></p><p>Consult a dermatologist if you have:</p><ul><li>Persistent skin issues</li><li>Moles that change or grow</li><li>Suspicious spots or growths</li><li>Severe acne</li><li>Unexplained rashes</li><li>Skin conditions affecting quality of life</li></ul><p><strong>Anti-Aging Strategies:</strong></p><ul><li>Sun protection (most important)</li><li>Moisturize regularly</li><li>Use retinoids (with doctor guidance)</li><li>Eat antioxidant-rich foods</li><li>Stay hydrated</li><li>Get adequate sleep</li><li>Manage stress</li></ul><p>Healthy skin reflects overall health. By following a consistent skincare routine and protecting your skin from damage, you can maintain healthy, youthful-looking skin for years to come.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=600&fit=crop',
+				'author' => 'Dr. Patricia Williams',
+				'category' => 'General Health',
+				'read_time' => 7,
+			],
+			[
+				'title' => 'Eye Health: Protecting Your Vision',
+				'excerpt' => 'Good vision is essential for daily life. Learn about common eye conditions, prevention strategies, and maintaining healthy eyes.',
+				'content' => '<p>Eye health is crucial for maintaining good vision and overall quality of life. Many eye conditions can be prevented or managed with proper care.</p><p><strong>Common Eye Conditions:</strong></p><p><strong>1. Refractive Errors:</strong></p><p>Nearsightedness, farsightedness, and astigmatism - corrected with glasses or contacts.</p><p><strong>2. Age-Related Macular Degeneration (AMD):</strong></p><p>Leading cause of vision loss in older adults.</p><p><strong>3. Glaucoma:</strong></p><p>Increased pressure in the eye, leading to vision loss.</p><p><strong>4. Cataracts:</strong></p><p>Clouding of the eye\'s lens, common with aging.</p><p><strong>5. Diabetic Retinopathy:</strong></p><p>Complication of diabetes affecting the retina.</p><p><strong>6. Dry Eye Syndrome:</strong></p><p>Insufficient tear production or poor tear quality.</p><p><strong>Protecting Your Eyes:</strong></p><p><strong>1. Regular Eye Exams:</strong></p><p>Comprehensive eye exams are essential:</p><ul><li>Adults 20-39: Every 2-3 years</li><li>Adults 40-64: Every 2 years</li><li>Adults 65+: Annually</li><li>More frequently if you have risk factors</li></ul><p><strong>2. UV Protection:</strong></p><ul><li>Wear sunglasses with UV protection</li><li>Choose wraparound styles</li><li>Wear hats in bright sunlight</li><li>Protect eyes year-round</li></ul><p><strong>3. Digital Eye Strain:</strong></p><p>Reduce strain from screens:</p><ul><li>Follow the 20-20-20 rule (every 20 minutes, look at something 20 feet away for 20 seconds)</li><li>Adjust screen brightness</li><li>Use proper lighting</li><li>Blink frequently</li><li>Consider blue light filters</li></ul><p><strong>4. Healthy Diet:</strong></p><p>Nutrients important for eye health:</p><ul><li>Vitamin A (carrots, sweet potatoes)</li><li>Vitamin C (citrus fruits, bell peppers)</li><li>Vitamin E (nuts, seeds)</li><li>Lutein and zeaxanthin (leafy greens, eggs)</li><li>Omega-3 fatty acids (fish)</li><li>Zinc (meat, legumes)</li></ul><p><strong>5. Don\'t Smoke:</strong></p><p>Smoking increases risk of AMD, cataracts, and other eye conditions.</p><p><strong>6. Manage Chronic Conditions:</strong></p><p>Control diabetes, hypertension, and other conditions that can affect eye health.</p><p><strong>7. Eye Safety:</strong></p><ul><li>Wear protective eyewear during sports and activities</li><li>Use safety glasses for work hazards</li><li>Handle contact lenses properly</li><li>Avoid rubbing eyes</li></ul><p><strong>Warning Signs:</strong></p><p>See an eye doctor immediately if you experience:</p><ul><li>Sudden vision loss</li><li>Flashes of light</li><li>Floaters (especially sudden increase)</li><li>Eye pain</li><li>Double vision</li><li>Redness or irritation</li><li>Changes in vision</li></ul><p><strong>Children\'s Eye Health:</strong></p><ul><li>Newborns: Eye exam at birth</li><li>Infants: Screening at 6-12 months</li><li>Preschoolers: Vision screening</li><li>School-age: Annual exams</li></ul><p><strong>Contact Lens Care:</strong></p><ul><li>Wash hands before handling</li><li>Clean and disinfect properly</li><li>Replace as recommended</li><li>Don\'t sleep in contacts (unless approved)</li><li>Never share contacts</li><li>Have backup glasses</li></ul><p><strong>Age-Related Changes:</strong></p><p>Normal changes with aging:</p><ul><li>Presbyopia (difficulty focusing up close)</li><li>Need for more light</li><li>Dry eyes</li><li>Increased sensitivity to glare</li></ul><p>Regular eye exams can detect problems early when treatment is most effective. Protect your vision by following these guidelines and seeing your eye care provider regularly.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&h=600&fit=crop',
+				'author' => 'Dr. David Park',
+				'category' => 'Preventive Care',
+				'read_time' => 8,
+			],
+			[
+				'title' => 'Stress Management: Techniques for a Healthier Life',
+				'excerpt' => 'Chronic stress can negatively impact health. Learn effective stress management techniques and strategies for better well-being.',
+				'content' => '<p>Stress is a natural response to challenges and demands, but chronic stress can have serious negative effects on physical and mental health. Learning to manage stress effectively is crucial for overall well-being.</p><p><strong>Understanding Stress:</strong></p><p>Stress triggers the body\'s "fight or flight" response, releasing hormones like cortisol and adrenaline. While acute stress can be helpful, chronic stress can lead to:</p><ul><li>High blood pressure</li><li>Weakened immune system</li><li>Sleep problems</li><li>Digestive issues</li><li>Anxiety and depression</li><li>Headaches</li><li>Muscle tension</li></ul><p><strong>Common Stressors:</strong></p><ul><li>Work pressures</li><li>Financial concerns</li><li>Relationship issues</li><li>Health problems</li><li>Major life changes</li><li>Family responsibilities</li><li>Time constraints</li></ul><p><strong>Stress Management Techniques:</strong></p><p><strong>1. Relaxation Techniques:</strong></p><ul><li><strong>Deep Breathing:</strong> Slow, controlled breathing activates relaxation response</li><li><strong>Meditation:</strong> Mindfulness meditation reduces stress</li><li><strong>Progressive Muscle Relaxation:</strong> Tense and release muscle groups</li><li><strong>Yoga:</strong> Combines physical movement with breathing and meditation</li><li><strong>Tai Chi:</strong> Gentle movement and meditation</li></ul><p><strong>2. Physical Activity:</strong></p><p>Exercise is one of the most effective stress relievers:</p><ul><li>Releases endorphins</li><li>Improves mood</li><li>Reduces tension</li><li>Aim for 30 minutes most days</li></ul><p><strong>3. Time Management:</strong></p><ul><li>Prioritize tasks</li><li>Set realistic goals</li><li>Learn to say no</li><li>Delegate when possible</li><li>Break tasks into smaller steps</li></ul><p><strong>4. Healthy Lifestyle:</strong></p><ul><li>Get adequate sleep (7-9 hours)</li><li>Eat a balanced diet</li><li>Limit caffeine and alcohol</li><li>Don\'t smoke</li><li>Stay hydrated</li></ul><p><strong>5. Social Support:</strong></p><ul><li>Maintain relationships</li><li>Talk to friends and family</li><li>Join support groups</li><li>Seek professional help when needed</li></ul><p><strong>6. Cognitive Techniques:</strong></p><ul><li>Reframe negative thoughts</li><li>Practice gratitude</li><li>Focus on what you can control</li><li>Challenge perfectionism</li><li>Maintain perspective</li></ul><p><strong>7. Hobbies and Activities:</strong></p><p>Engage in activities you enjoy:</p><ul><li>Reading</li><li>Music</li><li>Art</li><li>Gardening</li><li>Sports</li></ul><p><strong>8. Professional Help:</strong></p><p>Consider therapy or counseling if stress is overwhelming or affecting daily life.</p><p><strong>Workplace Stress:</strong></p><ul><li>Set boundaries</li><li>Take regular breaks</li><li>Communicate effectively</li><li>Organize workspace</li><li>Practice time management</li></ul><p><strong>Signs You Need Help:</strong></p><p>Seek professional assistance if you experience:</p><ul><li>Persistent anxiety or depression</li><li>Difficulty functioning</li><li>Substance use to cope</li><li>Thoughts of self-harm</li><li>Severe sleep problems</li></ul><p><strong>Prevention Strategies:</strong></p><ul><li>Maintain work-life balance</li><li>Set realistic expectations</li><li>Practice self-care</li><li>Build resilience</li><li>Develop coping skills</li></ul><p><strong>Quick Stress Relievers:</strong></p><ul><li>Take 10 deep breaths</li><li>Go for a short walk</li><li>Listen to music</li><li>Stretch</li><li>Call a friend</li><li>Practice gratitude</li></ul><p>Remember, some stress is normal, but chronic stress requires attention. By incorporating stress management techniques into your daily routine, you can improve your health, mood, and overall quality of life.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
+				'author' => 'Dr. Amanda Foster',
+				'category' => 'Mental Health',
+				'read_time' => 9,
 			],
 		];
 	}
