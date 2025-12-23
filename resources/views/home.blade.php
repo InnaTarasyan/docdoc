@@ -52,6 +52,21 @@
 					<path d="M21 8.25c0 5.25-9 10.5-9 10.5S3 13.5 3 8.25a4.5 4.5 0 0 1 8.25-2.602A4.5 4.5 0 0 1 21 8.25Z" stroke-linecap="round"/>
 				</svg>
 			</h1>
+			<div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+				<div class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-white text-sm font-semibold border border-white/30 backdrop-blur">
+					<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
+						<circle cx="12" cy="9" r="2.5" />
+					</svg>
+					<span>{{ $currentStateName ?? 'California' }}</span>
+				</div>
+				<a href="{{ route('states.index') }}" class="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-emerald-50 border border-white/25 hover:bg-white/15 transition">
+					Change state
+					<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</a>
+			</div>
 			<p class="hero-subtitle text-white text-center mx-auto max-w-2xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed drop-shadow-md mb-6 sm:mb-6 md:mb-8 px-2">Search by doctor, clinic, specialty, or city — quick filters and a gentle, mobile‑friendly experience.</p>
 
 				<div class="sm:hidden flex flex-col gap-3 mt-4" id="mobile-search-trigger-wrapper">
@@ -299,6 +314,9 @@
 								<div class="relative z-10 flex items-center gap-2 sm:gap-2.5">
 									<div class="item__counter inline-flex items-center justify-center bg-emerald-600 text-white text-xs font-semibold rounded-sm px-2 sm:px-2.5 py-0.5 w-fit h-5 leading-none flex-shrink-0">{!! number_format($state['count'], 0, '.', '&nbsp;') !!}</div>
 									<div class="item__title text-sm sm:text-base font-medium group-hover:text-emerald-700 transition-colors break-words leading-snug">{{ $state['name'] }}</div>
+									@if(!empty($state['is_default']))
+										<span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-2 py-1 border border-emerald-100">Default</span>
+									@endif
 								</div>
 							</a>
 						@endforeach

@@ -58,6 +58,16 @@
 						<h2 class="text-2xl font-semibold leading-tight">Smart filters</h2>
 						<p class="text-sm text-emerald-50/80">Narrow results by location, specialty, or name. Changes apply instantly on larger screens while staying thumb-friendly on phones.</p>
 					</div>
+					@if(($filters['state'] ?? '') !== '')
+						<div class="flex items-center gap-2 rounded-xl bg-white/10 border border-white/30 px-3 py-2 text-sm text-white">
+							<svg class="w-4 h-4 text-emerald-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
+								<circle cx="12" cy="9" r="2.5" />
+							</svg>
+							<span class="font-semibold">{{ $currentStateName ?? ($filters['state'] ?? 'California') }}</span>
+							<a href="{{ route('states.index') }}" class="ml-auto text-xs font-semibold text-emerald-50 underline underline-offset-2 hover:text-white">Change</a>
+						</div>
+					@endif
 
 					<form method="GET" action="{{ route('organizations.index') }}" class="grid gap-4 ajax-filter-form mobile-filter-form" data-ajax-list="true" data-results="#organizations-results" data-city-select="#org-city-select">
 						<label class="filter-field block rounded-2xl bg-white/95 text-gray-900 px-4 py-3 shadow-xl shadow-emerald-900/10 ring-1 ring-white/70 focus-within:ring-brand-400/80 transition">

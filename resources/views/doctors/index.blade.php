@@ -24,6 +24,16 @@
 					</div>
 					<a href="{{ route('doctors.index') }}" class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-semibold text-brand-900 border border-white/60 bg-white/80 hover:bg-white transition">Reset</a>
 				</div>
+				@if(($filters['state'] ?? '') !== '')
+					<div class="flex items-center gap-2 mb-3 text-sm text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-xl px-3 py-2">
+						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
+							<circle cx="12" cy="9" r="2.5" />
+						</svg>
+						<span class="font-semibold leading-tight">{{ $currentStateName ?? ($filters['state'] ?? 'California') }}</span>
+						<a href="{{ route('states.index') }}" class="ml-auto text-xs font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-900">Change</a>
+					</div>
+				@endif
 
 					<form method="GET" action="{{ route('doctors.index') }}" class="grid gap-4 ajax-filter-form mobile-filter-form max-w-full" data-ajax-list="true" data-results="#doctors-results" data-city-select="#doctor-city-select">
 						<label class="flex flex-col gap-1 text-sm font-medium text-gray-700">

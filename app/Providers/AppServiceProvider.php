@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,23 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $preferredState = strtoupper(session('preferred_state', config('states.default', 'CA')));
+        $stateNames = config('states.names', []);
+
+        View::share('preferredState', $preferredState);
+        View::share('preferredStateName', $stateNames[$preferredState] ?? $preferredState);
+
+        $statePickerOptions = [];
+        if (!empty($stateNames)) {
+            ksort($stateNames);
+            foreach ($stateNames as $abbr => $name) {
+                $statePickerOptions[] = [
+                    'abbr' => $abbr,
+                    'name' => $name,
+                ];
+            }
+        }
+
+        View::share('statePickerOptions', $statePickerOptions);
     }
 }

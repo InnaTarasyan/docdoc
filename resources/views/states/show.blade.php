@@ -51,6 +51,13 @@
 								</div>
 							</div>
 						</div>
+						<p class="text-sm text-emerald-100/90 flex items-center gap-2">
+							<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
+								<circle cx="12" cy="9" r="2.5" />
+							</svg>
+							This state is now used as your default view across the site.
+						</p>
 					</div>
 				</div>
 			</div>

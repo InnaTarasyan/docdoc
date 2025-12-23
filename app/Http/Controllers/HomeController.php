@@ -14,51 +14,74 @@ class HomeController extends Controller
 {
 	private function getStateNameMapping(): array
 	{
-		return [
-			'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas',
-			'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware',
-			'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho',
-			'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas',
-			'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland',
-			'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi',
-			'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada',
-			'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York',
-			'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma',
-			'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina',
-			'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah',
-			'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia',
-			'WI' => 'Wisconsin', 'WY' => 'Wyoming',
-		];
+		return config('states.names', []);
 	}
 
 	public function index(Request $request)
 	{
 		$query = trim((string) $request->get('q', ''));
+		$currentState = $this->resolvePreferredState($request);
+		$stateMapping = $this->getStateNameMapping();
+		$currentStateName = $stateMapping[$currentState] ?? $currentState;
+		session(['preferred_state' => $currentState]);
 
-		$doctorsCount = Doctor::query()->count();
-		$organizationsCount = Organization::query()->count();
-		$specialtiesCount = Specialty::query()->count();
+		$doctorsCount = Doctor::query()
+			->where('state', $currentState)
+			->count();
+		$organizationsCount = Organization::query()
+			->where('state', $currentState)
+			->count();
+		$specialtiesCount = Doctor::query()
+			->where('state', $currentState)
+			->whereNotNull('taxonomy')
+			->where('taxonomy', '!=', '')
+			->distinct('taxonomy')
+			->count('taxonomy');
 
 		$featuredDoctors = Doctor::query()
+			->where('state', $currentState)
 			->orderBy('id', 'desc')
 			->limit(8)
 			->get();
 
 		$featuredOrganizations = Organization::query()
+			->where('state', $currentState)
 			->orderBy('id', 'desc')
 			->limit(8)
 			->get();
 
-		$popularSpecialties = Specialty::query()
-			->orderBy('description')
+		$popularSpecialties = Doctor::query()
+			->select('taxonomy', DB::raw('count(*) as count'))
+			->where('state', $currentState)
+			->whereNotNull('taxonomy')
+			->where('taxonomy', '!=', '')
+			->groupBy('taxonomy')
+			->orderBy('count', 'desc')
+			->orderBy('taxonomy')
 			->limit(12)
-			->get();
+			->get()
+			->map(function ($item) {
+				return (object) [
+					'description' => $item->taxonomy,
+					'count' => $item->count,
+				];
+			});
 
-		$mobileSpecialties = Specialty::query()
-			->select(['id', 'description'])
-			->orderBy('description')
+		$mobileSpecialties = Doctor::query()
+			->select('taxonomy', DB::raw('count(*) as count'))
+			->where('state', $currentState)
+			->whereNotNull('taxonomy')
+			->where('taxonomy', '!=', '')
+			->groupBy('taxonomy')
+			->orderBy('taxonomy')
 			->limit(150)
-			->get();
+			->get()
+			->map(function ($item) {
+				return (object) [
+					'description' => $item->taxonomy,
+					'count' => $item->count,
+				];
+			});
 
 		// Get unique states from both doctors and organizations tables
 		$doctorStates = Doctor::query()
@@ -89,8 +112,12 @@ class HomeController extends Controller
 			$statesWithCounts[$state] = $doctorCount + $orgCount;
 		}
 
-		// Prepare states array with names and counts
 		$stateMapping = $this->getStateNameMapping();
+		$defaultState = strtoupper(config('states.default', 'CA'));
+		if (!array_key_exists($defaultState, $statesWithCounts)) {
+			$statesWithCounts[$defaultState] = 0;
+		}
+		// Prepare states array with names and counts
 		$excludedStates = ['DC', 'AE', 'AP', 'PR']; // Exclude these states from the list
 		$states = [];
 		foreach ($statesWithCounts as $abbr => $count) {
@@ -102,11 +129,18 @@ class HomeController extends Controller
 				'abbreviation' => $abbr,
 				'name' => $stateMapping[$abbr],
 				'count' => $count,
+				'is_default' => $abbr === $defaultState,
 			];
 		}
 
 		// Sort by count descending, then by state name
-		usort($states, function($a, $b) {
+		usort($states, function($a, $b) use ($defaultState) {
+			if ($a['abbreviation'] === $defaultState) {
+				return -1;
+			}
+			if ($b['abbreviation'] === $defaultState) {
+				return 1;
+			}
 			if ($a['count'] === $b['count']) {
 				return strcmp($a['name'], $b['name']);
 			}
@@ -143,6 +177,9 @@ class HomeController extends Controller
 			'states' => $states,
 			'blogPosts' => $blogPosts,
 			'patientStories' => $patientStories,
+			'currentState' => $currentState,
+			'currentStateName' => $currentStateName,
+			'defaultState' => $defaultState,
 		]);
 	}
 

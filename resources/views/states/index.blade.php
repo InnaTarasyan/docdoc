@@ -68,6 +68,16 @@
 			<div class="hidden sm:block absolute inset-0 rounded-[30px] border border-white/10 pointer-events-none"></div>
 			<div class="relative z-10">
 				<h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Browse by State</h2>
+				@if(!empty($defaultState))
+					<div class="mb-4 flex flex-wrap items-center gap-2 text-sm text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-2xl px-3 py-2">
+						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
+							<circle cx="12" cy="9" r="2.5" />
+						</svg>
+						<span class="font-semibold">Default: {{ config('states.names')[$defaultState] ?? $defaultState }}</span>
+						<span class="text-xs text-emerald-700/80">Tap any state to switch context.</span>
+					</div>
+				@endif
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5 sm:gap-3 md:gap-4">
 					@foreach($states as $state)
 						<a 
@@ -78,6 +88,9 @@
 							<div class="relative z-10 flex items-center gap-2 sm:gap-2.5">
 								<div class="item__counter inline-flex items-center justify-center bg-emerald-600 text-white text-xs font-semibold rounded-sm px-2 sm:px-2.5 py-0.5 w-fit h-5 leading-none flex-shrink-0">{!! number_format($state['count'], 0, '.', '&nbsp;') !!}</div>
 								<div class="item__title text-sm sm:text-base font-medium group-hover:text-emerald-700 transition-colors break-words leading-snug">{{ $state['name'] }}</div>
+								@if(!empty($defaultState) && $state['abbreviation'] === $defaultState)
+									<span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-2 py-1 border border-emerald-100">Default</span>
+								@endif
 							</div>
 						</a>
 					@endforeach

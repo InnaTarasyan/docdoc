@@ -88,13 +88,28 @@
 
 		<header class="app-header">
 			<div class="container-tight" x-data="{ open: false }">
-				<div class="flex items-center justify-between h-16">
-					<a href="{{ route('home') }}" class="inline-flex items-center gap-2 font-semibold text-lg text-brand-700 group">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6 text-brand-600 group-hover:text-brand-700 transition-colors">
-							<path d="M12 4v16M4 12h16" stroke-width="2" stroke-linecap="round"/>
-						</svg>
-						<span>PrimeDoctors</span>
-					</a>
+				<div class="flex items-center justify-between h-16 gap-4">
+					<div class="flex items-center gap-3 min-w-0">
+						<a href="{{ route('home') }}" class="inline-flex items-center gap-2 font-semibold text-lg text-brand-700 group">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6 text-brand-600 group-hover:text-brand-700 transition-colors">
+								<path d="M12 4v16M4 12h16" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							<span>PrimeDoctors</span>
+						</a>
+						<button
+							type="button"
+							class="hidden sm:inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-gray-800 shadow-sm hover:border-emerald-400 hover:text-emerald-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+							data-open-state-modal
+							aria-haspopup="dialog"
+							aria-controls="state-picker-modal"
+						>
+							<svg class="w-4 h-4 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
+								<circle cx="12" cy="9" r="2.5" />
+							</svg>
+							<span class="text-sm font-semibold text-emerald-800">{{ $preferredStateName ?? 'California' }}</span>
+						</button>
+					</div>
 					<nav class="hidden sm:flex items-center gap-6 text-sm">
 						<a href="{{ route('doctors.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Doctors</a>
 						<a href="{{ route('organizations.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Organizations</a>
@@ -128,6 +143,26 @@
 					 x-transition:leave-end="opacity-0 transform -translate-y-1"
 					 class="sm:hidden border-t">
 					<div class="py-2">
+						<div class="flex items-center gap-2 px-4 py-2.5">
+							<div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+								<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
+									<circle cx="12" cy="9" r="2.5" />
+								</svg>
+							</div>
+							<div class="flex-1">
+								<button
+									type="button"
+									class="text-left"
+									data-open-state-modal
+									aria-haspopup="dialog"
+									aria-controls="state-picker-modal"
+								>
+									<span class="sr-only">Preferred state</span>
+									<span class="text-sm font-semibold text-emerald-800 hover:text-emerald-900 underline-offset-2 hover:underline">{{ $preferredStateName ?? 'California' }}</span>
+								</button>
+							</div>
+						</div>
 						<a href="{{ route('doctors.index') }}" class="block px-4 py-2.5 hover:bg-gray-50 rounded-md transition-colors text-gray-700 hover:text-gray-900">Doctors</a>
 						<a href="{{ route('organizations.index') }}" class="block px-4 py-2.5 hover:bg-gray-50 rounded-md transition-colors text-gray-700 hover:text-gray-900">Organizations</a>
 						<a href="{{ route('specialties.index') }}" class="block px-4 py-2.5 hover:bg-gray-50 rounded-md transition-colors text-gray-700 hover:text-gray-900">Specialties</a>
@@ -194,6 +229,153 @@
 			</div>
 		</div>
 	</footer>
+
+	<!-- State picker modal -->
+	<div
+		id="state-picker-modal"
+		class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="state-picker-title"
+	>
+		<div
+			class="vfm__content w-full max-w-3xl rounded-3xl bg-white shadow-2xl overflow-hidden"
+			data-state-modal-panel
+		>
+			<div class="popup__wrap relative">
+				<button
+					type="button"
+					class="popup__close"
+					data-close-state-modal
+					aria-label="Close state picker"
+				></button>
+				<div class="popup__title flex items-center justify-between gap-2 pr-10">
+					<span id="state-picker-title">Choose your state</span>
+					<span class="text-xs text-gray-500 font-medium">{{ count($statePickerOptions ?? []) }} available</span>
+				</div>
+				<div class="popup__scroller max-h-[75vh]">
+					<div class="popup__content space-y-4">
+						<div class="field field-text">
+							<div class="field-text__wrap">
+								<input
+									type="search"
+									id="state-picker-search"
+									class="field-text__input"
+									placeholder="Type the state name"
+									autocomplete="off"
+								>
+								<div class="field-text__wrap_search">
+									<img src="/img/icons/search_16x16.svg" alt="">
+								</div>
+							</div>
+						</div>
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3" id="state-picker-list">
+							@forelse($statePickerOptions ?? [] as $state)
+								<button
+									type="button"
+									class="cities-link flex items-center justify-between rounded-xl border border-gray-200 px-3 py-2 text-sm font-semibold text-gray-800 hover:border-emerald-500 hover:text-emerald-800 transition"
+									data-state-option
+									data-state-abbr="{{ $state['abbr'] }}"
+									data-state-name="{{ $state['name'] }}"
+								>
+									<span>{{ $state['name'] }}</span>
+									<span class="text-xs text-gray-500 font-medium">{{ $state['abbr'] }}</span>
+								</button>
+							@empty
+								<p class="text-sm text-gray-600">No states available.</p>
+							@endforelse
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const modal = document.getElementById('state-picker-modal');
+			const modalPanel = modal?.querySelector('[data-state-modal-panel]');
+			const openButtons = document.querySelectorAll('[data-open-state-modal]');
+			const closeButtons = modal?.querySelectorAll('[data-close-state-modal]') || [];
+			const searchInput = document.getElementById('state-picker-search');
+			const stateButtons = Array.from(modal?.querySelectorAll('[data-state-option]') || []);
+			const homeUrl = "{{ route('home') }}";
+
+			const openModal = () => {
+				if (!modal) return;
+				modal.classList.remove('hidden');
+				modal.classList.add('flex');
+				document.body.classList.add('overflow-hidden');
+				if (searchInput) {
+					setTimeout(() => searchInput.focus(), 50);
+				}
+			};
+
+			const closeModal = () => {
+				if (!modal) return;
+				modal.classList.add('hidden');
+				modal.classList.remove('flex');
+				document.body.classList.remove('overflow-hidden');
+				if (searchInput) {
+					searchInput.value = '';
+					filterStates('');
+				}
+			};
+
+			const filterStates = (query) => {
+				const term = query.trim().toLowerCase();
+				stateButtons.forEach((btn) => {
+					const name = (btn.dataset.stateName || '').toLowerCase();
+					const abbr = (btn.dataset.stateAbbr || '').toLowerCase();
+					const match = name.includes(term) || abbr.includes(term);
+					btn.classList.toggle('hidden', !match);
+				});
+			};
+
+			openButtons.forEach((btn) => {
+				btn.addEventListener('click', (e) => {
+					e.preventDefault();
+					openModal();
+				});
+			});
+
+			closeButtons.forEach((btn) => {
+				btn.addEventListener('click', (e) => {
+					e.preventDefault();
+					closeModal();
+				});
+			});
+
+			if (modal) {
+				modal.addEventListener('click', (e) => {
+					if (e.target === modal) {
+						closeModal();
+					}
+				});
+			}
+
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+					closeModal();
+				}
+			});
+
+			if (searchInput) {
+				searchInput.addEventListener('input', (e) => filterStates(e.target.value));
+			}
+
+			stateButtons.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					const abbr = btn.dataset.stateAbbr;
+					if (!abbr) return;
+					const url = homeUrl.includes('?')
+						? `${homeUrl}&state=${encodeURIComponent(abbr)}`
+						: `${homeUrl}?state=${encodeURIComponent(abbr)}`;
+					window.location.href = url;
+				});
+			});
+		});
+	</script>
 	</body>
 	</html>
 

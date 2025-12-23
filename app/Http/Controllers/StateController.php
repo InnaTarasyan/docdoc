@@ -11,21 +11,7 @@ class StateController extends Controller
 {
 	private function getStateNameMapping(): array
 	{
-		return [
-			'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas',
-			'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware',
-			'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho',
-			'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas',
-			'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland',
-			'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi',
-			'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada',
-			'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York',
-			'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma',
-			'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina',
-			'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah',
-			'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia',
-			'WI' => 'Wisconsin', 'WY' => 'Wyoming',
-		];
+		return config('states.names', []);
 	}
 
 	public function index(Request $request)
@@ -59,9 +45,13 @@ class StateController extends Controller
 			$statesWithCounts[$state] = $doctorCount + $orgCount;
 		}
 
-		// Prepare states array with names and counts
 		$stateMapping = $this->getStateNameMapping();
 		$excludedStates = ['DC', 'AE', 'AP', 'PR']; // Exclude these states from the list
+		$defaultState = strtoupper(config('states.default', 'CA'));
+		if (!array_key_exists($defaultState, $statesWithCounts)) {
+			$statesWithCounts[$defaultState] = 0;
+		}
+		// Prepare states array with names and counts
 		$states = [];
 		foreach ($statesWithCounts as $abbr => $count) {
 			// Skip excluded states and only include valid USA states
@@ -72,11 +62,18 @@ class StateController extends Controller
 				'abbreviation' => $abbr,
 				'name' => $stateMapping[$abbr],
 				'count' => $count,
+				'is_default' => $abbr === $defaultState,
 			];
 		}
 
-		// Sort by count descending, then by state name
-		usort($states, function($a, $b) {
+		// Sort by default state first, then count descending, then by state name
+		usort($states, function($a, $b) use ($defaultState) {
+			if ($a['abbreviation'] === $defaultState) {
+				return -1;
+			}
+			if ($b['abbreviation'] === $defaultState) {
+				return 1;
+			}
 			if ($a['count'] === $b['count']) {
 				return strcmp($a['name'], $b['name']);
 			}
@@ -91,6 +88,7 @@ class StateController extends Controller
 			'states' => $states,
 			'totalDoctors' => $totalDoctors,
 			'totalOrganizations' => $totalOrganizations,
+			'defaultState' => $defaultState,
 		]);
 	}
 
@@ -102,6 +100,8 @@ class StateController extends Controller
 		if (!isset($stateMapping[$stateAbbr])) {
 			abort(404, 'State not found');
 		}
+
+		session(['preferred_state' => $stateAbbr]);
 
 		$stateName = $stateMapping[$stateAbbr];
 

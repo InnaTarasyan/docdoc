@@ -13,10 +13,14 @@ class DoctorController extends Controller
 	public function index(Request $request)
 	{
 		$name = (string) $request->get('q', '');
-		$state = (string) $request->get('state', '');
+		$state = $this->resolvePreferredState($request, true);
 		$city = (string) $request->get('city', '');
 		$specialty = (string) $request->get('specialty', '');
 		$gender = (string) $request->get('gender', '');
+
+		if ($state !== '') {
+			session(['preferred_state' => $state]);
+		}
 
 		$doctors = Doctor::query()
 			->when($name !== '', function ($q) use ($name) {
@@ -72,6 +76,8 @@ class DoctorController extends Controller
 			'states' => $states,
 			'cities' => $cities,
 			'specialties' => $specialties,
+			'currentStateName' => $state !== '' ? (config('states.names')[$state] ?? $state) : null,
+			'defaultState' => strtoupper(config('states.default', 'CA')),
 		]);
 	}
 

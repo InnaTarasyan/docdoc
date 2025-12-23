@@ -11,10 +11,14 @@ class OrganizationController extends Controller
 {
 	public function index(Request $request)
 	{
-		$state = (string) $request->get('state', '');
+		$state = $this->resolvePreferredState($request, true);
 		$city = (string) $request->get('city', '');
 		$specialty = (string) $request->get('specialty', '');
 		$name = (string) $request->get('q', '');
+
+		if ($state !== '') {
+			session(['preferred_state' => $state]);
+		}
 
 		$organizations = Organization::query()
 			->when($name !== '', fn ($q) => $q->where('name', 'like', '%' . $name . '%'))
@@ -72,6 +76,8 @@ class OrganizationController extends Controller
 			'states' => $states,
 			'cities' => $cities,
 			'specialties' => $specialties,
+			'currentStateName' => $state !== '' ? (config('states.names')[$state] ?? $state) : null,
+			'defaultState' => strtoupper(config('states.default', 'CA')),
 		]);
 	}
 
