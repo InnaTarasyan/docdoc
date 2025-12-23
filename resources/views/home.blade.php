@@ -53,13 +53,19 @@
 				</svg>
 			</h1>
 			<div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-				<div class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-white text-sm font-semibold border border-white/30 backdrop-blur">
+				<button
+					type="button"
+					class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-white text-sm font-semibold border border-white/30 backdrop-blur transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+					data-open-state-modal
+					aria-haspopup="dialog"
+					aria-controls="state-picker-modal"
+				>
 					<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
 						<circle cx="12" cy="9" r="2.5" />
 					</svg>
-					<span>{{ $currentStateName ?? 'California' }}</span>
-				</div>
+					<span data-selected-state-label>{{ $currentStateName ?? 'California' }}</span>
+				</button>
 				<a href="{{ route('states.index') }}" class="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-emerald-50 border border-white/25 hover:bg-white/15 transition">
 					Change state
 					<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

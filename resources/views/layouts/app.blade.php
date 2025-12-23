@@ -310,6 +310,7 @@
 			const stateButtons = Array.from(modal?.querySelectorAll('[data-state-option]') || []);
 			const stateLabels = Array.from(document.querySelectorAll('[data-selected-state-label]'));
 			const homeUrl = "{{ route('home') }}";
+			const urlParams = new URLSearchParams(window.location.search);
 
 			const openModal = () => {
 				if (!modal) return;
@@ -326,6 +327,13 @@
 				stateLabels.forEach((label) => {
 					label.textContent = name;
 				});
+			};
+
+			const findStateNameByAbbr = (abbr) => {
+				if (!abbr) return null;
+				const target = abbr.toUpperCase();
+				const match = stateButtons.find((btn) => (btn.dataset.stateAbbr || '').toUpperCase() === target);
+				return match?.dataset.stateName || null;
 			};
 
 			const closeModal = () => {
@@ -395,6 +403,15 @@
 					window.location.href = url;
 				});
 			});
+
+			// Sync label with state query param on initial load
+			const stateParam = urlParams.get('state');
+			if (stateParam) {
+				const nameFromParam = findStateNameByAbbr(stateParam);
+				if (nameFromParam) {
+					updateSelectedStateLabels(nameFromParam);
+				}
+			}
 		});
 	</script>
 	</body>
