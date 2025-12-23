@@ -47,7 +47,7 @@ class StateController extends Controller
 
 		$stateMapping = $this->getStateNameMapping();
 		$excludedStates = ['DC', 'AE', 'AP', 'PR']; // Exclude these states from the list
-		$defaultState = strtoupper(config('states.default', 'CA'));
+		$defaultState = $this->resolvePreferredState($request);
 		if (!array_key_exists($defaultState, $statesWithCounts)) {
 			$statesWithCounts[$defaultState] = 0;
 		}

@@ -113,9 +113,9 @@ class HomeController extends Controller
 		}
 
 		$stateMapping = $this->getStateNameMapping();
-		$defaultState = strtoupper(config('states.default', 'CA'));
-		if (!array_key_exists($defaultState, $statesWithCounts)) {
-			$statesWithCounts[$defaultState] = 0;
+		$preferredState = $currentState;
+		if (!array_key_exists($preferredState, $statesWithCounts)) {
+			$statesWithCounts[$preferredState] = 0;
 		}
 		// Prepare states array with names and counts
 		$excludedStates = ['DC', 'AE', 'AP', 'PR']; // Exclude these states from the list
@@ -129,16 +129,16 @@ class HomeController extends Controller
 				'abbreviation' => $abbr,
 				'name' => $stateMapping[$abbr],
 				'count' => $count,
-				'is_default' => $abbr === $defaultState,
+				'is_default' => $abbr === $preferredState,
 			];
 		}
 
 		// Sort by count descending, then by state name
-		usort($states, function($a, $b) use ($defaultState) {
-			if ($a['abbreviation'] === $defaultState) {
+		usort($states, function($a, $b) use ($preferredState) {
+			if ($a['abbreviation'] === $preferredState) {
 				return -1;
 			}
-			if ($b['abbreviation'] === $defaultState) {
+			if ($b['abbreviation'] === $preferredState) {
 				return 1;
 			}
 			if ($a['count'] === $b['count']) {
@@ -179,7 +179,7 @@ class HomeController extends Controller
 			'patientStories' => $patientStories,
 			'currentState' => $currentState,
 			'currentStateName' => $currentStateName,
-			'defaultState' => $defaultState,
+			'defaultState' => $preferredState,
 		]);
 	}
 
