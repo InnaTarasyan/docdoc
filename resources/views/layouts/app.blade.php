@@ -96,6 +96,7 @@
 							</svg>
 							<span>PrimeDoctors</span>
 						</a>
+						<!--
 						<button
 							type="button"
 							class="hidden sm:inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-gray-800 shadow-sm hover:border-emerald-400 hover:text-emerald-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
@@ -112,6 +113,7 @@
 								data-selected-state-label
 							>{{ $preferredStateName ?? 'California' }}</span>
 						</button>
+						-->
 					</div>
 					<nav class="hidden sm:flex items-center gap-6 text-sm">
 						<a href="{{ route('doctors.index') }}" class="text-gray-700 hover:text-brand-700 transition-colors font-medium">Doctors</a>
@@ -404,10 +406,19 @@
 				});
 			});
 
-			// Sync label with state query param on initial load
-			const stateParam = urlParams.get('state');
-			if (stateParam) {
-				const nameFromParam = findStateNameByAbbr(stateParam);
+			// Sync label with state query param or route param on initial load
+			let stateAbbr = urlParams.get('state');
+			
+			// If no query param, check if we're on a /states/{state} page
+			if (!stateAbbr) {
+				const pathMatch = window.location.pathname.match(/^\/states\/([a-z]{2})$/i);
+				if (pathMatch) {
+					stateAbbr = pathMatch[1];
+				}
+			}
+			
+			if (stateAbbr) {
+				const nameFromParam = findStateNameByAbbr(stateAbbr);
 				if (nameFromParam) {
 					updateSelectedStateLabels(nameFromParam);
 				}
