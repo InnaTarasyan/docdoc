@@ -107,7 +107,10 @@
 								<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z" stroke-linecap="round" stroke-linejoin="round"/>
 								<circle cx="12" cy="9" r="2.5" />
 							</svg>
-							<span class="text-sm font-semibold text-emerald-800">{{ $preferredStateName ?? 'California' }}</span>
+							<span
+								class="text-sm font-semibold text-emerald-800"
+								data-selected-state-label
+							>{{ $preferredStateName ?? 'California' }}</span>
 						</button>
 					</div>
 					<nav class="hidden sm:flex items-center gap-6 text-sm">
@@ -159,7 +162,10 @@
 									aria-controls="state-picker-modal"
 								>
 									<span class="sr-only">Preferred state</span>
-									<span class="text-sm font-semibold text-emerald-800 hover:text-emerald-900 underline-offset-2 hover:underline">{{ $preferredStateName ?? 'California' }}</span>
+									<span
+										class="text-sm font-semibold text-emerald-800 hover:text-emerald-900 underline-offset-2 hover:underline"
+										data-selected-state-label
+									>{{ $preferredStateName ?? 'California' }}</span>
 								</button>
 							</div>
 						</div>
@@ -239,21 +245,24 @@
 		aria-labelledby="state-picker-title"
 	>
 		<div
-			class="vfm__content w-full max-w-3xl rounded-3xl bg-white shadow-2xl overflow-hidden"
+			class="vfm__content w-full max-w-3xl rounded-3xl bg-white shadow-2xl max-h-[90vh] sm:max-h-[85vh] flex flex-col overflow-hidden"
 			data-state-modal-panel
 		>
-			<div class="popup__wrap relative">
+			<div class="popup__wrap relative flex flex-col h-full">
 				<button
 					type="button"
 					class="popup__close"
 					data-close-state-modal
 					aria-label="Close state picker"
 				></button>
-				<div class="popup__title flex items-center justify-between gap-2 pr-10">
-					<span id="state-picker-title">Choose your state</span>
-					<span class="text-xs text-gray-500 font-medium">{{ count($statePickerOptions ?? []) }} available</span>
+				<div class="popup__title flex items-center justify-between gap-2 pr-10 px-4 pt-4 sm:px-6 sm:pt-6">
+					<div>
+						<p class="text-xs text-emerald-700 font-semibold uppercase tracking-wide">Location</p>
+						<span id="state-picker-title" class="text-lg font-semibold text-gray-900">Choose your state</span>
+					</div>
+					<span class="text-xs text-gray-500 font-medium rounded-full bg-gray-100 px-3 py-1">{{ count($statePickerOptions ?? []) }} available</span>
 				</div>
-				<div class="popup__scroller max-h-[75vh]">
+				<div class="popup__scroller max-h-[75vh] sm:max-h-[70vh] overflow-y-auto px-4 pb-4 sm:px-6 sm:pb-6 flex-1">
 					<div class="popup__content space-y-4">
 						<div class="field field-text">
 							<div class="field-text__wrap">
@@ -299,6 +308,7 @@
 			const closeButtons = modal?.querySelectorAll('[data-close-state-modal]') || [];
 			const searchInput = document.getElementById('state-picker-search');
 			const stateButtons = Array.from(modal?.querySelectorAll('[data-state-option]') || []);
+			const stateLabels = Array.from(document.querySelectorAll('[data-selected-state-label]'));
 			const homeUrl = "{{ route('home') }}";
 
 			const openModal = () => {
@@ -309,6 +319,13 @@
 				if (searchInput) {
 					setTimeout(() => searchInput.focus(), 50);
 				}
+			};
+
+			const updateSelectedStateLabels = (name) => {
+				if (!name) return;
+				stateLabels.forEach((label) => {
+					label.textContent = name;
+				});
 			};
 
 			const closeModal = () => {
@@ -367,7 +384,11 @@
 			stateButtons.forEach((btn) => {
 				btn.addEventListener('click', () => {
 					const abbr = btn.dataset.stateAbbr;
+					const name = btn.dataset.stateName;
 					if (!abbr) return;
+					if (name) {
+						updateSelectedStateLabels(name);
+					}
 					const url = homeUrl.includes('?')
 						? `${homeUrl}&state=${encodeURIComponent(abbr)}`
 						: `${homeUrl}?state=${encodeURIComponent(abbr)}`;
