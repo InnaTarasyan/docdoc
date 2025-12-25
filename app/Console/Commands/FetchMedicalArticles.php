@@ -73,7 +73,7 @@ class FetchMedicalArticles extends Command
 					'content' => $article['content'],
 					'image_url' => $article['image_url'] ?? $this->getRandomMedicalImage(),
 					'author' => $article['author'] ?? $this->getRandomAuthor(),
-					'category' => $article['category'] ?? $this->getRandomCategory(),
+					'topic' => $article['category'] ?? $article['topic'] ?? $this->getRandomCategory(),
 					'read_time' => $article['read_time'] ?? $this->calculateReadTime($article['content']),
 					'published_at' => $article['published_at'] ?? Carbon::now()->subDays(rand(0, 90)),
 				]
@@ -100,17 +100,27 @@ class FetchMedicalArticles extends Command
 		$newsApiKey = env('NEWS_API_KEY');
 		if ($newsApiKey) {
 			try {
+				$this->info('Attempting to fetch from NewsAPI...');
 				$newsArticles = $this->fetchFromNewsAPI($newsApiKey);
-				$articles = array_merge($articles, $newsArticles);
+				if (!empty($newsArticles)) {
+					$this->info('Successfully fetched ' . count($newsArticles) . ' articles from NewsAPI.');
+					$articles = array_merge($articles, $newsArticles);
+				}
 			} catch (\Exception $e) {
 				$this->warn('NewsAPI fetch failed: ' . $e->getMessage());
 			}
+		} else {
+			$this->line('NewsAPI key not configured. Skipping NewsAPI fetch.');
 		}
 
 		// Try fetching from RSS feeds
 		try {
+			$this->info('Attempting to fetch from RSS feeds...');
 			$rssArticles = $this->fetchFromRSSFeeds();
-			$articles = array_merge($articles, $rssArticles);
+			if (!empty($rssArticles)) {
+				$this->info('Successfully fetched ' . count($rssArticles) . ' articles from RSS feeds.');
+				$articles = array_merge($articles, $rssArticles);
+			}
 		} catch (\Exception $e) {
 			$this->warn('RSS feed fetch failed: ' . $e->getMessage());
 		}
@@ -118,7 +128,10 @@ class FetchMedicalArticles extends Command
 		// Try fetching from medical news websites
 		try {
 			$webArticles = $this->fetchFromMedicalWebsites();
-			$articles = array_merge($articles, $webArticles);
+			if (!empty($webArticles)) {
+				$this->info('Successfully fetched ' . count($webArticles) . ' articles from medical websites.');
+				$articles = array_merge($articles, $webArticles);
+			}
 		} catch (\Exception $e) {
 			$this->warn('Web scraping failed: ' . $e->getMessage());
 		}
@@ -156,7 +169,7 @@ class FetchMedicalArticles extends Command
 									'content' => '<p>' . nl2br(e($item['content'])) . '</p>',
 									'image_url' => $item['urlToImage'] ?? null,
 									'author' => $item['author'] ?? 'Medical News',
-									'category' => $this->categorizeArticle($item['title']),
+									'topic' => $this->categorizeArticle($item['title']),
 									'published_at' => isset($item['publishedAt']) ? Carbon::parse($item['publishedAt']) : null,
 								];
 							}
@@ -183,35 +196,53 @@ class FetchMedicalArticles extends Command
 			'https://www.medicalnewstoday.com/rss',
 			'https://www.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC',
 			'https://www.healthline.com/rss',
+			'https://www.mayoclinic.org/rss/all-mayo-clinic-news',
+			'https://www.health.harvard.edu/blog/rss.xml',
+			'https://www.nih.gov/news-events/news-releases/rss',
 		];
 
 		foreach ($feeds as $feedUrl) {
 			try {
-				$response = Http::timeout(10)->get($feedUrl);
+				$this->line("Fetching from: {$feedUrl}");
+				$response = Http::timeout(15)
+					->withHeaders([
+						'User-Agent' => 'Mozilla/5.0 (compatible; MedicalArticleBot/1.0)',
+					])
+					->get($feedUrl);
+				
 				if ($response->successful()) {
+					libxml_use_internal_errors(true);
 					$xml = simplexml_load_string($response->body());
+					libxml_clear_errors();
+					
 					if ($xml && isset($xml->channel->item)) {
+						$count = 0;
 						foreach ($xml->channel->item as $item) {
 							$title = (string) $item->title;
-							$description = (string) ($item->description ?? '');
+							$description = (string) ($item->description ?? $item->summary ?? '');
 							$link = (string) $item->link;
 							
 							if (!empty($title)) {
 								$articles[] = [
 									'title' => $title,
-									'excerpt' => strip_tags($description),
+									'excerpt' => $this->generateExcerpt(strip_tags($description)),
 									'content' => '<p>' . nl2br(e($description)) . '</p><p><a href="' . e($link) . '" target="_blank">Read more</a></p>',
 									'image_url' => $this->extractImageFromRSS($item),
-									'author' => (string) ($item->author ?? 'Medical News'),
+									'author' => (string) ($item->author ?? $item->{'dc:creator'} ?? 'Medical News'),
 									'category' => $this->categorizeArticle($title),
-									'published_at' => isset($item->pubDate) ? Carbon::parse($item->pubDate) : null,
+									'published_at' => isset($item->pubDate) ? Carbon::parse($item->pubDate) : (isset($item->published) ? Carbon::parse($item->published) : Carbon::now()->subDays(rand(0, 30))),
 								];
+								$count++;
 							}
 						}
+						$this->info("  ✓ Fetched {$count} articles from " . parse_url($feedUrl, PHP_URL_HOST));
 					}
+				} else {
+					$this->warn("  ✗ Failed to fetch from {$feedUrl}: HTTP {$response->status()}");
 				}
 				sleep(1);
 			} catch (\Exception $e) {
+				$this->warn("  ✗ Error fetching from {$feedUrl}: " . $e->getMessage());
 				continue;
 			}
 		}
@@ -568,6 +599,33 @@ class FetchMedicalArticles extends Command
 				'author' => 'Dr. Amanda Foster',
 				'category' => 'Mental Health',
 				'read_time' => 9,
+			],
+			[
+				'title' => 'Cholesterol Management: Understanding Your Numbers',
+				'excerpt' => 'High cholesterol is a major risk factor for heart disease. Learn about cholesterol types, healthy levels, and management strategies.',
+				'content' => '<p>Cholesterol is a waxy substance found in your blood. While your body needs cholesterol to build healthy cells, high levels can increase your risk of heart disease.</p><p><strong>Types of Cholesterol:</strong></p><ul><li><strong>LDL (Low-Density Lipoprotein):</strong> "Bad" cholesterol that can build up in arteries</li><li><strong>HDL (High-Density Lipoprotein):</strong> "Good" cholesterol that helps remove LDL</li><li><strong>Triglycerides:</strong> Type of fat in blood</li></ul><p><strong>Ideal Cholesterol Levels:</strong></p><ul><li>Total cholesterol: Less than 200 mg/dL</li><li>LDL: Less than 100 mg/dL</li><li>HDL: 60 mg/dL or higher</li><li>Triglycerides: Less than 150 mg/dL</li></ul><p><strong>Risk Factors:</strong></p><ul><li>Poor diet</li><li>Lack of exercise</li><li>Smoking</li><li>Age and gender</li><li>Family history</li><li>Obesity</li></ul><p><strong>Management Strategies:</strong></p><p><strong>1. Dietary Changes:</strong></p><ul><li>Reduce saturated and trans fats</li><li>Eat more fiber-rich foods</li><li>Include omega-3 fatty acids</li><li>Limit processed foods</li></ul><p><strong>2. Exercise Regularly:</strong></p><p>At least 150 minutes of moderate exercise per week can help raise HDL and lower LDL.</p><p><strong>3. Maintain Healthy Weight:</strong></p><p>Losing excess weight can help lower cholesterol levels.</p><p><strong>4. Medications:</strong></p><p>Statins and other medications may be prescribed when lifestyle changes aren\'t enough.</p><p>Regular cholesterol screening is important for early detection and management. Consult your healthcare provider to determine your risk and appropriate management plan.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop',
+				'author' => 'Dr. Sarah Mitchell',
+				'category' => 'Cardiology',
+				'read_time' => 6,
+			],
+			[
+				'title' => 'Preventing the Common Cold: Tips and Strategies',
+				'excerpt' => 'While you can\'t always avoid catching a cold, there are effective strategies to reduce your risk and manage symptoms.',
+				'content' => '<p>The common cold is a viral infection of the upper respiratory tract. While there\'s no cure, prevention and symptom management can help you stay healthy.</p><p><strong>Prevention Strategies:</strong></p><ul><li>Wash hands frequently with soap and water</li><li>Avoid touching face, especially eyes, nose, and mouth</li><li>Stay away from sick people</li><li>Get adequate sleep</li><li>Manage stress</li><li>Eat a balanced diet</li><li>Stay hydrated</li><li>Consider vitamin D supplements</li></ul><p><strong>Symptom Management:</strong></p><ul><li>Rest and stay hydrated</li><li>Use saline nasal sprays</li><li>Gargle with salt water</li><li>Use over-the-counter medications for symptom relief</li><li>Use a humidifier</li><li>Get plenty of rest</li></ul><p><strong>When to See a Doctor:</strong></p><p>Seek medical attention if symptoms persist for more than 10 days, you have a high fever, or experience severe symptoms.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=600&fit=crop',
+				'author' => 'Dr. James Anderson',
+				'category' => 'Preventive Care',
+				'read_time' => 5,
+			],
+			[
+				'title' => 'Weight Management: Sustainable Approaches to Healthy Weight',
+				'excerpt' => 'Achieving and maintaining a healthy weight involves sustainable lifestyle changes rather than quick fixes.',
+				'content' => '<p>Weight management is about finding a balance between calories consumed and calories burned. Sustainable weight management focuses on long-term lifestyle changes.</p><p><strong>Key Principles:</strong></p><ul><li>Set realistic goals</li><li>Focus on gradual changes</li><li>Combine diet and exercise</li><li>Build sustainable habits</li></ul><p><strong>Nutrition Strategies:</strong></p><ul><li>Eat nutrient-dense foods</li><li>Control portion sizes</li><li>Stay hydrated</li><li>Limit processed foods</li><li>Eat regular meals</li></ul><p><strong>Exercise Recommendations:</strong></p><ul><li>Aim for 150-300 minutes of moderate exercise per week</li><li>Include strength training</li><li>Find activities you enjoy</li><li>Be consistent</li></ul><p><strong>Behavioral Changes:</strong></p><ul><li>Track food intake</li><li>Identify triggers</li><li>Practice mindful eating</li><li>Get adequate sleep</li><li>Manage stress</li></ul><p>Remember, weight management is a journey. Small, consistent changes lead to lasting results. Consult with healthcare providers or registered dietitians for personalized guidance.</p>',
+				'image_url' => 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=600&fit=crop',
+				'author' => 'Dr. Lisa Rodriguez',
+				'category' => 'Nutrition',
+				'read_time' => 7,
 			],
 		];
 	}
