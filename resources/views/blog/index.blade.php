@@ -20,28 +20,105 @@
 	<!-- Topic Filter Section -->
 	<section class="mt-6 sm:mt-8">
 		<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-6">
-			<div class="flex items-center justify-between mb-4">
-				<h2 class="text-lg sm:text-xl font-semibold text-gray-900">Filter by Topic</h2>
-				@if(request('topic'))
-					<a href="{{ route('blog.index') }}" class="text-sm font-medium text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-						</svg>
-						Clear filter
-					</a>
-				@endif
+			<div class="flex items-center justify-between mb-4 sm:mb-6">
+				<h2 class="text-lg sm:text-xl font-semibold text-gray-900">Explore by Topic</h2>
+				<div class="flex items-center gap-3">
+					@if(request('topic'))
+						<a href="{{ route('blog.index') }}" class="text-sm font-medium text-emerald-700 hover:text-emerald-800 flex items-center gap-1 transition-colors">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+							</svg>
+							<span class="hidden sm:inline">Clear filter</span>
+						</a>
+					@endif
+					@if(!request('topic'))
+						<a href="{{ route('blog.topics') }}" class="text-sm font-medium text-emerald-700 hover:text-emerald-800 flex items-center gap-1 transition-colors">
+							<span>View All</span>
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+							</svg>
+						</a>
+					@endif
+				</div>
 			</div>
-			<div class="flex flex-wrap gap-2 sm:gap-3">
-				<a href="{{ route('blog.index') }}" 
-					class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 {{ !request('topic') ? 'bg-emerald-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-					All Topics
-				</a>
-				@foreach($topics as $topic)
-					<a href="{{ route('blog.index', ['topic' => $topic]) }}" 
-						class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 {{ request('topic') === $topic ? 'bg-emerald-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-						{{ $topic }}
-					</a>
-				@endforeach
+			
+			<!-- Horizontal Scrolling Topic Cards -->
+			<div class="w-full overflow-hidden">
+				<div class="overflow-x-auto scrollbar-hide pb-2 -mx-4 sm:-mx-6 px-4 sm:px-6">
+					<ul class="flex gap-3 sm:gap-4">
+						@php
+							$getTopicImage = function($topicName) {
+								$topicSlug = strtolower(str_replace([' ', "'"], ['-', ''], $topicName));
+								$imagePath = "/img/topics/{$topicSlug}.png";
+								$fullPath = public_path($imagePath);
+								return file_exists($fullPath) ? asset($imagePath) : null;
+							};
+						@endphp
+						
+						<!-- All Topics Card -->
+						<li class="flex-shrink-0">
+							<a href="{{ route('blog.index') }}" 
+								class="group block w-[140px] transition-all duration-200 hover:scale-105">
+								<div class="relative overflow-hidden rounded-xl bg-gradient-to-br {{ !request('topic') ? 'from-emerald-600 to-emerald-700 ring-2 ring-emerald-500 ring-offset-2' : 'from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300' }} transition-all duration-200 aspect-[4/3] shadow-sm hover:shadow-md">
+									@if(!request('topic'))
+										<div class="absolute inset-0 bg-gradient-to-br from-emerald-600 to-emerald-700"></div>
+									@endif
+									<div class="absolute inset-0 flex flex-col items-center justify-center p-3">
+										<div class="text-center">
+											<span class="text-xs sm:text-sm font-semibold {{ !request('topic') ? 'text-white' : 'text-gray-900' }} leading-tight block">
+												All Topics
+											</span>
+										</div>
+									</div>
+								</div>
+							</a>
+						</li>
+						
+						<!-- Topic Cards -->
+						@foreach($topics as $topic)
+							@php
+								$topicImage = $getTopicImage($topic);
+								$isActive = request('topic') === $topic;
+							@endphp
+							<li class="flex-shrink-0">
+								<a href="{{ route('blog.index', ['topic' => $topic]) }}" 
+									class="group block w-[140px] transition-all duration-200 hover:scale-105">
+									<div class="relative overflow-hidden rounded-xl {{ $isActive ? 'ring-2 ring-emerald-500 ring-offset-2' : '' }} transition-all duration-200 aspect-[4/3] shadow-sm hover:shadow-md">
+										@if($topicImage)
+											<img 
+												src="{{ $topicImage }}" 
+												alt="{{ $topic }}"
+												class="w-full h-full object-cover {{ $isActive ? 'opacity-100' : 'opacity-90 group-hover:opacity-100' }} transition-opacity duration-200"
+												loading="lazy"
+											>
+										@else
+											<div class="w-full h-full bg-gradient-to-br {{ $isActive ? 'from-emerald-500 to-emerald-600' : 'from-gray-200 to-gray-300 group-hover:from-gray-300 group-hover:to-gray-400' }} transition-all duration-200 flex items-center justify-center">
+												@php
+													$topicIcon = match(strtolower($topic)) {
+														'cardiology' => 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+														'neurology' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+														'dermatology' => 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z',
+														'pediatrics' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z',
+														'oncology' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+														default => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'
+													};
+												@endphp
+												<svg class="w-12 h-12 {{ $isActive ? 'text-white' : 'text-gray-500' }} opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $topicIcon }}"/>
+												</svg>
+											</div>
+										@endif
+										<div class="absolute inset-0 flex items-end justify-center p-2 sm:p-3">
+											<span class="text-xs sm:text-sm font-semibold {{ $isActive ? 'text-white drop-shadow-lg' : 'text-gray-900 bg-white/80 backdrop-blur-sm px-2 py-1 rounded' }} leading-tight text-center">
+												{{ $topic }}
+											</span>
+										</div>
+									</div>
+								</a>
+							</li>
+						@endforeach
+					</ul>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -167,6 +244,23 @@
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+	}
+	
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+	
+	/* Hide scrollbar for IE, Edge and Firefox */
+	.scrollbar-hide {
+		-ms-overflow-style: none;  /* IE and Edge */
+		scrollbar-width: none;  /* Firefox */
+	}
+	
+	/* Smooth scrolling */
+	.scrollbar-hide {
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch;
 	}
 </style>
 @endsection

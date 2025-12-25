@@ -23,15 +23,34 @@ class BlogController extends Controller
             ->paginate(12)
             ->withQueryString(); // Preserve query parameters in pagination links
 
-        // Get all unique topics for the filter
+        // Get only first 5 unique topics for the filter
         $topics = BlogPost::whereNotNull('published_at')
             ->where('published_at', '<=', now())
             ->whereNotNull('topic')
             ->distinct()
             ->orderBy('topic')
+            ->limit(5)
             ->pluck('topic');
 
         return view('blog.index', compact('posts', 'topics'));
+    }
+
+    /**
+     * Show all topics page (similar to healthline.com/wellness)
+     */
+    public function topics()
+    {
+        // Get all unique topics with post counts
+        $topics = BlogPost::whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->whereNotNull('topic')
+            ->select('topic')
+            ->selectRaw('COUNT(*) as post_count')
+            ->groupBy('topic')
+            ->orderBy('topic')
+            ->get();
+
+        return view('blog.topics', compact('topics'));
     }
 
     public function show(BlogPost $post)
