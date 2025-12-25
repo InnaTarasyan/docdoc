@@ -1038,8 +1038,8 @@
 							<a href="{{ route('blog.show', $post) }}" class="article-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white text-left shadow-lg shadow-emerald-900/10 transition-all duration-200 hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative">
 								<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-transparent to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0"></div>
 								<div class="relative h-44 sm:h-52 lg:h-56 bg-gradient-to-br {{ $scheme['bg'] }} z-10 overflow-hidden">
-									@if($post->image_url)
-										<img src="{{ $post->image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+									@if($post->valid_image_url)
+										<img src="{{ $post->valid_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
 									@else
 										<div class="absolute inset-0 bg-gradient-to-br {{ $scheme['bg'] }}"></div>
 										<svg class="w-20 h-20 sm:w-24 sm:h-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 {{ $scheme['icon'] }} group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

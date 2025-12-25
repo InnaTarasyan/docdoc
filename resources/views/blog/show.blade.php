@@ -14,10 +14,10 @@
 <div class="grid gap-6 sm:gap-8">
 	<!-- Article Header -->
 	<article class="bg-white rounded-2xl sm:rounded-[32px] border border-gray-100 shadow-sm overflow-hidden">
-		@if($post->image_url)
+		@if($post->valid_image_url)
 			<div class="relative h-64 sm:h-80 lg:h-96 overflow-hidden bg-gradient-to-br from-emerald-100 to-emerald-200">
 				<img 
-					src="{{ $post->image_url }}" 
+					src="{{ $post->valid_image_url }}" 
 					alt="{{ $post->title }}"
 					class="w-full h-full object-cover"
 					loading="eager"
@@ -134,10 +134,10 @@
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 				@foreach($relatedPosts as $relatedPost)
 					<article class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-						@if($relatedPost->image_url)
+						@if($relatedPost->valid_image_url)
 							<a href="{{ route('blog.show', $relatedPost) }}" class="block relative h-48 overflow-hidden bg-gradient-to-br from-emerald-100 to-emerald-200">
 								<img 
-									src="{{ $relatedPost->image_url }}" 
+									src="{{ $relatedPost->valid_image_url }}" 
 									alt="{{ $relatedPost->title }}"
 									class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
 									loading="lazy"
