@@ -397,7 +397,7 @@
 		@endif
 		
 		<div id="blog-articles-container">
-			@include('blog._articles', ['posts' => $posts])
+			@include('blog._articles', ['posts' => $posts, 'searchTerm' => $searchTerm ?? null])
 		</div>
 		
 		<!-- Loading indicator -->

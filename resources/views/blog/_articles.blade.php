@@ -1,3 +1,22 @@
+@php
+	// Helper function to highlight search terms
+	$highlightSearch = function($text, $searchTerm) {
+		if (empty($searchTerm) || empty($text)) {
+			return e($text);
+		}
+		
+		// Escape search term for regex pattern
+		$pattern = '/(' . preg_quote($searchTerm, '/') . ')/i';
+		
+		// Use preg_replace_callback to highlight matches while preserving case
+		$result = preg_replace_callback($pattern, function($matches) {
+			return '<mark class="bg-yellow-200 text-gray-900 px-0.5 rounded">' . e($matches[0]) . '</mark>';
+		}, $text);
+		
+		return $result ?: e($text);
+	};
+@endphp
+
 @if($posts->count() > 0)
 	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6" id="blog-articles-grid">
 		@foreach($posts as $post)
@@ -12,7 +31,7 @@
 						>
 						<div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 md:top-4 md:right-4">
 							<span class="inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur-sm px-2 py-0.5 sm:px-2.5 sm:py-1 md:px-3 text-[10px] sm:text-xs font-semibold text-emerald-700 shadow-sm">
-								{{ $post->topic }}
+								{!! $highlightSearch($post->topic, $searchTerm ?? null) !!}
 							</span>
 						</div>
 					</a>
@@ -25,7 +44,7 @@
 						</div>
 						<div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 md:top-4 md:right-4">
 							<span class="inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur-sm px-2 py-0.5 sm:px-2.5 sm:py-1 md:px-3 text-[10px] sm:text-xs font-semibold text-emerald-700 shadow-sm">
-								{{ $post->topic }}
+								{!! $highlightSearch($post->topic, $searchTerm ?? null) !!}
 							</span>
 						</div>
 					</a>
@@ -41,16 +60,16 @@
 					</div>
 					
 					<h2 class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-2 sm:mb-2.5 md:mb-3 group-hover:text-emerald-700 transition-colors line-clamp-2">
-						<a href="{{ route('blog.show', $post) }}">{{ $post->title }}</a>
+						<a href="{{ route('blog.show', $post) }}">{!! $highlightSearch($post->title, $searchTerm ?? null) !!}</a>
 					</h2>
 					
 					@if($post->excerpt)
 						<p class="text-gray-600 text-xs sm:text-sm md:text-base mb-2.5 sm:mb-3 md:mb-4 line-clamp-3 leading-relaxed">
-							{{ $post->excerpt }}
+							{!! $highlightSearch($post->excerpt, $searchTerm ?? null) !!}
 						</p>
 					@elseif($post->content)
 						<p class="text-gray-600 text-xs sm:text-sm md:text-base mb-2.5 sm:mb-3 md:mb-4 line-clamp-3 leading-relaxed">
-							{{ \Illuminate\Support\Str::limit(strip_tags($post->content), 150) }}
+							{!! $highlightSearch(\Illuminate\Support\Str::limit(strip_tags($post->content), 150), $searchTerm ?? null) !!}
 						</p>
 					@endif
 					

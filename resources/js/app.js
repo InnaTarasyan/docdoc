@@ -1091,6 +1091,7 @@ function initBlogAjaxSearch() {
 	}
 
 	let searchAbortController = null;
+	let isInitialized = false;
 
 	const showLoading = () => {
 		if (loadingIndicator) {
@@ -1258,8 +1259,9 @@ function initBlogAjaxSearch() {
 				articlesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 			}
 
+			// Update URL using replaceState for pagination
 			if (data.url) {
-				history.pushState({}, '', data.url);
+				history.replaceState({}, '', data.url);
 			}
 
 		} catch (error) {
@@ -1270,104 +1272,29 @@ function initBlogAjaxSearch() {
 	});
 
 	// Handle browser back/forward buttons
-	window.addEventListener('popstate', async () => {
-		// Check if we're still on the blog page
-		if (!window.location.pathname.includes('/blog')) {
+	// Only handle if page is fully loaded and elements exist
+	window.addEventListener('popstate', () => {
+		// Only handle if we're initialized and on blog page
+		if (!isInitialized || !window.location.pathname.includes('/blog')) {
 			return;
 		}
 
-		// Re-check if elements still exist (if page was fully reloaded, they won't)
-		// In that case, the page loaded normally and we don't need to do anything
-		const currentSearchForm = document.getElementById('blog-search-form');
-		const currentSearchInput = document.getElementById('blog-search-input');
+		// Double-check elements exist (they should if initialized, but be safe)
 		const currentArticlesContainer = document.getElementById('blog-articles-container');
-		const currentClearButton = document.getElementById('blog-search-clear');
-		const currentLoadingIndicator = document.getElementById('blog-loading');
-		
-		if (!currentSearchForm || !currentSearchInput || !currentArticlesContainer) {
-			// Page was fully reloaded by browser, let it be - nothing to do
+		if (!currentArticlesContainer) {
+			// Page was reloaded, let browser handle it
 			return;
 		}
 
-		const url = new URL(window.location.href);
-		const searchTerm = url.searchParams.get('q') || '';
-		const topic = url.searchParams.get('topic') || '';
-
-		// Update input value
-		currentSearchInput.value = searchTerm;
-
-		// Update topic hidden input if exists
-		const topicInput = currentSearchForm.querySelector('input[name="topic"]');
-		if (topicInput) {
-			if (topic) {
-				topicInput.value = topic;
-			} else {
-				topicInput.remove();
-			}
-		} else if (topic) {
-			const hiddenInput = document.createElement('input');
-			hiddenInput.type = 'hidden';
-			hiddenInput.name = 'topic';
-			hiddenInput.value = topic;
-			currentSearchForm.appendChild(hiddenInput);
-		}
-
-		// Update clear button
-		if (currentClearButton) {
-			if (searchTerm) {
-				currentClearButton.classList.remove('hidden');
-			} else {
-				currentClearButton.classList.add('hidden');
-			}
-		}
-
-		// Fetch and update content via AJAX
-		try {
-			if (currentLoadingIndicator) {
-				currentLoadingIndicator.classList.remove('hidden');
-			}
-			if (currentArticlesContainer) {
-				currentArticlesContainer.style.opacity = '0.5';
-				currentArticlesContainer.style.pointerEvents = 'none';
-			}
-
-			const fetchUrl = new URL(window.location.href);
-
-			const response = await fetch(fetchUrl.toString(), {
-				headers: {
-					'Accept': 'application/json',
-					'X-Requested-With': 'XMLHttpRequest',
-				},
-				cache: 'no-cache',
-			});
-
-			if (!response.ok) {
-				throw new Error('Failed to load content');
-			}
-
-			const data = await response.json();
-
-			if (data.html && currentArticlesContainer) {
-				currentArticlesContainer.innerHTML = data.html;
-			} else {
-				throw new Error('No HTML content received');
-			}
-
-		} catch (error) {
-			console.error('Error loading content on popstate:', error);
-			// On error, reload the page to ensure it works correctly
-			window.location.reload();
-			return;
-		} finally {
-			if (currentLoadingIndicator) {
-				currentLoadingIndicator.classList.add('hidden');
-			}
-			if (currentArticlesContainer) {
-				currentArticlesContainer.style.opacity = '1';
-				currentArticlesContainer.style.pointerEvents = 'auto';
-			}
-		}
+		// Simply reload the page - this is the most reliable approach
+		// It ensures all state is correct and prevents any conflicts
+		window.location.reload();
 	});
+
+	// Mark as initialized after a short delay to ensure DOM is ready
+	setTimeout(() => {
+		isInitialized = true;
+	}, 500);
 
 	// Initialize clear button visibility
 	if (clearButton) {

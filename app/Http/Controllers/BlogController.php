@@ -47,10 +47,13 @@ class BlogController extends Controller
             ->limit(5)
             ->pluck('topic');
 
+        // Get search term for highlighting
+        $searchTerm = $request->has('q') && $request->q ? trim($request->q) : null;
+
         // If AJAX request, return JSON with HTML
         if ($request->wantsJson() || $request->ajax()) {
             try {
-                $html = view('blog._articles', compact('posts'))->render();
+                $html = view('blog._articles', compact('posts', 'searchTerm'))->render();
                 
                 // Build URL with query parameters (filter out empty values)
                 $url = url()->current();
@@ -81,7 +84,7 @@ class BlogController extends Controller
             }
         }
 
-        return view('blog.index', compact('posts', 'topics'));
+        return view('blog.index', compact('posts', 'topics', 'searchTerm'));
     }
 
     /**
