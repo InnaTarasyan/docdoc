@@ -15,7 +15,7 @@ class FetchMedicalArticles extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'blog:fetch-articles {--limit=100 : Maximum number of articles to fetch}';
+	protected $signature = 'blog:fetch-articles {--limit=1100 : Maximum number of articles to fetch}';
 
 	/**
 	 * The console command description.
@@ -158,13 +158,19 @@ class FetchMedicalArticles extends Command
 			'health', 'medicine', 'medical', 'healthcare', 'wellness', 'disease', 'treatment',
 			'cardiology', 'oncology', 'pediatrics', 'mental health', 'diabetes', 'cancer',
 			'nutrition', 'fitness', 'prevention', 'vaccine', 'surgery', 'therapy', 'diagnosis',
-			'pharmaceutical', 'clinical trial', 'public health', 'epidemiology', 'immunology'
+			'pharmaceutical', 'clinical trial', 'public health', 'epidemiology', 'immunology',
+			'heart disease', 'stroke', 'hypertension', 'obesity', 'depression', 'anxiety',
+			'asthma', 'arthritis', 'osteoporosis', 'migraine', 'allergy', 'digestive health',
+			'skin care', 'eye health', 'dental health', 'bone health', 'immune system',
+			'respiratory health', 'neurology', 'dermatology', 'orthopedics', 'urology',
+			'gynecology', 'geriatrics', 'emergency medicine', 'radiology', 'pathology',
+			'anesthesiology', 'psychiatry', 'physical therapy', 'occupational therapy'
 		];
 		
 		foreach ($keywords as $keyword) {
 			try {
 				// Fetch multiple pages to get more articles
-				for ($page = 1; $page <= 5; $page++) {
+				for ($page = 1; $page <= 20; $page++) {
 					$response = Http::timeout(10)->get('https://newsapi.org/v2/everything', [
 						'q' => $keyword,
 						'language' => 'en',
@@ -237,7 +243,6 @@ class FetchMedicalArticles extends Command
 			'https://www.health.com/rss/all.xml', // Health.com
 			'https://www.verywellhealth.com/rss', // Verywell Health
 			'https://www.everydayhealth.com/rss/', // Everyday Health
-			'https://www.health.com/rss/all.xml', // Health Magazine
 			'https://www.prevention.com/rss', // Prevention
 			'https://www.menshealth.com/rss/all.xml', // Men's Health
 			'https://www.womenshealthmag.com/rss/all.xml', // Women's Health
@@ -248,6 +253,20 @@ class FetchMedicalArticles extends Command
 			'https://www.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC_MAIN', // WebMD (alternative)
 			'https://www.mayoclinic.org/rss/all-mayo-clinic-news', // Mayo Clinic (retry)
 			'https://www.nih.gov/news-events/news-releases/rss', // NIH (retry)
+			// Additional medical RSS feeds
+			'https://www.reuters.com/rssFeed/health', // Reuters Health
+			'https://www.nbcnews.com/health/rss.xml', // NBC Health
+			'https://www.cbsnews.com/latest/rss/health', // CBS Health
+			'https://www.foxnews.com/health/rss.xml', // Fox Health
+			'https://www.huffpost.com/section/healthy-living/feed', // HuffPost Health
+			'https://www.time.com/health/feed/', // Time Health
+			'https://www.usatoday.com/health/rss/', // USA Today Health
+			'https://www.latimes.com/health/rss2.0.xml', // LA Times Health
+			'https://www.washingtonpost.com/rss/health', // Washington Post Health
+			'https://www.nature.com/subjects/medicine/rss.xml', // Nature Medicine
+			'https://www.bmj.com/rss', // BMJ
+			'https://www.nejm.org/action/showFeed?type=etoc&feed=rss&jc=nejm', // NEJM
+			'https://www.thelancet.com/rssfeed/latest.xml', // The Lancet
 		];
 
 		foreach ($feeds as $feedUrl) {
@@ -471,6 +490,21 @@ class FetchMedicalArticles extends Command
 			'Recent Advances in {topic}',
 			'{topic}: Current Perspectives',
 			'Exploring {topic}',
+			'The Science Behind {topic}',
+			'{topic}: A Complete Overview',
+			'Everything About {topic}',
+			'{topic}: Your Questions Answered',
+			'Deep Dive into {topic}',
+			'{topic}: Evidence-Based Insights',
+			'Mastering {topic}',
+			'{topic}: Practical Tips and Strategies',
+			'The Ultimate Guide to {topic}',
+			'{topic}: Modern Approaches',
+			'Innovations in {topic}',
+			'{topic}: Best Practices',
+			'Navigating {topic}',
+			'{topic}: Expert Recommendations',
+			'Understanding {topic} in 2024',
 		];
 		
 		$topics = [
@@ -479,11 +513,27 @@ class FetchMedicalArticles extends Command
 			'Weight Management', 'Bone Health', 'Eye Care', 'Skin Protection',
 			'Digestive Health', 'Immune System', 'Brain Health', 'Hormone Balance',
 			'Pain Management', 'Allergy Control', 'Respiratory Health', 'Kidney Function',
+			'Cardiovascular Disease', 'Hypertension Control', 'Cholesterol Management',
+			'Type 2 Diabetes', 'Insulin Therapy', 'Blood Sugar Control', 'Mental Health',
+			'Anxiety Disorders', 'Depression Treatment', 'Cognitive Health', 'Memory Care',
+			'Cancer Treatment', 'Chemotherapy', 'Radiation Therapy', 'Immunotherapy',
+			'Healthy Eating', 'Meal Planning', 'Supplement Use', 'Vitamin Intake',
+			'Physical Fitness', 'Strength Training', 'Cardio Exercise', 'Flexibility',
+			'Sleep Disorders', 'Insomnia Treatment', 'Sleep Apnea', 'Circadian Rhythm',
+			'Stress Relief', 'Meditation', 'Mindfulness', 'Relaxation Techniques',
+			'Metabolic Health', 'Thyroid Function', 'Adrenal Health', 'Hormone Therapy',
+			'Chronic Pain', 'Arthritis Management', 'Back Pain', 'Joint Health',
+			'Allergy Treatment', 'Asthma Control', 'Respiratory Care', 'Lung Health',
+			'Kidney Disease', 'Liver Health', 'Digestive Disorders', 'Gut Health',
+			'Immune Function', 'Autoimmune Conditions', 'Inflammation', 'Antioxidants',
+			'Neurological Health', 'Alzheimer\'s Prevention', 'Parkinson\'s Disease', 'Stroke Prevention',
+			'Women\'s Health', 'Men\'s Health', 'Pediatric Care', 'Geriatric Medicine',
+			'Preventive Medicine', 'Health Screening', 'Early Detection', 'Disease Prevention',
 		];
 		
 		$usedTitles = [];
 		$attempts = 0;
-		$maxAttempts = $count * 5; // Increased attempts
+		$maxAttempts = $count * 10; // Increased attempts for more variations
 		
 		while (count($variations) < $count && $attempts < $maxAttempts) {
 			$attempts++;
@@ -503,16 +553,33 @@ class FetchMedicalArticles extends Command
 			// Get a random base article for content structure
 			$base = $baseArticles[array_rand($baseArticles)];
 			
+			// Create more varied content
+			$contentVariations = [
+				'<p>This comprehensive guide explores ' . strtolower($topic) . ' and its significant impact on overall health and well-being. Understanding the latest research and evidence-based approaches can help you make informed decisions about your health.</p>',
+				'<p>Recent studies have shed new light on ' . strtolower($topic) . ', revealing important insights that can benefit individuals seeking to improve their health outcomes. This article examines the current state of knowledge and practical applications.</p>',
+				'<p>' . $topic . ' is a critical aspect of maintaining optimal health. This detailed exploration covers essential information, current research findings, and actionable strategies for better health management.</p>',
+				'<p>Experts in the field continue to make significant advances in understanding ' . strtolower($topic) . '. This article provides a thorough overview of current best practices, emerging research, and evidence-based recommendations.</p>',
+				'<p>Navigating the complexities of ' . strtolower($topic) . ' requires staying informed about the latest developments. This guide offers comprehensive information to help you understand key concepts and make informed health decisions.</p>',
+			];
+			
+			$excerptVariations = [
+				'Discover the latest insights and expert recommendations on ' . strtolower($topic) . '.',
+				'Learn about current research and evidence-based approaches to ' . strtolower($topic) . '.',
+				'Explore comprehensive information about ' . strtolower($topic) . ' and its impact on health.',
+				'Get expert insights and practical strategies for managing ' . strtolower($topic) . '.',
+				'Understand the science behind ' . strtolower($topic) . ' and how it affects your well-being.',
+			];
+			
 			// Create variation
 			$variations[] = [
 				'title' => $title,
-				'excerpt' => $this->generateExcerpt($base['content'], 150) . ' Discover the latest insights and expert recommendations.',
-				'content' => '<p>' . $base['content'] . '</p><p>This comprehensive guide provides essential information about ' . strtolower($topic) . ' and its impact on your health. Stay informed with the latest research and expert recommendations.</p>',
+				'excerpt' => $excerptVariations[array_rand($excerptVariations)] . ' ' . $this->generateExcerpt($base['content'], 100),
+				'content' => $contentVariations[array_rand($contentVariations)] . '<p>' . substr($base['content'], 0, 500) . '...</p><p>This comprehensive guide provides essential information about ' . strtolower($topic) . ' and its impact on your health. Stay informed with the latest research and expert recommendations.</p>',
 				'image_url' => $this->getRandomMedicalImage(),
 				'author' => $this->getRandomAuthor(),
 				'category' => $this->categorizeArticle($title),
-				'read_time' => rand(5, 12),
-				'published_at' => Carbon::now()->subDays(rand(0, 180)),
+				'read_time' => rand(5, 15),
+				'published_at' => Carbon::now()->subDays(rand(0, 365)),
 			];
 		}
 		
