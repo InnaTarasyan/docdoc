@@ -18,6 +18,7 @@ class BlogPost extends Model
         'read_time',
         'published_at',
         'doctor_id',
+        'source_url',
     ];
 
     protected $casts = [
@@ -97,5 +98,41 @@ class BlogPost extends Model
         }
         
         return $url;
+    }
+
+    /**
+     * Get the effective source URL, either from the source_url field or extracted from content.
+     */
+    public function getEffectiveSourceUrlAttribute()
+    {
+        // If source_url is already set in the database, return it
+        if (!empty($this->attributes['source_url'] ?? null)) {
+            return $this->attributes['source_url'];
+        }
+        
+        // Otherwise, try to extract it from the content
+        if (!empty($this->attributes['content'] ?? null)) {
+            $content = $this->attributes['content'];
+            
+            // Look for "Read more" links
+            if (preg_match('/<a href="([^"]+)"[^>]*>Read more<\/a>/i', $content, $matches)) {
+                $url = $matches[1];
+                // Validate it's a proper URL
+                if (filter_var($url, FILTER_VALIDATE_URL) && preg_match('/^https?:\/\//', $url)) {
+                    return $url;
+                }
+            }
+            
+            // Look for any external links that might be the source
+            if (preg_match('/<a href="(https?:\/\/[^"]+)"[^>]*>/i', $content, $matches)) {
+                $url = $matches[1];
+                // Only use if it's not an image URL
+                if (!preg_match('/\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/i', $url)) {
+                    return $url;
+                }
+            }
+        }
+        
+        return null;
     }
 }

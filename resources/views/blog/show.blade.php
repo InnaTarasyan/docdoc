@@ -83,6 +83,23 @@
 				{!! $post->content !!}
 			</div>
 			
+			@php
+				$sourceUrl = $post->effective_source_url;
+			@endphp
+			
+			@if($sourceUrl)
+				<!-- Read More Button -->
+				<div class="mt-8 pt-6 border-t border-gray-200">
+					<a href="{{ $sourceUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-base font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors shadow-md hover:shadow-lg">
+						<span>Read More</span>
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+						</svg>
+					</a>
+					<p class="mt-2 text-sm text-gray-500">Continue reading the full article on the original source</p>
+				</div>
+			@endif
+			
 			<!-- Article Footer -->
 			<div class="mt-10 pt-8 border-t border-gray-200">
 				<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

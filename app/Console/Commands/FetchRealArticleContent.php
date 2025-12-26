@@ -107,6 +107,9 @@ class FetchRealArticleContent extends Command
                     $post->content = $existingContent . $fullContent;
                 }
                 
+                // Save source URL
+                $post->source_url = $sourceUrl;
+                
                 // Update read time
                 $wordCount = str_word_count(strip_tags($post->content));
                 $post->read_time = max(5, (int) ceil($wordCount / 200));
