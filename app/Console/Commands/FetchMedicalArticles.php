@@ -73,13 +73,19 @@ class FetchMedicalArticles extends Command
 
 			$slug = Str::slug($article['title']);
 			
+			// Sanitize image URL - validate and use fallback if invalid
+			$imageUrl = $this->sanitizeImageUrl($article['image_url'] ?? null);
+			if (empty($imageUrl)) {
+				$imageUrl = $this->getRandomMedicalImage();
+			}
+			
 			BlogPost::updateOrCreate(
 				['slug' => $slug],
 				[
 					'title' => $article['title'],
 					'excerpt' => $article['excerpt'] ?? $this->generateExcerpt($article['content']),
 					'content' => $article['content'],
-					'image_url' => $article['image_url'] ?? $this->getRandomMedicalImage(),
+					'image_url' => $imageUrl,
 					'author' => $article['author'] ?? $this->getRandomAuthor(),
 					'topic' => $article['category'] ?? $article['topic'] ?? $this->getRandomCategory(),
 					'read_time' => $article['read_time'] ?? $this->calculateReadTime($article['content']),
@@ -398,6 +404,48 @@ class FetchMedicalArticles extends Command
 		$wordCount = str_word_count(strip_tags($content));
 		$readTime = ceil($wordCount / 200); // Average reading speed: 200 words per minute
 		return max(3, min($readTime, 20)); // Between 3 and 20 minutes
+	}
+
+	/**
+	 * Sanitize and validate image URL
+	 * Returns null if invalid, which will trigger fallback to random image
+	 */
+	private function sanitizeImageUrl(?string $url): ?string
+	{
+		// Return null if empty
+		if (empty($url)) {
+			return null;
+		}
+		
+		// Validate URL format
+		if (!filter_var($url, FILTER_VALIDATE_URL)) {
+			return null;
+		}
+		
+		// Parse URL to check components
+		$parsedUrl = parse_url($url);
+		
+		// Must have http or https scheme
+		if (!isset($parsedUrl['scheme']) || !in_array($parsedUrl['scheme'], ['http', 'https'])) {
+			return null;
+		}
+		
+		// Must have a host
+		if (!isset($parsedUrl['host'])) {
+			return null;
+		}
+		
+		// Check if path is valid (not just domain)
+		$path = $parsedUrl['path'] ?? '';
+		$pathTrimmed = trim($path, '/');
+		
+		// If path is empty or just "/", it's likely invalid
+		if (empty($pathTrimmed)) {
+			return null;
+		}
+		
+		// URL is valid, return as-is (TEXT column can handle long URLs)
+		return $url;
 	}
 
 	/**
