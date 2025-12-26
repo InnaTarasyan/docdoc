@@ -372,9 +372,9 @@
 				@if(request('topic'))
 					<div class="flex items-center gap-2">
 						<span class="text-gray-600 text-xs sm:text-sm md:text-base">
-							Topic: <span class="font-semibold text-emerald-700">{{ request('topic') }}</span>
+							Topic: <span class="font-semibold text-emerald-700">{{ e(request('topic')) }}</span>
 						</span>
-						<a href="{{ route('blog.index', ['q' => request('q')]) }}" class="text-emerald-700 hover:text-emerald-800 text-xs sm:text-sm">
+						<a href="{{ route('blog.index', ['q' => request('q') ? e(request('q')) : null]) }}" class="text-emerald-700 hover:text-emerald-800 text-xs sm:text-sm">
 							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
 							</svg>
@@ -384,7 +384,7 @@
 				@if(request('q'))
 					<div class="flex items-center gap-2">
 						<span class="text-gray-600 text-xs sm:text-sm md:text-base">
-							Search: <span class="font-semibold text-emerald-700">"{{ request('q') }}"</span>
+							Search: <span class="font-semibold text-emerald-700">"{{ e(request('q')) }}"</span>
 						</span>
 					</div>
 				@endif
