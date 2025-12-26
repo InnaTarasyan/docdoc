@@ -19,6 +19,18 @@ class BlogController extends Controller
             $query->where('topic', $request->topic);
         }
 
+        // Search query filter
+        if ($request->has('q') && $request->q) {
+            $searchTerm = trim($request->q);
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('excerpt', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('content', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('author', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('topic', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
         $posts = $query->orderBy('published_at', 'desc')
             ->paginate(12)
             ->withQueryString(); // Preserve query parameters in pagination links
@@ -31,6 +43,23 @@ class BlogController extends Controller
             ->orderBy('topic')
             ->limit(5)
             ->pluck('topic');
+
+        // If AJAX request, return JSON with HTML
+        if ($request->wantsJson() || $request->ajax()) {
+            $html = view('blog._articles', compact('posts'))->render();
+            
+            // Build URL with query parameters
+            $url = url()->current();
+            $queryParams = $request->only(['q', 'topic', 'page']);
+            if (!empty($queryParams)) {
+                $url .= '?' . http_build_query(array_filter($queryParams));
+            }
+
+            return response()->json([
+                'html' => $html,
+                'url' => $url,
+            ]);
+        }
 
         return view('blog.index', compact('posts', 'topics'));
     }

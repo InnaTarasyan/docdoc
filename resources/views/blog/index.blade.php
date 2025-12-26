@@ -328,113 +328,88 @@
 		</div>
 	</section>
 
+	<!-- Search Section -->
+	<section class="mt-4 sm:mt-6 md:mt-8">
+		<div class="bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5 md:p-6">
+			<form id="blog-search-form" class="blog-ajax-search-form" action="{{ route('blog.index') }}" method="GET" data-ajax-list="true" data-results="#blog-articles-container">
+				<div class="relative">
+					<input 
+						type="text" 
+						name="q" 
+						id="blog-search-input"
+						value="{{ request('q') }}"
+						placeholder="Search articles by title, topic, author, or content..." 
+						class="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-2.5 sm:py-3 md:py-3.5 text-sm sm:text-base border border-gray-200 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 touch-manipulation"
+						autocomplete="off"
+					>
+					<div class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400">
+						<svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+						</svg>
+					</div>
+					<button 
+						type="button" 
+						id="blog-search-clear"
+						class="absolute right-2 sm:right-3 md:right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 active:text-gray-700 transition-colors p-2 sm:p-1.5 touch-manipulation {{ request('q') ? '' : 'hidden' }}"
+						aria-label="Clear search"
+					>
+						<svg class="w-4 h-4 sm:w-5 sm:h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+						</svg>
+					</button>
+				</div>
+				@if(request('topic'))
+					<input type="hidden" name="topic" value="{{ request('topic') }}">
+				@endif
+			</form>
+		</div>
+	</section>
+
 	<!-- Blog Posts Grid -->
 	<section class="mt-4 sm:mt-6 md:mt-8">
-		@if(request('topic'))
-			<div class="mb-3 sm:mb-4 md:mb-6">
-				<p class="text-gray-600 text-xs sm:text-sm md:text-base">
-					Showing articles in <span class="font-semibold text-emerald-700">{{ request('topic') }}</span>
-					<span class="text-gray-500">({{ $posts->total() }} {{ Str::plural('article', $posts->total()) }})</span>
-				</p>
+		@if(request('topic') || request('q'))
+			<div class="mb-3 sm:mb-4 md:mb-6 flex flex-wrap items-center gap-2 sm:gap-3">
+				@if(request('topic'))
+					<div class="flex items-center gap-2">
+						<span class="text-gray-600 text-xs sm:text-sm md:text-base">
+							Topic: <span class="font-semibold text-emerald-700">{{ request('topic') }}</span>
+						</span>
+						<a href="{{ route('blog.index', ['q' => request('q')]) }}" class="text-emerald-700 hover:text-emerald-800 text-xs sm:text-sm">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+							</svg>
+						</a>
+					</div>
+				@endif
+				@if(request('q'))
+					<div class="flex items-center gap-2">
+						<span class="text-gray-600 text-xs sm:text-sm md:text-base">
+							Search: <span class="font-semibold text-emerald-700">"{{ request('q') }}"</span>
+						</span>
+					</div>
+				@endif
+				@if($posts->total() > 0)
+					<span class="text-gray-500 text-xs sm:text-sm md:text-base">
+						({{ $posts->total() }} {{ Str::plural('article', $posts->total()) }})
+					</span>
+				@endif
 			</div>
 		@endif
-		@if($posts->count() > 0)
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-				@foreach($posts as $post)
-					<article class="group bg-white rounded-xl sm:rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full max-w-full">
-						@if($post->valid_image_url)
-							<a href="{{ route('blog.show', $post) }}" class="block relative h-36 sm:h-44 md:h-52 lg:h-56 overflow-hidden bg-gradient-to-br from-emerald-100 to-emerald-200">
-								<img 
-									src="{{ $post->valid_image_url }}" 
-									alt="{{ $post->title }}"
-									class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-									loading="lazy"
-								>
-								<div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 md:top-4 md:right-4">
-									<span class="inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur-sm px-2 py-0.5 sm:px-2.5 sm:py-1 md:px-3 text-[10px] sm:text-xs font-semibold text-emerald-700 shadow-sm">
-										{{ $post->topic }}
-									</span>
-								</div>
-							</a>
-						@else
-							<a href="{{ route('blog.show', $post) }}" class="block relative h-36 sm:h-44 md:h-52 lg:h-56 overflow-hidden bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100">
-								<div class="absolute inset-0 flex items-center justify-center">
-									<svg class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 text-emerald-400/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-									</svg>
-								</div>
-								<div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 md:top-4 md:right-4">
-									<span class="inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur-sm px-2 py-0.5 sm:px-2.5 sm:py-1 md:px-3 text-[10px] sm:text-xs font-semibold text-emerald-700 shadow-sm">
-										{{ $post->topic }}
-									</span>
-								</div>
-							</a>
-						@endif
-						
-						<div class="p-3.5 sm:p-4 md:p-5 lg:p-6">
-							<div class="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs md:text-sm text-gray-500 mb-2 sm:mb-2.5 md:mb-3">
-								<time datetime="{{ $post->published_at->format('Y-m-d') }}">
-									{{ $post->published_at->format('M d, Y') }}
-								</time>
-								<span>•</span>
-								<span>{{ $post->read_time }} min read</span>
-							</div>
-							
-							<h2 class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-2 sm:mb-2.5 md:mb-3 group-hover:text-emerald-700 transition-colors line-clamp-2">
-								<a href="{{ route('blog.show', $post) }}">{{ $post->title }}</a>
-							</h2>
-							
-							@if($post->excerpt)
-								<p class="text-gray-600 text-xs sm:text-sm md:text-base mb-2.5 sm:mb-3 md:mb-4 line-clamp-3 leading-relaxed">
-									{{ $post->excerpt }}
-								</p>
-							@elseif($post->content)
-								<p class="text-gray-600 text-xs sm:text-sm md:text-base mb-2.5 sm:mb-3 md:mb-4 line-clamp-3 leading-relaxed">
-									{{ \Illuminate\Support\Str::limit(strip_tags($post->content), 150) }}
-								</p>
-							@endif
-							
-							<div class="flex items-center justify-between pt-2.5 sm:pt-3 md:pt-4 border-t border-gray-100 gap-2 sm:gap-3 md:gap-4">
-								<div class="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
-									<div class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
-										<span class="text-emerald-700 text-[10px] sm:text-xs font-semibold">{{ substr($post->author, 0, 2) }}</span>
-									</div>
-									@if($post->doctor)
-										<a href="{{ route('blog.author', $post->doctor) }}" class="text-[11px] sm:text-xs md:text-sm text-gray-600 font-medium hover:text-emerald-700 transition-colors truncate">
-											{{ $post->author }}
-										</a>
-									@else
-										<span class="text-[11px] sm:text-xs md:text-sm text-gray-600 font-medium truncate">{{ $post->author }}</span>
-									@endif
-								</div>
-								<a href="{{ route('blog.show', $post) }}" class="inline-flex items-center gap-0.5 sm:gap-1 text-[11px] sm:text-xs md:text-sm font-semibold text-emerald-700 hover:text-emerald-800 group-hover:gap-1.5 sm:group-hover:gap-2 transition-all flex-shrink-0">
-									<span class="hidden sm:inline">Read more</span>
-									<span class="sm:hidden">Read</span>
-									<svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-									</svg>
-								</a>
-							</div>
-						</div>
-					</article>
-				@endforeach
-			</div>
-			
-			<!-- Pagination -->
-			@if($posts->hasPages())
-				<div class="mt-8 sm:mt-10">
-					{{ $posts->links() }}
-				</div>
-			@endif
-		@else
-			<div class="text-center py-8 sm:py-12 md:py-16 bg-white rounded-xl sm:rounded-2xl border border-gray-100">
-				<svg class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto text-gray-400 mb-3 sm:mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+		
+		<div id="blog-articles-container">
+			@include('blog._articles', ['posts' => $posts])
+		</div>
+		
+		<!-- Loading indicator -->
+		<div id="blog-loading" class="hidden text-center py-8 sm:py-12">
+			<div class="inline-flex items-center gap-2 text-emerald-700">
+				<svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+					<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+					<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 				</svg>
-				<h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-1.5 sm:mb-2">No articles yet</h3>
-				<p class="text-sm sm:text-base text-gray-600 px-4">Check back soon for health articles and medical insights.</p>
+				<span class="text-sm sm:text-base">Searching...</span>
 			</div>
-		@endif
+		</div>
 	</section>
 </div>
 
